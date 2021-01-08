@@ -21,7 +21,7 @@
    <!-- Non NB targets -->
    <!-- =================================================================== -->
    <target description="fetch version" depends="-post-init" name="version">
-      <loadproperties srcFile="${src.dir}/org/da/fontutils/fontutils.properties">
+      <loadproperties srcFile="${src.dir}/org/girod/fontutils/fontutils.properties">
          <filterchain>
             <linecontains>
                <contains value="version"/>
