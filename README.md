@@ -62,7 +62,10 @@ The fontUtils Library uses a BSD license for the source code.
 
 # History
 - 0.1 (03/07/2020) : initial version
+
 - 0.2 (08/01/2021)
   - Add a more precise computing of the width and height of each character
   - Add the outline presentation for the text
 
+- 0.3 (08/01/2021)
+  - Fix the content of the jar file (it contained only the manifest in the previous version)
