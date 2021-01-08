@@ -45,7 +45,8 @@
             <include name="*.jar"/>
          </fileset>
          <fileset description="miscellanous" dir=".">
-            <include name="README.txt"/>
+            <include name="README.md"/>
+            <include name="LICENSE"/>
          </fileset>         
       </zip>
    </target>
@@ -64,7 +65,8 @@
          <fileset description="miscellanous" dir=".">
             <include name="nbproject/**/*.*"/>
             <include name="build.xml"/>
-            <include name="README.txt"/>
+            <include name="README.md"/>
+            <include name="LICENSE"/>
          </fileset>
       </zip>
    </target>
