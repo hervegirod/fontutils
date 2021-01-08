@@ -2,7 +2,7 @@
 fontUtils is a small Java application utilities allowing to see the characteristics of TTF fonts.
 
 # Where is it?
-The home page for the fontUtils project can be found in the github project web site (https://github.com/hervegirod/ChangeLicenceTag).
+The home page for the fontUtils project can be found in the github project web site (https://github.com/hervegirod/fontutils).
 There you also find information on how to download the latest release as well as all the other information you might need regarding
 this project.
 
