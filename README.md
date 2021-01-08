@@ -58,7 +58,7 @@ The fontUtils Library uses a BSD license for the source code.
                            ^            |            | 
                            | Leading    |            | 
                            V            V            | 
-  --------------- top of next line -------------------
+          -------- top of next line ------------------
 
 # History
 - 0.1 (03/07/2020) : initial version
