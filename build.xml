@@ -82,8 +82,8 @@
    <target name="-core" depends="init,compile,-pre-pre-jar,-pre-jar" >
       <jar description="jar binary file" compress="true" jarfile="${dist.dir}/fontUtils.jar" manifest="${src.dir}/manifest.mf">
          <fileset defaultexcludes="yes" dir="${build.classes.dir}" >
-            <include name="org/da/fontutils/**/*.class"/>
-            <include name="org/da/fontutils/**/*.properties"/>
+            <include name="org/girod/fontutils/**/*.class"/>
+            <include name="org/girod/fontutils/**/*.properties"/>
          </fileset>
       </jar>
    </target>
