@@ -18,7 +18,7 @@ The fontUtils Library uses a BSD license for the source code.
   - The font size (in points) to specify (default is 1)
   - The text to use for the bounds evaluation (default is "A")
   - An overview of the resulting image with the shape bounding box. It shows:
-    - ne character
+    - One character
     - The font width
     - The font height
     - The font advance value
