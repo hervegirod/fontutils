@@ -76,4 +76,4 @@ The fontUtils Library uses a BSD license for the source code.
   - Fix the content of the jar file (it contained only the manifest in the previous version)
 
 - 0.3 (11/01/2021)
-  - Add a diagram explaning the main computations
+  - Add a diagram explaining the main computations
