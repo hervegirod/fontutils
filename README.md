@@ -17,7 +17,12 @@ The fontUtils Library uses a BSD license for the source code.
   - The screen resolution in pixels per inch
   - The font size (in points) to specify (default is 1)
   - The text to use for the bounds evaluation (default is "A")
-  - An overview of the resulting image with the shape bounding box
+  - An overview of the resulting image with the shape bounding box. It shows:
+    - ne character
+    - The font width
+    - The font height
+    - The font advance value
+    - The font leading value
 
 # Usage
   Open a TTF file. You will see the following font characteristics (all shown in points and mm):
