@@ -32,12 +32,10 @@ the project website at the project page on https://github.com/hervegirod/FontUti
 package org.girod.fontutils;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Shape;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,7 +44,6 @@ import java.awt.font.GlyphVector;
 import java.awt.font.LineMetrics;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,7 +69,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @version 0.2
+ * @version 0.3
  */
 public class FontUtils extends JFrame {
    private static final int FONT_SIZE = 0;
@@ -82,8 +79,6 @@ public class FontUtils extends JFrame {
    private static final int FONT_LEADING = 4;
    private static final int FONT_ADVANCE = 5;
    private static final int FONT_TEXTBOX = 6;
-   private static final int FONT_SHAPEBOX = 7;
-   private static final float UI_FONT_SIZE = 150;
    private FontRenderContext ctx = null;
    private JSplitPane splitPane = null;
    private JTable table = null;
@@ -93,7 +88,9 @@ public class FontUtils extends JFrame {
    private float size = 1f;
    private int divider = 0;
    private Font font = null;
+   private final FontParams fontParams = new FontParams();
    private float dotsperInch = 96f;
+   private FontUIComponent fontUI = null;
    private final DefaultTableModel model = new MyColumnModel();
 
    public FontUtils() {
@@ -113,6 +110,7 @@ public class FontUtils extends JFrame {
    private void setup() {
       dotsperInch = Toolkit.getDefaultToolkit().getScreenResolution();
       ctx = new FontRenderContext(new AffineTransform(), true, true);
+      fontUI = new FontUIComponent(this, ctx, fontParams);
       // table
       table = new JTable();
       model.setColumnCount(3);
@@ -220,50 +218,10 @@ public class FontUtils extends JFrame {
       divider = splitPane.getDividerLocation();
       JPanel ui = new JPanel(new BorderLayout(4, 4));
       ui.setBorder(new EmptyBorder(4, 4, 4, 4));
-      ui.add(new JLabel(new ImageIcon(getImage(text))));
+      Image image = fontUI.getImage(text);
+      ui.add(new JLabel(new ImageIcon(image)));
       this.splitPane.setBottomComponent(ui);
       splitPane.setDividerLocation(divider);
-   }
-
-   private Shape getShapeOfText(Font font, String msg) {
-      BufferedImage bi = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
-
-      Graphics2D g = bi.createGraphics();
-
-      FontRenderContext frc = g.getFontRenderContext();
-      GlyphVector gv = font.createGlyphVector(frc, msg);
-
-      return gv.getOutline();
-   }
-
-   private Shape moveShapeToCenter(Shape shape, int w, int h) {
-      Rectangle2D b = shape.getBounds2D();
-      double xOff = -b.getX() + ((w - b.getWidth()) / 2d);
-      double yOff = -b.getY() + ((h - b.getHeight()) / 2d);
-      AffineTransform move = AffineTransform.getTranslateInstance(xOff, yOff);
-      return move.createTransformedShape(shape);
-   }
-
-   private BufferedImage getImage(String text) {
-      Font _font = font.deriveFont(UI_FONT_SIZE);
-      Shape shape = getShapeOfText(_font, text);
-      Rectangle2D boundsRectangle = shape.getBounds2D();
-      double w = boundsRectangle.getWidth();
-      double h = boundsRectangle.getHeight();
-      int wBig = (int) (w * 1.1);
-      int hBig = (int) (h * 2);
-      BufferedImage bi = new BufferedImage(wBig, hBig, BufferedImage.TYPE_INT_RGB);
-      Graphics2D g = bi.createGraphics();
-      g.setColor(Color.WHITE);
-      g.fillRect(0, 0, wBig, hBig);
-
-      g.setColor(Color.BLACK);
-      g.fill(moveShapeToCenter(shape, wBig, hBig));
-      g.setColor(Color.RED);
-      g.draw(moveShapeToCenter(boundsRectangle, wBig, hBig));
-      g.dispose();
-
-      return bi;
    }
 
    private void initTable() {
@@ -301,11 +259,6 @@ public class FontUtils extends JFrame {
       v.add("");
       v.add("");
       model.addRow(v);
-      v = new Vector<>();
-      v.add("Text Box as Shape");
-      v.add("");
-      v.add("");
-      model.addRow(v);
       table.revalidate();
       table.repaint();
    }
@@ -338,11 +291,18 @@ public class FontUtils extends JFrame {
       float leading = metrics.getLeading();
       int advance = fontMetrics.charWidth('A');
       String text = tf2.getText();
-      Rectangle2D rec = fontMetrics.getStringBounds(text, this.getGraphics());
 
       // use the realt outline of the caracter, see https://stackoverflow.com/questions/19582502/how-to-get-the-correct-string-width-from-fontmetrics-in-java
       GlyphVector gv = font.createGlyphVector(ctx, text);
       Rectangle2D rec2 = gv.getOutline().getBounds2D();
+      fontParams.width = (float)rec2.getWidth();
+      fontParams.height = (float)rec2.getHeight();
+      fontParams.leading = leading;
+      fontParams.advance = advance;
+      fontParams.widthMM = (float)getMM((float) rec2.getWidth());
+      fontParams.heightMM = (float)getMM((float) rec2.getHeight());    
+      fontParams.leadingMM = getMM(leading);
+      fontParams.advanceMM = getMM(advance);
 
       model.setValueAt(_size, FONT_SIZE, 1);
       model.setValueAt(getMM(_size), FONT_SIZE, 2);
@@ -356,10 +316,8 @@ public class FontUtils extends JFrame {
       model.setValueAt(getMM(leading), FONT_LEADING, 2);
       model.setValueAt(advance, FONT_ADVANCE, 1);
       model.setValueAt(getMM(advance), FONT_ADVANCE, 2);
-      model.setValueAt(toString(rec), FONT_TEXTBOX, 1);
-      model.setValueAt(toStringMM(rec), FONT_TEXTBOX, 2);
-      model.setValueAt(toString(rec2), FONT_SHAPEBOX, 1);
-      model.setValueAt(toStringMM(rec2), FONT_SHAPEBOX, 2);
+      model.setValueAt(toString(rec2), FONT_TEXTBOX, 1);
+      model.setValueAt(toStringMM(rec2), FONT_TEXTBOX, 2);
 
       this.createUI(text);
       table.revalidate();
@@ -377,6 +335,7 @@ public class FontUtils extends JFrame {
    private void openFontImpl(File file) {
       try {
          font = Font.createFont(Font.TRUETYPE_FONT, file);
+         fontParams.font = font;
          updateParams();
       } catch (FontFormatException ex) {
          System.err.println("Font format not supported");
