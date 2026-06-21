@@ -1,2 +1,5 @@
 Manifest-Version: 1.0
 Main-Class: org.girod.fontutils.FontUtils
+Class-Path: lib/MDIFramework-swingAll.jar
+            lib/MDIUtilities-core-LGPL.jar
+            lib/MDIUtilities-ui-LGPL.jar
