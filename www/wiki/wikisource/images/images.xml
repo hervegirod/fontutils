@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<images>
+   <image id="tool" url="tool.png" />
+   <image id="refresh" url="refresh.png" />
+   <image id="toolbar" url="toolbar.png" />
+   <image id="fontcharacteristics" url="fontcharacteristics.png" />
+   <image id="fontcharacteristics2" url="fontcharacteristics2.png" />
+   <image id="fontdiagram" url="fontdiagram.png" />
+</images>

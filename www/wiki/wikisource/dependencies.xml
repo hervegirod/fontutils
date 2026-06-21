@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article desc="dependencies">
+   <meta desc="This article is about the libraries dependencies of sqparqlAligner" />
+
+   <table caption="runtime dependencies">
+      <tableHeader>
+         <column>Library</column>
+         <column>Type</column>
+         <column>Website</column>
+         <column>Release</column>
+         <column>Comment</column>
+      </tableHeader>
+      <row>
+         <cell>MDIUtilities</cell>
+         <cell>Java</cell>
+         <cell>
+            <a href="https://sourceforge.net/projects/mdiutilities/">sourceforge.net/projects/mdiutilities/</a>
+         </cell>
+         <cell>1.3.28</cell>
+         <cell>-</cell>
+      </row>    
+      <row>
+         <cell>MDIFramework</cell>
+         <cell>
+            <a href="https://sourceforge.net/projects/mdiframework/">sourceforge.net/projects/mdiframework/</a>
+         </cell>
+         <cell>1.4.16.1</cell>
+      </row>      
+   </table>
+
+   <cat id="general" />
+</article>
+

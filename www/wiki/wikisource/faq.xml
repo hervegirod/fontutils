@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article desc="FAQ" >
+   <meta desc="Frequently Asked Questions" />
+
+   <title title="What is fontUtils"/>
+   fontUtils is a tool which allows to show the characteristics of Fonts.
+
+   <title title="What distribution must I use?"/>
+   See the <ref id="distribution" /> article.   
+
+   <title title="Which version of Java should I use?"/>
+   The latest version of the project require Java 8.
+
+   <cat id="general" />
+</article>

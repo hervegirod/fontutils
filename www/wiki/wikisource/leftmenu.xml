@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<leftMenu>
+   <menuItem desc="FAQ" >
+      <itemInternalRef id="FAQ" />
+   </menuItem>
+   <menuItem desc="License" >
+      <itemInternalRef id="License" />
+   </menuItem>
+</leftMenu>
+
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<index>
+   <b>fontUtils</b> is a tool which allows to show the characteristics of Fonts.
+   
+   <title title="Usage"/>
+   See <ref id="Usage" /> for how the API is packaged.
+   
+   <title title="Distribution"/>
+   See <ref id="distribution" /> for how the API is packaged.
+
+   <title title="Dependencies"/>
+   <moreInfo id="dependencies" />
+
+   <title title="FAQ Troubleshooting"/>
+   See the <ref id="FAQ" /> articles.
+
+   <cat id="general" />
+</index>

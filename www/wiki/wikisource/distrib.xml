@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article desc="distribution" >
+   <meta desc="This article is about the distributions of the library" />
+   
+   The tools is distributed with several zip files:
+   <title title="core distribution"/>
+   <moreInfo id="dependencies" />
+   The <code>fontUtils-bin-&lt;version&gt;.jar</code> zip file contains the distribution for the library.
+   Note that the library depends on <code>MDIFramework</code> and <code>MDIUtilities</code>.   
+
+   <cat id="general" />
+</article>

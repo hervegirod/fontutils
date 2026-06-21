@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article desc="characteristics for a font">
+   <altTitle desc="font characteristics" />
+   The characteristics of a font are:
+   <ul>
+      <li>The font size, which is the same value of the associated editable field</li>
+      <li>The font ascent. The ascent is the distance from the baseline to the ascender line. The ascent usually represents the height of the capital letters of the text</li>    
+      <li>The font descent. The descent is the distance from the baseline to the descender line. The descent usually represents the distance to the bottom of lower case letters like 'p'.</li> 
+      <li>The font height. The height is equal to the sum of the ascent, the descent and the leading</li>        
+      <li>The font advance value. The advance is the distance from the leftmost point to the rightmost point on the character's baseline</li>    
+      <li>The font leading value. The leading is the recommended distance from the bottom of the descender line to the top of the next line</li>    
+      <li>The width and height of the text box. It is the computed text box width and height for the text (computed by default with the "A" text). Beware
+         that this value take into account the advance</li>
+   </ul>   
+   <img id="fontcharacteristics2" />
+
+   <cat id="general" />
+</article>

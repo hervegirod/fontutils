@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article desc="usage">
+   Double-clicking on the jar will show the following window:
+   <img id="tool"/>
+   
+   <title title="overview" />
+   The Window allows to open one or several TrueType or OpenType fonts. Each font will add a new tab:
+   <img id="tool" />
+   
+   <title title="top of the window" />
+   The menu bar contains severals menus:
+   <ul>
+      <li>File menu: allows to open a Font file, or save the characteristics of the selected Font in an html file</li>
+      <li>Tools menu: allows to refresh the characteristics of the selected Font after havinf modified it Font size or associated text</li>      
+   </ul>
+   <img id="toolbar" />
+   The toolbar shows the screen resolution in pixels per inch.
+   
+   <title title="content of each tab for a font" />
+   Each tab represents a Font and has two parts:
+   <ul>
+      <li>The characteristics of the font</li>
+      <li>A diagram showing the values for the text chosen for the font</li>      
+   </ul>
+   
+   <title level="2" title="list of characteristics for a font" />
+   <moreInfo id="characteristics for a font" />
+   This contains:
+   <ul>
+      <li>Two editable fields allowing to set the size of the Font in points and the text used to compute the associated characteristics</li>
+      <li>A non editable table showing the associated characteristics</li>      
+   </ul>
+   <img id="fontcharacteristics" />
+   <messageBox type="info">
+      To be able to refresh the content of the table after having modified the Font size or associated text, you must apply the Tools =&gt; Refresh option.
+   </messageBox>
+   
+   The characteristics are all shown in points and mm:
+   <ul>
+      <li>The font size, which is the same value of the associated editable field</li>
+      <li>The font ascent</li>    
+      <li>The font descent</li> 
+      <li>The font height</li>        
+      <li>The font advance value</li>    
+      <li>The font leading value</li>    
+      <li>The width and height of the text box</li>
+   </ul>   
+   
+   <title level="2" title="diagram for a font" />
+   The diagram shows the font characteristics for the selected text:
+   <img id="fontdiagram" />
+
+   <cat id="general" />
+</article>
