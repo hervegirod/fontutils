@@ -57,6 +57,7 @@ public class OpenFontAction extends AbstractMDIAction {
     *
     * @param app the Application
     * @param file the file to open
+    * @param font the font
     */
    public OpenFontAction(MDIApplication app, File file, Font font) {
       super(app, "Open Font");
@@ -74,26 +75,26 @@ public class OpenFontAction extends AbstractMDIAction {
 
    @Override
    public void endAction() {
-         AbstractMDIApplication mdi = (AbstractMDIApplication) app;
-         if (mdi.hasTab(name)) {
-            int i = 1;
-            String postName = null;
-            while (true) {
-               postName = name + "_" + i;
-               if (!mdi.hasTab(postName)) {
-                  break;
-               }
+      AbstractMDIApplication mdi = (AbstractMDIApplication) app;
+      if (mdi.hasTab(name)) {
+         int i = 1;
+         String postName = null;
+         while (true) {
+            postName = name + "_" + i;
+            if (!mdi.hasTab(postName)) {
+               break;
             }
-            name = postName;
-         }      
-         FontUIComponent uiComponent = new FontUIComponent(mdi.getApplicationWindow(), fontParams);
-         FontPanel fontPanel = new FontPanel(uiComponent);
-         fontPanel.setup();
-         SwingFileProperties prop = new SwingFileProperties(name, fontPanel, fontParams);
-         try {
-            prop.setURL(file.toURI().toURL());
-         } catch (MalformedURLException ex) {
          }
-         ((AbstractMDIApplication) app).addTab(fontPanel, prop);         
+         name = postName;
+      }
+      FontUIComponent uiComponent = new FontUIComponent(mdi.getApplicationWindow(), fontParams);
+      FontPanel fontPanel = new FontPanel(uiComponent);
+      fontPanel.setup();
+      SwingFileProperties prop = new SwingFileProperties(name, fontPanel, fontParams);
+      try {
+         prop.setURL(file.toURI().toURL());
+      } catch (MalformedURLException ex) {
+      }
+      ((AbstractMDIApplication) app).addTab(fontPanel, prop);
    }
 }
