@@ -1,0 +1,182 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Categories description - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_categoriesdesc.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Categories description</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#rules_for_categories">1&nbsp; Rules for categories</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_a_main_article_for_a_category">2&nbsp; Setting a main article for a category</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#defining_parent_categories">3&nbsp; Defining parent categories</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_detailed_descriptions">4&nbsp; Setting detailed descriptions</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">5&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">6&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+It is possible to add descriptions to  <a href="article_categories.html">categories</a>. This can be specified in XML files with the "categories" root. Each "category" element allows to specify its description, which will be presented in the categories list.
+<h2 id="rules_for_categories">Rules for categories</h2>
+<ul>
+<li>You can have as many files for categories description as you want</li>
+<li>You don't need to specify categories descriptions file. If there is no description for a category<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Because the category only appears in articles</div></span>
+, the description of the category in the html page for the category will be empty</li>
+<li>If there is a description for a category but no article belongs to this category, the category will not be present<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+There willl be no categories without any article associated with it</div></span>
+</li>
+</ul>
+
+<h2 id="setting_a_main_article_for_a_category">Setting a main article for a category</h2>
+It is possible to set the main aticle for the category by setting thee  <code>mainArticle</code> property. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;categories&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"General informations"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> mainArticle</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article1"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>     </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/categories&gt;</span>
+</pre>
+  We will have the following html content for the category:<br/>
+ <img src="../images/catMainArticle.png" alt="catMainArticle" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h2 id="defining_parent_categories">Defining parent categories</h2>
+ It is possible to define a category as a parent category for another one. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;categories&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"General informations"</span><span class="syntaxKeyWord2" style="font-weight:bold;">  mainArticle</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article1"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>     </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"General informations 2"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;parentCategory</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/category&gt;</span><span>  </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/categories&gt;</span>
+</pre>
+  We will have the following html content for the  <code>general2</code> category:<br/>
+ <img src="../images/catParentCategory2.png" alt="catParentCategory2" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+ And we will have the following html content for the parent  <code>general</code> category:<br/>
+ <img src="../images/catParentCategory.png" alt="catParentCategory" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+<br/>
+ In that case the category is one of the sub-categories of the parent category.
+<h2 id="setting_detailed_descriptions">Setting detailed descriptions</h2>
+ It is possible to have more than just a sentence for the description of a category. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;categories&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"syntax"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Articles about syntax"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This category deals about the articles syntax.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/category&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"structure"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Articles about structure"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/categories&gt;</span>
+</pre>
+ Note that the  <code>desc</code> attribute is however always required and will be used when presenting the link to the category in the list of categories page.
+<h2 id="example">Example</h2>
+ The following file specifies two categories with descriptions:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;categories&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"syntax"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Articles about syntax"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"structure"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Articles about structure"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/categories&gt;</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Because the category only appears in articles</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> There willl be no categories without any article associated with it</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_categories.html">Categories</a>: This article explains the concept of categories</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

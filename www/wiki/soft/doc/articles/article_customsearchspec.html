@@ -1,0 +1,119 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Custom search specification - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_customsearchspec.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Custom search specification</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#grammar">1&nbsp; Grammar</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#content">2&nbsp; Content</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">3&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The  <a href="article_customsearch.html">custom search</a> categories are specified through the "searchCustomSpec" property which point to an XML file defining the categories which can be used for the search.
+<h2 id="grammar">Grammar</h2>
+See  <a href="resources/customSearch.xsd">The custom Search categories Schema</a>. 
+<h2 id="content">Content</h2>
+The file contains several  <code>category</code> elements specifying the categories which will be handled in the  <a href="article_search.html">search box</a>. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;customSearch&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"major"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"minor"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>   </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/customSearch&gt;</span>
+</pre>
+
+<h2 id="example">Example</h2>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      search=custom</span>
+<span>      searchCustomSpec=customSearch.xml</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_customsearch.html">Custom search</a>: This article explains how to customize the search to define custom search categories</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_search.html">Search</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Docx hand-written html articles support - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_docxhtmlsupport.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Docx hand-written html articles support</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#supported_elements">1&nbsp; Supported elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#div_elements">2&nbsp; div elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#a_elements">3&nbsp; a elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+There is a limited level of support for the  <a href="article_rawhtmlarticle.html">Hand-written html articles</a> in the  <a href="article_docx.html">DOCX generation</a>.
+<h2 id="supported_elements">Supported elements</h2>
+ The following elements are supported:<ul>
+<li>"hi" elements:  <code>h&lt;x&gt;</code> tag</li>
+<li>"img" elements</li>
+<li>"a" elements</li>
+<li>"ul", "ol," and "li" elements</li>
+<li>"div" elements</li>
+<li>"p" elements</li>
+</ul>
+Note: "nav" elements are skipped.
+<h2 id="div_elements">div elements</h2>
+ The border around "div" elements is be taken into account.
+<h2 id="a_elements">a elements</h2>
+   The whole text for "a" elements is taken into account, even if the link contains several portions of text (for example with "span" elements   as children).<br/>
+<br/>
+   However, if the "a" element contains at least one "img" element, no hyperlink will be included in the resulting document, but the first found image   will be added instead.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_docx.html">DOCX generation</a>: This article explains how to generate a Word file rather than an HTML site</li>
+<li> <a href="article_rawhtmlarticle.html">Hand-written html articles</a>: A raw html article is not using the docGenerator syntax, but is a hand-written html file</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_docx.html">Docx</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

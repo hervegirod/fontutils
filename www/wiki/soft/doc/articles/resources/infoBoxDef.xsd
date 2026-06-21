@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) 2017, 2021 Herve Girod. All rights reserved.
+ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+ If you have any questions about this project, you can visit
+ the project website at the project page on http://sourceforge.net/projects/docjgenerator/
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:simpleType name="infoboxPropertyType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="text"/>
+         <xs:enumeration value="url"/>
+         <xs:enumeration value="image"/>
+      </xs:restriction>
+   </xs:simpleType>   
+   <xs:complexType name="infoboxDefType">
+      <xs:choice maxOccurs="unbounded" minOccurs="1" >
+         <xs:element name="property" type="propertyType" />
+         <xs:element name="enumProperty" type="enumPropertyType" />
+      </xs:choice>       
+      <xs:attribute name="id" type="xs:string" use="required" />
+   </xs:complexType>  
+   <xs:complexType name="enumPropertyType">    
+      <xs:sequence maxOccurs="unbounded" minOccurs="1" >
+         <xs:element name="state" type="stateType" />
+      </xs:sequence>             
+      <xs:attribute name="key" type="xs:string" use="required"/>
+      <xs:attribute name="keyRef" type="xs:string" />
+      <xs:attribute name="keyRefPackage" type="xs:string" />
+      <xs:attribute name="defaultState" type="xs:string" />      
+      <xs:attribute name="desc" type="xs:string" />
+   </xs:complexType>
+   <xs:complexType name="stateType">      
+      <xs:attribute name="value" type="xs:string" use="required"/>
+      <xs:attribute name="desc" type="xs:string" />
+   </xs:complexType>            
+   <xs:complexType name="propertyType">      
+      <xs:attribute name="key" type="xs:string" use="required"/>
+      <xs:attribute name="type" type="infoboxPropertyType" />
+      <xs:attribute name="keyRef" type="xs:string" />
+      <xs:attribute name="keyRefPackage" type="xs:string" />
+      <xs:attribute name="desc" type="xs:string" />
+   </xs:complexType>   
+   <xs:element name="infoboxDefinition" type="infoboxDefType" />   
+</xs:schema>

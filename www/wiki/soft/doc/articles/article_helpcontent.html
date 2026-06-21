@@ -1,0 +1,337 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Help content configuration - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_helpcontent.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Help content configuration</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#grammar">2&nbsp; Grammar</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#categories">3&nbsp; Categories</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#excluding_categories">4&nbsp; Excluding categories</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#articles">5&nbsp; Articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#excluding_articles">6&nbsp; Excluding articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#resolving_priorities_for_articles">7&nbsp; Resolving priorities for articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#keeping_the_articles_order">8&nbsp; Keeping the articles order</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#context-sensitive_help">9&nbsp; Context-sensitive help</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#stylesheet_configuration">10&nbsp; StyleSheet configuration</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">11&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">12&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">13&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The optional "helpContent" file allows to configure how the help content will be generated. It specifies how the articles will be regrouped under chapters in the help tree<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+By default if this file is not present all articles will be added under the root</div></span>
+.<br/>
+<br/>
+ This XML file also allows to configure the  <a href="article_ctxsensitivehelp.html">Context-sensitive Help</a>. Note that even if docJGenerator can generate the Help content  automatically, it is possible to produce the Help content manually. See  <a href="article_helpmanualcontent.html">Using the Help API with manually produced content</a>.
+<h2 id="overview">Overview</h2>
+ The help content file specifies each of the "chapters" and "sub-chapters" in the generated help content. Each "chapter" and "sub-chapter" will be a parent node in the tree. Each chapter can contain:<ul>
+<li>"chapter": Its sub-chapters</li>
+<li>"category": One category or a list of categories for the articles to add in the chapter</li>
+<li>"excludeCategory": One category or a list of excluded categories for the articles to not add in the chapter even if they belong to one of the categories in the previous  list<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+For example, if a chapter contain the category "general", and the excluded category "general4", articles which are both in the "general" and "general4" categories will not be added in the chapter</div></span>
+</li>
+<li>"article": One article to add in the chapter. If an article is in this category</li>
+<li>"excludedArticle": One article to excluded in the chapter</li>
+</ul>
+The help content can also specify the references for the  <a href="#context-sensitive_help">Context-sensitive help</a>.
+<h2 id="grammar">Grammar</h2>
+See  <a href="resources/helpContent.xsd">The Help content schema</a>. 
+<h2 id="categories">Categories</h2>
+The  <code>category</code> element define one category to add in the chapter. <br/>
+<br/>
+ For example, in the following content definition, articles which are in the "general" category will be added in the chapter.<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>   </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+</pre>
+ It is possible to use a list of categories for the attribute rather than only one. In this case, it means that only articles belonging to all the listed categories will be added to the chapter.<br/>
+<br/>
+ For example, in the following content definition, articles which are in both the "general" and "general2" category will be added in the chapter.<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general general2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>   </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+</pre>
+
+<h2 id="excluding_categories">Excluding categories</h2>
+The  <code>excludeCategory</code> element define categories which will be excluded from a chapter even if they belong to one of the categories  defined for the chapter.<br/>
+<br/>
+ For example, in the following content definition, articles which are both in the "general" and "general4" categories will  not be added in the chapter:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;excludeCategory</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general4"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+</pre>
+ It is possible to use a list of categories for the attribute rather than only one. In this case, it means that only articles belonging to all the listed categories will not be added to the chapter.<br/>
+<br/>
+ For example, in the following content definition, articles which are in both the "general", "general2", and "general4"  categories will be added in the chapter. But an article which belong to both the "general" and "general2" categories, but not the "general4" category will be added:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;excludeCategory</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general2 general4"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>   </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+</pre>
+
+<h2 id="articles">Articles</h2>
+The  <code>article</code> element define an article whcih will be added in the chapter. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> package</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thePackage"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>     </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+</pre>
+
+<h2 id="excluding_articles">Excluding articles</h2>
+The  <code>excludeArticle</code> element define an article which will not be added in the chapter. <br/>
+<br/>
+ For example, in the following content definition, the "first article" will not be added even if it is in the "general" category.<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;excludeArticle</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>     </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+</pre>
+
+<h2 id="resolving_priorities_for_articles">Resolving priorities for articles</h2>
+ The priority of chapters resolving for the articles can be changed by setting the "property" attribute. Note that by default the priority for each chapter is defined as 0.<br/>
+<br/>
+ For example, in the following content definition, articles which are in the "general4" will not be added in the  "first chapter" chapter but the "second chapter" chapter.<br/>
+
+<pre class="margin unlimited" >
+<span>   &gt;helpContent&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapters&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general4"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> priority</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"1"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general4"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapters&gt;</span><span>  </span>
+<span>   &gt;/helpContent&gt;    </span>
+</pre>
+
+<h2 id="keeping_the_articles_order">Keeping the articles order</h2>
+The  <code>keepOrder</code> attribute for the root  <code>helpContent</code> element allows to keep the order of articles which are specifically specified for each chapter. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;helpContent</span><span class="syntaxKeyWord2" style="font-weight:bold;"> keepOrder</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapters&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article d"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> </span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article b"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> </span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span><span> </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapters&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/helpContent&gt;</span>
+</pre>
+ In that case "article d" will be the first article in the first chapter, and "article b" the second article in the chapter.
+<h2 id="context-sensitive_help">Context-sensitive help</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_ctxsensitivehelp.html">Context-sensitive Help</a></div>
+<br/>
+ The context-sensitive help allows to go to an article in the help system by clicking on a component in the GUI. The Help content allows to specify IDs which will be used to link the elements in the GUI where the user will click and the corresponding articles and titles. Each  <code>ref</code> element have the following attributes:<ul>
+<li> <code>id</code>: the ID which will allow to make the link between the GUI components and the help content</li>
+<li> <code>article</code>: The name of the  <a href="article_articles.html#regular_articles">article</a>. Note that the references to article names have the same rules as in the wiki.  See  <a href="article_namingconstraints.html">naming constraints</a></li>
+<li> <code>articlePackage</code> or  <code>package</code>: optional, specifies the article  <a href="article_roots.html">package</a></li>
+<li> <code>title</code>: Optionally the  <a href="article_chapters.html#title_elements">title</a> or  <a href="article_syntax.html#anchor">anchor</a> in the article</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;helpContent&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"button1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> article</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"button 1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"button2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> article</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"button 2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"button3"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> article</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"several components"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"button 3"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>  </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"textfield"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> article</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"several components"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"text field"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>  </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"panel"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> article</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"several components"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"panel"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>  </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/helpContent&gt;</span>
+</pre>
+
+<h2 id="stylesheet_configuration">StyleSheet configuration</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_helpcontentstylesheet.html">Help content StyleSheet configuration</a></div>
+<br/>
+ It is possible to specify several  <a href="article_theme.html">StyleSheet themes</a> in the Help content file. This will allow to customize the StlyeSheet of the help, the theme, or even to specify more than one theme and switch dynamically from one theme to another.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+<ul>
+<li>It is not mandatory to define any chapter content if you define theme. You can define only the StyleSheets without specifying any Chapter</li>
+<li>You always have access to the default theme</li>
+</ul>
+</div>
+<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Using themes is only possible when you use the Help system in  <a href="article_helpjavafx.html">JavaFX</a> or in   <a href="article_helpswing.html">Swing</a> but using the JavaFX rendering of the Web content.</div>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;helpContent&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;styleSheets&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;styleSheetTheme</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"black"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"themeBlack.css"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/styleSheets&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/helpContent&gt;</span>
+</pre>
+
+<h2 id="example">Example</h2>
+Suppose that we have the following content for the file:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;helpContent&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapters&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"child chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>              </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general4"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;category</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general3"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapters&gt;</span><span>  </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/helpContent&gt;</span>
+</pre>
+ Here we have the following specification for the help content:<ul>
+<li>There will be the following tree structure: the "first chapter" parent under the root with a "child chapter" sub-node, and the  "second chapter" also under the root</li>
+<li>The "first chapter" parent will contain all articles in the "general" category, except those which are also in the "general2" category which will be under the "child chapter" sub-node</li>
+<li>The "second chapter" parent will contain all articles in the "general3" categoriey, and also those in the "general2" category which are not in the "general" category</li>
+</ul>
+If we have the following list of articles:<ul>
+<li>"article1" in the "general" category</li>
+<li>"article2" in the "general" category</li>
+<li>"article3" in the "general2" category</li>
+<li>"article4" in the "general2" category</li>
+<li>"article5" in the "general" and "general2" categories</li>
+<li>"article6" in the "general3" category</li>
+<li>"article7" in the "general4" category</li>
+</ul>
+Then the result will be:<ul>
+<li>"first chapter" will contain "article1", "article2", and "article7", and the sub-chapter "child chapter"</li>
+<li>"child chapter" will contain "article5"</li>
+<li>"second chapter" will contain "article3, "article4", and "article6"</li>
+</ul>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> By default if this file is not present all articles will be added under the root</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> For example, if a chapter contain the category "general", and the excluded category "general4", articles which are both in the "general" and "general4" categories will not be added in the chapter</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_docgenhelp.html">Help system</a>: This article explains how to use the JavaHelp-like feature of the tool</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_javahelp.html">JavaHelp</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

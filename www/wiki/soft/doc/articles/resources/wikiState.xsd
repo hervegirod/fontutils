@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) 2022 Herve Girod. All rights reserved.
+ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+ If you have any questions about this project, you can visit
+ the project website at the project page on http://sourceforge.net/projects/docjgenerator/
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"> 
+   <xs:include schemaLocation="general.xsd"/> 
+   <xs:simpleType name="searchType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="false"/>
+         <xs:enumeration value="articles"/>   
+         <xs:enumeration value="titles"/>                
+         <xs:enumeration value="anchors"/>  
+         <xs:enumeration value="custom"/> 
+      </xs:restriction>
+   </xs:simpleType>       
+   <xs:simpleType name="imageType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="manual"/>
+         <xs:enumeration value="builtin"/> 
+         <xs:enumeration value="generated"/>                 
+      </xs:restriction>
+   </xs:simpleType>     
+   <xs:simpleType name="articleType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="article"/>
+         <xs:enumeration value="includedArticle"/>                
+      </xs:restriction>
+   </xs:simpleType>   
+   <xs:complexType name="article">    
+      <xs:sequence>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="altTitle" type="altTitle" />
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="title" type="title" />
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="includedArticle" type="includedArticle" />
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="anchor" type="anchor" />
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="category" type="category" />
+      </xs:sequence>          
+      <xs:attribute name="id" type="xs:string" use="required"/>  
+      <xs:attribute name="desc" type="xs:string" use="required"/>          
+      <xs:attribute name="pack" type="xs:string" />                  
+      <xs:attribute name="url" type="xs:anyURI" use="required"/> 
+      <xs:attribute name="outputUrl" type="xs:anyURI" use="required"/> 
+      <xs:attribute name="keepCase" type="xs:boolean"/>
+      <xs:attribute name="isXML" type="xs:boolean"/>    
+      <xs:attribute name="type" type="articleType" use="required"/>     
+      <xs:attribute name="updated" type="xs:boolean"/>       
+   </xs:complexType>
+   <xs:complexType name="includedArticle">    
+      <xs:attribute name="id" type="xs:string" use="required"/>             
+      <xs:attribute name="pack" type="xs:string" />
+   </xs:complexType>       
+   <xs:complexType name="altTitle">    
+      <xs:attribute name="desc" type="xs:string" use="required"/>   
+      <xs:attribute name="keepCase" type="xs:boolean"/>   
+      <xs:attribute name="inDictionary" type="xs:boolean"/>                    
+   </xs:complexType>               
+   <xs:complexType name="title">    
+      <xs:attribute name="title" type="xs:string" use="required"/>    
+      <xs:attribute name="keepCase" type="xs:boolean"/>   
+      <xs:attribute name="searchable" type="xs:boolean"/>            
+   </xs:complexType>    
+   <xs:complexType name="anchor">    
+      <xs:attribute name="id" type="xs:string" use="required"/>             
+   </xs:complexType>    
+   <xs:complexType name="category">    
+      <xs:attribute name="name" type="xs:string" use="required"/>             
+   </xs:complexType>  
+   <xs:complexType name="articles">    
+      <xs:sequence>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="article" type="article" />
+      </xs:sequence>  
+   </xs:complexType>    
+   <xs:complexType name="images">    
+      <xs:sequence>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="imageDecl" type="imageDecl" />
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="image" type="image" />
+      </xs:sequence>  
+   </xs:complexType>  
+   <xs:complexType name="imageDecl">      
+      <xs:sequence>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="image" type="image" />
+      </xs:sequence>             
+      <xs:attribute name="pack" type="xs:string" />   
+      <xs:attribute name="url" type="xs:anyURI"/> 
+      <xs:attribute name="updated" type="xs:boolean"/>    
+   </xs:complexType>     
+   <xs:complexType name="image">            
+      <xs:attribute name="id" type="xs:string" use="required"/>   
+      <xs:attribute name="pack" type="xs:string" />   
+      <xs:attribute name="filename" type="xs:string" use="required"/>           
+      <xs:attribute name="url" type="xs:anyURI"/> 
+      <xs:attribute name="urlOutput" type="xs:anyURI"/> 
+      <xs:attribute name="type" type="imageType" />     
+      <xs:attribute name="width" type="xs:integer" />     
+      <xs:attribute name="height" type="xs:integer" />
+      <xs:attribute name="updated" type="xs:boolean"/>    
+   </xs:complexType>  
+   <xs:complexType name="properties">              
+      <xs:attribute name="searchType" type="searchType"/>   
+      <xs:attribute name="fullTextSearch" type="xs:boolean"/> 
+      <xs:attribute name="searchCompression" type="xs:integer"/>          
+   </xs:complexType>                    
+   <xs:complexType name="wikiState">    
+      <xs:sequence>
+         <xs:element maxOccurs="1" minOccurs="0" name="properties" type="properties" />
+         <xs:element maxOccurs="1" minOccurs="0" name="images" type="images" />
+         <xs:element maxOccurs="1" minOccurs="0" name="articles" type="articles" />            
+      </xs:sequence>
+      <xs:attribute name="time" type="xs:long" use="required"/>         
+   </xs:complexType>      
+   <xs:element name="wikiState" type="wikiState" />
+</xs:schema>

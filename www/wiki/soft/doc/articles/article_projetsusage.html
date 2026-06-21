@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Projects using docJGenerator - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_projetsusage.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Projects using docJGenerator</h1>
+
+<hr/>
+<div  class="justifiedAuto alignedNone" >
+ This project uses itself to generate its documentation. 
+<h2 id="without_customizing_the_output">Without customizing the output</h2>
+<ul>
+<li><a href="https://expressionj.sourceforge.io/" title="https://expressionj.sourceforge.io/">ExpressionJ</a></li>
+<li><a href="https://xmlj.sourceforge.io/" title="https://xmlj.sourceforge.io/">xmlJ</a></li>
+<li><a href="https://javadepend.sourceforge.io/" title="https://javadepend.sourceforge.io/">jDependency</a></li>
+<li><a href="https://jfxconverter.sourceforge.io/" title="https://jfxconverter.sourceforge.io/">jfxConverter</a></li>
+<li><a href="http://javaxul.sourceforge.net/index.html" title="http://javaxul.sourceforge.net/index.html">javaXUL</a></li>
+<li><a href="https://jeditor.sourceforge.io/" title="https://jeditor.sourceforge.io/">jEditor</a></li>
+<li><a href="https://jgraphml.sourceforge.io/" title="https://jgraphml.sourceforge.io/">JGraphml</a></li>
+<li><a href="https://mdiutilities.sourceforge.io/" title="https://mdiutilities.sourceforge.io/">MDIUtilities</a></li>
+<li><a href="https://mdiframework.sourceforge.io/" title="https://mdiframework.sourceforge.io/">MDIFramework</a></li>
+<li><a href="https://jelasticlunr.sourceforge.io/" title="https://jelasticlunr.sourceforge.io/">jElasticlunr</a></li>
+<li><a href="https://scripthelper.sourceforge.io/index.html" title="https://scripthelper.sourceforge.io/index.html">ScriptHelper</a></li>
+<li><a href="http://j661.sourceforge.net/" title="http://j661.sourceforge.net/">J661</a></li>
+</ul>
+
+<h2 id="with_customizing_the_output">With customizing the output</h2>
+<ul>
+<li><a href="https://protoframework.sourceforge.io/" title="https://protoframework.sourceforge.io/">protoframework</a></li>
+</ul>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

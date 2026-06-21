@@ -1,0 +1,775 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>HTML entities list - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_htmlEntitiesList.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>HTML entities list</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#list_of_supported_entities">1&nbsp; List of supported entities</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#accented_characters">1.1&nbsp; Accented characters</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#greek_characters">1.2&nbsp; Greek characters</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#mathematical_symbols">1.3&nbsp; Mathematical symbols</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#arrow_symbols">1.4&nbsp; Arrow symbols</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#miscellanous_symbols">1.5&nbsp; Miscellanous symbols</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">2&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The generator handles html entities such as "&amp;gt;" (&gt;).
+<h2 id="list_of_supported_entities">List of supported entities</h2>
+The  <a href="resources/htmlentities_1.xml">htmlEntities</a> file presents the list of supported HTML entities.<br/>
+<br/>
+ The following tables present this list in a comprehensive manner.
+<h3 id="accented_characters">Accented characters</h3>
+
+<table class="border paddingDefault"  style="width:50%; border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >HTML entity</th>
+<th valign="middle"  class="column border" >Unicode</th>
+<th valign="middle"  class="column border" >Character name</th>
+<th valign="middle"  class="column border" >Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;eacute;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00E9;</td>
+<td valign="middle" class="border paddingDefault">small letter E with acute</td>
+<td valign="middle" class="border paddingDefault">&eacute;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;egrave;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00E8;</td>
+<td valign="middle" class="border paddingDefault">small letter E with grave</td>
+<td valign="middle" class="border paddingDefault">&egrave;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;ecirc;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00EA;</td>
+<td valign="middle" class="border paddingDefault">small letter E with circumflex</td>
+<td valign="middle" class="border paddingDefault">&ecirc;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;euml;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00EB;</td>
+<td valign="middle" class="border paddingDefault">small letter E with diaeresis</td>
+<td valign="middle" class="border paddingDefault">&euml;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;ucirc;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00FB;</td>
+<td valign="middle" class="border paddingDefault">small letter U with circumflex</td>
+<td valign="middle" class="border paddingDefault">&ucirc;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;aacute;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00E1;</td>
+<td valign="middle" class="border paddingDefault">small letter A with acute</td>
+<td valign="middle" class="border paddingDefault">&aacute;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;agrave;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00E0;</td>
+<td valign="middle" class="border paddingDefault">small letter A with grave</td>
+<td valign="middle" class="border paddingDefault">&agrave;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;Oslash;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00D8;</td>
+<td valign="middle" class="border paddingDefault">capital O with slash</td>
+<td valign="middle" class="border paddingDefault">&Oslash;</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="greek_characters">Greek characters</h3>
+
+<table class="border paddingDefault"  style="width:50%; border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >HTML entity</th>
+<th valign="middle"  class="column border" >Unicode</th>
+<th valign="middle"  class="column border" >Character name</th>
+<th valign="middle"  class="column border" >Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;micro;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00B5;</td>
+<td valign="middle" class="border paddingDefault">micro</td>
+<td valign="middle" class="border paddingDefault">&micro;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;alpha;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03B1;</td>
+<td valign="middle" class="border paddingDefault">small alpha</td>
+<td valign="middle" class="border paddingDefault">&alpha;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;beta;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03B2;</td>
+<td valign="middle" class="border paddingDefault">small beta</td>
+<td valign="middle" class="border paddingDefault">&beta;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;delta;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03B4;</td>
+<td valign="middle" class="border paddingDefault">small delta</td>
+<td valign="middle" class="border paddingDefault">&delta;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;rho;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x0961;</td>
+<td valign="middle" class="border paddingDefault">small rho</td>
+<td valign="middle" class="border paddingDefault">&rho;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;pi;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03C0;</td>
+<td valign="middle" class="border paddingDefault">small pi</td>
+<td valign="middle" class="border paddingDefault">&pi;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;sigma;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03C3;</td>
+<td valign="middle" class="border paddingDefault">small sigma</td>
+<td valign="middle" class="border paddingDefault">&sigma;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;phi;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03C6;</td>
+<td valign="middle" class="border paddingDefault">small phi</td>
+<td valign="middle" class="border paddingDefault">&phi;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;psi;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03C8;</td>
+<td valign="middle" class="border paddingDefault">small psi</td>
+<td valign="middle" class="border paddingDefault">&psi;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;omega;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03C9;</td>
+<td valign="middle" class="border paddingDefault">small omega</td>
+<td valign="middle" class="border paddingDefault">&omega;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;mu;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03BC;</td>
+<td valign="middle" class="border paddingDefault">small mu</td>
+<td valign="middle" class="border paddingDefault">&mu;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;lambda;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03BB;</td>
+<td valign="middle" class="border paddingDefault">small lambda</td>
+<td valign="middle" class="border paddingDefault">&lambda;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;gamma;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03B3;</td>
+<td valign="middle" class="border paddingDefault">small gamma</td>
+<td valign="middle" class="border paddingDefault">&gamma;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;epsilon;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03B5;</td>
+<td valign="middle" class="border paddingDefault">small epsilon</td>
+<td valign="middle" class="border paddingDefault">&epsilon;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;theta;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03B8;</td>
+<td valign="middle" class="border paddingDefault">small theta</td>
+<td valign="middle" class="border paddingDefault">&theta;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;piv;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03D6;</td>
+<td valign="middle" class="border paddingDefault">pi symbol</td>
+<td valign="middle" class="border paddingDefault">&piv;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;straightphi;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x03D5;</td>
+<td valign="middle" class="border paddingDefault">phi symbol</td>
+<td valign="middle" class="border paddingDefault">&straightphi;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;Delta;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x0394;</td>
+<td valign="middle" class="border paddingDefault">big delta</td>
+<td valign="middle" class="border paddingDefault">&Delta;</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="mathematical_symbols">Mathematical symbols</h3>
+
+<table class="border paddingDefault"  style="width:50%; border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >HTML entity</th>
+<th valign="middle"  class="column border" >Unicode</th>
+<th valign="middle"  class="column border" >Character name</th>
+<th valign="middle"  class="column border" >Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;frac12;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00BD;</td>
+<td valign="middle" class="border paddingDefault">fraction 1/2</td>
+<td valign="middle" class="border paddingDefault">&frac12;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;frac14;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00BC;</td>
+<td valign="middle" class="border paddingDefault">fraction 1/4</td>
+<td valign="middle" class="border paddingDefault">&frac14;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;times;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00D7;</td>
+<td valign="middle" class="border paddingDefault">times</td>
+<td valign="middle" class="border paddingDefault">&times;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;InvisibleTimes;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2062;</td>
+<td valign="middle" class="border paddingDefault">invisible times</td>
+<td valign="middle" class="border paddingDefault">&InvisibleTimes;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;isin;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2208;</td>
+<td valign="middle" class="border paddingDefault">element of</td>
+<td valign="middle" class="border paddingDefault">&isin;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;notin;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2209;</td>
+<td valign="middle" class="border paddingDefault">not element of</td>
+<td valign="middle" class="border paddingDefault">&notin;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;empty;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2205;</td>
+<td valign="middle" class="border paddingDefault">empty</td>
+<td valign="middle" class="border paddingDefault">&empty;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;forall;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2200;</td>
+<td valign="middle" class="border paddingDefault">for all</td>
+<td valign="middle" class="border paddingDefault">&forall;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;prod;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x220F;</td>
+<td valign="middle" class="border paddingDefault">n-ary product</td>
+<td valign="middle" class="border paddingDefault">&prod;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;sum;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2211;</td>
+<td valign="middle" class="border paddingDefault">n-ary sum</td>
+<td valign="middle" class="border paddingDefault">&sum;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;exist;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2203;</td>
+<td valign="middle" class="border paddingDefault">there exist</td>
+<td valign="middle" class="border paddingDefault">&exist;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;lt;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x003C;</td>
+<td valign="middle" class="border paddingDefault">less than</td>
+<td valign="middle" class="border paddingDefault">&lt;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;gt;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x003E;</td>
+<td valign="middle" class="border paddingDefault">greater than</td>
+<td valign="middle" class="border paddingDefault">&gt;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;le;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2264;</td>
+<td valign="middle" class="border paddingDefault">less or equal than</td>
+<td valign="middle" class="border paddingDefault">&le;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;ge;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2265;</td>
+<td valign="middle" class="border paddingDefault">greater or equal than</td>
+<td valign="middle" class="border paddingDefault">&ge;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;int;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x222B;</td>
+<td valign="middle" class="border paddingDefault">integral</td>
+<td valign="middle" class="border paddingDefault">&int;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;cong;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2245;</td>
+<td valign="middle" class="border paddingDefault">congruent</td>
+<td valign="middle" class="border paddingDefault">&cong;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;cap;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2229;</td>
+<td valign="middle" class="border paddingDefault">cap (intersection symbol)</td>
+<td valign="middle" class="border paddingDefault">&cap;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;cup;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x222A;</td>
+<td valign="middle" class="border paddingDefault">cup (union symbol)</td>
+<td valign="middle" class="border paddingDefault">&cup;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;asymp;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2248;</td>
+<td valign="middle" class="border paddingDefault">almost equal</td>
+<td valign="middle" class="border paddingDefault">&asymp;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;sim;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x223C;</td>
+<td valign="middle" class="border paddingDefault">similar to</td>
+<td valign="middle" class="border paddingDefault">&sim;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;sub;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2282;</td>
+<td valign="middle" class="border paddingDefault">subset of</td>
+<td valign="middle" class="border paddingDefault">&sub;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;sup;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2283;</td>
+<td valign="middle" class="border paddingDefault">superset of</td>
+<td valign="middle" class="border paddingDefault">&sup;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;nsub;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2284;</td>
+<td valign="middle" class="border paddingDefault">not subset of</td>
+<td valign="middle" class="border paddingDefault">&nsub;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;sube;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2286;</td>
+<td valign="middle" class="border paddingDefault">subset or equal</td>
+<td valign="middle" class="border paddingDefault">&sube;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;supe;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2287;</td>
+<td valign="middle" class="border paddingDefault">superset or equal</td>
+<td valign="middle" class="border paddingDefault">&supe;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;ne;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2260;</td>
+<td valign="middle" class="border paddingDefault">not equal</td>
+<td valign="middle" class="border paddingDefault">&ne;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;infin;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x221E;</td>
+<td valign="middle" class="border paddingDefault">infinity</td>
+<td valign="middle" class="border paddingDefault">&infin;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;radic;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x221A;</td>
+<td valign="middle" class="border paddingDefault">square root</td>
+<td valign="middle" class="border paddingDefault">&radic;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;ni;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x220B;</td>
+<td valign="middle" class="border paddingDefault">contains as member</td>
+<td valign="middle" class="border paddingDefault">&ni;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;plusmn;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00B1;</td>
+<td valign="middle" class="border paddingDefault">plus or minus</td>
+<td valign="middle" class="border paddingDefault">&plusmn;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;not;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00AC;</td>
+<td valign="middle" class="border paddingDefault">not</td>
+<td valign="middle" class="border paddingDefault">&not;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;and;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2227;</td>
+<td valign="middle" class="border paddingDefault">and</td>
+<td valign="middle" class="border paddingDefault">&and;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;or;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2228;</td>
+<td valign="middle" class="border paddingDefault">or</td>
+<td valign="middle" class="border paddingDefault">&or;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;lowast;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2217;</td>
+<td valign="middle" class="border paddingDefault">asterisk</td>
+<td valign="middle" class="border paddingDefault">&lowast;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;ang;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2220;</td>
+<td valign="middle" class="border paddingDefault">angle</td>
+<td valign="middle" class="border paddingDefault">&ang;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;sdot;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x22C5;</td>
+<td valign="middle" class="border paddingDefault">dot operator</td>
+<td valign="middle" class="border paddingDefault">&sdot;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;nabla;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2207;</td>
+<td valign="middle" class="border paddingDefault">nabla</td>
+<td valign="middle" class="border paddingDefault">&nabla;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;permil;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2030;</td>
+<td valign="middle" class="border paddingDefault">per mille</td>
+<td valign="middle" class="border paddingDefault">&permil;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;dagger;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2020;</td>
+<td valign="middle" class="border paddingDefault">dagger</td>
+<td valign="middle" class="border paddingDefault">&dagger;</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="arrow_symbols">Arrow symbols</h3>
+
+<table class="border paddingDefault"  style="width:50%; border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >HTML entity</th>
+<th valign="middle"  class="column border" >Unicode</th>
+<th valign="middle"  class="column border" >Character name</th>
+<th valign="middle"  class="column border" >Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;larr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2190;</td>
+<td valign="middle" class="border paddingDefault">left arrow</td>
+<td valign="middle" class="border paddingDefault">&larr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;rarr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2192;</td>
+<td valign="middle" class="border paddingDefault">right arrow</td>
+<td valign="middle" class="border paddingDefault">&rarr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;uarr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2191;</td>
+<td valign="middle" class="border paddingDefault">up arrow</td>
+<td valign="middle" class="border paddingDefault">&uarr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;darr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2193;</td>
+<td valign="middle" class="border paddingDefault">down arrow</td>
+<td valign="middle" class="border paddingDefault">&darr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;harr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2194;</td>
+<td valign="middle" class="border paddingDefault">left and right arrow</td>
+<td valign="middle" class="border paddingDefault">&harr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;lArr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x21D0;</td>
+<td valign="middle" class="border paddingDefault">left double arrow</td>
+<td valign="middle" class="border paddingDefault">&lArr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;rArr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x21D2;</td>
+<td valign="middle" class="border paddingDefault">right double arrow</td>
+<td valign="middle" class="border paddingDefault">&rArr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;uArr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x21D1;</td>
+<td valign="middle" class="border paddingDefault">up double arrow</td>
+<td valign="middle" class="border paddingDefault">&uArr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;dArr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x21D3;</td>
+<td valign="middle" class="border paddingDefault">down double arrow</td>
+<td valign="middle" class="border paddingDefault">&dArr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;hArr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x21D4;</td>
+<td valign="middle" class="border paddingDefault">left and right double arrow</td>
+<td valign="middle" class="border paddingDefault">&hArr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;xlarr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x27F5;</td>
+<td valign="middle" class="border paddingDefault">long left arrow</td>
+<td valign="middle" class="border paddingDefault">&xlarr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;xrarr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x27F6;</td>
+<td valign="middle" class="border paddingDefault">long right arrow</td>
+<td valign="middle" class="border paddingDefault">&xrarr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;xharr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x27F7;</td>
+<td valign="middle" class="border paddingDefault">long left and right arrow</td>
+<td valign="middle" class="border paddingDefault">&xharr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;xlArr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x27F8;</td>
+<td valign="middle" class="border paddingDefault">long left double arrow</td>
+<td valign="middle" class="border paddingDefault">&xlArr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;xrArr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x27F9;</td>
+<td valign="middle" class="border paddingDefault">long right double arrow</td>
+<td valign="middle" class="border paddingDefault">&xrArr;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;xhArr;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x27FA;</td>
+<td valign="middle" class="border paddingDefault">long left and right double arrow</td>
+<td valign="middle" class="border paddingDefault">&xhArr;</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="miscellanous_symbols">Miscellanous symbols</h3>
+
+<table class="border paddingDefault"  style="width:50%; border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >HTML entity</th>
+<th valign="middle"  class="column border" >Unicode</th>
+<th valign="middle"  class="column border" >Character name</th>
+<th valign="middle"  class="column border" >Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;copy;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00A9;</td>
+<td valign="middle" class="border paddingDefault">copyright</td>
+<td valign="middle" class="border paddingDefault">&copy;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;trade;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2122;</td>
+<td valign="middle" class="border paddingDefault">trademark</td>
+<td valign="middle" class="border paddingDefault">&trade;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;ref;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00AE;</td>
+<td valign="middle" class="border paddingDefault">registered trademark</td>
+<td valign="middle" class="border paddingDefault">&reg;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;cent;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00A2;</td>
+<td valign="middle" class="border paddingDefault">cent</td>
+<td valign="middle" class="border paddingDefault">&cent;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;yen;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00A5;</td>
+<td valign="middle" class="border paddingDefault">yen</td>
+<td valign="middle" class="border paddingDefault">&yen;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;pound;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00A3;</td>
+<td valign="middle" class="border paddingDefault">pound</td>
+<td valign="middle" class="border paddingDefault">&pound;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;euro;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x20AC;</td>
+<td valign="middle" class="border paddingDefault">euro</td>
+<td valign="middle" class="border paddingDefault">&euro;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;deg;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00B0;</td>
+<td valign="middle" class="border paddingDefault">degree</td>
+<td valign="middle" class="border paddingDefault">&deg;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;comma;<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+This is the regular comma (,)</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">&amp;#x002C;</td>
+<td valign="middle" class="border paddingDefault">comma (,)</td>
+<td valign="middle" class="border paddingDefault">,</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&ampInvisibleComma;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2063;</td>
+<td valign="middle" class="border paddingDefault">invisible comma</td>
+<td valign="middle" class="border paddingDefault">&InvisibleComma;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;nbsp;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x00A0;</td>
+<td valign="middle" class="border paddingDefault">non breakable space</td>
+<td valign="middle" class="border paddingDefault">&nbsp;</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">&amp;bullet;<br/>
+&amp;bull;</td>
+<td valign="middle" class="border paddingDefault">&amp;#x2022;</td>
+<td valign="middle" class="border paddingDefault">bullet</td>
+<td valign="middle" class="border paddingDefault">&bull;</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="example">Example</h2>
+ The following text:<br/>
+
+<pre class="margin unlimited" >
+<span>      this is a t&amp;eacute;xt</span>
+</pre>
+ Will have the following result:<br/>
+
+<pre class="margin unlimited" >
+<span>      this is a t&eacute;xt</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> This is the regular comma (,)</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_handlingHTMLEntities.html">Handling HTML entities</a>: This article explains how to handle HTML entities in articles content</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Templates - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_templates.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Templates</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#using_a_template">1&nbsp; Using a template</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#keeplevels_attribute">1.1&nbsp; keepLevels attribute</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#multiple_include_usage">2&nbsp; Multiple include usage</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">3&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#using_the_keeplevel_attribute_with_more_than_one_level_of_include">3.1&nbsp; Using the keepLevel attribute with more than one level of include</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">4&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+A template is similar to a  <a href="article_regulararticle.html">regular article</a> but has the top-level element "template". It can contain:<ul>
+<li>Paragraphs, which in turn can contain various construction elements. See  <a href="article_syntax.html">syntax</a></li>
+<li>Chapters and titles. See  <a href="article_chapters.html">chapters and titles</a></li>
+</ul>
+ Contrary to regular articles, it can't contain an optional "See Also" chapter alternate titles, or Categories definition.
+<h2 id="using_a_template">Using a template</h2>
+You can include a template article in another article by using the  <a href="article_syntax.html#include">include</a> element.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ You can not have circular include references. For example, this is not allowed:<br/>
+<br/>
+ First article:
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"root article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;include</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my template"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ Included article:
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;template</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my template"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;include</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"root article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/template&gt;</span>
+</pre>
+<br/>
+<br/>
+</div>
+
+<h3 id="keeplevels_attribute">keepLevels attribute</h3>
+By default the levels of the  <a href="article_chapters.html">chapters and titles</a> in the template are kept as they appear.<br/>
+<br/>
+ For example, if you have for the article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"root article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The Article.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the top level title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;include</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"template article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ and for the template:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;template</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"template article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The template.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"template title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/template&gt;</span>
+</pre>
+ You will have the same result as:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"root article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The Article.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the top level title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   The template.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"template title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ If you set the value  <code>false</code> to the  <code>keepLevels</code> or  <code>keepNumbering</code> attribute in the  <a href="article_syntax.html#include">include</a>  element, the generator will make sure that titles in the template are under those in the calling article<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+which means that they have a greater level</div></span>
+.<br/>
+<br/>
+ For example, if you have for the article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"root article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The Article.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the top level title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;include</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"template article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> keepLevels</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ You will have the same result as:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"root article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The Article.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the top level title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   The template.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> level</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"template title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="multiple_include_usage">Multiple include usage</h2>
+ You are not limited to only one level of inclusion. For example a template article can itself include another article or template.
+<h2 id="example">Example</h2>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;template</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my template"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This is a very simple template.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"template title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/template&gt;</span>
+</pre>
+ Usage example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"an article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This is a very simple article.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;include</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my template"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;see</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"anotherArticle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the other linked article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> text</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"example of a SeeAlso element"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"myCategory"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h3 id="using_the_keeplevel_attribute_with_more_than_one_level_of_include">Using the keepLevel attribute with more than one level of include</h3>
+If you have more than one level of  <code>include</code>, and one  <code>include</code> has the  <code>keepLevels</code> or  <code>keepNumbering</code> attribute set toe  <code>false</code>, the children  <code>include</code> elements will also be processed as if their values for this attribute is  <code>false</code>.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ This is to ensure that when you specigy this attribute, all the children titles will be always under those in the calling article. </div>
+<br/>
+<br/>
+ For example, if you have for the article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"root article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The Article.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the top level title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;include</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"template article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> keepLevels</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> which means that they have a greater level</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_regulararticle.html">Regular article</a>: Regular articles are the pages composing the wiki, similar to Wikipedia articles</li>
+<li> <a href="article_syntax.html#include">include</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_typesoffiles.html">Types of files</a>: This article explains the types of files which can be found in the wiki input</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a> |
+ <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

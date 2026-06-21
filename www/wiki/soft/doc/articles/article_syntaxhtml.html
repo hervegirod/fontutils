@@ -1,0 +1,148 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>html element - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_syntaxhtml.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>html element</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#validity">2&nbsp; Validity</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#not_allowed_elements">2.1&nbsp; Not allowed elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#limitations">3&nbsp; Limitations</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">4&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">5&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The "html" element allows to add included any embedded html content.
+<h2 id="overview">Overview</h2>
+ You just have to put any html constructs you want under this element. The tool will just add these elements at the position where you put them, regardless of their content.
+<h2 id="validity">Validity</h2>
+ Keep in mind that the tool will not check for the validity of the content under the "html" tag (almost any xhtml content will be allowed, providing it is valid xml<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+See  <a href="#not_allowed_elements">not allowed elements</a> for the small list of elements whcih are not allowed in the content</div></span>
+), so you may have strange result in the final html result in the wiki output if you don't take care of this content.<br/>
+<br/>
+ The partial schema specification for the element is:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;xs:complexType</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;xs:sequence&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;xs:any</span><span class="syntaxKeyWord2" style="font-weight:bold;"> processContents</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"skip"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> minOccurs</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"0"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> maxOccurs</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"unbounded"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/xs:sequence&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/xs:complexType&gt;</span>
+</pre>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ As you see in the above element specification in the schema, the content under the "html" tag must still be well-formed xhtml, because the tool will still check for the correctness of the xml file for the article. However the tool will <span style="font-weight: bold;">not</span> check for the actual names and types of the elements.</div>
+
+<h3 id="not_allowed_elements">Not allowed elements</h3>
+ The "script" and "link" element are the only xhtml elements which are not allowed in the html content.
+<h2 id="limitations">Limitations</h2>
+The content "html" element will not be rendered for  <a href="article_docx.html">DOCX generation</a>. However, the  <a href="article_pdf.html">PDF generation</a> has partial support for this element.
+<h2 id="example">Example</h2>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;html&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;font</span><span class="syntaxKeyWord2" style="font-weight:bold;"> style</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"color:blue"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>Embedded html content</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/font&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/html&gt;</span>
+</pre>
+   Result:<font style="color:blue">Embedded html content</font>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> See  <a href="#not_allowed_elements">not allowed elements</a> for the small list of elements whcih are not allowed in the content</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#html">syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_syntaxoverview.html">Syntax overview</a>: This article presents an overview of the tags supported in the XML syntax</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

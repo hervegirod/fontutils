@@ -1,0 +1,151 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Header tutorial - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_tutorialHeader.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Header tutorial</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#add_the_image_to_be_put_in_the_header">1&nbsp; Add the image to be put in the header</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#insert_the_image_in_the_header">2&nbsp; Insert the image in the header</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#customize_the_stylesheet_of_the_header">3&nbsp; Customize the styleSheet of the header</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article is a tutorial which explains how to customize your  <a href="article_footerAndHeader.html">header</a>. You will:<ul>
+<li>Add an image in left the header</li>
+</ul>
+It is better to have already performed the  <a href="article_tutorial1.html">first tutorial</a> before this one.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The solution of this tutorial is in the  <code>docGenerator-tutorial-&lt;version&gt;.zip</code>, in the  <code>headerTutorial</code> directory.</div>
+
+<h2 id="add_the_image_to_be_put_in_the_header">Add the image to be put in the header</h2>
+To use an image we must add it to the  <a href="article_imageFiles.html">image files</a>. For the sake of this tutorial we will ensure that we have an image of height 50px and add it, such as for example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;images&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;image</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball.jpg"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;image</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"hand"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"hand.png"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/images&gt;</span>
+</pre>
+
+<h2 id="insert_the_image_in_the_header">Insert the image in the header</h2>
+We will insert the image in the header with the  <code>headerImg</code> element:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;header</span><span class="syntaxKeyWord2" style="font-weight:bold;"> right</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"The right message"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;headerImg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"hand"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> height</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"50px"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>&gt; My wiki</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/header&gt;</span>
+</pre>
+ Unfortunately the height of the header is too small for the image, and we have the following result:<br/>
+ <img src="../images/tutoheader2.png" alt="tutoheader2" id="_image_0" onclick="openImage(_image_0)" class="left simpleBorder marginSmall" />
+<br/>
+ In the next step, we will customize the styleSheet of the header to have the correct height.
+<h2 id="customize_the_stylesheet_of_the_header">Customize the styleSheet of the header</h2>
+We will add a  <a href="article_css.html">Custom StyleSheet</a> and use it for the hader to specify the height of the header.<br/>
+<br/>
+ Let's add the following CSS file:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord2" style="font-weight:bold;">   iframe</span><span>.header {</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     height</span><span>: 70px;</span>
+<span>   }</span>
+</pre>
+ Now specify this CSS file in the generator GUI:<br/>
+ <img src="../images/tutoheader3.png" alt="tutoheader3" id="_image_1" onclick="openImage(_image_1)" class="left simpleBorder marginSmall" />
+<br/>
+ Now we have the following result:<br/>
+ <img src="../images/tutoheader.png" alt="tutoheader" id="_image_2" onclick="openImage(_image_2)" class="left simpleBorder marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_tutorial2.html">Second tutorial</a>: This article is a tutorial which explains the concepts of imagas and resources</li>
+<li> <a href="article_tutorials.html">Tutorials</a>: This article presents a list of tutorials</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_tutorials.html">Tutorials</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

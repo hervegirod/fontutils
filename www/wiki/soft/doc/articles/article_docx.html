@@ -1,0 +1,183 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DOCX generation - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_docx.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DOCX generation</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#configuration">1&nbsp; Configuration</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#support_for_hand-written_html_articles">2&nbsp; Support for hand-written html articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#syntax_support">3&nbsp; Syntax support</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#custom_css_support">3.1&nbsp; Custom CSS support</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#generation_algorithm">4&nbsp; Generation algorithm</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#configuration_1">5&nbsp; Configuration</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#limitations">6&nbsp; Limitations</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">7&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example_of_generation_with_ant">8&nbsp; Example of generation with ant</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">9&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ It is possible to generate a DOCX document rather than an HTML site. You need to set the following  <a href="article_commandline.html">command-line argument</a> or  <a href="article_configFile.html">configuration property</a>:<ul>
+<li>"outputType" set to "docx"</li>
+</ul>
+
+<h2 id="configuration">Configuration</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_pdfdocxconfig.html">DOCX generation configuration</a></div>
+<br/>
+ There are specific properties used for the document generation.
+<h2 id="support_for_hand-written_html_articles">Support for hand-written html articles</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_docxhtmlsupport.html">Docx hand-written html articles support</a></div>
+<br/>
+ There is a limited level of support for the  <a href="article_rawhtmlarticle.html">Hand-written html articles</a> in the docx generation. 
+<h2 id="syntax_support">Syntax support</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_docxsupport.html">DOCX syntax support</a></div>
+<br/>
+ There is a limited level of support for the  <a href="article_syntax.html">syntax</a> in the docx generation. 
+<h3 id="custom_css_support">Custom CSS support</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_docxcssupport.html">DOCX custom CSS support</a></div>
+<br/>
+ There is a limited level of support for the  <a href="article_css.html">Custom StyleSheet</a> in the docx generation.
+<h2 id="generation_algorithm">Generation algorithm</h2>
+ By default the generator will generate:<ul>
+<li>One introduction chapter with only the content of the  <a href="article_articles.html#index_definition">index file</a></li>
+<li>One chapter for each  <a href="article_categories.html">category</a></li>
+<li>For each category, one sub-chapter for each article in the category. Each article will however be only in one chapter, even if it is in more than one category</li>
+</ul>
+It is possible to configure the structure of the DOCX file by specifying the "chaptersContent" property. See  <a href="article_chapterscontent.html">DOCX content specification</a>.
+<h2 id="configuration_1">Configuration</h2>
+ A few specific properties or arguments allow to specifically configure the generation for the PDF format:<ul>
+<li>"fileName": The DOCX file will be generated in the  <a href="article_configFile.html#output">output</a> directory. By default the name of the file will be "wiki.docx", but this property allows to change the name of the file</li>
+<li>"docFile": the path of the DOCX file. In that case the output directory will be the parent directory of this file</li>
+<li>"defaultChapter": the name of the default chapter, used for articles which belong in no category</li>
+<li><a class="highlightAnchor" id="chapterscontent">"chaptersContent"</a>: the path of an XML file allowing to configure much more precisely the structure of the DOCX document. See  <a href="article_chapterscontent.html">DOCX content specification</a>.</li>
+<li>"hasTOC": true if the document should have a Table of Contents. Default is true</li>
+<li>"title": the title Metadata of the document (default is "Wiki")</li>
+<li>"author": the author Metadata of the document (default is "theAuthor")</li>
+</ul>
+
+<h2 id="limitations">Limitations</h2>
+ There are a few limitations compared to the HTML result:<ul>
+<li> <a href="article_syntax.html#resource">resource</a> elements don't link to their associated resource content</li>
+<li>Internal wikilinks on  <a href="article_syntax.html#img">img</a> elements are not taken into account</li>
+<li>Each article is only present in one category</li>
+</ul>
+
+<h2 id="example">Example</h2>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -outputType=docx</span>
+</pre>
+
+<h2 id="example_of_generation_with_ant">Example of generation with ant</h2>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;java</span><span class="syntaxKeyWord2" style="font-weight:bold;"> classname</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"org.docgene.main.DocGenerator"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-input=wiki/input"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-output=wiki/output"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-fileName=docGeneratorWiki"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-outputType=docx"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-chaptersContent=docContent.xml"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;classpath&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"docGenerator.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"lib/docxWriter.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/classpath&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/java&gt;</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_tutorialdoc.html">Document generation tutorial</a>: This article is a tutorial which explains how to generate a PDF or DOCX document</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a> |
+ <a href="../categories/cat_docx.html">Docx</a> |
+ <a href="../categories/cat_plugins.html">Plugins</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

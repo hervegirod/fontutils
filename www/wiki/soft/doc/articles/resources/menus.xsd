@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) 2024, 2025 Herve Girod. All rights reserved.
+ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+ If you have any questions about this project, you can visit
+ the project website at the project page on http://sourceforge.net/projects/docjgenerator/
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:simpleType name="propertyType">
+      <xs:annotation>
+         <xs:documentation>The type of the properties which are to be used as attributes for the created element</xs:documentation>
+      </xs:annotation>      
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="boolean"/>
+         <xs:enumeration value="int"/>
+         <xs:enumeration value="enum"/>
+         <xs:enumeration value="string"/>
+         <xs:enumeration value="list"/>
+         <xs:enumeration value="ref"/>
+         <xs:enumeration value="image"/>
+         <xs:enumeration value="imageDef"/>
+         <xs:enumeration value="imageByHref"/>
+         <xs:enumeration value="resource"/>
+         <xs:enumeration value="resourceDef"/>
+         <xs:enumeration value="resourceByHref"/>
+      </xs:restriction>
+   </xs:simpleType>   
+   <xs:simpleType name="contentPropertyType">
+      <xs:annotation>
+         <xs:documentation>The type of the properties which are to be used as CDATA for the created element</xs:documentation>
+      </xs:annotation>       
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="string"/>
+         <xs:enumeration value="imageByHref"/>
+         <xs:enumeration value="resourceByHref"/>         
+      </xs:restriction>
+   </xs:simpleType>      
+   <xs:simpleType name="editorType">
+      <xs:annotation>
+         <xs:documentation>The type of editor for a property</xs:documentation>
+      </xs:annotation>       
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="default"/>
+         <xs:enumeration value="textfield"/>
+         <xs:enumeration value="textarea"/>     
+         <xs:enumeration value="codeeditor"/>   
+         <xs:enumeration value="colorchooser"/>   
+      </xs:restriction>
+   </xs:simpleType> 
+   <xs:simpleType name="conditionType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="notEmpty"/>
+         <xs:enumeration value="notZero"/>
+      </xs:restriction>
+   </xs:simpleType>      
+   <xs:simpleType name="mixedType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="false"/>
+         <xs:enumeration value="true"/>
+         <xs:enumeration value="lineBreak"/>
+         <xs:enumeration value="emptyLine"/>
+      </xs:restriction>
+   </xs:simpleType>    
+   <xs:simpleType name="groupOrientation">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="horizontal"/>
+         <xs:enumeration value="vertical"/>
+      </xs:restriction>
+   </xs:simpleType>         
+   <xs:element name="menus">
+      <xs:annotation>
+         <xs:documentation>The root of the XML file</xs:documentation>
+      </xs:annotation>        
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="enumerations" type="enumerations" maxOccurs="1" minOccurs="0"/>
+            <xs:element name="fileTypes" type="fileTypes" maxOccurs="1" minOccurs="0"/>
+         </xs:sequence>
+         <xs:attribute name="version" type="xs:string"/>
+      </xs:complexType>      
+      <xs:unique name="enumKey">
+         <xs:selector xpath="menus/enumerations/enum"/>
+         <xs:field xpath="name"/>
+      </xs:unique>           
+   </xs:element>
+   <xs:complexType name="fileTypes">
+      <xs:sequence>
+         <xs:element name="articles" type="elementType" maxOccurs="1" minOccurs="0"/>
+         <xs:element name="categories" type="elementType" maxOccurs="1" minOccurs="0"/>
+         <xs:element name="images" type="elementType" maxOccurs="1" minOccurs="0"/>
+         <xs:element name="resources" type="elementType" maxOccurs="1" minOccurs="0"/>
+         <xs:element name="menus" type="elementType" maxOccurs="1" minOccurs="0"/>
+         <xs:element name="packages" type="elementType" maxOccurs="1" minOccurs="0"/>
+         <xs:element name="infobox" type="elementType" maxOccurs="1" minOccurs="0"/>
+         <xs:element name="header" type="elementType" maxOccurs="1" minOccurs="0"/>
+         <xs:element name="footer" type="elementType" maxOccurs="1" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:string"/>
+   </xs:complexType>       
+   <xs:complexType name="enumerations">
+      <xs:annotation>
+         <xs:documentation>The list of enumerations</xs:documentation>
+      </xs:annotation>        
+      <xs:sequence maxOccurs="unbounded" minOccurs="1">
+         <xs:element name="enum" type="enum" />
+      </xs:sequence>
+   </xs:complexType>   
+   <xs:complexType name="enum">
+      <xs:annotation>
+         <xs:documentation>Represents an enumeration. An enumeration can be used in one or several menus</xs:documentation>
+      </xs:annotation>            
+      <xs:sequence maxOccurs="unbounded" minOccurs="1">
+         <xs:element name="enumValue" type="enumValue" />
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+   </xs:complexType>    
+   <xs:complexType name="enumValue">
+      <xs:attribute name="value" type="xs:string" use="required"/>
+      <xs:attribute name="title" type="xs:string"/>
+   </xs:complexType>    
+   <xs:complexType name="elementType">
+      <xs:annotation>
+         <xs:documentation>Represents the menus for articles, categories, images, resources, menus, packages, or infobox</xs:documentation>
+      </xs:annotation>       
+      <xs:choice maxOccurs="unbounded" minOccurs="0">
+         <xs:element name="menuGroup" type="menuGroup" />
+         <xs:element name="menuGroupRef" type="menuGroupRef"/>
+         <xs:element name="menu" type="menu"/>
+         <xs:element name="menuRef" type="menuRef"/>
+      </xs:choice>
+   </xs:complexType>        
+   <xs:complexType name="menuGroup">
+      <xs:annotation>
+         <xs:documentation>Represents a group of menus</xs:documentation>
+      </xs:annotation>       
+      <xs:choice maxOccurs="unbounded" minOccurs="0">
+         <xs:element name="menuGroup" type="menuGroup"  minOccurs="0"/>
+         <xs:element name="menuGroupRef" type="menuGroupRef"/>         
+         <xs:element name="menu" type="menu" minOccurs="0">
+            <xs:unique name="propertyKey">
+               <xs:selector xpath="property|group/property"/>
+               <xs:field xpath="name"/>
+            </xs:unique>               
+         </xs:element>
+         <xs:element name="menuRef" type="menuRef"/>
+      </xs:choice>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="id" type="xs:string"/>
+   </xs:complexType>  
+   <xs:complexType name="menuGroupRef">
+      <xs:attribute name="id" type="xs:string" use="required"/>
+   </xs:complexType>         
+   <xs:complexType name="menu">
+      <xs:annotation>
+         <xs:documentation>Represents a menu, which allows to create one element</xs:documentation>
+      </xs:annotation>        
+      <xs:choice maxOccurs="unbounded" minOccurs="0">
+         <xs:element name="group" type="group" />
+         <xs:element name="title" type="titledLine" />
+         <xs:element name="property" type="property" />
+         <xs:element name="compoundProperty" type="compoundProperty" />
+         <xs:element name="contentProperty" type="contentProperty" maxOccurs="1"/>
+         <xs:element name="propertyAdapter" type="propertyAdapter" />
+      </xs:choice>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="id" type="xs:string"/>
+      <xs:attribute name="title" type="xs:string"/>
+      <xs:attribute name="tooltip" type="xs:string"/>
+      <xs:attribute name="mixed" type="mixedType"/>
+      <xs:attribute name="hasBreak" type="xs:boolean"/>
+      <xs:attribute name="includedInReplace" type="xs:boolean"/>
+      <xs:attribute name="multipleLines" type="xs:boolean"/>
+   </xs:complexType>
+   <xs:complexType name="menuRef">
+      <xs:attribute name="id" type="xs:string" use="required"/>
+   </xs:complexType>     
+   <xs:complexType name="titledLine">
+      <xs:annotation>
+         <xs:documentation>Represents a line with a title in the menu</xs:documentation>
+      </xs:annotation>  
+      <xs:attribute name="title" type="xs:string" use="required"/>
+   </xs:complexType>   
+   <xs:complexType name="group">
+      <xs:annotation>
+         <xs:documentation>Represents a group of properties for one menu</xs:documentation>
+      </xs:annotation>       
+      <xs:choice maxOccurs="unbounded" minOccurs="1">
+         <xs:element name="property" type="property" />
+         <xs:element name="compoundProperty" type="compoundProperty" />
+         <xs:element name="contentProperty" type="contentProperty" maxOccurs="1"/>
+         <xs:element name="propertyAdapter" type="propertyAdapter" />
+      </xs:choice>
+      <xs:attribute name="orientation" type="groupOrientation" use="required"/>
+      <xs:attribute name="border" type="xs:boolean"/>
+      <xs:attribute name="title" type="xs:string"/>
+      <xs:attribute name="enabler" type="xs:string"/>
+   </xs:complexType>   
+   <xs:complexType name="propertyAdapter">
+      <xs:annotation>
+         <xs:documentation>A propertyAdapter allows to update a value for anoter property, depending on its value. For example, we can
+            have a "relative" propertyAdapter with a boolean argument type, which will add a "%" suffix to the "width" property if the adapter value
+            is true, and "px" if it is false</xs:documentation>
+      </xs:annotation>         
+      <xs:sequence>
+         <xs:element name="appliesOn" type="appliesOn" maxOccurs="unbounded" minOccurs="1"/>
+         <xs:element name="onValue" type="onValue" maxOccurs="unbounded" minOccurs="1"/>
+      </xs:sequence>      
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="title" type="xs:string"/>
+      <xs:attribute name="enumType" type="xs:string" />
+      <xs:attribute name="defaultValue" type="xs:string"/>
+      <xs:attribute name="tooltip" type="xs:string"/>
+      <xs:attribute name="argumentType" type="propertyType" use="required"/>
+      <xs:attribute name="editor" type="editorType"/>
+   </xs:complexType>    
+   <xs:complexType name="appliesOn"> 
+      <xs:annotation>
+         <xs:documentation>Specifies another property on which this adapter will apply</xs:documentation>
+      </xs:annotation>       
+      <xs:attribute name="name" type="xs:string" use="required"/>
+   </xs:complexType>       
+   <xs:complexType name="onValue"> 
+      <xs:sequence>
+         <xs:element name="addSuffix" type="addSuffix" maxOccurs="1" minOccurs="1"/>
+      </xs:sequence>        
+      <xs:attribute name="value" type="xs:string" use="required"/>
+   </xs:complexType>        
+   <xs:complexType name="addSuffix">    
+      <xs:attribute name="suffix" type="xs:string" use="required"/>
+   </xs:complexType>  
+   <xs:complexType name="abstractProperty" abstract="true">
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="title" type="xs:string"/>      
+      <xs:attribute name="tooltip" type="xs:string"/>      
+      <xs:attribute name="editorColumnsCount" type="xs:integer"/>
+      <xs:attribute name="defaultValue" type="xs:string"/>
+      <xs:attribute name="forceDefault" type="xs:boolean"/>
+   </xs:complexType>        
+   <xs:complexType name="compoundProperty">
+      <xs:annotation>
+         <xs:documentation>Specifies a property which merge several properties</xs:documentation>
+      </xs:annotation>              
+      <xs:sequence>
+         <xs:element name="property" type="compoundPropertyProperty" maxOccurs="unbounded" minOccurs="1"/>
+      </xs:sequence>          
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="mandatory" type="xs:boolean"/>
+      <xs:attribute name="argumentType" type="propertyType" use="required"/>
+      <xs:attribute name="useInReplace" type="xs:boolean"/>
+   </xs:complexType>        
+   <xs:complexType name="compoundPropertyProperty">
+      <xs:annotation>
+         <xs:documentation>Specifies a property on which the compound property relies upon</xs:documentation>
+      </xs:annotation>                      
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="onChecked" type="xs:string" use="required"/>
+   </xs:complexType>                                                                                     
+   <xs:complexType name="property">
+      <xs:annotation>
+         <xs:documentation>Specifies a property which will be applied as an attribute in the XML file</xs:documentation>
+      </xs:annotation>           
+      <xs:complexContent>
+         <xs:extension base="abstractProperty">
+            <xs:attribute name="enumType" type="xs:string" />            
+            <xs:attribute name="condition" type="conditionType"/>
+            <xs:attribute name="mandatory" type="xs:boolean"/>
+            <xs:attribute name="argumentType" type="propertyType" use="required"/>
+            <xs:attribute name="editor" type="editorType"/>
+            <xs:attribute name="editorSyntax" type="xs:string"/>
+            <xs:attribute name="editorLinesCount" type="xs:integer"/>
+            <xs:attribute name="useInReplace" type="xs:boolean"/>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>   
+   <xs:complexType name="contentProperty">
+      <xs:annotation>
+         <xs:documentation>Specifies a property which will be applied as a CDATA in the XML file</xs:documentation>
+      </xs:annotation>       
+      <xs:complexContent>
+         <xs:extension base="abstractProperty" >
+            <xs:attribute name="argumentType" type="contentPropertyType" use="required"/>
+            <xs:attribute name="editor" type="editorType"/>
+            <xs:attribute name="editorSyntax" type="xs:string"/>
+            <xs:attribute name="editorLinesCount" type="xs:integer"/>
+            <xs:attribute name="useInReplace" type="xs:boolean"/>
+         </xs:extension>         
+      </xs:complexContent>
+   </xs:complexType>    
+</xs:schema>

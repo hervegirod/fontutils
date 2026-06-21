@@ -1,0 +1,157 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Algorithm - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_algorithm.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Algorithm</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#usage">1&nbsp; Usage</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#algorithm">2&nbsp; Algorithm</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#overview">2.1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#algorithm_steps">2.2&nbsp; Algorithm steps</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#resulting_file_structure">3&nbsp; Resulting file structure</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The docJGenerator project allows to generate a html site with a list of XML files defining a documentation. It allows to produce an offline wiki-like site. It is also possible to configure the tool to parse files with the  <a href="article_mediawiki.html">mediawiki syntax</a> or the  <a href="article_markdown.html">markdown syntax</a>.
+<h2 id="usage">Usage</h2>
+To use the docJGenerator tool, you have to double-click on the Jar file of the application (or perform  <code>java -jar docGenerator.jar</code> if you did not associate the Java application to jar files), and configure the generator:<ul>
+<li>The input directory or directories where the input XML files and image resources are to be found. See  <a href="article_roots.html">root directories and packages</a> if you want an explanation on how to use the generator with more than one root directory</li>
+<li>The output directory where the output web site must be generated</li>
+<li>(optional): an alternate index file to use if there are more than one input directory</li>
+<li>(optional): a configuration file (see  <a href="article_configFile.html">configuration file</a>)</li>
+<li>It is possible to define a  <a href="article_properties.html">properties file</a> defining key/value string replacements in the text</li>
+<li>The value for the maximum number of files to be generated in one directory</li>
+</ul>
+ The application will generate a web site with an index file (wiki-like). It is also possible to generate a  <a href="article_pdf.html">PDF file</a>, a  <a href="article_docx.html">Word file</a>, or an  <a href="article_epub.html">Epub file</a> rather than a web site.
+<h2 id="algorithm">Algorithm</h2>
+
+<h3 id="overview">Overview</h3>
+<img src="../images/algorithm.png" alt="algorithm" id="_image_0" onclick="openImage(_image_0)" width="80%" class="left marginSmall" />
+<br/>
+ The algorithm for creating the wiki content is the following:<ul>
+<li>The tool parser parses the content of the wiki source ( <a href="article_syntax.html">XML markup</a>,  <a href="article_markdownmarkup.html">markdown markup</a>, or  <a href="article_mediawikimarkup.html">mediawiki markup</a>) and creates a  <a href="article_sourcetree.html">wiki source tree</a> model containing all the articles and resources definition</li>
+<li>The  <a href="article_chapterscontent.html">wikiContent</a> parameter allows to filter the content of the output and to structure the results for output formats which use chapters</li>
+<li>Optionnally, the  <a href="article_scripts.html">Scripts plugin</a> is called to modify the wiki source tree model</li>
+<li>Depending on the selected output format, the relevant writer generates the output content</li>
+</ul>
+
+<h3 id="algorithm_steps">Algorithm steps</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_performance.html">Performance</a></div>
+<br/>
+<br/>
+<img src="../images/algorithm2.png" alt="algorithm2" id="_image_1" onclick="openImage(_image_1)" width="70%" class="left marginSmall" />
+<br/>
+ The parsing and writing algorithm has the following steps:<ul>
+<li>Pre-parsing identifies the list of files to parse and their types</li>
+<li>Parsing parse each file identified in the previous step. By default the parsing is performing in the main Thread, but it is possible to perform the parsing in background threads</li>
+<li> <a href="article_resolving wiki links.html">Resolving</a> resolves the inter-wiki links</li>
+<li>Checking links checks the validity of the external links. This step is performed in background threads at the same time as the resolving step</li>
+<li>Writing writes the content of the wiki</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Note that if the generation is performed in  <a href="article_incremental.html">incremental generation</a>, only content which has changed since the last generation will be parsed are written.</div>
+
+<h2 id="resulting_file_structure">Resulting file structure</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_outputstructure.html">Output structure</a></div>
+<br/>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_outputstructure.html">Output structure</a>: This article presents the output structure of the wiki</li>
+<li> <a href="article_performance.html">Performance</a>: This article explains how to speed-up the performance of the generator</li>
+<li> <a href="article_sourcetree.html">Wiki source tree</a>: This article presents the concept of the wiki source tree</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_algorithm.html">Algorithm</a> |
+ <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

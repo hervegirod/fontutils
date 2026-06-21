@@ -1,0 +1,584 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DocGenerator API: creating the wiki content - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_createcontent.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DocGenerator API: creating the wiki content</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#creating_an_article">1&nbsp; Creating an article</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#creating_an_opaque_article">1.1&nbsp; Creating an opaque article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#getting_the_index">2&nbsp; Getting the index</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#categories">3&nbsp; Categories</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#adding_a_category">3.1&nbsp; Adding a category</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#applying_categories_to_an_article">3.2&nbsp; Applying categories to an article</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_a_custom_search_category_to_an_article">3.3&nbsp; Setting a custom search category to an article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#paragraphs">4&nbsp; Paragraphs</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#paragraphs_in_the_internal_article_structure">4.1&nbsp; Paragraphs in the internal article structure</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#use_the_last_article_paragraph">4.2&nbsp; Use the last article paragraph</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#sentences">5&nbsp; Sentences</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#titles">6&nbsp; Titles</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_a_custom_search_category_to_a_title">6.1&nbsp; Setting a custom search category to a title</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#references">7&nbsp; References</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#images">8&nbsp; Images</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#tables">9&nbsp; Tables</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#columns">9.1&nbsp; Columns</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#rows">9.2&nbsp; Rows</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#cells">9.3&nbsp; Cells</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#lists">10&nbsp; Lists</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#importing_articles">11&nbsp; Importing articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">12&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">13&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article presents how to create the wiki content through docJGenerator API.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Most of the methods presented below return a boolean which will be true only if the operation succeeded. Generally, the  <a href="article_docgeneratorapi.html#creating_the_generator_context">generator context</a> must have been created  prior to using methods in the API, else the operations will not succeed.</div>
+
+<h2 id="creating_an_article">Creating an article</h2>
+You can create an  <a href="article_regulararticle.html">article</a> through one of the following methods:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#createArticle-java.lang.String-" class="apiLink" title="DocGeneratorAPI.createArticle(java.lang.String)">DocGeneratorAPI.createArticle(String)</a> create an article with the specified description</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#createArticle-java.lang.String-boolean-boolean-" class="apiLink" title="DocGeneratorAPI.createArticle(java.lang.String, boolean, boolean)">DocGeneratorAPI.createArticle(String, boolean, boolean)</a> create an article with the specified description. The second argument specifies if the article should have a table of content, and the  last one if the case should be kept</li>
+</ul>
+These methods return a <a href="../javadoc/docgeneratorAPI/org/docgene/model/XMLArticle.html" class="apiLink" title="XMLArticle">XMLArticle</a>.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>         </span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+</pre>
+
+<h3 id="creating_an_opaque_article">Creating an opaque article</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_opaquearticles.html">DocGenerator API: opaque articles</a></div>
+<br/>
+ Several methods allow to create an <span style="font-style: italic;">opaque</span> article, which is an article which can be used in  <a href="#references">references</a>, but is not generated in the wiki:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#createOpaqueArticle-java.lang.String-" class="apiLink" title="DocGeneratorAPI.createOpaqueArticle(java.lang.String)">DocGeneratorAPI.createOpaqueArticle(String)</a> create an opaque article with the specified description</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#createOpaqueArticle-java.lang.String-boolean-" class="apiLink" title="DocGeneratorAPI.createOpaqueArticle(java.lang.String, boolean)">DocGeneratorAPI.createOpaqueArticle(String, boolean)</a> create an opaque article with the specified description</li>
+</ul>
+
+<h2 id="getting_the_index">Getting the index</h2>
+The  <a href="article_indexfiles.html">index article</a> can be retrieved through the <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#getIndex--" class="apiLink" title="DocGeneratorAPI.getIndex()">DocGeneratorAPI.getIndex()</a> method.
+<h2 id="categories">Categories</h2>
+
+<h3 id="adding_a_category">Adding a category</h3>
+You can add a  <a href="article_categories.html">category</a> though the <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#createCategory-java.lang.String-java.lang.String-" class="apiLink" title="DocGeneratorAPI.createCategory(java.lang.String, java.lang.String)">DocGeneratorAPI.createCategory(String, String)</a> method.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>      </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createCategory</span><span>(</span><span class="syntaxLiteral" style="">"general"</span><span>, </span><span class="syntaxLiteral" style="">"Deals about general subjects"</span><span>);</span>
+</pre>
+
+<h3 id="applying_categories_to_an_article">Applying categories to an article</h3>
+You can put an article in one or several categories through the <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setCategories-org.docgene.model.XMLArticle-java.lang.String...-" class="apiLink" title="DocGeneratorAPI.setCategories(org.docgene.model.XMLArticle, java.lang.String...)">DocGeneratorAPI.setCategories(XMLArticle, String...)</a> method.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>      </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createCategory</span><span>(</span><span class="syntaxLiteral" style="">"general"</span><span>, </span><span class="syntaxLiteral" style="">"Deals about general subjects"</span><span>);</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createCategory</span><span>(</span><span class="syntaxLiteral" style="">"user"</span><span>, </span><span class="syntaxLiteral" style="">"Deals about user features"</span><span>);      </span>
+<span>         </span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setCategories</span><span>(article, </span><span class="syntaxLiteral" style="">"general"</span><span>, </span><span class="syntaxLiteral" style="">"user"</span><span>);</span>
+</pre>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Adding a category to an article is different from setting a   <a href="article_configuration_1.html#setting_a_custom_search">custom search</a> category to the article in the  <a href="article_search.html">search box</a>.</div>
+
+<h3 id="setting_a_custom_search_category_to_an_article">Setting a custom search category to an article</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_configuration_1.html#setting_a_custom_search">custom search</a></div>
+<br/>
+ If you have set a  <a href="article_configuration_1.html#setting_a_custom_search">custom search</a> for the wiki, you can set a custom search category for an article. <br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>      </span>
+<span>   CustomSearchCategories categories = api.</span><span class="syntaxDefault" style="font-weight:bold;">getCustomSearchCategories</span><span>();</span>
+<span>   categories.</span><span class="syntaxDefault" style="font-weight:bold;">addCategory</span><span>(</span><span class="syntaxLiteral" style="">"Bird"</span><span>);</span>
+<span>   categories.</span><span class="syntaxDefault" style="font-weight:bold;">addCategory</span><span>(</span><span class="syntaxLiteral" style="">"Mammal"</span><span>);  </span>
+<span>           </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();   </span>
+<span>         </span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"an article about birds"</span><span>);</span>
+<span>   categories.</span><span class="syntaxDefault" style="font-weight:bold;">addArticle</span><span>(article, </span><span class="syntaxLiteral" style="">"Bird"</span><span>);</span>
+</pre>
+
+<h2 id="paragraphs">Paragraphs</h2>
+The content in  <a href="article_regulararticle.html">articles</a> must be added through <a href="../javadoc/docgeneratorAPI/org/docgene/model/AbstractParagraph.html" class="apiLink" title="AbstractParagraph">AbstractParagraph</a>.<br/>
+<br/>
+ To add a paragraph in an article, you can either use:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addParagraph-org.docgene.model.XMLParent-" class="apiLink" title="DocGeneratorAPI.addParagraph(org.docgene.model.XMLParent)">DocGeneratorAPI.addParagraph(XMLParent)</a> create a new paragraph in the article</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#getLastParagraph-org.docgene.model.XMLParent-" class="apiLink" title="DocGeneratorAPI.getLastParagraph(org.docgene.model.XMLParent)">DocGeneratorAPI.getLastParagraph(XMLParent)</a> return the last paragraph in the article, or creates one if there is no paragraph in the article yet</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ When you create an article, this article initially has no paragraph.</div>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article and add a paragraph in this article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>   XMLParagraph par = api.</span><span class="syntaxDefault" style="font-weight:bold;">addParagraph</span><span>(article);</span>
+</pre>
+
+<h3 id="paragraphs_in_the_internal_article_structure">Paragraphs in the internal article structure</h3>
+It is necessary to have at least one paragraph in an article, but you don't need to create sub-paragraphs in the internal article structure. For example the following code is valid:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article and add a paragraph in this article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>   AbstractParagraph par = api.</span><span class="syntaxDefault" style="font-weight:bold;">getLastParagraph</span><span>(article);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a title and text under the title</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addTitle</span><span>(article, par, </span><span class="syntaxLiteral" style="">"the title"</span><span>);</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(par, </span><span class="syntaxLiteral" style="">"the text under the title"</span><span>);      </span>
+</pre>
+
+<h3 id="use_the_last_article_paragraph">Use the last article paragraph</h3>
+All the methods which accept a paragraph to put an element also accept directly the  <code>XMLArticle</code> parent. In that case  the API will create a paragraph if there is none, of use the last paragraph in the article. <br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article and add a paragraph in this article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a title and text under the title, a paragraph will be automatically created and added to the article</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addTitle</span><span>(article, </span><span class="syntaxLiteral" style="">"the title"</span><span>);</span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// the last paragraph will be used</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"the text under the title"</span><span>);      </span>
+</pre>
+
+<h2 id="sentences">Sentences</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_sentences.html">DocGenerator API: sentences</a></div>
+<br/>
+ To add a sentence, you can either use<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addSentence-org.docgene.model.ParagraphElementParent-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addSentence(org.docgene.model.ParagraphElementParent, java.lang.String)">DocGeneratorAPI.addSentence(ParagraphElementParent, String)</a></div></span>
+:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addSentence-org.docgene.model.XMLArticle-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addSentence(org.docgene.model.XMLArticle, java.lang.String)">DocGeneratorAPI.addSentence(XMLArticle, String)</a> adds a regular sentence</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addSentence-org.docgene.model.XMLArticle-java.lang.String-int-" class="apiLink" title="DocGeneratorAPI.addSentence(org.docgene.model.XMLArticle, java.lang.String, int)">DocGeneratorAPI.addSentence(XMLArticle, String, int)</a> adds a regular sentence, and sets its font type</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a sentence</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"the regular sentence"</span><span>);      </span>
+</pre>
+
+<h2 id="titles">Titles</h2>
+To add a  <a href="article_syntax.html#title">title</a>, you can use one of the following methods<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTitle-org.docgene.model.XMLArticle-org.docgene.model.ParagraphElementParent-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addTitle(org.docgene.model.XMLArticle, org.docgene.model.ParagraphElementParent, java.lang.String)">DocGeneratorAPI.addTitle(XMLArticle, ParagraphElementParent, String)</a></div></span>
+:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTitle-org.docgene.model.XMLArticle-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addTitle(org.docgene.model.XMLArticle, java.lang.String)">DocGeneratorAPI.addTitle(XMLArticle, String)</a> is a basic method to create a title at the default level</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTitle-org.docgene.model.XMLArticle-int-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addTitle(org.docgene.model.XMLArticle, int, java.lang.String)">DocGeneratorAPI.addTitle(XMLArticle, int, String)</a> is a basic method to create a title at a specified level</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTitle-org.docgene.model.XMLArticle-int-java.lang.String-boolean-" class="apiLink" title="DocGeneratorAPI.addTitle(org.docgene.model.XMLArticle, int, java.lang.String, boolean)">DocGeneratorAPI.addTitle(XMLArticle, int, String, boolean)</a> creates a title at a specified level, and sets if the character case of the first character must be kept</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTitle-org.docgene.model.XMLArticle-int-java.lang.String-boolean-boolean-" class="apiLink" title="DocGeneratorAPI.addTitle(org.docgene.model.XMLArticle, int, java.lang.String, boolean, boolean)">DocGeneratorAPI.addTitle(XMLArticle, int, String, boolean, boolean)</a> creates a title at a specified level, sets if the character case of the first character must be kept, and specifies if the title is searchable</li>
+</ul>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article and adds a paragraph to this article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a title at the default level (1)</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addTitle</span><span>(article, </span><span class="syntaxLiteral" style="">"the first title"</span><span>);                </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a sub-title at level 2, keeping the case for the title text</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addTitle</span><span>(article, 2, </span><span class="syntaxLiteral" style="">"sub-title"</span><span>, </span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);                      </span>
+</pre>
+
+<h3 id="setting_a_custom_search_category_to_a_title">Setting a custom search category to a title</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_configuration_1.html#setting_a_custom_search">custom search</a></div>
+<br/>
+ If you have set a  <a href="article_configuration_1.html#setting_a_custom_search">custom search</a> for the wiki, you can set a custom search category for a title. <br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>      </span>
+<span>   CustomSearchCategories categories = api.</span><span class="syntaxDefault" style="font-weight:bold;">getCustomSearchCategories</span><span>();</span>
+<span>   categories.</span><span class="syntaxDefault" style="font-weight:bold;">addCategory</span><span>(</span><span class="syntaxLiteral" style="">"Bird"</span><span>);</span>
+<span>   categories.</span><span class="syntaxDefault" style="font-weight:bold;">addCategory</span><span>(</span><span class="syntaxLiteral" style="">"Mammal"</span><span>);  </span>
+<span>           </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();   </span>
+<span>         </span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"an article about animals"</span><span>);</span>
+<span>   XMLTitle title = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTitle</span><span>(article, </span><span class="syntaxLiteral" style="">"the birds"</span><span>);        </span>
+<span>   categories.</span><span class="syntaxDefault" style="font-weight:bold;">addTitle</span><span>(article, </span><span class="syntaxLiteral" style="">"Bird"</span><span>, title);</span>
+</pre>
+
+<h2 id="references">References</h2>
+To add a  <a href="article_syntax.html#ref">reference</a>, you can use one of the following methods<span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_1_">[3]</sup></a>
+<div class="tooltiptext">
+There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addReference-org.docgene.model.XMLArticle-org.docgene.model.ParagraphElementParent-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addReference(org.docgene.model.XMLArticle, org.docgene.model.ParagraphElementParent, java.lang.String)">DocGeneratorAPI.addReference(XMLArticle, ParagraphElementParent, String)</a></div></span>
+:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addReference-org.docgene.model.XMLArticle-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addReference(org.docgene.model.XMLArticle, java.lang.String)">DocGeneratorAPI.addReference(XMLArticle, String)</a> will make a reference to the anchor identified by the  <code>refID</code> argument</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addReference-org.docgene.model.XMLArticle-java.lang.String-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addReference(org.docgene.model.XMLArticle, java.lang.String, java.lang.String)">DocGeneratorAPI.addReference(XMLArticle, String, String)</a> does the same thing, but specifies the description of the reference</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addReference-org.docgene.model.XMLArticle-org.docgene.model.XMLParentArticle-" class="apiLink" title="DocGeneratorAPI.addReference(org.docgene.model.XMLArticle, org.docgene.model.XMLParentArticle)">DocGeneratorAPI.addReference(XMLArticle, XMLParentArticle)</a> will make a reference to another article</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addReference-org.docgene.model.XMLArticle-org.docgene.model.XMLParentArticle-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addReference(org.docgene.model.XMLArticle, org.docgene.model.XMLParentArticle, java.lang.String)">DocGeneratorAPI.addReference(XMLArticle, XMLParentArticle, String)</a> does the same thing, but specifies the description of the reference</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addReference-org.docgene.model.XMLArticle-org.docgene.model.AnchorElement-" class="apiLink" title="DocGeneratorAPI.addReference(org.docgene.model.XMLArticle, org.docgene.model.AnchorElement)">DocGeneratorAPI.addReference(XMLArticle, AnchorElement)</a> will make a reference to an anchor</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addReference-org.docgene.model.XMLArticle-org.docgene.model.AnchorElement-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addReference(org.docgene.model.XMLArticle, org.docgene.model.AnchorElement, java.lang.String)">DocGeneratorAPI.addReference(XMLArticle, AnchorElement, String)</a> does the same thing, but specifies the description of the reference</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article </span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create a second article and adds a paragraph</span>
+<span>   XMLArticle article2 = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the second article"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a reference</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addReference</span><span>(article2, </span><span class="syntaxLiteral" style="">"the first article"</span><span>, </span><span class="syntaxLiteral" style="">"the reference"</span><span>);      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// could also be done with:</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addReference</span><span>(article2, article, </span><span class="syntaxLiteral" style="">"the reference"</span><span>);            </span>
+</pre>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ To know how identifications are generated from article names, see  <a href="article_namingconstraints.html#naming_algorithm">naming constraints</a><br/>
+<br/>
+</div>
+
+<h2 id="images">Images</h2>
+To add a  <a href="article_syntaximg.html">image</a>, you can use one of the following methods<span class="tooltip"><a href="#_note_4" class="noteLink"><sup id="_note_4_1_">[4]</sup></a>
+<div class="tooltiptext">
+There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addImage-org.docgene.model.globals.XMLRootElement-org.docgene.model.ParagraphElementParent-java.awt.image.BufferedImage-boolean-" class="apiLink" title="DocGeneratorAPI.addImage(org.docgene.model.globals.XMLRootElement, org.docgene.model.ParagraphElementParent, java.awt.image.BufferedImage, boolean)">DocGeneratorAPI.addImage(XMLRootElement, ParagraphElementParent, BufferedImage, boolean)</a></div></span>
+: <ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addImage-org.docgene.model.XMLArticle-java.awt.image.BufferedImage-boolean-" class="apiLink" title="DocGeneratorAPI.addImage(org.docgene.model.XMLArticle, java.awt.image.BufferedImage, boolean)">DocGeneratorAPI.addImage(XMLArticle, BufferedImage, boolean)</a> method adds an image coming from a  <code>BufferedImage</code> instance</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addImage-org.docgene.model.XMLArticle-java.net.URL-boolean-" class="apiLink" title="DocGeneratorAPI.addImage(org.docgene.model.XMLArticle, java.net.URL, boolean)">DocGeneratorAPI.addImage(XMLArticle, URL, boolean)</a> method adds an image coming from an URL</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addImage-org.docgene.model.XMLArticle-java.io.File-boolean-" class="apiLink" title="DocGeneratorAPI.addImage(org.docgene.model.XMLArticle, java.io.File, boolean)">DocGeneratorAPI.addImage(XMLArticle, File, boolean)</a> method adds an image coming from a File</li>
+</ul>
+ The API will take care not to add the same image to the resources more than once. For example, in the following example, there will be only one image resource referenced twice by the two articles:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article and adds a paragraph to this article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add an image</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addImage</span><span>(article, </span><span class="syntaxLiteral" style="">"d:/my/image.png"</span><span>, </span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);   </span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create a second article and adds a paragraph to this article</span>
+<span>   article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);   </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add the same image</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addImage</span><span>(article, </span><span class="syntaxLiteral" style="">"d:/my/image.png"</span><span>, </span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);           </span>
+</pre>
+
+<h2 id="tables">Tables</h2>
+To add a  <a href="article_syntaxtable.html">table</a>, you can use one of the following methods<span class="tooltip"><a href="#_note_5" class="noteLink"><sup id="_note_5_1_">[5]</sup></a>
+<div class="tooltiptext">
+There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTable-org.docgene.model.XMLArticle-org.docgene.model.ParagraphElementParent-boolean-" class="apiLink" title="DocGeneratorAPI.addTable(org.docgene.model.XMLArticle, org.docgene.model.ParagraphElementParent, boolean)">DocGeneratorAPI.addTable(XMLArticle, ParagraphElementParent, boolean)</a></div></span>
+:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTable-org.docgene.model.XMLArticle-" class="apiLink" title="DocGeneratorAPI.addTable(org.docgene.model.XMLArticle)">DocGeneratorAPI.addTable(XMLArticle)</a> method adds a table</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTable-org.docgene.model.XMLArticle-boolean-" class="apiLink" title="DocGeneratorAPI.addTable(org.docgene.model.XMLArticle, boolean)">DocGeneratorAPI.addTable(XMLArticle, boolean)</a> method adds a table and  specifies if it is sortable</li>
+</ul>
+ It is possible to set a caption to the table, setting the width of the table, set the alignement of the table using the methods of the resulting <a href="../javadoc/docgeneratorAPI/org/docgene/model/XMLTable.html" class="apiLink" title="XMLTable">XMLTable</a>.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article and adds a paragraph to this article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>            </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a table      </span>
+<span>   XMLTable table = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTable</span><span>(article);</span>
+<span>   table.</span><span class="syntaxDefault" style="font-weight:bold;">setWidth</span><span>(50, </span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>); </span><span class="syntaxComment" style="font-style:italic;">// set the width of the table as 50% of the width of the page</span>
+<span>   table.</span><span class="syntaxDefault" style="font-weight:bold;">setAlignment</span><span>(Alignment.LEFT); </span><span class="syntaxComment" style="font-style:italic;">// align the table to the left</span>
+<span>   table.</span><span class="syntaxDefault" style="font-weight:bold;">setCaption</span><span>(</span><span class="syntaxLiteral" style="">"List of birds"</span><span>); </span><span class="syntaxComment" style="font-style:italic;">// add a caption to the table     </span>
+</pre>
+
+<h3 id="columns">Columns</h3>
+To specify the columns of the table, you can use one of the following methods:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTableColumn-org.docgene.model.XMLTable-" class="apiLink" title="DocGeneratorAPI.addTableColumn(org.docgene.model.XMLTable)">DocGeneratorAPI.addTableColumn(XMLTable)</a> method adds a column</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTableColumn-org.docgene.model.XMLTable-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addTableColumn(org.docgene.model.XMLTable, java.lang.String)">DocGeneratorAPI.addTableColumn(XMLTable, String)</a> method adds a column with a title</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTableColumn-org.docgene.model.XMLTable-java.lang.String-org.docgene.api.SentenceStyle-" class="apiLink" title="DocGeneratorAPI.addTableColumn(org.docgene.model.XMLTable, java.lang.String, org.docgene.api.SentenceStyle)">DocGeneratorAPI.addTableColumn(XMLTable, String, SentenceStyle)</a> method adds a column with a title with a style</li>
+</ul>
+It is possible to set the width of the resulting column with the following method:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/model/XMLTableColumn.html#setWidth-int-boolean-" class="apiLink" title="XMLTableColumn.setWidth(int, boolean)">XMLTableColumn.setWidth(int, boolean)</a> specifies the width of the column</li>
+</ul>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article and adds a paragraph to this article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>            </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a table      </span>
+<span>   XMLTable table = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTable</span><span>(article); </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addTableColumn</span><span>(table, </span><span class="syntaxLiteral" style="">"Classification"</span><span>);  </span>
+</pre>
+
+<h3 id="rows">Rows</h3>
+To add a row to the table, you can use one of the following methods:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTableRow-org.docgene.model.XMLTable-" class="apiLink" title="DocGeneratorAPI.addTableRow(org.docgene.model.XMLTable)">DocGeneratorAPI.addTableRow(XMLTable)</a> adds a new row</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTableRow-org.docgene.model.XMLTable-boolean-int...-" class="apiLink" title="DocGeneratorAPI.addTableRow(org.docgene.model.XMLTable, boolean, int...)">DocGeneratorAPI.addTableRow(XMLTable, boolean, int...)</a> adds a new row with specified widths for the columns. Note that you don't need to use this method if you specified table columns with widths. It is only useful if you want to have rows with differents sizes for each columns per row</li>
+</ul>
+These methods return a <a href="../javadoc/docgeneratorAPI/org/docgene/model/XMLTableRow.html" class="apiLink" title="XMLTableRow">XMLTableRow</a>.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article and adds a paragraph to this article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>            </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a table      </span>
+<span>   XMLTable table = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTable</span><span>(article); </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addTableColumn</span><span>(table, </span><span class="syntaxLiteral" style="">"Classification"</span><span>);  </span>
+<span>   XMLTableRow row = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTableRow</span><span>(table);</span>
+</pre>
+
+<h3 id="cells">Cells</h3>
+To add a cell to a row, you can use one of the following methods:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTableCell-org.docgene.model.XMLTableRow-" class="apiLink" title="DocGeneratorAPI.addTableCell(org.docgene.model.XMLTableRow)">DocGeneratorAPI.addTableCell(XMLTableRow)</a> adds a new cell</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTableCell-org.docgene.model.XMLTableRow-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addTableCell(org.docgene.model.XMLTableRow, java.lang.String)">DocGeneratorAPI.addTableCell(XMLTableRow, String)</a> adds a new cell with a specified sentence</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTableCell-org.docgene.model.XMLTableRow-java.lang.String-org.docgene.api.SentenceStyle-" class="apiLink" title="DocGeneratorAPI.addTableCell(org.docgene.model.XMLTableRow, java.lang.String, org.docgene.api.SentenceStyle)">DocGeneratorAPI.addTableCell(XMLTableRow, String, SentenceStyle)</a> adds a new cell with a specified sentence with a style</li>
+</ul>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article and adds a paragraph to this article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>            </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a table      </span>
+<span>   XMLTable table = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTable</span><span>(article); </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addTableColumn</span><span>(table, </span><span class="syntaxLiteral" style="">"Classification"</span><span>); </span>
+<span>   XMLTableRow row = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTableRow</span><span>(table); </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addTableCell</span><span>(row, </span><span class="syntaxLiteral" style="">"Pigeon"</span><span>);</span>
+<span>   row = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTableRow</span><span>(table);</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addTableCell</span><span>(row, </span><span class="syntaxLiteral" style="">"Crow"</span><span>); </span>
+<span>   row = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTableRow</span><span>(table);</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addTableCell</span><span>(row, </span><span class="syntaxLiteral" style="">"Eagle"</span><span>);      </span>
+</pre>
+
+<h2 id="lists">Lists</h2>
+To add a list<span class="tooltip"><a href="#_note_6" class="noteLink"><sup id="_note_6_1_">[6]</sup></a>
+<div class="tooltiptext">
+This is a  <a href="article_syntax.html#ul">ul</a> or  <a href="article_syntax.html#ol">ol</a> element</div></span>
+, you must use one of the following methods:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addList-org.docgene.model.XMLArticle-boolean-" class="apiLink" title="DocGeneratorAPI.addList(org.docgene.model.XMLArticle, boolean)">DocGeneratorAPI.addList(XMLArticle, boolean)</a> adds a new list</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addList-org.docgene.model.ParagraphElementParent-boolean-" class="apiLink" title="DocGeneratorAPI.addList(org.docgene.model.ParagraphElementParent, boolean)">DocGeneratorAPI.addList(ParagraphElementParent, boolean)</a> adds a new  list in a specified parent</li>
+</ul>
+ To add an item to the list, you can use one of the following methods:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addListItem-org.docgene.model.XMLList-" class="apiLink" title="DocGeneratorAPI.addListItem(org.docgene.model.XMLList)">DocGeneratorAPI.addListItem(XMLList)</a> adds a new item in the list</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addListItem-org.docgene.model.XMLList-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addListItem(org.docgene.model.XMLList, java.lang.String)">DocGeneratorAPI.addListItem(XMLList, String)</a> adds a sentence as a new item in the list</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addListItem-org.docgene.model.XMLList-java.lang.String-org.docgene.api.SentenceStyle-" class="apiLink" title="DocGeneratorAPI.addListItem(org.docgene.model.XMLList, java.lang.String, org.docgene.api.SentenceStyle)">DocGeneratorAPI.addListItem(XMLList, String, SentenceStyle)</a> adds a sentence with a style  as a new item in the list</li>
+</ul>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article and adds a paragraph to this article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>            </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a list      </span>
+<span>   XMLList list = api.</span><span class="syntaxDefault" style="font-weight:bold;">addList</span><span>(article, </span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>); </span><span class="syntaxComment" style="font-style:italic;">// add an unordered list</span>
+<span>   list.</span><span class="syntaxDefault" style="font-weight:bold;">addItem</span><span>(</span><span class="syntaxLiteral" style="">"Bird"</span><span>);     </span>
+<span>   list.</span><span class="syntaxDefault" style="font-weight:bold;">addItem</span><span>(</span><span class="syntaxLiteral" style="">"Cat"</span><span>);           </span>
+</pre>
+
+<h2 id="importing_articles">Importing articles</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_importarticles.html">DocGenerator API: importing articles</a></div>
+<br/>
+  Several methods allow to import articles from XML files. it is possible to:<ul>
+<li>Import an  <a href="article_articles.html">XML article</a>, which will be one of the articles in the generated wiki</li>
+<li>Include an XML article in an article  <a href="#creating_an_article">created through the API</a></li>
+<li>It is even possible to import an  <a href="article_imageFiles.html">Image definition file</a></li>
+</ul>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addSentence-org.docgene.model.ParagraphElementParent-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addSentence(org.docgene.model.ParagraphElementParent, java.lang.String)">DocGeneratorAPI.addSentence(ParagraphElementParent, String)</a><br/>
+<br/>
+</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTitle-org.docgene.model.XMLArticle-org.docgene.model.ParagraphElementParent-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addTitle(org.docgene.model.XMLArticle, org.docgene.model.ParagraphElementParent, java.lang.String)">DocGeneratorAPI.addTitle(XMLArticle, ParagraphElementParent, String)</a><br/>
+<br/>
+</li>
+<li id="_note_3"> <a href="#_note_3_1_" class="noteRefLink">^</a> There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addReference-org.docgene.model.XMLArticle-org.docgene.model.ParagraphElementParent-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addReference(org.docgene.model.XMLArticle, org.docgene.model.ParagraphElementParent, java.lang.String)">DocGeneratorAPI.addReference(XMLArticle, ParagraphElementParent, String)</a><br/>
+<br/>
+</li>
+<li id="_note_4"> <a href="#_note_4_1_" class="noteRefLink">^</a> There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addImage-org.docgene.model.globals.XMLRootElement-org.docgene.model.ParagraphElementParent-java.awt.image.BufferedImage-boolean-" class="apiLink" title="DocGeneratorAPI.addImage(org.docgene.model.globals.XMLRootElement, org.docgene.model.ParagraphElementParent, java.awt.image.BufferedImage, boolean)">DocGeneratorAPI.addImage(XMLRootElement, ParagraphElementParent, BufferedImage, boolean)</a><br/>
+<br/>
+</li>
+<li id="_note_5"> <a href="#_note_5_1_" class="noteRefLink">^</a> There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTable-org.docgene.model.XMLArticle-org.docgene.model.ParagraphElementParent-boolean-" class="apiLink" title="DocGeneratorAPI.addTable(org.docgene.model.XMLArticle, org.docgene.model.ParagraphElementParent, boolean)">DocGeneratorAPI.addTable(XMLArticle, ParagraphElementParent, boolean)</a><br/>
+<br/>
+</li>
+<li id="_note_6"> <a href="#_note_6_1_" class="noteRefLink">^</a> This is a  <a href="article_syntax.html#ul">ul</a> or  <a href="article_syntax.html#ol">ol</a> element</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_docgeneratorapi.html">DocJGenerator API</a>: This article presents an overview of the docJGenerator API</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_api.html">Api</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

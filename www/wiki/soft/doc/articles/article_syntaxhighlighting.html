@@ -1,0 +1,445 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Syntax highlighting - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_syntaxhighlighting.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Syntax highlighting</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#supported_syntaxes">1&nbsp; Supported syntaxes</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#syntaxes_alternate_names">1.1&nbsp; Syntaxes alternate names</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_invisible_characters">2&nbsp; Using invisible characters</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#additional_syntaxes_packs">3&nbsp; Additional syntaxes packs</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">4&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#on_a_java_syntax">4.1&nbsp; On a Java syntax</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#on_a_java_syntax_with_usage_of_invisible_characters">4.2&nbsp; On a Java syntax, with usage of invisible characters</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#on_an_xml_syntax">4.3&nbsp; On an XML syntax</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#on_a_css_syntax">4.4&nbsp; On a CSS syntax</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#on_a_properties_file">4.5&nbsp; On a properties file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">5&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article explains how the syntax highlighting in the  <a href="article_syntax.html#pre">pre</a> or  <a href="article_syntax.html#source">source</a> elements work.
+<h2 id="supported_syntaxes">Supported syntaxes</h2>
+ The built-in supported syntaxes are:
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >Supported syntaxes</caption>
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >Syntax</th>
+<th valign="middle"  class="column border" >Name</th>
+<th valign="middle"  class="column border" >Alternate names</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">batch files<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+They are Windows bat files</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">batch</td>
+<td valign="middle" class="border paddingDefault">bat</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">C++ files</td>
+<td valign="middle" class="border paddingDefault">c++</td>
+<td valign="middle" class="border paddingDefault">cpp</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">C# files</td>
+<td valign="middle" class="border paddingDefault">csharp</td>
+<td valign="middle" class="border paddingDefault">c#</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">C files</td>
+<td valign="middle" class="border paddingDefault">c</td>
+<td valign="middle" class="border paddingDefault">C</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">fortran files</td>
+<td valign="middle" class="border paddingDefault">fortran</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">html files</td>
+<td valign="middle" class="border paddingDefault">html</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">idl declarations</td>
+<td valign="middle" class="border paddingDefault">idl</td>
+<td valign="middle" class="border paddingDefault">IDL</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">JavaScript files</td>
+<td valign="middle" class="border paddingDefault">jscript</td>
+<td valign="middle" class="border paddingDefault">js, javascript</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">JSON files<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+JSON files are valid JavaScript files, so the syntax for these files is the same</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">json</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Java files</td>
+<td valign="middle" class="border paddingDefault">java</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Groovy files<span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_1_">[3]</sup></a>
+<div class="tooltiptext">
+Groovy files are presented by default with the same syntax as Java files, though the syntax can be overriden by syntax packs</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">groovy</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">makefiles</td>
+<td valign="middle" class="border paddingDefault">make</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">php files</td>
+<td valign="middle" class="border paddingDefault">php</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">properties files</td>
+<td valign="middle" class="border paddingDefault">props</td>
+<td valign="middle" class="border paddingDefault">properties</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Python files</td>
+<td valign="middle" class="border paddingDefault">python</td>
+<td valign="middle" class="border paddingDefault">py</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">SQL files</td>
+<td valign="middle" class="border paddingDefault">sql</td>
+<td valign="middle" class="border paddingDefault">SQL</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">T-SQL files</td>
+<td valign="middle" class="border paddingDefault">tsql</td>
+<td valign="middle" class="border paddingDefault">T-SQL</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">shell scripts<span class="tooltip"><a href="#_note_4" class="noteLink"><sup id="_note_4_1_">[4]</sup></a>
+<div class="tooltiptext">
+they are Unix or Linux shell scripts</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">shell</td>
+<td valign="middle" class="border paddingDefault">bash</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">XML files</td>
+<td valign="middle" class="border paddingDefault">xml</td>
+<td valign="middle" class="border paddingDefault">dtd, DTD, xsd, xsl</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">SPARQL files</td>
+<td valign="middle" class="border paddingDefault">sparql</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">TeX files</td>
+<td valign="middle" class="border paddingDefault">tex</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">xpath files</td>
+<td valign="middle" class="border paddingDefault">xpath</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">patch files</td>
+<td valign="middle" class="border paddingDefault">patch</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">eiffel files</td>
+<td valign="middle" class="border paddingDefault">eiffel</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">manifest files<span class="tooltip"><a href="#_note_5" class="noteLink"><sup id="_note_5_1_">[5]</sup></a>
+<div class="tooltiptext">
+it is Java manifest file</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">manifest</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">css files</td>
+<td valign="middle" class="border paddingDefault">css</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">csv files<span class="tooltip"><a href="#_note_6" class="noteLink"><sup id="_note_6_1_">[6]</sup></a>
+<div class="tooltiptext">
+Uses commas as delimiters</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">csv</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">csv2 files<span class="tooltip"><a href="#_note_7" class="noteLink"><sup id="_note_7_1_">[7]</sup></a>
+<div class="tooltiptext">
+Uses semi-colons as delimiters</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">csv2</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">turtle files</td>
+<td valign="middle" class="border paddingDefault">turtle</td>
+<td valign="middle" class="border paddingDefault">ttl</td>
+</tr>
+</tbody>
+</table>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ To show &lt; or &gt; characters you will need to use their escaped form  <img src="../images/escapedlt.png" alt="escapedlt" id="_image_0" onclick="openImage(_image_0)" class="left" />
+ or  <img src="../images/escapedgt.png" alt="escapedgt" id="_image_1" onclick="openImage(_image_1)" class="left" />
+.</div>
+
+<h3 id="syntaxes_alternate_names">Syntaxes alternate names</h3>
+Some syntaxes have alternate names. For example, the two  <a href="article_syntax.html#pre">pre</a> declarations are equivalent:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   name</span><span>=value</span>
+</pre>
+ or:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   name</span><span>=value</span>
+</pre>
+
+<h2 id="using_invisible_characters">Using invisible characters</h2>
+ It is possible to use the "_" character at the start of a line in the "pre" element, which will be replaced by a space. This is the case when there are one or more "_" character followed by a space, before the rest of the line. For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> syntax</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   public void toto(int i) {</span>
+<span>   _  System.out.println(i);</span>
+<span>   }</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ This allows to keep the indentation for programming languages when using formatting in some editors<span class="tooltip"><a href="#_note_8" class="noteLink"><sup id="_note_8_1_">[8]</sup></a>
+<div class="tooltiptext">
+For example, Netbeans remove the white spaces at the beginning of a line when specifying text in XML, which might not be what we want</div></span>
+<br/>
+<br/>
+ By default the "_" character will be replaced by a space for code and shell syntaxes<span class="tooltip"><a href="#_note_9" class="noteLink"><sup id="_note_9_1_">[9]</sup></a>
+<div class="tooltiptext">
+For example,  <code>java</code>,  <code>groovy</code>,  <code>bat</code> or <code>shell</code> syntaxes among others</div></span>
+. It is possible to set explicitly if "_" characters must be kept or replaced by setting the  <code>invisibleChars</code> attribute in the "pre" element. For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> syntax</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> invisibleChars</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   public void toto(int i) {</span>
+<span>   _ System.out.println(i);</span>
+<span>   }</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+
+<h2 id="additional_syntaxes_packs">Additional syntaxes packs</h2>
+The application uses the <a href="http://sourceforge.net/projects/jeditor/" title="http://sourceforge.net/projects/jeditor/">jeditor</a> library to highlight pre element syntax. It is possible to use additional syntax packs by specifying the  <a href="article_configFile.html#presyntax">preSyntax</a> property in the  <a href="article_configFile.html">configuration file</a>.
+<h2 id="examples">Examples</h2>
+
+<h3 id="on_a_java_syntax">On a Java syntax</h3>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> syntax</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   public void toto(int i) {</span>
+<span>   System.out.println(i);</span>
+<span>   }</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+
+<h3 id="on_a_java_syntax_with_usage_of_invisible_characters">On a Java syntax, with usage of invisible characters</h3>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> syntax</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   public void toto(int i) {</span>
+<span>   _  System.out.println(i);</span>
+<span>   }</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ will have the following result:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">toto</span><span>(</span><span class="syntaxKeyWord1" style="font-weight:bold;">int</span><span> i) {</span>
+<span>      System.out.</span><span class="syntaxDefault" style="font-weight:bold;">println</span><span>(i);</span>
+<span>   }</span>
+</pre>
+
+<h3 id="on_an_xml_syntax">On an XML syntax</h3>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> syntax</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;parent</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"name"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;child</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"child"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/parent&gt;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ will have the following result:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;parent</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"name"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;child</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"child"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/parent&gt;</span>
+</pre>
+
+<h3 id="on_a_css_syntax">On a CSS syntax</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> syntax</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"css"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      div.left {</span>
+<span>      _  float: left;</span>
+<span>      _  display: flex;</span>
+<span>      }</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ will have the following result:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord2" style="font-weight:bold;">   div</span><span>.left {</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      float</span><span>: left;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      display</span><span>: flex;</span>
+<span>   }</span>
+</pre>
+
+<h3 id="on_a_properties_file">On a properties file</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> syntax</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"properties"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>     name=toto</span>
+<span>     position=left</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ will have the following result:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   name</span><span>=toto</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   position</span><span>=left</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> They are Windows bat files</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> JSON files are valid JavaScript files, so the syntax for these files is the same</li>
+<li id="_note_3"> <a href="#_note_3_1_" class="noteRefLink">^</a> Groovy files are presented by default with the same syntax as Java files, though the syntax can be overriden by syntax packs</li>
+<li id="_note_4"> <a href="#_note_4_1_" class="noteRefLink">^</a> they are Unix or Linux shell scripts</li>
+<li id="_note_5"> <a href="#_note_5_1_" class="noteRefLink">^</a> it is Java manifest file</li>
+<li id="_note_6"> <a href="#_note_6_1_" class="noteRefLink">^</a> Uses commas as delimiters</li>
+<li id="_note_7"> <a href="#_note_7_1_" class="noteRefLink">^</a> Uses semi-colons as delimiters</li>
+<li id="_note_8"> <a href="#_note_8_1_" class="noteRefLink">^</a> For example, Netbeans remove the white spaces at the beginning of a line when specifying text in XML, which might not be what we want</li>
+<li id="_note_9"> <a href="#_note_9_1_" class="noteRefLink">^</a> For example,  <code>java</code>,  <code>groovy</code>,  <code>bat</code> or <code>shell</code> syntaxes among others</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#pre">pre</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_syntax.html#source">source</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

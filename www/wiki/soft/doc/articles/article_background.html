@@ -1,0 +1,204 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Setting a background - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_background.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Setting a background</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#background_image">1&nbsp; Background image</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#background_color">2&nbsp; Background color</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#customizing_the_background">3&nbsp; Customizing the background</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">4&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example_with_an_image">4.1&nbsp; Example with an image</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example_with_a_color">4.2&nbsp; Example with a color</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example_with_a_color_gradient">4.3&nbsp; Example with a color gradient</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">5&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ By default there is no background on the wiki pages, but several properties allow to customize the background:<ul>
+<li>The "background" property in the  <a href="article_configFile.html">configuration file</a> or the  <a href="article_commandline.html">command-line</a> allows to add a background to the article pages</li>
+<li>The "backgroundOpacity" property allows to specify the opacity of the background image (integer value from 0 to 100)</li>
+<li>The "backgroundColor" property allows to add a background Color or gradient to the article pages. The format of the Color must be an HTML Color ID<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+For example -backgroundColor=#33CCFF</div></span>
+</li>
+<li>The "backgroundGlobal" property is a boolean specifying that the background must be set for all pages (default is true)</li>
+</ul>
+Note that if the "background" and "backgroundColor" properties are both defined, the "background" property will be used. 
+<h2 id="background_image">Background image</h2>
+The property is the absolute or relative path of the image used for the gradient (For example <code><span>-background=my/image/image.jpg</span></code>). The format of the image can be "jpg" or "png".<br/>
+<br/>
+ You can specify the opacity of the background image with the backgroundOpacity" property (integer value from 0 to 100).
+<h2 id="background_color">Background color</h2>
+<ul>
+<li>You can specify only one color (For example <code><span>-backgroundColor=#33CCFF</span></code>). In that case the background will use only one color</li>
+<li>You can also specify a gradient with two colors (For example <code><span>-backgroundColor=#FFFFFF;#CCCCCC</span></code>). In that case the background will use a vertical gradient defined with the two colors</li>
+</ul>
+
+<h2 id="customizing_the_background">Customizing the background</h2>
+The  <code>div.middleWithImage</code> and  <code>div.middleForIDXWithImage</code> <a href="article_css.html">CSS</a> rules  allow to specify how the background is presented. The default is:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord2" style="font-weight:bold;">   div</span><span>.middleWithImage</span><span class="syntaxKeyWord2" style="font-weight:bold;">, div</span><span>.middleForIDXWithImage {</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     float</span><span>: left;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     width</span><span>: 80%;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     padding</span><span>: 0 2%;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     margin</span><span>: 0;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     min-width</span><span>: 400px;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     margin-bottom</span><span>: 10px;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     background-image</span><span>: url("Background.png");</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     background-position</span><span>: center;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     background-repeat</span><span>: no-repeat;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     background-size</span><span>: cover;</span>
+<span>   }      </span>
+</pre>
+ It is possible to customize the background by overriding these properties in the  <a href="article_css.html">Custom StyleSheet</a> file. For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord2" style="font-weight:bold;">   div</span><span>.middleWithImage</span><span class="syntaxKeyWord2" style="font-weight:bold;">, div</span><span>.middleForIDXWithImage {</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     background-position</span><span>: top !important;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     background-repeat</span><span>: repeat!important;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     background-size</span><span>: contain !important;         </span>
+<span>   }      </span>
+</pre>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="example_with_an_image">Example with an image</h3>
+ With the following command-line property:<br/>
+
+<pre class="margin unlimited" >
+<span>      -background=myBackground.png</span>
+</pre>
+<br/>
+<img src="../images/background.jpg" alt="background" id="_image_0" onclick="openImage(_image_0)" width="60%" class="left marginSmall" />
+<br/>
+ We can also add an opacity for the image with for example:<br/>
+
+<pre class="margin unlimited" >
+<span>      -background=myBackground.png</span>
+<span>      -backgroundOpacity=50</span>
+</pre>
+
+<h3 id="example_with_a_color">Example with a color</h3>
+ With the following command-line property:<br/>
+
+<pre class="margin unlimited" >
+<span>      -background=#33CCFF</span>
+</pre>
+ We will have the following background:<br/>
+<img src="../images/backgroundColor.jpg" alt="backgroundColor" id="_image_1" onclick="openImage(_image_1)" width="60%" class="left marginSmall" />
+
+<h3 id="example_with_a_color_gradient">Example with a color gradient</h3>
+ With the following command-line property:<br/>
+
+<pre class="margin unlimited" >
+<span>      -backgroundColor=#FFFFFF;#CCCCCC</span>
+</pre>
+ We will have the following background:<br/>
+<img src="../images/backgroundColor2.jpg" alt="backgroundColor2" id="_image_2" onclick="openImage(_image_2)" width="60%" class="left marginSmall" />
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> For example -backgroundColor=#33CCFF</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_configFile.html">Configuration file</a>: It is possible to define an optional property / value configuration file when starting the application (using the graphical UI or the command line)</li>
+<li> <a href="article_commandline.html">Command-line starting</a>: This article is about how to execute the application by the command-line without showing the UI</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

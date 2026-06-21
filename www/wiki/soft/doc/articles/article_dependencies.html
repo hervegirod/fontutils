@@ -1,0 +1,360 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Dependencies - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_dependencies.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Dependencies</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#java_direct_dependencies">1&nbsp; Java Direct dependencies</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#pdf_docx_and_epub_java_dependencies">2&nbsp; PDF, DOCX, and ePub Java dependencies</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#scripts_plugin_java_dependencies">3&nbsp; Scripts Plugin Java dependencies</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#java_other_dependencies">4&nbsp; Java Other dependencies</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#javascript_dependencies">5&nbsp; Javascript dependencies</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#dependencies_list">6&nbsp; Dependencies list</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#jquery_ui">7&nbsp; jQuery UI</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#unit_tests_dependencies">8&nbsp; Unit tests dependencies</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">9&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">10&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+
+<h2 id="java_direct_dependencies">Java Direct dependencies</h2>
+ docJGenerator depends on the following libraries:<ul>
+<li>The MDIUtilities library: see <a href="http://sourceforge.net/projects/mdiutilities/" title="http://sourceforge.net/projects/mdiutilities/">sourceforge.net/projects/mdiutilities</a></li>
+<li>The jsoup library: see <a href="http://jsoup.org/" title="http://jsoup.org/">jsoup.org</a></li>
+<li>The jEditor library: see <a href="https://sourceforge.net/projects/jeditor/" title="https://sourceforge.net/projects/jeditor/">sourceforge.net/projects/jeditor</a></li>
+<li>The jElasticlunr library: see <a href="http://sourceforge.net/projects/jelasticlunr/" title="http://sourceforge.net/projects/jelasticlunr/">sourceforge.net/projects/jelasticlunr</a>. This library is used for the construction of the  <a href="article_glossary.html">glossary</a> and also for the  <a href="article_search.html#full_text_search">Full text search</a></li>
+</ul>
+
+<h2 id="pdf_docx_and_epub_java_dependencies">PDF, DOCX, and ePub Java dependencies</h2>
+ The pdfWriter library depends on the following libraries:<ul>
+<li>The iText library: see <a href="http://developers.itextpdf.com/" title="http://developers.itextpdf.com/">developers.itextpdf.com/</a>. Note that this library is used to generate PDF files. The application will continue to work correctly for HTML generation even if this library is not present</li>
+<li>The W3C <a href="https://www.w3.org/Style/CSS/SAC/Overview.en.html" title="https://www.w3.org/Style/CSS/SAC/Overview.en.html">SAC 1.3</a> library</li>
+<li>The <a href="http://cssparser.sourceforge.net/" title="http://cssparser.sourceforge.net/">CSSParser</a> library</li>
+</ul>
+<br/>
+<br/>
+ The docxWriter library depends on the following libraries:<ul>
+<li>The Apache POI library: see <a href="https://poi.apache.org/" title="https://poi.apache.org/">poi.apache.org/</a>. Note that this library is used to generate docx files. The application will continue to work correctly for HTML generation even if this library is not present</li>
+<li>The W3C <a href="https://www.w3.org/Style/CSS/SAC/Overview.en.html" title="https://www.w3.org/Style/CSS/SAC/Overview.en.html">SAC 1.3</a> library</li>
+<li>The <a href="http://cssparser.sourceforge.net/" title="http://cssparser.sourceforge.net/">CSSParser</a> library</li>
+</ul>
+<br/>
+<br/>
+ The epubWriter library depends on the following libraries:<ul>
+<li>The epublib2 library: see <a href="https://github.com/hervegirod/epublib2" title="https://github.com/hervegirod/epublib2">github.com/hervegirod/epublib2</a></li>
+<li>The Apache commons.io library: see <a href="http://commons.apache.org/proper/commons-io/" title="http://commons.apache.org/proper/commons-io/">commons.apache.org/proper/commons-io</a></li>
+<li>The Apache commons.vfs library: see <a href="https://commons.apache.org/proper/commons-vfs/" title="https://commons.apache.org/proper/commons-vfs/">commons.apache.org/proper/commons-vfs</a></li>
+<li>The HTML Cleaner library: see <a href="http://htmlcleaner.sourceforge.net/" title="http://htmlcleaner.sourceforge.net/">htmlcleaner.sourceforge.net</a></li>
+</ul>
+
+<h2 id="scripts_plugin_java_dependencies">Scripts Plugin Java dependencies</h2>
+ The scripts Plugin library depends on the following libraries:<ul>
+<li>The scriptHelper library: see <a href="https://sourceforge.net/projects/scripthelper/" title="https://sourceforge.net/projects/scripthelper/">sourceforge.net/projects/scripthelper/</a></li>
+<li>The Groovy library: see <a href="https://groovy-lang.org/" title="https://groovy-lang.org/">groovy-lang.org</a></li>
+</ul>
+
+<h2 id="java_other_dependencies">Java Other dependencies</h2>
+docJGenerator also uses code from the following library<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+The code is including in docJGenerator</div></span>
+:<ul>
+<li>The jEuclid library: see <a href="http://jeuclid.sourceforge.net/" title="http://jeuclid.sourceforge.net/">jeuclid.sourceforge.net</a>. The library is repackaged as  <code>jEuclid.jar</code> with only the minimal classes allowing to convert MathML expressions as images<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+Note that the last 3.1.9 release of jEuclid dates from 2010</div></span>
+. SOme modifications have also been made to allow the library to be built on Java 17.</li>
+<li>The jxMapViewer2 library: see <a href="http://github.com/msteiger/jxmapviewer2/" title="http://github.com/msteiger/jxmapviewer2/">github.com/msteiger/jxmapviewer2</a>. The library is repackaged as  <code>jxMapViewer.jar</code>. The library has been modified to allow to generate an image for the Map rather than showing the Map in a Swing component</li>
+</ul>
+
+<h2 id="javascript_dependencies">Javascript dependencies</h2>
+<ul>
+<li>The <a href="https://jquery.com/" title="https://jquery.com/">jQuery</a>library</li>
+<li>The jQuery <a href="https://mottie.github.io/tablesorter/docs/" title="https://mottie.github.io/tablesorter/docs/">tablesorter Plugin</a></li>
+<li>The <a href="https://openlayers.org/" title="https://openlayers.org/">OpenLayers library</a>. The used version is the 2.11 version at <a href="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.11/OpenLayers.js" title="http://cdnjs.cloudflare.com/ajax/libs/openlayers/2.11/OpenLayers.js">cdnjs.cloudflare.com</a>.Note that more recent versions can be downloaded from cdnjs.cloudflare.com but the API has changed and the last 4.1.1 version don't work yet in docJGenerator (see <a href="https://cdnjs.com/libraries/openlayers" title="https://cdnjs.com/libraries/openlayers">cdnjs.com/libraries/openlayers</a>)</li>
+<li>The <a href="http://elasticlunr.com" title="http://elasticlunr.com">elasticlunr.com</a> library, used for the full text search</li>
+<li>The <a href="https://github.com/anseki/leader-line" title="https://github.com/anseki/leader-line">leader-line</a> library, used for the review system</li>
+<li>The <a href="https://github.com/davidjbradshaw/image-map-resizer" title="https://github.com/davidjbradshaw/image-map-resizer">image-map-resizer</a> library, used for the image maps</li>
+</ul>
+
+<h2 id="dependencies_list">Dependencies list</h2>
+ docJGenerator is provided and has been tested with the specified releases of the libraries.
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >Libraries dependencies</caption>
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >Library</th>
+<th valign="middle"  class="column border" >Type</th>
+<th valign="middle"  class="column border" >Website</th>
+<th valign="middle"  class="column border" >Release</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">AppLauncher</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://sourceforge.net/projects/mdiutilities/" title="https://sourceforge.net/projects/mdiutilities/">sourceforge.net/projects/mdiutilities</a></td>
+<td valign="middle" class="border paddingDefault">1.3.18</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">MDIUtilities</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://sourceforge.net/projects/mdiutilities/" title="https://sourceforge.net/projects/mdiutilities/">sourceforge.net/projects/mdiutilities</a></td>
+<td valign="middle" class="border paddingDefault">1.3.18</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">jEditor</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://sourceforge.net/projects/jeditor/" title="https://sourceforge.net/projects/jeditor/">sourceforge.net/projects/jeditor</a></td>
+<td valign="middle" class="border paddingDefault">1.2.34</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">jElasticlunr</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://sourceforge.net/projects/jelasticlunr/" title="https://sourceforge.net/projects/jelasticlunr/">sourceforge.net/projects/jelasticlunr</a></td>
+<td valign="middle" class="border paddingDefault">1.7.1</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">jsoup</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://jsoup.org/" title="https://jsoup.org/">jsoup.org</a></td>
+<td valign="middle" class="border paddingDefault">1.21.2</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">scriptHelper</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://sourceforge.net/projects/scripthelper/" title="https://sourceforge.net/projects/scripthelper/">sourceforge.net/projects/scripthelper</a></td>
+<td valign="middle" class="border paddingDefault">1.6.11.1</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Groovy</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://groovy-lang.org/" title="https://groovy-lang.org/">groovy-lang.org</a><span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_1_">[3]</sup></a>
+<div class="tooltiptext">
+Used by the scriptHelper library</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">4.0.26</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">CSSParser</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://sourceforge.net/projects/cssparser/" title="https://sourceforge.net/projects/cssparser/">sourceforge.net/projects/cssparser/</a><span class="tooltip"><a href="#_note_4" class="noteLink"><sup id="_note_4_1_">[4]</sup></a>
+<div class="tooltiptext">
+Used by the docxWriter and pdfwriter libraries</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">0.9.26</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Apache POI</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://poi.apache.org/" title="https://poi.apache.org/">poi.apache.org/</a><span class="tooltip"><a href="#_note_5" class="noteLink"><sup id="_note_5_1_">[5]</sup></a>
+<div class="tooltiptext">
+Used by the docxWriter library</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">4.0.1</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">iText</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://itextpdf.com/en" title="https://itextpdf.com/en">itextpdf.com</a><span class="tooltip"><a href="#_note_6" class="noteLink"><sup id="_note_6_1_">[6]</sup></a>
+<div class="tooltiptext">
+Used by the pdfWriter library</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">5.5.12</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Apache commons.io</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="http://commons.apache.org/proper/commons-io/" title="http://commons.apache.org/proper/commons-io/">commons.apache.org/proper/commons-io</a><span class="tooltip"><a href="#_note_7" class="noteLink"><sup id="_note_7_1_">[7]</sup></a>
+<div class="tooltiptext">
+Used by the epubWriter library</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">2.7</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Apache commons.vfs</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://commons.apache.org/proper/commons-vfs/" title="https://commons.apache.org/proper/commons-vfs/">commons.apache.org/proper/commons-vfs</a><span class="tooltip"><a href="#_note_8" class="noteLink"><sup id="_note_8_1_">[8]</sup></a>
+<div class="tooltiptext">
+Used by the epubWriter library</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">1.0</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">HTMLCleaner</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="http://htmlcleaner.sourceforge.net/" title="http://htmlcleaner.sourceforge.net/">htmlcleaner.sourceforge.net</a><span class="tooltip"><a href="#_note_9" class="noteLink"><sup id="_note_9_1_">[9]</sup></a>
+<div class="tooltiptext">
+Used by the epubWriter library</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">2.24</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">epublib2</td>
+<td valign="middle" class="border paddingDefault">Java</td>
+<td valign="middle" class="border paddingDefault"><a href="https://github.com/hervegirod/epublib2" title="https://github.com/hervegirod/epublib2">github.com/hervegirod/epublib2</a><span class="tooltip"><a href="#_note_10" class="noteLink"><sup id="_note_10_1_">[10]</sup></a>
+<div class="tooltiptext">
+Used by the epubWriter library</div></span>
+</td>
+<td valign="middle" class="border paddingDefault">1.3.1</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">jQuery</td>
+<td valign="middle" class="border paddingDefault">Javascript</td>
+<td valign="middle" class="border paddingDefault"><a href="https://jquery.com/" title="https://jquery.com/">jquery.com</a></td>
+<td valign="middle" class="border paddingDefault">3.2.0<span class="tooltip"><a href="#_note_11" class="noteLink"><sup id="_note_11_1_">[11]</sup></a>
+<div class="tooltiptext">
+docJGenerator is not working correctly on later versions of jQuery for the moment</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">jQuery UI</td>
+<td valign="middle" class="border paddingDefault">Javascript</td>
+<td valign="middle" class="border paddingDefault"><a href="https://github.com/hervegirod/jquery-ui" title="https://github.com/hervegirod/jquery-ui">github.com/hervegirod/jquery-ui</a></td>
+<td valign="middle" class="border paddingDefault">1.12.1<span class="tooltip"><a href="#_note_12" class="noteLink"><sup id="_note_12_1_">[12]</sup></a>
+<div class="tooltiptext">
+Uses an implementation with a modification from the main project, see  <a href="#jquery_ui">jQuery UI</a></div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">jQuery tablesorter Plugin</td>
+<td valign="middle" class="border paddingDefault">Javascript</td>
+<td valign="middle" class="border paddingDefault"><a href="https://plugins.jquery.com/tablesorter" title="https://plugins.jquery.com/tablesorter">plugins.jquery.com/tablesorter</a></td>
+<td valign="middle" class="border paddingDefault">2.0.5</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Elasticlunr</td>
+<td valign="middle" class="border paddingDefault">Javascript</td>
+<td valign="middle" class="border paddingDefault"><a href="https://sourceforge.net/projects/jelasticlunr/" title="https://sourceforge.net/projects/jelasticlunr/">sourceforge.net/projects/jelasticlunr</a>. It is the compressed version of the  <code>elasticlunr.js</code> JavaScript library. Note that the regular 2.0.5 version of this library available at <a href="http://elasticlunr.com" title="http://elasticlunr.com">elasticlunr.com</a>) is compatible for compression levels which are less or equal to 1 (normal level)</td>
+<td valign="middle" class="border paddingDefault">1.5</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">OpenLayers</td>
+<td valign="middle" class="border paddingDefault">Javascript</td>
+<td valign="middle" class="border paddingDefault"><a href="https://openlayers.org" title="https://openlayers.org">openlayers.org</a></td>
+<td valign="middle" class="border paddingDefault">2.11</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">leader-line</td>
+<td valign="middle" class="border paddingDefault">Javascript</td>
+<td valign="middle" class="border paddingDefault"><a href="https://github.com/anseki/leader-line" title="https://github.com/anseki/leader-line">leader-line</a></td>
+<td valign="middle" class="border paddingDefault">1.0.7</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="jquery_ui">jQuery UI</h2>
+The <a href="https://jqueryui.com" title="https://jqueryui.com">jQuery UI</a> project proposes several UI Javascripts components, from which this project uses the autocomplete component.<br/>
+<br/>
+ This project uses a modified version of the 1.12.1 version, which is hosted here: <a href="https://github.com/hervegirod/jquery-ui" title="https://github.com/hervegirod/jquery-ui">github.com/hervegirod/jquery-ui</a>. This modified version allows to always show the popup for the automplete when using the  <a href="article_search.html#full_text_search">Full Text Search</a>.
+<h2 id="unit_tests_dependencies">Unit tests dependencies</h2>
+The Unit tests depend on the 1.4.8 version of the <a href="https://sourceforge.net/projects/javadepend/" title="https://sourceforge.net/projects/javadepend/">jDependency</a>   library.</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> The code is including in docJGenerator</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> Note that the last 3.1.9 release of jEuclid dates from 2010</li>
+<li id="_note_3"> <a href="#_note_3_1_" class="noteRefLink">^</a> Used by the scriptHelper library</li>
+<li id="_note_4"> <a href="#_note_4_1_" class="noteRefLink">^</a> Used by the docxWriter and pdfwriter libraries</li>
+<li id="_note_5"> <a href="#_note_5_1_" class="noteRefLink">^</a> Used by the docxWriter library</li>
+<li id="_note_6"> <a href="#_note_6_1_" class="noteRefLink">^</a> Used by the pdfWriter library</li>
+<li id="_note_7"> <a href="#_note_7_1_" class="noteRefLink">^</a> Used by the epubWriter library</li>
+<li id="_note_8"> <a href="#_note_8_1_" class="noteRefLink">^</a> Used by the epubWriter library</li>
+<li id="_note_9"> <a href="#_note_9_1_" class="noteRefLink">^</a> Used by the epubWriter library</li>
+<li id="_note_10"> <a href="#_note_10_1_" class="noteRefLink">^</a> Used by the epubWriter library</li>
+<li id="_note_11"> <a href="#_note_11_1_" class="noteRefLink">^</a> docJGenerator is not working correctly on later versions of jQuery for the moment</li>
+<li id="_note_12"> <a href="#_note_12_1_" class="noteRefLink">^</a> Uses an implementation with a modification from the main project, see  <a href="#jquery_ui">jQuery UI</a></li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_helpdependencies.html">Help system dependencies</a>: This article explains the libraries dependencies of the help system</li>
+<li> <a href="article_prerequisites.html">Prerequisites</a>: This article is about the prerequisites of docJGenerator</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

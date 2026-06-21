@@ -1,0 +1,108 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Help usage - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_helpusage.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Help usage</h1>
+
+<hr/>
+<div  class="justifiedAuto alignedNone" >
+ The Help component allows to navigate between the wiki articles:<ul>
+<li>The left panel shows a tree with all the article titles</li>
+<li>The right panel shows the content of the currently selected article</li>
+<li>The toolbar presents:<ul>
+<li>A Home button allowing to go directly to the  <a href="article_articles.html#index_definition">index</a> article,</li>
+<li>Two buttons to navigate back or forward in the articles,</li>
+<li>An auto-completion field to  <a href="article_helpsearch.html">search</a> for an article or title</li>
+<li>You can type CTRL+F to  <a href="article_helpsearchinpage.html">search for a term</a> in the current page</li>
+</ul>
+</li>
+</ul>
+ Note that the external http web sites will be opened in the desktop browser. Also all the hyperlinks are active.<br/>
+<br/>
+ The Swing and JavaFX components have the same structure:<br/>
+<br/>
+ In Swing:<br/>
+<img src="../images/helpSwing.png" alt="helpSwing" id="_image_0" onclick="openImage(_image_0)" width="60%" class="left marginSmall" />
+<br/>
+ In JavaFX:<br/>
+<img src="../images/helpJavaFX.png" alt="helpJavaFX" id="_image_1" onclick="openImage(_image_1)" width="60%" class="left simpleBorder marginSmall" />
+</div>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_javahelp.html">JavaHelp</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

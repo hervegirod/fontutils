@@ -1,0 +1,125 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Structure of a unit test - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_unitteststructure.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Structure of a unit test</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#parsing_a_wiki_source_directory">1&nbsp; Parsing a wiki source directory</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#ordering_unit_tests_methods">2&nbsp; Ordering unit tests methods</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article explains the structure of a unit test.
+<h2 id="parsing_a_wiki_source_directory">Parsing a wiki source directory</h2>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// get the directory for the wiki source</span>
+<span>   ResourceLoader loader = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">ResourceLoader</span><span>(</span><span class="syntaxLiteral" style="">"org/docgene/resources"</span><span>);</span>
+<span>   URL url = loader.</span><span class="syntaxDefault" style="font-weight:bold;">getURL</span><span>(</span><span class="syntaxLiteral" style="">"input105"</span><span>);</span>
+<span>   File dir = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">File</span><span>(url.</span><span class="syntaxDefault" style="font-weight:bold;">getFile</span><span>());</span>
+<span>   File[] dirs = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> File[1];</span>
+<span>   dirs[0] = dir;</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// parse the wiki source</span>
+<span>   DefaultDirectoryParser parser = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DefaultDirectoryParser</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">false</span><span>);</span>
+<span>   parser.</span><span class="syntaxDefault" style="font-weight:bold;">parseDirectoriesAndResolve</span><span>(dirs);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// check that there is no exception when parsing</span>
+<span>   List&lt;ResolverSAXHandler.ExceptionResult&gt; exceptions = parser.</span><span class="syntaxDefault" style="font-weight:bold;">getParserExceptions</span><span>();</span>
+<span>   </span><span class="syntaxDefault" style="font-weight:bold;">assertTrue</span><span>(</span><span class="syntaxLiteral" style="">"The parser should not have any exceptions"</span><span>, exceptions.</span><span class="syntaxDefault" style="font-weight:bold;">isEmpty</span><span>());</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// get the model</span>
+<span>   model = parser.</span><span class="syntaxDefault" style="font-weight:bold;">getModel</span><span>();</span>
+<span>   </span><span class="syntaxDefault" style="font-weight:bold;">assertNotNull</span><span>(</span><span class="syntaxLiteral" style="">"ArticlesModel should not be null"</span><span>, model);        </span>
+</pre>
+
+<h2 id="ordering_unit_tests_methods">Ordering unit tests methods</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_junit.html">Ordering unit tests</a></div>
+<br/>
+ In many of the unit test classes, the order of the execution of methods is important. For example, you may have a first method which parse a wiki source directry, and then several methods which check the content of the wiki tree. In that case, you might need to use the  <code>org.mdiutil.junit.OrderedRunner</code> annotation.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_developing.html">Developing the Library</a>: This article explains how to develop the library</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_development.html">Development</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Help archive - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_helparchive.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Help archive</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#database">1&nbsp; Database</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#content_specificities">2&nbsp; Content specificities</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#usage">3&nbsp; Usage</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">4&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The help archive file is a zip file which is the output of the  <a href="article_docgenhelp.html#help_content_generation">help generation</a>. It contains:<ul>
+<li>The articles and resources of the wiki, to use in the integrated help component</li>
+<li>A database which contain the list of articles, titles, and their relative paths to their files</li>
+<li>The files for the articles and resources</li>
+<li> <code>README.txt</code> file which indicates for which format the Help content has been generated, and also if the content allows a full text search</li>
+</ul>
+
+<h2 id="database">Database</h2>
+The database<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+See  <a href="resources/database_1.xsd">The Help database schema</a></div></span>
+ contain the list of articles, titles, and their relative paths to their files.
+<h2 id="content_specificities">Content specificities</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_helpcontentoptim.html">Help content optimization</a></div>
+<br/>
+ The content of the archive has some specificities depending on if it is optimized for the  <a href="article_helpswing.html">Help Swing API</a> or the  <a href="article_helpjavafx.html">Help JavaFX API</a>.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ You don't need to know anything about what is in the zip file to be able to use it in your help viewer.</div>
+
+<h2 id="usage">Usage</h2>
+The URL of this zip file is the one which must be used in the <a href="../javadoc/helpAPI/org/docgene/help/JavaHelpFactory.html#JavaHelpFactory-java.net.URL-" class="apiLink" title="JavaHelpFactory.JavaHelpFactory(java.net.URL)">JavaHelpFactory(URL)</a> method. See  <a href="article_helpapi.html">Help API overview</a> for more information.</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> See  <a href="resources/database_1.xsd">The Help database schema</a></li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_docgenhelp.html">Help system</a>: This article explains how to use the JavaHelp-like feature of the tool</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_javahelp.html">JavaHelp</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

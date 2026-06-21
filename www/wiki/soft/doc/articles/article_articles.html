@@ -1,0 +1,277 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Articles - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_articles.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Articles</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#grammar">1&nbsp; Grammar</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#index_definition">2&nbsp; Index definition</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">2.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#regular_articles">3&nbsp; Regular articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#examples">3.1&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#raw_html_articles">4&nbsp; Raw html articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example_1">4.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#templates">5&nbsp; Templates</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example_2">5.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#redirect_articles">6&nbsp; Redirect articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#relationship_with_the_alttitle_element">6.1&nbsp; Relationship with the altTitle element</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example_3">6.2&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#disambiguation_articles">7&nbsp; Disambiguation articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#fallback_articles">8&nbsp; Fallback articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#encoding">9&nbsp; Encoding</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">10&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">11&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ Article files are XML files which define the articles in the wiki. There are several kinds or articles:<ul>
+<li> <a href="#index_definition">Index articles</a>: the index is the article which is the entry-point to the wiki. There can be only one index for the wiki</li>
+<li> <a href="#regular_articles">Regular articles</a>: these are the pages composing the wiki, similar to Wikipedia articles</li>
+<li> <a href="#raw_html_articles">Hand-written html articles</a>: these are articles which are not using the docGenerator syntax, but hand-written html</li>
+<li> <a href="#templates">Templates</a>: these are similar to regular articles, but they are meant to be included in another articles, and as such won't be present in the dictionary or categories</li>
+<li> <a href="#redirect_articles">Redirect articles</a></li>
+<li> <a href="#disambiguation_articles">Disambiguation articles</a></li>
+<li> <a href="#fallback_articles">Fallback articles</a></li>
+</ul>
+
+<h2 id="grammar">Grammar</h2>
+See  <a href="resources/page.xsd">The wiki articles Schema</a>.
+<h2 id="index_definition">Index definition</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_indexfiles.html">Index article</a></div>
+<br/>
+ An index has the top-level element "index" and has no name. Appart from that, it can contain exactly the same elements as a regular article.
+<h3 id="example">Example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;index&gt;</span>
+<span>   This is the index.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/index&gt;</span>
+</pre>
+
+<h2 id="regular_articles">Regular articles</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_regulararticle.html">Regular article</a></div>
+<br/>
+ Regular articles are the pages composing the wiki, similar to Wikipedia articles. A regular article has the top-level element "article". It can contain:<ul>
+<li>An optional list of  <a href="article_syntaxStartingElements.html#alttitle">alternate titles</a> for the article</li>
+<li>A  <a href="article_syntaxStartingElements.html#meta">meta</a> element at the top of the article, specifies the text which should be written as an explanation for an article in the dictionary or categories</li>
+<li>An optional  <a href="article_syntaxStartingElements.html#seealso">SeeAlso</a> element allowing to reference another article which title or subject might be close ot this one</li>
+<li>Paragraphs, which in turn can contain various construction elements. See  <a href="article_syntax.html">syntax</a></li>
+<li>Chapters and titles. See  <a href="article_chapters.html">chapters and titles</a></li>
+<li>An optional "See Also" chapter. See  <a href="article_regulararticle.html#see_also_chapter">see also</a></li>
+<li>Categories definition. See  <a href="article_categories.html">categories description</a></li>
+</ul>
+
+<h3 id="examples">Examples</h3>
+ A basic example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"an article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This is a very simple article.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ Another simple example, using the  <a href="article_syntaxEndElements.html#see">see</a> tag, and specifying a category for the article.<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"an article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This is a very simple article.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;see</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"anotherArticle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the other linked article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> text</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"example of a SeeAlso element"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"myCategory"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ A more complex example, using the  <a href="article_syntaxStartingElements.html#seealso">seeAlso</a>,  <a href="article_syntaxStartingElements.html#alttitle">altTitle</a>, and  <a href="article_syntaxStartingElements.html#meta">meta</a> tags.<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"an article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;altTitle</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second title"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;meta</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A Very simple article example"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;seeAlso</span><span class="syntaxKeyWord2" style="font-weight:bold;"> this</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"describing an article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> other</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"specifying another type of article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"another article"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>   This is a very simple article.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;see</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"anotherArticle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the other linked article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> text</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"example of a SeeAlso element"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"myCategory"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="raw_html_articles">Raw html articles</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_rawhtmlarticle.html">Raw html article</a></div>
+<br/>
+ These articles are not using the docGenerator syntax, but raw html. Their description has the top element "rawHTML". The attributes of this element point to an html file, which can be on the disk or accessible on the Web.
+<h3 id="example_1">Example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;rawHTML</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article 2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Pablo Picasso - Wikipedia.html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;meta</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the raw html article "</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/rawHTML&gt;</span>
+</pre>
+
+<h2 id="templates">Templates</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_templates.html">Templates</a></div>
+<br/>
+ A template is similar to a regular article but has the top-level element "template". It can contain:<ul>
+<li>Paragraphs, which in turn can contain various construction elements. See  <a href="article_syntax.html">syntax</a></li>
+<li>Chapters and titles. See  <a href="article_chapters.html">chapters and titles</a></li>
+</ul>
+ Contrary to regular articles, it can't contain an optional "See Also" chapter alternate titles, or Categories definition.
+<h3 id="example_2">Example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;template</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my template"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This is a very simple template.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"template title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/template&gt;</span>
+</pre>
+
+<h2 id="redirect_articles">Redirect articles</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_redirectarticles.html">Redirect articles</a></div>
+<br/>
+ Redirect articles allow to create an article with a redirection to another article or even a  <a href="article_syntax.html#title">title</a> or  <a href="article_syntax.html#anchor">anchor</a> in another article<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+This article must be in the same package as the "redirect" articles itself</div></span>
+. These articles can contain only one "redirect" element. See  <a href="article_redirectarticles.html">Redirect articles</a> for more information.
+<h3 id="relationship_with_the_alttitle_element">Relationship with the altTitle element</h3>
+Contrary to the  <a href="article_syntaxStartingElements.html#alttitle">altTitle</a> element, "redirect" articles allow to perform a redirection to a title or anchor of an article. However one article must be created for any redirection.
+<h3 id="example_3">Example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;redirect</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the redirect article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> redirectTo</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"other article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ This could have been performed with an "altTitle" element in the redirected article with:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"other article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;altTitle</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the redirect article"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ In this other example, we redirect to a title in another article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;redirect</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the redirect article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> redirectTo</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"other article#title"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;meta</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the redirect article title"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/redirect&gt;</span>
+</pre>
+
+<h2 id="disambiguation_articles">Disambiguation articles</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_disambarticles.html">Disambiguation articles</a></div>
+<br/>
+ Disambiguation articles allow to specify an article which will point to several articles of approaching names. It is similar to Wikipedia disambiguation articles.
+<h2 id="fallback_articles">Fallback articles</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_fallbackarticles.html">Fallback articles</a></div>
+<br/>
+ Fallback articles allow to specify articles which will be used where a  <a href="article_references.html">reference</a> to another article point to an article which does not exist.
+<h2 id="encoding">Encoding</h2>
+The  <a href="article_commandline.html#escapenonutf8">escapeNonUTF8</a> option in the command-line or the equivalent  <a href="article_configFile.html#escapenonutf8">configuration property</a> allows to escape non UTF8 characters (such as accented letters)</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> This article must be in the same package as the "redirect" articles itself</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html">Article Syntax</a>: Specification of the article Syntax</li>
+<li> <a href="article_redirectarticles.html">Redirect articles</a>: Redirect articles allow to create an article with a redirection to another article or even a title or anchor in another article</li>
+<li> <a href="article_typesoffiles.html">Types of files</a>: This article explains the types of files which can be found in the wiki input</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a> |
+ <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

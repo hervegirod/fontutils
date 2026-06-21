@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() 
+  {
+    $("#table_0").tablesorter(); 
+  }
+);
+</script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Import JavaHelp errors list - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_importjavahelperrors.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Import JavaHelp errors list</h1>
+
+<hr/>
+<div  class="justifiedAuto alignedNone" >
+These errors can arise when trying to  <a href="article_importjavahelp.html">import JavaHelp content</a>.
+<h2 id="list_of_import_javahelp_errors">List of import JavaHelp errors</h2>
+
+<table id="table_0" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Invalid tocitem definition in JavaHelp content, no text attribute</td>
+<td valign="middle" class="border paddingDefault">The tocitem definition has no text attribute in the JavaHelp content to import</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Invalid toc structure in JavaHelp content</td>
+<td valign="middle" class="border paddingDefault">The toc structure in the JavaHelp content to import is incorrect</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect mapID definition in JavaHelp content, no url or target</td>
+<td valign="middle" class="border paddingDefault">The mapID definition in the JavaHelp content to import is incorrect</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_importjavahelp.html">Importing JavaHelp content</a>: This article explains how to convert JavaHelp content to the docJGenerator Help content format</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

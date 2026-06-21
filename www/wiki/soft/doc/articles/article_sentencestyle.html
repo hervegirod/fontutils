@@ -1,0 +1,208 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DocGenerator API: sentence style - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_sentencestyle.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DocGenerator API: sentence style</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#setting_directly_the_font_type_of_the_sentence">1&nbsp; Setting directly the font type of the sentence</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#specifying_a_more_complex_style">2&nbsp; Specifying a more complex style</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">3&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">4&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article presents how to specify the style of a  <a href="article_createcontent.html#sentences">sentence</a> in the API.<br/>
+<br/>
+ Some of the methods allowing to create  <a href="article_createcontent.html#sentences">sentences</a> allow to specify the type of the sentence<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Such as Bold, Italic, Underlined, etc...</div></span>
+. However, it is not possible to set more style attributes directly<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+For example the color of the text, the font family, the font size, etc...</div></span>
+
+<h2 id="setting_directly_the_font_type_of_the_sentence">Setting directly the font type of the sentence</h2>
+ You can set the font type of the sentence or anchors with methods such as:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addSentence-org.docgene.model.XMLArticle-java.lang.String-int-" class="apiLink" title="DocGeneratorAPI.addSentence(org.docgene.model.XMLArticle, java.lang.String, int)">DocGeneratorAPI.addSentence(XMLArticle, String, int)</a> for a sentence</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addAnchor-org.docgene.model.XMLArticle-java.lang.String-java.lang.String-int-" class="apiLink" title="DocGeneratorAPI.addAnchor(org.docgene.model.XMLArticle, java.lang.String, java.lang.String, int)">DocGeneratorAPI.addAnchor(XMLArticle, String, String, int)</a> for an anchor</li>
+</ul>
+The different possible types of the text are specified in the <a href="../javadoc/docgeneratorAPI/org/docgene/model/FontType.html" class="apiLink" title="FontType">FontType</a>. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// for a bold text:</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"this is the bold sentence"</span><span>, FontType.BOLD);</span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// for a bold and italic text:</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"this is the bold sentence"</span><span>, FontType.BOLD + FontType.ITALIC);      </span>
+</pre>
+
+<h2 id="specifying_a_more_complex_style">Specifying a more complex style</h2>
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/SentenceStyle.html" class="apiLink" title="SentenceStyle">SentenceStyle</a> class allows to specify the style of the sentence:<ul>
+<li>The  <code>color</code> field specifies the sentence text  <a href="article_colors.html">color</a></li>
+<li>The  <code>background</code> field specifies the sentence background  <a href="article_colors.html">color</a></li>
+<li>The  <code>fontFace</code> field specifies the sentence font face<span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_1_">[3]</sup></a>
+<div class="tooltiptext">
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/FontFace.html" class="apiLink" title="FontFace">FontFace</a> interface list the valid  <a href="article_syntaxJustifElements.html#font_family">font faces</a> usable in the wiki</div></span>
+</li>
+<li>The  <code>size</code> field specifies the numeric size of the font</li>
+<li>The  <code>namedSize</code> field specifies the named size of the font<span class="tooltip"><a href="#_note_4" class="noteLink"><sup id="_note_4_1_">[4]</sup></a>
+<div class="tooltiptext">
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/FontSize.html" class="apiLink" title="FontSize">FontSize</a> interface list the valid sizes usable in the wiki</div></span>
+</li>
+<li>The  <code>type</code> field specifies the type of the font</li>
+</ul>
+Several method allow to combine styles for one  <code>SentenceStyle</code>. For example to following code:<br/>
+
+<pre class="margin unlimited" >
+<span>   SentenceStyle style = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">SentenceStyle</span><span>();</span>
+<span>   style.color = </span><span class="syntaxLiteral" style="">"red"</span><span>;</span>
+<span>   style.fontFace = FontFace.HELVETICA;</span>
+<span>   style.namedSize = FontSize.SMALL;</span>
+</pre>
+  is equivalent to:<br/>
+
+<pre class="margin unlimited" >
+<span>   SentenceStyle style = SentenceStyle.</span><span class="syntaxDefault" style="font-weight:bold;">createColorStyle</span><span>(</span><span class="syntaxLiteral" style="">"red"</span><span>).</span><span class="syntaxDefault" style="font-weight:bold;">setFamily</span><span>(FontFace.HELVETICA).</span><span class="syntaxDefault" style="font-weight:bold;">setSize</span><span>(FontSize.SMALL);</span>
+</pre>
+ To specify the style of a sentence, you can use:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addTextStyle-org.docgene.model.XMLArticle-org.docgene.api.SentenceStyle-" class="apiLink" title="DocGeneratorAPI.addTextStyle(org.docgene.model.XMLArticle, org.docgene.api.SentenceStyle)">DocGeneratorAPI.addTextStyle(XMLArticle, SentenceStyle)</a> to  creates a new <a href="../javadoc/docgeneratorAPI/org/docgene/model/XMLTextStyle.html" class="apiLink" title="XMLTextStyle">XMLTextStyle</a> element, which can contain both anchors and sentences</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Fields wich are unspecified will refer to default parameters for the font:<ul>
+<li>Black text</li>
+<li>No background</li>
+<li>Regular Font</li>
+<li>Default font face</li>
+<li>Default font size</li>
+</ul>
+</div>
+
+<h2 id="examples">Examples</h2>
+ Suppose that we created a new article:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+<span>         </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"article1"</span><span>);</span>
+</pre>
+ The following example creates a bold sentence:<br/>
+
+<pre class="margin unlimited" >
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"this is the bold sentence"</span><span>, FontType.BOLD);</span>
+</pre>
+ The following example creates a sentence with a small Helvetica font, using a red color:<br/>
+
+<pre class="margin unlimited" >
+<span>   SentenceStyle style = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">SentenceStyle</span><span>();</span>
+<span>   style.color = </span><span class="syntaxLiteral" style="">"red"</span><span>;</span>
+<span>   style.fontFace = FontFace.HELVETICA;</span>
+<span>   style.namedSize = FontSize.SMALL;</span>
+<span>   XMLTextStyle textStyle = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTextStyle</span><span>(article, style);      </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(textStyle, </span><span class="syntaxLiteral" style="">"this is the styled sentence"</span><span>);</span>
+</pre>
+ The following example does the same in a more straightforward way:<br/>
+
+<pre class="margin unlimited" >
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(SentenceStyle.</span><span class="syntaxDefault" style="font-weight:bold;">createColorStyle</span><span>(</span><span class="syntaxLiteral" style="">"red"</span><span>).</span><span class="syntaxDefault" style="font-weight:bold;">setFamily</span><span>(FontFace.HELVETICA).</span><span class="syntaxDefault" style="font-weight:bold;">setSize</span><span>(FontSize.SMALL), </span><span class="syntaxLiteral" style="">"this is the styled sentence"</span><span>);</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Such as Bold, Italic, Underlined, etc...</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> For example the color of the text, the font family, the font size, etc...</li>
+<li id="_note_3"> <a href="#_note_3_1_" class="noteRefLink">^</a> The <a href="../javadoc/docgeneratorAPI/org/docgene/api/FontFace.html" class="apiLink" title="FontFace">FontFace</a> interface list the valid  <a href="article_syntaxJustifElements.html#font_family">font faces</a> usable in the wiki</li>
+<li id="_note_4"> <a href="#_note_4_1_" class="noteRefLink">^</a> The <a href="../javadoc/docgeneratorAPI/org/docgene/api/FontSize.html" class="apiLink" title="FontSize">FontSize</a> interface list the valid sizes usable in the wiki</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_createcontent.html#sentences">sentences</a>: This article presents how to create the wiki content through docJGenerator API</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_api.html">Api</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

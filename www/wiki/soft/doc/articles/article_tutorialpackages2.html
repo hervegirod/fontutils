@@ -1,0 +1,198 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Second packages tutorial - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_tutorialpackages2.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Second packages tutorial</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#create_the_wiki_directory_structure">1&nbsp; Create the wiki directory structure</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_the_content_of_the_main_package">2&nbsp; Create the content of the main package</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_the_content_of_theunfinished_package">3&nbsp; Create the content of theunfinished package</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_an_index">4&nbsp; Adding an index</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#generate_the_wiki_with_only_the_finished_packages">5&nbsp; Generate the wiki with only the finished packages</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_dependencies_between_the_two_packages">6&nbsp; Create dependencies between the two packages</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article is a tutorial to use  <a href="article_roots.html">packages</a> in your wiki. We will separate finished from unfinished content, and generate the wiki with only the finished content. We will <span style="font-weight: bold;">not</span> emit errors for references from the finished package to the unfinished package.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ This avoid to have a lot of errors for content that is <span style="font-weight: bold;">assumed</span> incorrect, because one package is <span style="font-weight: bold;">not</span> included in te wiki generation. If we don't do that, it might be difficult to separate <span style="font-weight: bold;">real</span> errors (references errors in the finished package, for example), from those which are just due to the fact that we did not include the unfinished package yet.</div>
+<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The solution of this tutorial is in the  <code>docGenerator-tutorial-&lt;version&gt;.zip</code>, in the  <code>secondPackageTutorial</code> directory.</div>
+
+<h2 id="create_the_wiki_directory_structure">Create the wiki directory structure</h2>
+ We will create two directories:<ul>
+<li>One <span style="font-style: italic;">main</span> directory which will contain a package with the "finished" content</li>
+<li>One <span style="font-style: italic;">unfinished</span> directory which will a package with the "unfinished" content, that we don't want to include in the wiki yet</li>
+</ul>
+To specify the content of the  <a href="article_roots.html">packages</a>, we will add a <span style="font-style: italic;">package.xml</span> file in the <span style="font-style: italic;">main</span> directory with the following content:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> package</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"mainPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ and <span style="font-style: italic;">package.xml</span> file in the <span style="font-style: italic;">unfinished</span> directory with the following content:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> package</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"unfinishedPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ We now have two packages, one for the finished content, and one for the unfinished content.
+<h2 id="create_the_content_of_the_main_package">Create the content of the main package</h2>
+We will create one article in the <span style="font-style: italic;">main</span> directory:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The content of the first article. Link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"unfinished article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> package</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"unfinishedPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="create_the_content_of_theunfinished_package">Create the content of theunfinished package</h2>
+We will also create one article in the <span style="font-style: italic;">unfinished</span> directory:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"unfinished article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The article content.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+<br/>
+<br/>
+ We xant to add a link from the first article in the <span style="font-style: italic;">closedPackage</span> package to the first article in the <span style="font-style: italic;">openPackage</span> package. For that, we have to add the  <code>package</code> attribute to the  <a href="article_syntax.html#ref">reference</a>:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"closed article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      The closed content of the article. </span><span class="syntaxDefault" style="background-color:#ffff00;">Link to the </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="background-color:#ffff00;font-weight:bold;"> id</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">=</span><span class="syntaxLiteral" style="background-color:#ffff00;">"first article"</span><span class="syntaxKeyWord2" style="background-color:#ffff00;font-weight:bold;"> package</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">=</span><span class="syntaxLiteral" style="background-color:#ffff00;">"openPackage"</span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">/&gt;</span><span class="syntaxDefault" style="background-color:#ffff00;">.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="adding_an_index">Adding an index</h2>
+We will just create an  <a href="article_indexfiles.html">index</a> article in the <span style="font-style: italic;">main</span> directory (the <span style="font-style: italic;">mainPackage</span> package):<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;index&gt;</span>
+<span>   The index.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/index&gt;</span>
+</pre>
+
+<h2 id="generate_the_wiki_with_only_the_finished_packages">Generate the wiki with only the finished packages</h2>
+To generate the wiki with the  <code>mainPackage</code> only, we will specify onyl set the the <span style="font-style: italic;">main</span> directory in the "Input Directories" field.<br/>
+<br/>
+ However, after we Click on Apply, we have the following error message:<br/>
+ <img src="../images/tutorialPackages7.png" alt="tutorialPackages7" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ This is normal because we have a  <a href="article_syntax.html#ref">reference</a> to an article which is not included in the wiki generation.
+<h2 id="create_dependencies_between_the_two_packages">Create dependencies between the two packages</h2>
+We will create a  <a href="article_packagedepend.html">packages dependencies</a> file which will accept all dependencies betwenn the packages, but will not show  <a href="article_syntax.html#ref">references</a> errors:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"mainPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> showUnresolvedReferences</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"unfinishedPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"unfinishedPackage"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"mainPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+<br/>
+<br/>
+ <img src="../images/tutorialPackages8.png" alt="tutorialPackages8" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+   Now we don't have any error anymore.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_tutorials.html">Tutorials</a>: This article presents a list of tutorials</li>
+<li> <a href="article_usingpackages.html#dont_include_unfinished_content">Don't include unfinished content</a>: This article explains how the use cases of packages</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_tutorials.html">Tutorials</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

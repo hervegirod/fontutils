@@ -1,0 +1,246 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>javadoc element - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_syntaxjavadoc.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>javadoc element</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#java_module">1&nbsp; Java module</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#java.lang_classes">2&nbsp; Java.lang classes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#internal_classes">3&nbsp; Internal classes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#location_of_the_javadoc_api">4&nbsp; Location of the javadoc API</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#usage_of_altpath">5&nbsp; Usage of altPath</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">6&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">7&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">8&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The "javadoc" element allows to define a link to a Java class documentation for an API. The attributes of this element are:<ul>
+<li>"api": the API, will point to the "JAVASE" API (The Java 8 API) if not present (and the location is not specified), else it will refer to the javadoc API defined in the  <a href="article_javadocs.html">configuration file</a>. See also  <a href="#location_of_the_javadoc_api">location of the javadoc API</a></li>
+<li>"location": the direct location of the API (alternative to the "api" attribute)</li>
+<li>"path": the path to the class, with package names separated by "." (dot) characters. To separate the name of the internal class from its parent class, use the "$" character, or use the "internalClass" attribute<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+See  <a href="#internal_classes">internal classes</a> for more information</div></span>
+</li>
+<li>"altPath": the optional alternate text to present for the path to the class. See  <a href="#usage_of_altpath">Usage of altPath</a> for more information</li>
+<li>"internalClass": the name of the internal class, if the path points to an internal Class<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_2_">[1]</sup></a>
+<div class="tooltiptext">
+See  <a href="#internal_classes">internal classes</a> for more information</div></span>
+</li>
+<li>"module": used to specify the module of the class. Note that the module path is required to get the documentation link beginning with Java 11, but are not up to Java 10</li>
+<li>"member": a field or method of the specified class or interface</li>
+<li>"full": there are several possible values for this attribute<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+For packages, the package complete path will always be presented regardless of the value of this attribute</div></span>
+:<ul>
+<li>"false" or "class": (the default) only the class name must be presented in the link associated text</li>
+<li>"true": the complete classpath of the class must be presented in full in the link associated text</li>
+<li>"member": only the member name must be presented. Note that if the path represents a class, it will have the same result as "class"</li>
+</ul>
+</li>
+<li>"type": the type of the link:<ul>
+<li>"class" for a Class (the default value)</li>
+<li>"package" for a package</li>
+<li>"module" for a module</li>
+</ul>
+</li>
+<li>"checkLink":  <code>false</code> to not check the validity of the link even if the configuration property specifies that links should be checked<span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_1_">[3]</sup></a>
+<div class="tooltiptext">
+See  <a href="article_checklinks.html#not_checking_links_for_one_element">checking external links</a></div></span>
+</li>
+</ul>
+
+<h2 id="java_module">Java module</h2>
+ The "module" attribute is used to specify the module of the class. The module path is required to get the documentation link beginning with Java 11, but are not up to Java 10.<br/>
+<br/>
+ For example all these are valid declarations:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> api</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"JAVASE9"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> api</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"JAVASE10"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> module</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.desktop"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> api</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"JAVASE11"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> module</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.desktop"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ But this declaration is invalid:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> api</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"JAVASE11"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h2 id="java.lang_classes">Java.lang classes</h2>
+It is not necessary to define the full path for many classes in the  <code>java.lang</code> package. For example, these declarations are valid:<br/>
+
+<pre class="margin unlimited" >
+<span>   This is a link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Float"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> class</span>
+<span>   This is a link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setLabel(String)"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> method</span>
+</pre>
+ The list of classes for which the full paht is not necessary is specified here:  <a href="resources/apiLangClasses.xml">Example</a>
+<h2 id="internal_classes">Internal classes</h2>
+Internal classes path are separated with a "$" character. It is also possible to use alternatively the  <code>internalClass</code> attribute. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   This is a link to </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.geom.Point2D$Float"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   This is a link to </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.geom.Point2D$Float"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"getX()"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   This is a link to </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.geom.Point2D"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> internalClass</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Double"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ will have the following result: This is a link to <a href="https://docs.oracle.com/javase/8/docs/api//java/awt/geom/Point2D.Float.html" class="apiLink" title="Point2D.Float">Point2D.Float</a><br/>
+<br/>
+ This is a link to <a href="https://docs.oracle.com/javase/8/docs/api//java/awt/geom/Point2D.Float.html#getX--" class="apiLink" title="Point2D.Float.getX()">Point2D.Float.getX()</a><br/>
+<br/>
+ This is a link to <a href="https://docs.oracle.com/javase/8/docs/api//java/awt/geom/Point2D.Double.html" class="apiLink" title="Point2D.Double">Point2D.Double</a>
+<h2 id="location_of_the_javadoc_api">Location of the javadoc API</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_javadocs.html">Javadocs APIs</a></div>
+<br/>
+ The javadoc API depend on the presence of the "api" and "location" attributes:<ul>
+<li>If the "api" attribute exists, the link will point to the javadoc API defined in the  <a href="article_javadocs.html">configuration file</a></li>
+<li>Else if the "location" attribute exists, or there is a previously defined  <a href="article_syntax.html#setapiurl">setAPIURL</a> element in the current article, the link will point to the URL defined by this attribute</li>
+<li>Else the link will point to the "JAVASE" API (The Java 8 API)</li>
+</ul>
+<br/>
+<br/>
+ Example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> location</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"http://docs.oracle.com/javase/8/docs/api/"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h2 id="usage_of_altpath">Usage of altPath</h2>
+ The "altPath" attribute is an optional alternate text to present for the path to the class. It can be useful if the member is defined for a parent class but you want to show the API for a subclass. It will allow you to present the API on the class you choose and avoid any error emitted because  the link is not found in the API.<br/>
+<br/>
+ For example, if you have the following declaration:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"javax.swing.JButton"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setLabel(String)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ You would have an error, because the <code><span class="syntaxDefault" style="font-weight:bold;">setLabel</span><span>(String)</span></code> method is defined in the  <code>AbstractButton</code> class, and not on its  <code>JButton</code> subclass.<br/>
+<br/>
+ But you can declare:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"javax.swing.AbstractButton"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> altPath</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"JButton"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setLabel(String)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ With the following result:<br/>
+<a href="https://docs.oracle.com/javase/8/docs/api//javax/swing/AbstractButton.html#setLabel-java.lang.String-" class="apiLink" title="JButton.setLabel(java.lang.String)">JButton.setLabel(String)</a>
+<h2 id="examples">Examples</h2>
+
+<pre class="margin unlimited" >
+<span>   This is a link to </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   This is a link to </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.geom.Rectangle2D$Float"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   This is a complete link to </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> full</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   This is a link to </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setLabel(java.lang.String)"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   This is a link to </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setLabel(java.lang.String)"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> full</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"member"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   This is a link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.geom"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> package</span>
+</pre>
+ Result: This is a link to <a href="https://docs.oracle.com/javase/8/docs/api//java/awt/Button.html" class="apiLink" title="Button">Button</a><br/>
+<br/>
+ This is a link to <a href="https://docs.oracle.com/javase/8/docs/api//java/awt/geom/Rectangle2D.Float.html" class="apiLink" title="Rectangle2D.Float">Rectangle2D.Float</a><br/>
+<br/>
+ This is a complete link to <a href="https://docs.oracle.com/javase/8/docs/api//java/awt/Button.html" class="apiLink" title="java.awt.Button">java.awt.Button</a><br/>
+<br/>
+ This is a link to <a href="https://docs.oracle.com/javase/8/docs/api//java/awt/Button.html#setLabel-java.lang.String-" class="apiLink" title="Button.setLabel(java.lang.String)">Button.setLabel(String)</a><br/>
+<br/>
+ This is a link to <a href="https://docs.oracle.com/javase/8/docs/api//java/awt/Button.html#setLabel-java.lang.String-" class="apiLink" title=".setLabel(java.lang.String)">setLabel(String)</a><br/>
+<br/>
+ This is a link to <a href="https://docs.oracle.com/javase/8/docs/api//java/awt/geom/package-summary.html" class="apiLink" title="geom">geom</a> package</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"><span class="noteRefLink">^</span> <a href="#_note_1_1_" class="noteRefLink">[1]</a> <a href="#_note_1_2_" class="noteRefLink">[2]</a> See  <a href="#internal_classes">internal classes</a> for more information</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> For packages, the package complete path will always be presented regardless of the value of this attribute</li>
+<li id="_note_3"> <a href="#_note_3_1_" class="noteRefLink">^</a> See  <a href="article_checklinks.html#not_checking_links_for_one_element">checking external links</a></li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_javadocs.html">Javadocs APIs</a>: Configure how to access external Javadocs APIs</li>
+<li> <a href="article_syntaxlangapi.html">Programmming language API</a>: Several elements allows to show a link to different a programming language API:</li>
+<li> <a href="article_syntaxoverview.html">Syntax overview</a>: This article presents an overview of the tags supported in the XML syntax</li>
+<li> <a href="article_syntax.html">Syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

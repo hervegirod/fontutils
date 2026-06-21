@@ -1,0 +1,86 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>GUI interface - DocGenerator</title>
+</head>
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>What links here: GUI interface</h1>
+
+<hr/>
+ <a href="article_basicusage.html">Basic usage</a> : This article presents the basic usage and configuration of the tool<br/>
+ <a href="article_configuration.html">Configuration</a> : This article explains how to configure the tool<br/>
+ <a href="article_editor.html">DocGenerator editor</a> : This article explains the DocGenerator editor<br/>
+ <a href="article_docgenhelp.html">DocGenerator Help feature</a> : This article explains how to use the JavaHelp-like feature of the tool<br/>
+ <a href="article_editorrequirements.html">Editor requirements</a> : This article explains the requirements of the DocGenerator editor<br/>
+ <a href="article_editorwindow.html">Editor window</a> : This article explains the content of the Editor window<br/>
+ <a href="article_escapeNonUTF8.html">Escaping non UTF8 characters</a> : This article explains how to escape non UTF8 characters in the articles content<br/>
+ <a href="article_faq.html">FAQ</a> : Frequently Asked Questions<br/>
+ <a href="article_guigenerationoptions.html">GUI Generation options</a> : This article presents the generation options of the GUI<br/>
+ <a href="article_guitools.html">GUI tools</a> : This article presents the GUI tools menu<br/>
+ <a href="article_handlingHTMLEntities.html">Handling HTML entities</a> : This article explains how to handle HTML entities in articles content<br/>
+ <a href="article_opengui.html">Opening the GUI</a> : This article explains how to open the GUI<br/>
+ <a href="article_performance.html">Performance</a> : This article explains how to speed-up the performance of the generator<br/>
+ <a href="article_prerequisites.html">Prerequisites</a> : This article is about the prerequisites of docJGenerator<br/>
+ <a href="article_relaxedsyntax.html">Relaxed Syntax</a> : This article is about the relaxed syntax which can be used on the articles<br/>
+ <a href="article_saveconffile.html">Saving a configuration file</a> : This article explains how to save a configuration file with the current state of the GUI<br/>
+ <a href="article_unittestcategories.html">Unit tests categories</a> : This article presents the unit tests categories list<br/>
+
+<hr/>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

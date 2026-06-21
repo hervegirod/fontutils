@@ -1,0 +1,240 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Errors - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_errors.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Errors</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#configuration">1&nbsp; Configuration</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#errors_viewer">2&nbsp; Errors viewer</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#wiki_status">3&nbsp; Wiki status</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#common_errors">4&nbsp; Common errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#two_articles_with_the_same_identification">4.1&nbsp; Two articles with the same identification</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#reference_an_article_wich_does_not_exist">4.2&nbsp; Reference an article wich does not exist</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#having_a_badly_defined_xml_file_for_an_article">4.3&nbsp; Having a badly defined XML file for an article</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#point_an_image_definition_to_an_image_file_which_does_not_exist">4.4&nbsp; Point an image definition to an image file which does not exist</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#refer_to_an_image_which_is_not_defined">4.5&nbsp; Refer to an image which is not defined</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#refer_to_a_resource_which_does_not_exist">4.6&nbsp; Refer to a resource which does not exist</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#refer_to_an_external_link_which_does_not_exist">4.7&nbsp; Refer to an external link which does not exist</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#troubleshooting_errors">5&nbsp; Troubleshooting errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#errors_list">6&nbsp; Errors list</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#having_a_lot_of_unreachable_url_links_errors">6.1&nbsp; Having a lot of Unreachable URL Links errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#having_a_few_unreachable_url_links_errors_when_the_majority_are_ok">6.2&nbsp; Having a few Unreachable URL Links errors, when the majority are OK</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article explains how errors are handled in the parsing.
+<h2 id="configuration">Configuration</h2>
+Several  <a href="article_commandline.html#error_handling">command-line argument</a> or  <a href="article_configFile.html#error_handling">configuration property</a> options allow to specify how to handle errors during the parsing.<br/>
+<br/>
+ The main options allow to:<ul>
+<li>"checkHTTPLinks": set if the URL links with the "http" protocol are checked</li>
+<li>"showWarnings": set if warnings should be presented. By default only errors are presented</li>
+<li>"errorsViewerType": specifies how to view the files if errors are encountered. See also  <a href="article_errorsviewer.html">Errors viewer</a> for more information</li>
+</ul>
+
+<h2 id="errors_viewer">Errors viewer</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_errorsviewer.html">Errors viewer</a></div>
+<br/>
+ If errors are encountered during the parsing, a Popup window will appear showing the errors.<br/>
+<br/>
+ The panel presents the list of errors, ordered by the file in which they were encountered:<br/>
+ <img src="../images/errorPanel.png" alt="errorPanel" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ The "errorsViewerType" option allow to specify how these errors will be presented in the window:<ul>
+<li>"none": the files won't be opened from the error panel</li>
+<li>"browser": (the default value) the source file for each error will be opened in the platform default browser</li>
+<li>"editor": the source file for each error will be opened in a built-in editor</li>
+</ul>
+
+<h2 id="wiki_status">Wiki status</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_showstatus.html">Showing the wiki status</a></div>
+<br/>
+ It is possible to count the number of errors during the parsing by using the  <a href="article_properties.html#errors_property">errors</a> property.
+<h2 id="common_errors">Common errors</h2>
+
+<h3 id="two_articles_with_the_same_identification">Two articles with the same identification</h3>
+If two articles have the same  <a href="article_namingconstraints.html">identification</a>, the generator will create a  <a href="article_disambarticles.html">Disambiguation article</a> and you will see this kind of error message:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxDefault" style="">Article Article1 already exists, added in a disambiguity article</span>
+</pre>
+
+<h3 id="reference_an_article_wich_does_not_exist">Reference an article wich does not exist</h3>
+If you  <a href="article_references.html">reference</a> an article which does not exist, you will see this kind of error message:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxDefault" style="">No Article definition of ID undefined</span>
+</pre>
+ or if the article exists but the  <a href="article_references.html#referencing_an_anchor">anchor</a> does not exist in the article:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxDefault" style="">No anchor of ID #the_title in article article2</span>
+</pre>
+
+<h3 id="having_a_badly_defined_xml_file_for_an_article">Having a badly defined XML file for an article</h3>
+ If an article has a badly defined XML file, you will have XML validation exceptions, such as:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxDefault" style="">cvc-complex-type.3.2.2: ...</span>
+</pre>
+<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The XML Schema for the XML files is defined  <a href="article_articles.html#grammar">here</a>.</div>
+
+<h3 id="point_an_image_definition_to_an_image_file_which_does_not_exist">Point an image definition to an image file which does not exist</h3>
+If you define an  <a href="article_imageFiles.html">image definition</a> which point to an image file which does not exist, you will see this kind of error message:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxDefault" style="">There is no Image at ball2.jpg</span>
+</pre>
+
+<h3 id="refer_to_an_image_which_is_not_defined">Refer to an image which is not defined</h3>
+If you  <a href="article_syntaximg.html">refer</a> to an image which is not defined, you will see this kind of error message:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxDefault" style="">No Image definition of ID undefinedImage</span>
+</pre>
+
+<h3 id="refer_to_a_resource_which_does_not_exist">Refer to a resource which does not exist</h3>
+If you  <a href="article_resourceFiles.html">refer</a> to a resource file which does not exist, you will see this kind of error message:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxDefault" style="">The Resource at resource.html does not exist</span>
+</pre>
+
+<h3 id="refer_to_an_external_link_which_does_not_exist">Refer to an external link which does not exist</h3>
+If you  <a href="article_syntax.html#a">refer</a> to an external link which does not exist, you will see this kind of error message:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxDefault" style="">Unreachable URL link</span>
+</pre>
+
+<h2 id="troubleshooting_errors">Troubleshooting errors</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_troubleshooting.html">Troubleshooting</a></div>
+<br/>
+
+<h2 id="errors_list">Errors list</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_errorslist.html">Errors list</a></div>
+<br/>
+ The  <a href="article_errorslist.html">errors list</a> article presents the list of errors which can be emitted during the parsing.
+<h3 id="having_a_lot_of_unreachable_url_links_errors">Having a lot of Unreachable URL Links errors</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_checklinks.html">Checking external links</a></div>
+<br/>
+ Chance is that you don't have access to the internet on your system, but you have a lot of external links. In that case you should configure the wiki to not check external links. This can be done on the command-line by setting to false the  <a href="article_commandline.html#checkhttplinks">checkHTTPLinks</a> property, or in the configuration file by setting to false the  <a href="article_configFile.html#checkhttplinks">checkHTTPLinks</a> property.
+<h3 id="having_a_few_unreachable_url_links_errors_when_the_majority_are_ok">Having a few Unreachable URL Links errors, when the majority are OK</h3>
+ Chance is that that the affected linked URL is much slower to access than the others. By default the timeOut for the access to one site is 300 ms, but you can  <a href="article_checklinks.html#configuration">configure its value</a>.<br/>
+<br/>
+ Beware that if you increase the timeOut value for all URLs, you will have an adverse result on the performance of the tool. Another way you have to get rid of this warning is no specify explicitly for the link that you don't want to check its validity (see  <a href="article_checklinks.html#not_checking_links_for_one_element">not checking links for one element</a>).</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_errorslist.html">Errors list</a>: This article presents the list of errors which can be emitted during the parsing</li>
+<li> <a href="article_errorsviewer.html">Errors viewer</a>: This article explains how parsing errors are presented in the tool</li>
+<li> <a href="article_showstatus.html">Showing the wiki status</a>: This article explains how to show the wiki status in the wiki</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a> |
+ <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

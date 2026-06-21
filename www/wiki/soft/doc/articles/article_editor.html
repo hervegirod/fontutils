@@ -1,0 +1,161 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DocGenerator editor - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editor.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DocGenerator editor</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#opening_the_editor">1&nbsp; Opening the editor</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#editor_requirements">1.1&nbsp; Editor requirements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#editor_window">2&nbsp; Editor window</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ You can edit the wiki using any source editor (or even a text editor), but the tool provides an associated editor to edit the wiki. <br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The editor does not use a specific file format for the wiki. So you can either edit your articles by hand or use the editor.</div>
+
+<h2 id="opening_the_editor">Opening the editor</h2>
+To open the editor, you need to define at least the inputs of the wiki, you can call the editor by using the Editor =&gt; Open Editor menu:<br/>
+ <img src="../images/editorlaunch.png" alt="editorlaunch" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ The tool will then parse the entire wiki exactly as for the wiki generation, using the same options as the  <a href="article_gui.html">GUI interface</a>. Please note that this initial opening of the editor can take some time, depending on the size of the wiki.<br/>
+<br/>
+ Depending on the size of the wiki, you may see the progress bar status at the bottom of the GUI before the editor is opened:<br/>
+ <img src="../images/progressbar.png" alt="progressbar" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Note that opening the editor do <span style="font-weight: bold;">not</span> write the content of the wiki output on disk, even if you defined the output of the wiki in the GUI interface.</div>
+
+<h3 id="editor_requirements">Editor requirements</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_editorrequirements.html">Editor requirements</a></div>
+<br/>
+ To be able to open the editor, you need:<ul>
+<li>To define at least the inputs of the wiki</li>
+<li>To have the  <code>docGeneratorEditor.jar</code> library in your ClassPath (by default it is included if the jar file is in the same directory as the  <code>docGenerator.jar</code> jar file)</li>
+<li>You also need to have the JavaFX framework in your ClassPath<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Note that by default it is not automatically the case if your Java version is at least Java 11</div></span>
+</li>
+</ul>
+ If one of these conditions is not fulfilled, the option will be grayed-out:<br/>
+ <img src="../images/editordisabled.png" alt="editordisabled" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+
+<h2 id="editor_window">Editor window</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_editorwindow.html">Editor window</a></div>
+<br/>
+ The editor window has the following panels:<ul>
+<li>The top of the window presents a menubar and a toolbar allowing to manage the content of the wiki and navigate in the wiki content</li>
+<li>The left panel shows the  <a href="article_editortree.html">tree</a> of the wiki  <a href="article_roots.html">roots</a></li>
+<li>The  <a href="article_editorcontent.html">Editor content panel</a> shows the content of the currently selected element in the tree</li>
+<li>The bottom panel is a message area showing potential parsing errors on the selected element in the tree</li>
+</ul>
+<br/>
+ <img src="../images/editorpanel.png" alt="editorpanel" id="_image_3" onclick="openImage(_image_3)" class="left marginSmall" />
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Note that by default it is not automatically the case if your Java version is at least Java 11</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editortutorial.html">Editor tutorial</a>: This article is a tutorial explaining how to use the editor</li>
+<li> <a href="article_gui.html">GUI interface</a>: This article is about the GUI interface of the application</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_editor.html">Editor</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

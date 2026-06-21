@@ -1,0 +1,197 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>tree element - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_syntaxtree.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>tree element</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#tree_root_element">1&nbsp; tree root element</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#li_elements">2&nbsp; li elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">3&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#basic_example">3.1&nbsp; Basic example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#a_more_complex_example">3.2&nbsp; A more complex example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The "tree" element defines a  <a href="article_syntax.html#tree">tree</a>.
+<h2 id="tree_root_element">tree root element</h2>
+ A tree element has several optional attributes:<ul>
+<li>"fillColor": the default fill color for tree elements (used if tree elements have a border)</li>
+<li>"borderColor": the default border color for tree elements (used if tree elements have a border)</li>
+<li>"border": the property specifying that we should add a border around the tree elements. This attribute can have the following values:<ul>
+<li>"true" or "simple": the tree elements will by default be bordered by simple line</li>
+<li>"shadow" or "softShadow" : the element will by default have a soft shadowed border</li>
+<li>"strongShadow": the element will by default have a strong shadowed border</li>
+<li>"false" or "noBorder" : (the default) no border</li>
+</ul>
+</li>
+</ul>
+ A tree can have "li" children.
+<h2 id="li_elements">li elements</h2>
+ Each "li" child specifies one element in the tree. Note that a "li" element can have children "li" elements, and practically any other kinds of elements are allowed.<br/>
+<br/>
+ A "li" element in a tree has several optional attributes:<ul>
+<li>"fillColor": the fill color of the element. This will only be used if the tree has a border. Overrides the fillColor definition of the parent tree</li>
+<li>"borderColor": the border color of the element. This will only be used if the tree has a border. Overrides the borderColor definition of the parent tree</li>
+<li>"border": the border type of the element, overrides the border definition of the parent tree</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ These are different from "li" elements in lists</div>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="basic_example">Basic example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tree</span><span class="syntaxKeyWord2" style="font-weight:bold;"> fillColor</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"magenta"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> borderColor</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"black"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> border</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>parent</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>child 1</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>child 2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tree&gt;</span>
+</pre>
+ Result:<ul class="tree" >
+<li style="list-style-type: none;">
+<div style="border: 1px solid black;background-color: magenta;" class="treeDiv" >
+
+parent</div>
+<ul>
+<li style="list-style-type: none;">
+<div style="border: 1px solid black;background-color: magenta;" class="treeDiv" >
+
+child 1</div>
+</li>
+<li style="list-style-type: none;">
+<div style="border: 1px solid black;background-color: magenta;" class="treeDiv" >
+
+child 2</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<h3 id="a_more_complex_example">A more complex example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tree</span><span class="syntaxKeyWord2" style="font-weight:bold;"> fillColor</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"yellow"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> borderColor</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"blue"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> border</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"shadow"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>parent</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>child 1 with a reference to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"#basic example"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"basic example"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>/li&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>child 2 with several lines</span>
+
+<span>   this is the second line</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tree&gt;</span>
+</pre>
+ Result:<ul class="tree" >
+<li style="list-style-type: none;">
+<div style="border: 1px solid blue;background-color: yellow;" class="softShadow treeDiv" >
+
+parent</div>
+<ul>
+<li style="list-style-type: none;">
+<div style="border: 1px solid blue;background-color: yellow;" class="softShadow treeDiv" >
+
+child 1 with a reference to the  <a href="#basic_example">basic example</a></div>
+</li>
+<li style="list-style-type: none;">
+<div style="border: 1px solid blue;background-color: yellow;" class="softShadow treeDiv" >
+
+child 2 with several lines<br/>
+<br/>
+ this is the second line</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#tree">syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_syntaxoverview.html">Syntax overview</a>: This article presents an overview of the tags supported in the XML syntax</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>References - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_references.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>References</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#referencing_an_article">1&nbsp; Referencing an article</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#referencing_the_index_article">1.1&nbsp; Referencing the index article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#referencing_an_anchor">2&nbsp; Referencing an anchor</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#referencing_a_chapter_or_title">3&nbsp; Referencing a chapter or title</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">4&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#unresolved_references">5&nbsp; Unresolved references</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ Interwiki links allow to define links to:<ul>
+<li>an  <a href="article_articles.html">article</a></li>
+<li>a  <a href="article_syntax.html#chapter">chapter</a></li>
+<li>a  <a href="article_syntax.html#title">title</a></li>
+<li>an  <a href="article_syntax.html#anchor">anchor</a></li>
+</ul>
+
+<h2 id="referencing_an_article">Referencing an article</h2>
+ Suppose the following article:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   ...</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ This article can be referenced through any of the following constructions:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my_article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h3 id="referencing_the_index_article">Referencing the index article</h3>
+To specify a reference to the  <a href="article_indexfiles.html">index article</a>, just use the  <code>_index_</code> or  <code>_INDEX_</code> name for the reference id.  For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   The </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"_index_"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h2 id="referencing_an_anchor">Referencing an anchor</h2>
+The "id" of the  <a href="article_syntax.html#anchor">anchor</a> will be used for the anchor reference. For example, suppose the following article:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   The text with an </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;anchor</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the Anchor"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"anchor"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+<span>   ...</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ The anchor can be referenced through any of the following constructions:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article#the Anchor"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article#the anchor"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my_article#the_anchor"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my_article#the_Anchor"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h2 id="referencing_a_chapter_or_title">Referencing a chapter or title</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_chapters.html#referencing_a_title_or_chapter">Referencing a title or chapter</a></div>
+<br/>
+
+<h2 id="example">Example</h2>
+ Suppose the following article:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   ...</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ This article can be referenced through any of the following constructions:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my_article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ The article chapter can be referenced through any of the following constructions:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle#first chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle#first_chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article#first chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my_article#first_chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h2 id="unresolved_references">Unresolved references</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_packagedepend.html#checking_behavior_on_unsolved_references">packages dependencies</a></div>
+<br/>
+ By default unresolved references will emit an error during the generation, but it is possible to set the  <a href="article_packagedepend.html">packages dependencies</a> to specify that unresolved references from one  <a href="article_roots.html">package</a> to another will not emit an error.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#ref">ref element</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_syntax.html#catref">references to categories</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_syntax.html#glossaryref">references to the glossary</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

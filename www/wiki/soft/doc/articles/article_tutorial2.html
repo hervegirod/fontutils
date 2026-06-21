@@ -1,0 +1,334 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Second tutorial - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_tutorial2.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Second tutorial</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#create_an_index_article">1&nbsp; Create an index article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_our_two_articles">2&nbsp; Create our two articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#add_an_image_specified_by_its_path_to_the_first_article">3&nbsp; Add an image specified by its path to the first article</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#use_the_image_in_the_article">3.1&nbsp; Use the image in the article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#add_an_image_specified_by_its_id_to_the_two_articles">4&nbsp; Add an image specified by its id to the two articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#define_the_image">4.1&nbsp; Define the image</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#use_the_image_in_our_articles">4.2&nbsp; Use the image in our articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#link_to_in_internal_resource_file">5&nbsp; Link to in internal resource file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">6&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article is a tutorial which explains the concepts of  <a href="article_imageFiles.html">imagas</a> and  <a href="article_resourceFiles.html">resources</a>. <br/>
+<br/>
+ You will:<ul>
+<li>Create an index article.</li>
+<li>Create our first article</li>
+<li>Create a second article</li>
+<li>Add images</li>
+<li>Add resources</li>
+</ul>
+It is better to have already performed the  <a href="article_tutorial1.html">first tutorial</a> before this one.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The solution of this tutorial is in the  <code>docGenerator-tutorial-&lt;version&gt;.zip</code>, in the  <code>secondTutorial</code> directory.</div>
+
+<h2 id="create_an_index_article">Create an index article</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_tutorial1.html#create_an_index_article">first tutorial</a></div>
+<br/>
+ We will create an index file exactly as for the first tutorial. The index file will contain the following content:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;index&gt;</span>
+<span>   The index for the tutorial wiki. A link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/index&gt;</span>
+</pre>
+
+<h2 id="create_our_two_articles">Create our two articles</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_tutorial1.html#create_our_first_article">first tutorial</a></div>
+<br/>
+ We will create our two articles exactly as for the first tutorial.<br/>
+<br/>
+ The first article will contain the following content:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      The content of the first article. Link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"articles"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"othercategory"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ The second article will contain the following content:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      The content of the second article. Link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"articles"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="add_an_image_specified_by_its_path_to_the_first_article">Add an image specified by its path to the first article</h2>
+ We will refer to an image by its relative path in the first article. In this case, the generator will look for the image file in a "doc-files" sub-directory. We will create a sub-directory named "doc-files" at the same level as our first article<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+see  <a href="article_docfiles.html">doc-files</a></div></span>
+.<br/>
+<br/>
+ In our tutorial, we will have the following file structure:<br/>
+
+<pre class="margin unlimited" >
+<span>     myWiki</span>
+<span>      -- doc-files</span>
+<span>      ---- crocodile.png</span>
+<span>      -- article1.xml</span>
+<span>      -- article2.xml</span>
+<span>      -- index.xml</span>
+</pre>
+
+<h3 id="use_the_image_in_the_article">Use the image in the article</h3>
+To use an image, you only need to refer to the image ID anywhere with the  <a href="article_syntax.html#img">img</a> tag.<br/>
+<br/>
+ In our case, for the first article, we can define:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      The content of the first article. Link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+
+<span>      The image with a path:</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"crocodile.png"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"20%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"articles"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"othercategory"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="add_an_image_specified_by_its_id_to_the_two_articles">Add an image specified by its id to the two articles</h2>
+ We will define an image and use this same image in our two articles. It is simpler in this case to define the image in an XML file, and use the image id ratehr than its relative path.
+<h3 id="define_the_image">Define the image</h3>
+Images are defined in one or several XML files with the  <a href="article_imageFiles.html">images</a> root element.<br/>
+<br/>
+ For example, let's define one image representing a bowling ball: <img src="../images/ball.jpg" alt="image1" id="_image_0" onclick="openImage(_image_0)" width="40" class="left" />
+. We need to:<ul>
+<li>Put the image file anywhere want in our input directory</li>
+<li>Create an XML file which defines an ID for this image</li>
+</ul>
+<br/>
+<br/>
+ In our case, the XML file defining our only image could have the following content:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;images&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;image</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball.jpg"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/images&gt;</span>
+</pre>
+ In our tutorial, we will have the following file structure:<br/>
+
+<pre class="margin unlimited" >
+<span>     myWiki</span>
+<span>      -- doc-files</span>
+<span>      ---- crocodile.png</span>
+<span>      -- images</span>
+<span>      ---- images.xml</span>
+<span>      ---- ball.jpg</span>
+<span>      -- article1.xml</span>
+<span>      -- article2.xml</span>
+<span>      -- index.xml</span>
+</pre>
+
+<h3 id="use_the_image_in_our_articles">Use the image in our articles</h3>
+To use an image, you only need to refer to the image ID anywhere with the  <a href="article_syntax.html#img">img</a> tag.<br/>
+<br/>
+ In our case, for the first article, we can define:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      The content of the first article. Link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+
+<span>      The image with a path:</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"crocodile.png"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+
+<span>      The image with an id:</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"articles"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"othercategory"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ We can also use the same image for the second article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      The content of the second article. Link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+
+<span>      The image:</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"articles"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ Let's generate the wiki. Now the first article looks like that:<br/>
+<br/>
+<img src="../images/tutorial2_1.png" alt="tutorial2_1" id="_image_1" onclick="openImage(_image_1)" width="50%" class="left simpleBorder marginSmall" />
+
+<h2 id="link_to_in_internal_resource_file">Link to in internal resource file</h2>
+ We would like to link to an XML file in our articles and show the content of the resource file in the browser when clicking on the link.<br/>
+<br/>
+ It would not be possible to do this if your file was "in the same directory" as our articles, because the generator would try to parse the XML file as it does for articles and other XML files defiing the structure of our wiki.<br/>
+<br/>
+ To avoid this, we will create a sub-directory named "doc-files" anywhere in our wiki structure<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_2_">[1]</sup></a>
+<div class="tooltiptext">
+see  <a href="article_docfiles.html">doc-files</a></div></span>
+. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>     myWiki</span>
+<span>      -- doc-files</span>
+<span>      -- article1.xml</span>
+<span>      -- article2.xml</span>
+<span>      -- index.xml</span>
+</pre>
+ We can now add our "myXMLFile.xml" file in this new directory:<br/>
+
+<pre class="margin unlimited" >
+<span>     myWiki</span>
+<span>      -- doc-files</span>
+<span>         -- myXMLFile.xml</span>
+<span>      -- article1.xml</span>
+<span>      -- article2.xml</span>
+<span>      -- index.xml</span>
+</pre>
+ The parser will not take into account directories named "doc-files" anywhere in the wiki structure<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_3_">[1]</sup></a>
+<div class="tooltiptext">
+see  <a href="article_docfiles.html">doc-files</a></div></span>
+.<br/>
+<br/>
+ Now we will link to the "myXMLFile.xml" file in the second article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      The content of the second article. Link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+
+<span>      The image:</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      The resource: </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;resource</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"myXMLFile.xml"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cat</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"articles"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ The resource will be looked under the "doc-files" sub-directory<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+You don't need to add the "doc-files" sub-directory in the path</div></span>
+.<br/>
+<br/>
+ Let's generate the wiki. Now the second article looks like that:<br/>
+<br/>
+<img src="../images/tutorial2_2.png" alt="tutorial2_2" id="_image_2" onclick="openImage(_image_2)" width="50%" class="left simpleBorder marginSmall" />
+<br/>
+   If you click on the resource link, you will see the content of the XML file.</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"><span class="noteRefLink">^</span> <a href="#_note_1_1_" class="noteRefLink">[1]</a> <a href="#_note_1_2_" class="noteRefLink">[2]</a> <a href="#_note_1_3_" class="noteRefLink">[3]</a> see  <a href="article_docfiles.html">doc-files</a></li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> You don't need to add the "doc-files" sub-directory in the path</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_tutorial1.html">First tutorial</a>: This article is a tutorial explaining how to create your first wiki</li>
+<li> <a href="article_tutorials.html">Tutorials</a>: This article presents a list of tutorials</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_tutorials.html">Tutorials</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

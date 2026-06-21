@@ -1,0 +1,192 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Ant integration - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_ant.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Ant integration</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#usage">1&nbsp; Usage</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_the_tool_in_ant_in_a_complex_build_process">2&nbsp; Using the tool in ant in a complex build process</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_the_configuration_file">3&nbsp; Using the configuration file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">4&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#basic_example">4.1&nbsp; Basic example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#adding_a_search_box">4.2&nbsp; Adding a Search box</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#usage_of_a_configuration_file">4.3&nbsp; Usage of a configuration file</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ It is possible to integrate the application in an ant build file.
+<h2 id="usage">Usage</h2>
+ You must define at least the following properties:<ul>
+<li>"-input": the  <a href="article_commandline.html#input">input XML wiki directory</a></li>
+<li>"-output": the  <a href="article_commandline.html#output">output XML wiki directory</a></li>
+</ul>
+<br/>
+<br/>
+ You must also set the classpath for the application.<br/>
+<br/>
+ The most basic example is: In this basic example:<ul>
+<li>The input directory is "wiki/input", which is in the same directory as the ant file</li>
+<li>The output directory is "wiki/output", which is in the same directory as the ant file</li>
+<li>The application jar is also in the same directory as the ant file</li>
+</ul>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;java</span><span class="syntaxKeyWord2" style="font-weight:bold;"> classname</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"org.docgene.main.DocGenerator"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-input=wiki/input"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-output=wiki/output"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;classpath&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"docGenerator.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"plugins/scripts.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/classpath&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/java&gt;</span>
+</pre>
+
+<h2 id="using_the_tool_in_ant_in_a_complex_build_process">Using the tool in ant in a complex build process</h2>
+If the task which generates the wiki is used in a list of other tasks in ant, you may use the  <code>preventExit=true</code> property in the  <a href="article_commandline.html">command-line</a> or the  <a href="article_configFile.html">configuration file</a>.
+<h2 id="using_the_configuration_file">Using the configuration file</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_configFile.html">Configuration file</a></div>
+<br/>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="basic_example">Basic example</h3>
+ In this basic example:<ul>
+<li>The input directory is "wiki/input", which is in the same directory as the ant file</li>
+<li>The output directory is "wiki/output", which is in the same directory as the ant file</li>
+<li>The application jar is also in the same directory as the ant file</li>
+</ul>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;java</span><span class="syntaxKeyWord2" style="font-weight:bold;"> classname</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"org.docgene.main.DocGenerator"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-input=wiki/input"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-output=wiki/output"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;classpath&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"docGenerator.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"plugins/scripts.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/classpath&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/java&gt;</span>
+</pre>
+
+<h3 id="adding_a_search_box">Adding a Search box</h3>
+ In this example:<ul>
+<li>A  <a href="article_search.html">search box</a> allowing to search on the article titles and their table of contents sub-titles is added</li>
+</ul>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;java</span><span class="syntaxKeyWord2" style="font-weight:bold;"> classname</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"org.docgene.main.DocGenerator"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-input=wiki/input"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-output=wiki/output"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-search=titles"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;classpath&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"docGenerator.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/classpath&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;jvmarg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> line</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-Dfile.encoding=UTF-8"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/java&gt;</span>
+</pre>
+
+<h3 id="usage_of_a_configuration_file">Usage of a configuration file</h3>
+ In the following example:<ul>
+<li>A  <a href="article_configFile.html">configuration file</a> is used</li>
+<li>A  <a href="article_properties.html">property</a> is used to write the version number. It uses the ant ${version} property</li>
+</ul>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;target</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"generateWiki"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> description</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"generate Wiki"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> depends</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"version"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;java</span><span class="syntaxKeyWord2" style="font-weight:bold;"> classname</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"org.docgene.main.DocGenerator"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-input=wiki/input"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-output=wiki/output"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-search=titles"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-config=wikisource/config.properties"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-$version=${version}"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;classpath&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"docGenerator.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/classpath&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;jvmarg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> line</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-Dfile.encoding=UTF-8"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/java&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/target&gt;</span>
+</pre>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

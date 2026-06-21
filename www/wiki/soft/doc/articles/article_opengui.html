@@ -1,0 +1,151 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Opening the GUI - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_opengui.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Opening the GUI</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#use_the_launcher">1&nbsp; Use the launcher</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">1.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">2&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+Double clicking on the Jar file of the application without specifying any command-line parameter will open the  <a href="article_gui.html">GUI interface</a> of the application.<br/>
+ <img src="../images/gui.png" alt="gui" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ However, beginning with Java 11, the  <a href="article_editor.html">editor</a> will not be available by default because it relies on JavaFX to show the html content of  <a href="article_articles.html">articles</a>, and JavaFX is not bundled with the JRE installation. However you have other options to open the GUI with the editor functionality. 
+<h2 id="use_the_launcher">Use the launcher</h2>
+If you double-click on the  <code>launcher.jar</code> jar file in the install directory, you will open the  <a href="article_gui.html">GUI interface</a> and the  <a href="article_editor.html">Editor</a> will be available.<br/>
+<br/>
+ You need to configure the  <code>docgenerator.conf</code> file in the same directory. This is a properties file containing two properties:<ul>
+<li> <code>JAVAHOME</code>: the path of the JAVA_HOME directory. If you don't specify the path or it is empty, the default JRE location will be used<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Note that you can also specify a JDK installation</div></span>
+</li>
+<li> <code>JAVAFXLIB</code>: the path of the JavaFX library. If the JRE is less than Java 11, this will not be used because before Java 11, JavaFX is bundled with the JRE installation</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The path separator can use the Unix format (slash) or the Windows format (anti-slash).</div>
+
+<h3 id="example">Example</h3>
+ In this first example, you specify both the JRE installation, and the JavaFX libraries (because the version is Java 17, and it is not the default Java installation, and JavaFX is not bundled with the JRE installation for Java 17): <br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   JAVAHOME</span><span>=L:\WRK\Java\Tools\jre-17.0.2</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   JAVAFXLIB</span><span>=L:\WRK\Java\Tools\javafx17\lib</span>
+</pre>
+ In this second example, you don't specify the JRE installation, nor the JavaFX libraries, because we suppose that Java 8 is the default installation for Java<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   JAVAHOME</span><span>=</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   JAVAFXLIB</span><span>=</span>
+</pre>
+ In this last example, you don't specify the JRE installation, because we suppose that Java 17 is the default installation for Java, but we need to specify the JavaFX libraries for JavaFX 17: <br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   JAVAHOME</span><span>=</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   JAVAFXLIB</span><span>=L:\WRK\Java\Tools\javafx17\lib</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Note that you can also specify a JDK installation</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_gui.html">GUI interface</a>: This article is about the GUI interface of the application</li>
+<li> <a href="article_editor.html">Editor</a>: This article explains the DocGenerator editor</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

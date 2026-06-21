@@ -1,0 +1,132 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Dictionary - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_dictionnary.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Dictionary</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#adding_a_description_to_the_dictionary">1&nbsp; Adding a description to the dictionary</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#prevent_an_article_alternate_title_to_be_in_the_dictionary">2&nbsp; Prevent an article alternate title to be in the dictionary</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#getting_rid_of_the_dictionary">3&nbsp; Getting rid of the dictionary</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The wiki generator automatically generates a dictionary of all the articles. This dictionary can be accessed from any page in the wiki.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The element can also be spelled "dictionnary".</div>
+
+<h2 id="adding_a_description_to_the_dictionary">Adding a description to the dictionary</h2>
+ It is possible to add a content to the dictionary. This can be specified in an XML files with the "dictionary" root.<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dictionary&gt;</span>
+<span>      The wiki has ${count} articles.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/dictionary&gt;</span>
+</pre>
+
+<h2 id="prevent_an_article_alternate_title_to_be_in_the_dictionary">Prevent an article alternate title to be in the dictionary</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_regulararticle.html#alttitle_element">altTitle element</a></div>
+<br/>
+ It is possible to prevent an article  <a href="article_regulararticle.html#alttitle_element">altTitle</a> to be put in the  <a href="">dictionary</a> and  <a href="article_categories.html">categories</a> by setting its "dictionary" attribute to false. <br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article name"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;altTitle</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the other name"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> dictionary</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="getting_rid_of_the_dictionary">Getting rid of the dictionary</h2>
+The "hasDictionary" property in the  <a href="article_configFile.html#hasdictionary">configuration file</a> or the   <a href="article_commandline.html#hasdictionary">command-line</a> specifies if the wiki must have a dictionary (by  default a dictionary is generated).<br/>
+<br/>
+ If the propety is set to false, then the dictionary will not be generated, even if the menu item for the dictionary is explictely specified in a   <a href="article_customleftmenu.html">custom left menu</a>.   </div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_typesoffiles.html">Types of files</a>: This article explains the types of files which can be found in the wiki input</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Editing in the Editor tree - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editortreeedit.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Editing in the Editor tree</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#adding_elements">1&nbsp; Adding elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#deleting_elements">2&nbsp; Deleting elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ Right-clicking on the tree will show in the following menu:<br/>
+ <img src="../images/treerightclick.png" alt="editortree-rightclick" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+<ul>
+<li>The "Add After" (or "Add Under" option if you selected a directory) option will allow to add an element after (or under) the selected element</li>
+<li>The "Delete" option allows to delete the selected element</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The  <a href="article_dependencies_1.html">dependencies</a> of the elements in the wiki will be updated after adding or removing an element.</div>
+<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ It is not possible to delete an  <a href="article_indexfiles.html">index article</a>. Also it is not possible to add an index article if there is already one in the wiki.</div>
+
+<h2 id="adding_elements">Adding elements</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_editortreeeditadd.html">Adding an element in the Editor tree</a></div>
+<br/>
+<br/>
+ <img src="../images/editoraddafter.png" alt="editortree-addafter" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+ The "Add After" or "Add Under" option allows to add an element in the tree (respecting the structure of the file system). You can add:<ul>
+<li> <a href="article_indexfiles.html">Index article</a>. Note that this options is only availabel is no index article exists in the Wiki</li>
+<li> <a href="article_articles.html">articles</a>, including  <a href="article_regulararticle.html">regular articles</a>, the  <a href="article_indexfiles.html">index article</a>,  <a href="article_templates.html">Template articles</a>,  <a href="article_redirectarticles.html">redirect articles</a>, or  <a href="article_disambarticles.html">Disambiguation articles</a></li>
+<li> <a href="article_imageFiles.html">Image definition files</a></li>
+<li> <a href="article_resourceFiles.html">Resource definition files</a></li>
+<li> <a href="article_infoboxtemplate.html">Infobox definition files</a></li>
+<li> <a href="article_custommenus.html">Menus</a></li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ When you add the element, the associated file will immediately be created on the file system.</div>
+
+<h2 id="deleting_elements">Deleting elements</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_editortrash.html">Editor trash</a></div>
+<br/>
+ When deleting an element, you will see a window prompt asking you if you really want to delete the associated file:<br/>
+ <img src="../images/editordelete.png" alt="editortree-delete" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+<br/>
+ The deleted element will be added in the  <a href="article_editortrash.html">trash</a> after deleting the element.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ When you remove the element, the associated file will immediately be deleted on the file system after you confirm the prompt.</div>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editor.html">DocGenerator editor</a>: This article explains the DocGenerator editor</li>
+<li> <a href="article_editortree.html#actions_in_the_tree">Editor tree</a>: This article is about the left panel of the editor window, which shows the tree of the wiki</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_editor.html">Editor</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

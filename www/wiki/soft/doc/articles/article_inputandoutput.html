@@ -1,0 +1,108 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Input and ouput - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_inputandoutput.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Input and ouput</h1>
+
+<hr/>
+<div  class="justifiedAuto alignedNone" >
+The two main options in the  <a href="article_commandline.html">command-line</a> arguments are those relative to the input (the source of the wiki) and output of the wiki:<ul>
+<li><a class="highlightAnchor" id="input">"input"</a>: the input directory or directories where the input XML files and image resources are to be found. If there are more than one directory, the directories paths must be separated by the ";" character. See  <a href="article_roots.html">root directories and packages</a> if you want an explanation on how to use the generator with more than one root directory</li>
+<li><a class="highlightAnchor" id="output">"output"</a>: the output directory</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ You must choose one or more input directories, and one output directory for the wiki.</div>
+
+<h2 id="minimal_options">Minimal options</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_basicusage.html">Basic usage</a></div>
+<br/>
+ The minimal arguments for the  <a href="article_commandline.html">command-line starting</a> of the application only specifies the input and the output. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output</span>
+<span>      java -jar docGenerator.jar -input=wiki/input1;wiki/input2 -output=wiki/output</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_roots.html">Root directories and packages</a>: This article explains how to use the generator with more than one root directory</li>
+<li> <a href="article_commandline.html">Command-line starting</a>: This article is about how to execute the application by the command-line without showing the UI</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

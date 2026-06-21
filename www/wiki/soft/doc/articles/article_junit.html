@@ -1,0 +1,231 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Ordering unit tests - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_junit.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Ordering unit tests</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#ordering_unit_tests">1&nbsp; Ordering Unit Tests</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">1.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#group_unit_tests_classes_in_categories">2&nbsp; Group Unit Tests classes in Categories</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#discovering_categories">2.1&nbsp; Discovering categories</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#discovering_the_categories_file">2.1.1&nbsp; Discovering the categories file</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#file_structure">2.1.2&nbsp; File structure</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#strictmode">2.1.3&nbsp; StrictMode</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#showskippedclasses">2.1.4&nbsp; ShowSkippedClasses</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#unit_tests_categories">2.1.5&nbsp; Unit tests categories</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_the_docgenerator_class_directly">3&nbsp; Using the DocGenerator class directly</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ Unit tests for rhe project are grouped in Categories, and allow to configure which categories will be run.<br/>
+<br/>
+ Also test methods for a test class can be ordered.
+<h2 id="ordering_unit_tests">Ordering Unit Tests</h2>
+ To order Unit Tests methods in a Unit Test class, you have to:<ul>
+<li>Annotate the Unit test class with the  <code>org.mdiutil.junit.OrderedRunner</code> annotation</li>
+<li>Annotate each method in the Unit Test class with the  <code>org.mdiutil.junit.Order</code> annotation</li>
+</ul>
+
+<h3 id="example">Example</h3>
+ If a test class has the two following methods:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">class</span><span> MyTest {</span>
+
+<span>   @Test</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">test1</span><span>() {</span>
+<span>   ...</span>
+<span>   }</span>
+
+<span>   @Test</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">test2</span><span>() {</span>
+<span>   ...</span>
+<span>   }</span>
+</pre>
+ Nothing prevents the tests to be executed in the order test2() <span style="font-weight: bold;">then</span> test1(). To ensure that the order will be test1() <span style="font-weight: bold;">then</span> test2(), you can use:<br/>
+
+<pre class="margin unlimited" >
+<span>   @</span><span class="syntaxDefault" style="font-weight:bold;">RunWith</span><span>(OrderedRunner.</span><span class="syntaxKeyWord1" style="font-weight:bold;">class</span><span>)</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">class</span><span> MyTest {</span>
+
+<span>   @Test</span>
+<span>   @</span><span class="syntaxDefault" style="font-weight:bold;">Order</span><span>(order=1)</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">test1</span><span>() {</span>
+<span>   ...</span>
+<span>   }</span>
+
+<span>   @Test</span>
+<span>   @</span><span class="syntaxDefault" style="font-weight:bold;">Order</span><span>(order=2)</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">test2</span><span>() {</span>
+<span>   ...</span>
+<span>   }</span>
+</pre>
+
+<h2 id="group_unit_tests_classes_in_categories">Group Unit Tests classes in Categories</h2>
+ To specify the categories on which a Unit Test belongs to, you should:<ul>
+<li>Annotate the Unit test class with the  <code>org.mdiutil.junit.CategoryRunner</code> annotation</li>
+<li>Add an  <code>org.mdiutil.junit.Category</code> annotation for each category the Test Clas belongs to</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ OrderedRunners are CategoryRunners, so in many cases you only need to use an OrderedRunner.</div>
+
+<h3 id="discovering_categories">Discovering categories</h3>
+
+<h4 id="discovering_the_categories_file">Discovering the categories file</h4>
+To execute the Unit Tests which belong to one or several categories, you should use the <span style="font-style: italic;">categories.properties</span> file in a  <code>org.mdiutil.junit.resources</code> package in the unit tests directory.
+<h4 id="file_structure">File structure</h4>
+The <span style="font-style: italic;">categories.properties</span> file is a properties file with (key, value) pairs:<ul>
+<li>The key is the category name</li>
+<li>The value is true or false: true indicates that the tests of the specified category should run, false that they should not run</li>
+</ul>
+ Note that if no values are defined, all Unit tests will be run.
+<h4 id="strictmode">StrictMode</h4>
+ If the "strictMode" value is true, only tests which belong to all "true" categories will be executed. For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   strictMode</span><span>=true</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   editor</span><span>=</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   server</span><span>=</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   client</span><span>=false</span>
+</pre>
+ Only Unit Tests annotated by both "editor" and "server" will run.
+<h4 id="showskippedclasses">ShowSkippedClasses</h4>
+ If the "showSkippedClasses" value is true, tests which are not executed will be set as Ignored. For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   showSkippedClasses</span><span>=true</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   editor</span><span>=</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   server</span><span>=</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   client</span><span>=false</span>
+</pre>
+ If "showSkippedClasses" value is false, then tests which are not executed will not be shown at all.<br/>
+<br/>
+ Note that by default showSkippedClasses is set as true. For example, in Netbeans, you would see this when executing the tests of the MDIUtilities project with the following configuration:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   strictMode</span><span>=false</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   long</span><span>=</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   pack</span><span>=</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   archi</span><span>=false</span>
+</pre>
+
+<h4 id="unit_tests_categories">Unit tests categories</h4>
+<div class="moreInfo" >
+Main Article: <a href="article_unittestcategories.html">Unit tests categories</a></div>
+<br/>
+
+<h2 id="using_the_docgenerator_class_directly">Using the DocGenerator class directly</h2>
+When using the  <code>org.docgene.main.DocGenerator</code> class directly to generate the wiki in Unit tests, you may have the following JVM error:<br/>
+
+<pre class="margin unlimited" >
+<span>      Forked Java VM exited abnormally. Please note the time in the report does not reflect the time until the VM exit.</span>
+<span>      junit.framework.AssertionFailedError: Forked Java VM exited abnormally. Please note the time in the report does not reflect the time until the VM exit.      </span>
+</pre>
+ This error may be due to the fact that the class will exit by executing <code><span>System.</span><span class="syntaxDefault" style="font-weight:bold;">exit</span><span>(0)</span></code> exiting the JVM before the Unit test class could be executed completely. To fix this problem, you must use the <code><span>DocGenerator.</span><span class="syntaxDefault" style="font-weight:bold;">preventExit</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);</span></code> before exeucting the generation. <br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      @Test</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">testApply</span><span>() {      </span>
+<span>         String[] args = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> String[2];</span>
+<span>         URL url = </span><span class="syntaxLiteral" style="font-weight:bold;">this</span><span>.</span><span class="syntaxDefault" style="font-weight:bold;">getClass</span><span>().</span><span class="syntaxDefault" style="font-weight:bold;">getResource</span><span>(</span><span class="syntaxLiteral" style="">"input"</span><span>);</span>
+<span>         File inputFile = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">File</span><span>(url.</span><span class="syntaxDefault" style="font-weight:bold;">getFile</span><span>());</span>
+<span>         url = </span><span class="syntaxLiteral" style="font-weight:bold;">this</span><span>.</span><span class="syntaxDefault" style="font-weight:bold;">getClass</span><span>().</span><span class="syntaxDefault" style="font-weight:bold;">getResource</span><span>(</span><span class="syntaxLiteral" style="">"output"</span><span>);</span>
+<span>         File outputFile = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">File</span><span>(url.</span><span class="syntaxDefault" style="font-weight:bold;">getFile</span><span>());</span>
+<span>         args[0] = </span><span class="syntaxLiteral" style="">"-output="</span><span> + outputFile.</span><span class="syntaxDefault" style="font-weight:bold;">getPath</span><span>();</span>
+<span>         args[1] = </span><span class="syntaxLiteral" style="">"-input="</span><span> + inputFile.</span><span class="syntaxDefault" style="font-weight:bold;">getPath</span><span>();</span>
+<span>         DocGenerator gene = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGenerator</span><span>();</span>
+<span>         </span><span class="syntaxDefault" style="background-color:#ffff00;">gene.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">preventExit</span><span class="syntaxDefault" style="background-color:#ffff00;">(</span><span class="syntaxLiteral" style="background-color:#ffff00;font-weight:bold;">true</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span>         gene.</span><span class="syntaxDefault" style="font-weight:bold;">launch</span><span>(args); </span>
+<span>      }     </span>
+</pre>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_development.html">Development</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

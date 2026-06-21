@@ -1,0 +1,212 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DocGenerator API: merging several generations - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_merginggenerations.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DocGenerator API: merging several generations</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#use_case">1&nbsp; Use case</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#configure_the_index_generation">2&nbsp; Configure the index generation</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#configure_the_resources_generation">3&nbsp; Configure the resources generation</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#creating_an_opaque_article">4&nbsp; Creating an opaque article</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_a_default_content">4.1&nbsp; Setting a default content</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article presents how to merge several generations using the docGenerator API. This can be useful if for example you want several applications to contribute to the same wiki, rather than relying on only one generation. To be able to do this, the api allows to:<ul>
+<li>Define <span style="font-style: italic;">opaque</span> articles, which are articles which can be used in references but are not generated. it will allow for another generator to  generate the content associated with the article, and merge the articles from several generators</li>
+<li>Don't write the  <a href="article_indexfiles.html">index article</a> and if it already exist, or don't generate it at all</li>
+<li>Don't write the  <a href="article_outputstructure.html#resources_sub-directory">resources</a> directory content and if it already exist, or don't generate it at all</li>
+</ul>
+
+<h2 id="use_case">Use case</h2>
+ A use case for merging several generations is if you have several applications which contribute to parts (i.e. articles) of  the same wiki.<br/>
+<br/>
+ For example you can have:<ul>
+<li>A  <code>MyMainApplication.jar</code> application which generates some articles</li>
+<li>A  <code>MyOtherApplication.jar</code> application which generates other specific articles</li>
+</ul>
+You might also want to be able to regenerate at will only part of the wiki, by running  <code>MyMainApplication.jar</code> or <code>MyOtherApplication.jar</code> at will, and only update the articles which are produced by the associated application.
+<h2 id="configure_the_index_generation">Configure the index generation</h2>
+It is possible to configure if the  <a href="article_indexfiles.html">index article</a> will be written. This is specified through the  <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setIndexGenerationType-char-" class="apiLink" title="DocGeneratorAPI.setIndexGenerationType(char)">DocGeneratorAPI.setIndexGenerationType(char)</a> method:<ul>
+<li>If the argument is <a href="../javadoc/docgeneratorAPI/org/docgene/main/FilegenerationType.html#GENERATE_NEVER" class="apiLink" title="FilegenerationType.GENERATE_NEVER">FilegenerationType.GENERATE_NEVER</a>, then the index article will not be written</li>
+<li>If the argument is <a href="../javadoc/docgeneratorAPI/org/docgene/main/FilegenerationType.html#GENERATE_IF_NOT_EXIST" class="apiLink" title="FilegenerationType.GENERATE_IF_NOT_EXIST">FilegenerationType.GENERATE_IF_NOT_EXIST</a>, then the index article will only be  written if it does not exist</li>
+<li>If the argument is <a href="../javadoc/docgeneratorAPI/org/docgene/main/FilegenerationType.html#GENERATE_ALWAYS" class="apiLink" title="FilegenerationType.GENERATE_ALWAYS">FilegenerationType.GENERATE_ALWAYS</a> (the default), or all other values, then the index article will be written regardless if it exists or not</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// don't generate the index file</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setIndexGenerationType</span><span>(FilegenerationType.GENERATE_NEVER);      </span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"article1"</span><span>);</span>
+<span>         </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a sentence in the article</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"this is the article"</span><span>);</span>
+<span>         </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// generate the wiki</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">writeContent</span><span>();           </span>
+</pre>
+
+<h2 id="configure_the_resources_generation">Configure the resources generation</h2>
+It is possible to configure if the  <a href="article_outputstructure.html#resources_sub-directory">resources</a> sub-directory will be written. This is specified through the  <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setResourcesGenerationType-char-" class="apiLink" title="DocGeneratorAPI.setResourcesGenerationType(char)">DocGeneratorAPI.setResourcesGenerationType(char)</a> method:<ul>
+<li>If the argument is <a href="../javadoc/docgeneratorAPI/org/docgene/main/FileGenerationType.html#GENERATE_NEVER" class="apiLink" title="FileGenerationType.GENERATE_NEVER">FileGenerationType.GENERATE_NEVER</a>, then the index article will not be written</li>
+<li>If the argument is <a href="../javadoc/docgeneratorAPI/org/docgene/main/FileGenerationType.html#GENERATE_IF_NOT_EXIST" class="apiLink" title="FileGenerationType.GENERATE_IF_NOT_EXIST">FileGenerationType.GENERATE_IF_NOT_EXIST</a>, then the index article will only be  written if it does not exist</li>
+<li>If the argument is <a href="../javadoc/docgeneratorAPI/org/docgene/main/FileGenerationType.html#GENERATE_ALWAYS" class="apiLink" title="FileGenerationType.GENERATE_ALWAYS">FileGenerationType.GENERATE_ALWAYS</a> (the default), or all other values, then the index article will be written regardless if it exists or not</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// don't generate the resources files</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setResourcesGenerationType</span><span>(FilegenerationType.GENERATE_NEVER);      </span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"article1"</span><span>);</span>
+<span>         </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a sentence in the article</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"this is the article"</span><span>);</span>
+<span>         </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// generate the wiki</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">writeContent</span><span>();           </span>
+</pre>
+
+<h2 id="creating_an_opaque_article">Creating an opaque article</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_opaquearticles.html">DocGenerator API: opaque articles</a></div>
+<br/>
+ Several methods allow to create an <span style="font-style: italic;">opaque</span> article, which is an article which can be used in   <a href="article_references.html">references</a>, but for which no file will be generated in the wiki:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#createOpaqueArticle-java.lang.String-" class="apiLink" title="DocGeneratorAPI.createOpaqueArticle(java.lang.String)">DocGeneratorAPI.createOpaqueArticle(String)</a> create an opaque article with the specified description</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#createOpaqueArticle-java.lang.String-boolean-" class="apiLink" title="DocGeneratorAPI.createOpaqueArticle(java.lang.String, boolean)">DocGeneratorAPI.createOpaqueArticle(String, boolean)</a> create an opaque article with the specified description</li>
+</ul>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article which will be usable as a reference but will not be written</span>
+<span>   OpaqueArticle opaqueArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">createOpaqueArticle</span><span>(</span><span class="syntaxLiteral" style="">"the opaque article"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create a second article and adds a paragraph</span>
+<span>   XMLArticle article2 = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the second article"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a reference to the opaque article</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addReference</span><span>(article2, </span><span class="syntaxLiteral" style="">"the opaque article"</span><span>, </span><span class="syntaxLiteral" style="">"the opaque reference"</span><span>);      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// could also be done with:</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addReference</span><span>(article2, opaqueArticle, </span><span class="syntaxLiteral" style="">"the reference"</span><span>);            </span>
+</pre>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ This allows to generate a wiki through several applications, and merge their content (providing the wiki content is not cleaned in the generators).</div>
+
+<h3 id="setting_a_default_content">Setting a default content</h3>
+It is possible to create an output file and set a default content for the opaque article <span style="font-weight: bold;">if the article is not already existing</span>. This avoids to make a  reference to a non existing file if the other application did not create the article (yet). For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an opaque article</span>
+<span>   OpaqueArticle opaqueArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">createOpaqueArticle</span><span>(</span><span class="syntaxLiteral" style="">"the opaque article"</span><span>);</span>
+<span>   opaqueArticle.</span><span class="syntaxDefault" style="font-weight:bold;">setDefaultContent</span><span>(</span><span class="syntaxLiteral" style="">"Default content for the opaque article"</span><span>);                </span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_createcontent.html">DocGenerator API: creating the wiki content</a>: This article presents how to create the wiki content through docJGenerator API</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_api.html">Api</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

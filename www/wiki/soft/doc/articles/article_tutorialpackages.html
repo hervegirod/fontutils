@@ -1,0 +1,247 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Packages tutorial - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_tutorialpackages.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Packages tutorial</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#create_the_wiki_directory_structure">1&nbsp; Create the wiki directory structure</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_the_content_of_the_open_sourced_package">2&nbsp; Create the content of the Open Sourced package</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_the_content_of_the_closed_sourced_package">3&nbsp; Create the content of the Closed Sourced package</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_an_index">4&nbsp; Adding an index</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#enforce_the_dependencies_between_the_two_packages">5&nbsp; Enforce the dependencies between the two packages</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#generate_the_wiki_with_two_packages">6&nbsp; Generate the wiki with two packages</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_an_index_outside_the_packages">7&nbsp; Adding an index outside the packages</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#generate_the_wiki_with_ony_the_open_package">8&nbsp; Generate the wiki with ony the open package</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">9&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article is a tutorial to use  <a href="article_roots.html">packages</a> in your wiki. We will separate Open Source and Closed Source content, and generate:<ul>
+<li>One external wiki with only the Open Source content</li>
+<li>One internal wiki for your organisartion (for example) with both the Open Source and the Closed Source content</li>
+</ul>
+ We will:<ul>
+<li>Create the Open Source content in a package</li>
+<li>Create the Closed Source content in another package</li>
+<li>Generate the wiki for the Open Source content only</li>
+<li>Generate the wiki for both the Open Source and the Closed Source content</li>
+<li>Play with putting the  <a href="article_indexfiles.html">index</a> outside of the packages and configure the generation of the index with a  <a href="article_syntaxcondition.html">condition</a></li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The solution of this tutorial is in the  <code>docGenerator-tutorial-&lt;version&gt;.zip</code>, in the  <code>packageTutorial</code> directory.</div>
+
+<h2 id="create_the_wiki_directory_structure">Create the wiki directory structure</h2>
+ We will create two directories:<ul>
+<li>One <span style="font-style: italic;">open</span> directory which will contain a package with the Open Sourced articles</li>
+<li>One <span style="font-style: italic;">closed</span> directory which will contain a package with the Closed Sourced articles</li>
+</ul>
+To specify the content of the  <a href="article_roots.html">packages</a>, we will add a <span style="font-style: italic;">package.xml</span> file in the <span style="font-style: italic;">open</span> directory with the following content:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> package</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"openPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ and <span style="font-style: italic;">package.xml</span> file in the <span style="font-style: italic;">closed</span> directory with the following content:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> package</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"closedPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ We now have two packages, one for the Open Sourced content, and one for the Closed Sourced content.
+<h2 id="create_the_content_of_the_open_sourced_package">Create the content of the Open Sourced package</h2>
+We will create two articles in the <span style="font-style: italic;">open</span> directory. First let's create the first article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The content of the first article. Link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ An now the second article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The content of the second article.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="create_the_content_of_the_closed_sourced_package">Create the content of the Closed Sourced package</h2>
+We will also create two articles in the <span style="font-style: italic;">closed</span> directory. First let's create the first article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"closed article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The closed content of the article.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ An now the second article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second closed article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The closed content of the article. A link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"closed article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ We want to add a link from the first article in the <span style="font-style: italic;">closedPackage</span> package to the first article in the <span style="font-style: italic;">openPackage</span> package. For that, we have to add the  <code>package</code> attribute to the  <a href="article_syntax.html#ref">reference</a>:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"closed article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      The closed content of the article. </span><span class="syntaxDefault" style="background-color:#ffff00;">Link to the </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="background-color:#ffff00;font-weight:bold;"> id</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">=</span><span class="syntaxLiteral" style="background-color:#ffff00;">"first article"</span><span class="syntaxKeyWord2" style="background-color:#ffff00;font-weight:bold;"> package</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">=</span><span class="syntaxLiteral" style="background-color:#ffff00;">"openPackage"</span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">/&gt;</span><span class="syntaxDefault" style="background-color:#ffff00;">.</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="adding_an_index">Adding an index</h2>
+We will just create an  <a href="article_indexfiles.html">index</a> article in the <span style="font-style: italic;">open</span> directory (the <span style="font-style: italic;">openPackage</span> package):<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;index&gt;</span>
+<span>   A link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+
+<span>   A link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"closed article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> package</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"closedPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/index&gt;</span>
+</pre>
+
+<h2 id="enforce_the_dependencies_between_the_two_packages">Enforce the dependencies between the two packages</h2>
+We accept dependencies from <span style="font-style: italic;">closedPackage</span> to <span style="font-style: italic;">openPackage</span>, but not from <span style="font-style: italic;">openPackage</span> to <span style="font-style: italic;">closedPackage</span>:<br/>
+ <img src="../images/tutorialPackages.png" alt="tutorialPackages" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ The  <a href="article_packagedepend.html">packages dependencies</a> file will be:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"openPackage"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"closedPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> check</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"refuse"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"closedPackage"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"openPackage"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> check</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+
+<h2 id="generate_the_wiki_with_two_packages">Generate the wiki with two packages</h2>
+To generate the wiki with the two packages, we will specify both the <span style="font-style: italic;">open</span> and the <span style="font-style: italic;">closed</span> directories in the "Input Directories" field:<br/>
+ <img src="../images/tutorialPackages2.png" alt="tutorialPackages2" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+ Then the Packages Dependencies file we just created in the "Errors" tab:<br/>
+ <img src="../images/tutorialPackages3.png" alt="tutorialPackages3" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+<br/>
+ However, after we Click on Apply, we have the following error message:<br/>
+ <img src="../images/tutorialPackages4.png" alt="tutorialPackages4" id="_image_3" onclick="openImage(_image_3)" class="left marginSmall" />
+
+<h2 id="adding_an_index_outside_the_packages">Adding an index outside the packages</h2>
+The reason of the error is that we have an unwanted dependency between the <span style="font-style: italic;">openPackage</span> to the <span style="font-style: italic;">closedPackage</span>. However, we want to include the reference to the <span style="font-style: italic;">closed article</span> in the index, but we can't do that if the index is in the <span style="font-style: italic;">openPackage</span>. We can put the index outside of the packages:<br/>
+<br/>
+ Let's copy our  <a href="article_indexfiles.html">index</a> article outside of the two directories, and specify it by the "Alternate Input Index File" field in the GUI:<br/>
+ <img src="../images/tutorialPackages5.png" alt="tutorialPackages5" id="_image_4" onclick="openImage(_image_4)" class="left marginSmall" />
+<br/>
+ Now we don't have an error anymore.
+<h2 id="generate_the_wiki_with_ony_the_open_package">Generate the wiki with ony the open package</h2>
+We want to be able to generate the wiki with only the <span style="font-style: italic;">openPackage</span> package. To do that, we just have to remove the <span style="font-style: italic;">closed</span> directory in the "Input Directories" list. However, we have the following error:<br/>
+ <img src="../images/tutorialPackages6.png" alt="tutorialPackages6" id="_image_5" onclick="openImage(_image_5)" class="left marginSmall" />
+<br/>
+ The reason is that we refer to an article in the <span style="font-style: italic;">closedPackage</span> in the  <a href="article_indexfiles.html">index</a>, but this package does not exist anymore. A solution is to modify the content of the index to use a  <a href="article_syntaxcondition.html">condition</a> around the reference to this article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;index&gt;</span>
+<span>      A link to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> package</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"openPackage"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>.</span>
+<span>         </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">&lt;condition</span><span class="syntaxKeyWord2" style="background-color:#ffff00;font-weight:bold;"> condition</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">=</span><span class="syntaxLiteral" style="background-color:#ffff00;">"closedPackage"</span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">&gt;</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">&lt;if&gt;</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">            A link to the </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="background-color:#ffff00;font-weight:bold;"> id</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">=</span><span class="syntaxLiteral" style="background-color:#ffff00;">"closed article"</span><span class="syntaxKeyWord2" style="background-color:#ffff00;font-weight:bold;"> package</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">=</span><span class="syntaxLiteral" style="background-color:#ffff00;">"closedPackage"</span><span class="syntaxKeyWord2" style="background-color:#ffff00;font-weight:bold;"> </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">/&gt;</span><span class="syntaxDefault" style="background-color:#ffff00;">.</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">&lt;/if&gt;</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">      </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">&lt;/condition&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/index&gt;</span>
+</pre>
+   Now there is no error anymore when generating the wiki.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_tutorials.html">Tutorials</a>: This article presents a list of tutorials</li>
+<li> <a href="article_usingpackages.html#separating_open_source_from_closed_source_documentation">separating Open Source from Closed Source documentation</a>: This article explains how the use cases of packages</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_tutorials.html">Tutorials</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

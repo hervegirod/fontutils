@@ -1,0 +1,193 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Image margins - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_imagemargins.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Image margins</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#usage_of_margin_in_the_image_definition">1&nbsp; Usage of margin in the image definition</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#usage_of_margin_in_the_image_element">2&nbsp; Usage of margin in the image element</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">3&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#image_with_a_default_margin">3.1&nbsp; Image with a default margin</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#image_with_no_margin">3.2&nbsp; Image with no margin</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#image_with_a_large_margin">3.3&nbsp; Image with a large margin</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article explains how to use the margin element in images and images definitions.<br/>
+<br/>
+ The  <a href="article_imageFiles.html">Image definitions</a> and  <a href="article_syntaximg.html">img elements</a> both have an optional "margin" property which specifies the height of the margin  around the image.<br/>
+<br/>
+ Note that the margin around an image is only used for an image which is alone in its line. The possible values are:<ul>
+<li>No margin</li>
+<li>Small margin (the default value)</li>
+<li>Large margin</li>
+</ul>
+
+<h2 id="usage_of_margin_in_the_image_definition">Usage of margin in the image definition</h2>
+The "margin" property for the  <a href="article_imageFiles.html">image definition</a> can have the following values:<ul>
+<li>"false", "no", or "noMargin": no margin</li>
+<li>"true" or "small": small margin (the default)</li>
+<li>"large": large margin</li>
+</ul>
+By default, all the  <a href="article_syntaximg.html">img elements</a> using this definition will use the margin specified for the definition.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;images&gt;</span>
+<span>    </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;image</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"hand.png"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"30%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> margin</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"large"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>    </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;image</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"warning.png"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"30%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> margin</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"no"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>        </span>
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/images&gt;</span>
+</pre>
+
+<h2 id="usage_of_margin_in_the_image_element">Usage of margin in the image element</h2>
+The "margin" property for the  <a href="article_syntaximg.html">img element</a> can have the following values:<ul>
+<li>"false", "no", or "noMargin": no margin</li>
+<li>"inherit": inherit the value from the associated image definition (the default)</li>
+<li>"true" or "small": small margin</li>
+<li>"large": large margin</li>
+</ul>
+By default, all the  <a href="article_syntaximg.html">img elements</a> using this definition will use the margin specified for the definition. <br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"My article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>    </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> margin</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"large"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The margin parameter is not used in images inside a line or with a caption.</div>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="image_with_a_default_margin">Image with a default margin</h3>
+
+<pre class="margin unlimited" >
+<span>    The line before</span>
+<span>    </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"imgmargin"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>    The line after</span>
+</pre>
+ The line before<br/>
+ <img src="../images/imgmargin.png" alt="imgmargin" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ The line after 
+<h3 id="image_with_no_margin">Image with no margin</h3>
+
+<pre class="margin unlimited" >
+<span>    The line before</span>
+<span>    </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"imgmargin"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> margin</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"no"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>    The line after</span>
+</pre>
+ The line before<br/>
+ <img src="../images/imgmargin.png" alt="imgmargin" id="_image_1" onclick="openImage(_image_1)" class="left" />
+<br/>
+ The line after 
+<h3 id="image_with_a_large_margin">Image with a large margin</h3>
+
+<pre class="margin unlimited" >
+<span>    The line before</span>
+<span>    </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"imgmargin"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> margin</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"large"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>    The line after</span>
+</pre>
+ The line before<br/>
+ <img src="../images/imgmargin.png" alt="imgmargin" id="_image_2" onclick="openImage(_image_2)" class="left marginLarge" />
+<br/>
+    The line after                </div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_imageFiles.html">Image files</a>: This article is about specifying and using image files</li>
+<li> <a href="article_syntax.html#img">syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() 
+  {
+    $("#table_0").tablesorter(); 
+    $("#table_1").tablesorter(); 
+    $("#table_2").tablesorter(); 
+    $("#table_3").tablesorter(); 
+    $("#table_4").tablesorter(); 
+    $("#table_5").tablesorter(); 
+  }
+);
+</script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Editor article popup menu elements list - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editorpopupeltslist.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Editor article popup menu elements list</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#start_elements">1&nbsp; Start elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#end_elements">2&nbsp; End elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#structure_elements">3&nbsp; Structure elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#content_elements">4&nbsp; Content elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#justification">5&nbsp; Justification</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#revisions">6&nbsp; Revisions</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article presents the list of elements which can be added in the Editor  <a href="article_editoreditionmode.html#adding_elements_in_the_content">popup menu</a>.
+<h2 id="start_elements">Start elements</h2>
+
+<table id="table_0" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >Start elements</caption>
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Element</th>
+<th valign="middle"  class="column border" >Menu</th>
+<th valign="middle"  width="300" class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#meta">meta</a></td>
+<td valign="middle" class="border paddingDefault">Meta</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#alttitle">altTitle</a></td>
+<td valign="middle" class="border paddingDefault">Alternate title</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#seealso">seeAlso</a></td>
+<td valign="middle" class="border paddingDefault">See also</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="end_elements">End elements</h2>
+
+<table id="table_1" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >End elements</caption>
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Element</th>
+<th valign="middle"  class="column border" >Menu</th>
+<th valign="middle"  width="300" class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxEndElements.html#see">see</a></td>
+<td valign="middle" class="border paddingDefault">See</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="structure_elements">Structure elements</h2>
+
+<table id="table_2" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >Structure elements</caption>
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Element</th>
+<th valign="middle"  class="column border" >Menu</th>
+<th valign="middle"  width="300" class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#title">title</a></td>
+<td valign="middle" class="border paddingDefault">Title</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#moreinfo">moreInfo</a></td>
+<td valign="middle" class="border paddingDefault">More Info</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="content_elements">Content elements</h2>
+
+<table id="table_3" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >Content elements</caption>
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Element</th>
+<th valign="middle"  class="column border" >Menu</th>
+<th valign="middle"  width="200" class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#ref">ref</a></td>
+<td valign="middle" class="border paddingDefault">Reference</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#a">a</a></td>
+<td valign="middle" class="border paddingDefault">External link</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#code">code</a></td>
+<td valign="middle" class="border paddingDefault">Code</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#source">source</a></td>
+<td valign="middle" class="border paddingDefault">Source code</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#pre">pre</a></td>
+<td valign="middle" class="border paddingDefault">Formatted text (pre)</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#messagebox">messageBox</a></td>
+<td valign="middle" class="border paddingDefault">Message box</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#box">box</a></td>
+<td valign="middle" class="border paddingDefault">Box</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#block">block</a></td>
+<td valign="middle" class="border paddingDefault">Block</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#ul">ul</a></td>
+<td valign="middle" class="border paddingDefault">Unordered lists</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#ol">ol</a></td>
+<td valign="middle" class="border paddingDefault">Ordered lists</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">li</td>
+<td valign="middle" class="border paddingDefault">List items</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#img">img</a></td>
+<td valign="middle" class="border paddingDefault">Image by ID<br/>
+Image by href</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#resource">resource</a></td>
+<td valign="middle" class="border paddingDefault">Resource by ID<br/>
+Resource by href</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxtable.html">table</a></td>
+<td valign="middle" class="border paddingDefault">Table</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxtree.html">tree</a></td>
+<td valign="middle" class="border paddingDefault">Tree</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntax.html#note">note</a></td>
+<td valign="middle" class="border paddingDefault">Note<br/>
+Note reference</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="justification">Justification</h2>
+
+<table id="table_4" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >Justification</caption>
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Element</th>
+<th valign="middle"  class="column border" >Menu</th>
+<th valign="middle"  width="300" class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxJustifElements.html#b">b</a></td>
+<td valign="middle" class="border paddingDefault">Bold</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxJustifElements.html#i">i</a></td>
+<td valign="middle" class="border paddingDefault">Italic</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxJustifElements.html#u">u</a></td>
+<td valign="middle" class="border paddingDefault">Underline</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxJustifElements.html#s">s</a></td>
+<td valign="middle" class="border paddingDefault">Strikethrough</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxJustifElements.html#font">font</a></td>
+<td valign="middle" class="border paddingDefault">Format text</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxJustifElements.html#hr">hr</a></td>
+<td valign="middle" class="border paddingDefault">Horizontal line</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="revisions">Revisions</h2>
+
+<table id="table_5" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >Revisions</caption>
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Element</th>
+<th valign="middle"  class="column border" >Menu</th>
+<th valign="middle"  width="300" class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxtodo.html">todo</a></td>
+<td valign="middle" class="border paddingDefault">TODO</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxcomment.html">comment</a></td>
+<td valign="middle" class="border paddingDefault">Comment</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <a href="article_syntaxtodo.html#todolist">todolist</a></td>
+<td valign="middle" class="border paddingDefault">todolist presenting the list of TODOs and comments</td>
+<td valign="middle" class="border paddingDefault">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editoreditionmode.html#adding_elements_in_the_content">Editor edition mode</a>: This article is about editing an article or any element in the editor</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_editor.html">Editor</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

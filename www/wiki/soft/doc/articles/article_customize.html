@@ -1,0 +1,133 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Customizing the wiki - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_customize.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Customizing the wiki</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#adding_a_footer_and_header">1&nbsp; Adding a footer and header</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_a_custom_background_for_the_articles">2&nbsp; Setting a custom background for the articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#customize_how_the_article_name_will_be_seen_in_the_browser">3&nbsp; Customize how the article name will be seen in the browser</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_properties">4&nbsp; Using properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_a_custom_stylesheet">5&nbsp; Adding a custom StyleSheet</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_custom_content_in_the_menus">6&nbsp; Adding custom content in the menus</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">7&nbsp; Notes</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+
+<h2 id="adding_a_footer_and_header">Adding a footer and header</h2>
+ The most simple way to customize the wiki presentation is to add  a  <a href="article_footerAndHeader.html">footer and header file</a> to each article. It is possible to add some custom content in the footer in the  <a href="article_configFile.html">configuration file</a>.
+<h2 id="setting_a_custom_background_for_the_articles">Setting a custom background for the articles</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_background.html">Setting a background</a></div>
+<br/>
+ It is possible to set a custom background image or color for the articles of the wiki.
+<h2 id="customize_how_the_article_name_will_be_seen_in_the_browser">Customize how the article name will be seen in the browser</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_customizingtitles.html">Customizing articles titles</a></div>
+<br/>
+ By default:<ul>
+<li>The  <a href="article_articles.html#index_definition">index</a> has the "Home" title in the browser</li>
+<li>The other  <a href="article_articles.html#regular_articles">articles</a> have the description of the article as title in the browser</li>
+<li>Other elements, such as the  <a href="article_glossary.html">glossary</a>,  <a href="article_dictionnary.html">dictionary</a>,  <a href="article_categories.html">categories</a>, or  <a href="article_search.html#full_text_search">Full text search</a> have their own  <a href="article_localization.html">localized name</a> as their title</li>
+</ul>
+It is possible to customize the title for articles through the  <a href="article_commandline.html#wikititle">command-line</a> or the  <a href="article_configFile.html#wikititle">configuration file</a>.
+<h2 id="using_properties">Using properties</h2>
+It is possible to configure content in the wiki by using  <a href="article_properties.html">properties</a>. Properties allow to define key / values for string replacements in the text.
+<h2 id="adding_a_custom_stylesheet">Adding a custom StyleSheet</h2>
+It is possible to add a custom StyleSheet in the  <a href="article_configFile.html#custom_stylesheet">configuration file</a>. It is also possible to style individually the elements in the wiki<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+See  <a href="article_customizingstyle.html">customizing the elements style</a> for more information</div></span>
+.
+<h2 id="adding_custom_content_in_the_menus">Adding custom content in the menus</h2>
+ It is possible to add custom content in the left menu, or even adding a custom right menu.  See  <a href="article_custommenus.html">custom menus</a>.</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> See  <a href="article_customizingstyle.html">customizing the elements style</a> for more information</li>
+</ol>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

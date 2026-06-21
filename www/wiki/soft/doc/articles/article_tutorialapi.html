@@ -1,0 +1,391 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>API basic tutorial - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_tutorialapi.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>API basic tutorial</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#creation_of_the_project">1&nbsp; Creation of the project</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#project_dependencies">1.1&nbsp; Project dependencies</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#coding_the_main_class">1.2&nbsp; Coding the main class</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#creation_of_the_api">2&nbsp; Creation of the API</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#add_a_text_in_the_index">3&nbsp; Add a text in the index</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#add_two_articles">4&nbsp; Add two articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#create_the_two_articles">4.1&nbsp; Create the two articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#add_links_between_the_second_article_and_the_first">4.2&nbsp; Add links between the second article and the first</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#add_a_title_in_the_first_article">4.3&nbsp; Add a title in the first article</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#add_a_table_in_the_first_article">4.4&nbsp; Add a table in the first article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#html_result">5&nbsp; Html result</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article is a tutorial explaining how to use the generator in another Java application. You will:<ul>
+<li>Create a Netbeans project to select a directory for the Wiki</li>
+<li>Create two articles through the API</li>
+<li>Generate the html wiki through the API</li>
+</ul>
+ We will create a wiki which will deal with vertebrates and birds.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The source code of this tutorial is in the  <code>docGenerator-tutorial-&lt;version&gt;.zip</code>, in the  <code>apiTutorial</code> directory.</div>
+
+<h2 id="creation_of_the_project">Creation of the project</h2>
+
+<h3 id="project_dependencies">Project dependencies</h3>
+ We will create a simple Netbeans project with a dependency to the two following jar files:<ul>
+<li>The  <code>docGenerator.jar</code>, which is distributed in the  <code>docGenerator-bin-&lt;version&gt;.zip</code> file</li>
+<li>The  <code>docGeneratorAPI.jar</code>, which is distributed in the  <code>docGenerator-api-&lt;version&gt;.zip</code> file</li>
+</ul>
+
+<h3 id="coding_the_main_class">Coding the main class</h3>
+ Our project will only contain one main class, with a file chooser allowing the select the directory where to generate the wiki:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">package</span><span> apigeneration;</span>
+
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">import</span><span> java.io.File;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">import</span><span> javax.swing.JFileChooser;</span>
+
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">class</span><span> APIGeneration {</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">private</span><span> DocGeneratorAPI api = </span><span class="syntaxLiteral" style="font-weight:bold;">null</span><span>;</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">APIGeneration</span><span>() {</span>
+<span>      }</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(File directory)  {</span>
+<span>      }</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">static</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">main</span><span>(String[] args) {</span>
+<span>        JFileChooser chooser = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JFileChooser</span><span>(</span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">File</span><span>(System.</span><span class="syntaxDefault" style="font-weight:bold;">getProperty</span><span>(</span><span class="syntaxLiteral" style="">"user.dir"</span><span>)));</span>
+<span>        chooser.</span><span class="syntaxDefault" style="font-weight:bold;">setDialogTitle</span><span>(</span><span class="syntaxLiteral" style="">"Select the output directory"</span><span>);</span>
+<span>        chooser.</span><span class="syntaxDefault" style="font-weight:bold;">setDialogType</span><span>(JFileChooser.OPEN_DIALOG);</span>
+<span>        chooser.</span><span class="syntaxDefault" style="font-weight:bold;">setFileSelectionMode</span><span>(JFileChooser.DIRECTORIES_ONLY);</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">if</span><span> (chooser.</span><span class="syntaxDefault" style="font-weight:bold;">showOpenDialog</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">null</span><span>) == JFileChooser.APPROVE_OPTION) {</span>
+<span>          APIGeneration generation = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">APIGeneration</span><span>();</span>
+<span>          generation.</span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(chooser.</span><span class="syntaxDefault" style="font-weight:bold;">getSelectedFile</span><span>());</span>
+<span>        }</span>
+<span>      }</span>
+<span>   }</span>
+</pre>
+ For the moment the generator does not do anything. When we run the application, a file chooser appear and we can choose the directory where to generate the wiki. But nothing more happens and the application exits.
+<h2 id="creation_of_the_api">Creation of the API</h2>
+We will update the <code><span>File directory</span></code> method to create the API, and generate the html result:<br/>
+<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">package</span><span> apigeneration;</span>
+
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">import</span><span> java.io.File;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">import</span><span> javax.swing.JFileChooser;</span>
+
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">class</span><span> APIGeneration {</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">private</span><span> DocGeneratorAPI api = </span><span class="syntaxLiteral" style="font-weight:bold;">null</span><span>;</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">APIGeneration</span><span>() {</span>
+<span>      }</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(File directory) {</span>
+<span>        api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>        api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>        api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(directory);</span>
+
+<span>        </span><span class="syntaxComment" style="font-style:italic;">// generate the wiki (the output directory existing content will be cleaned prior to the generation)</span>
+<span>        api.</span><span class="syntaxDefault" style="font-weight:bold;">writeContent</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);</span>
+<span>      }</span>
+<span>   }</span>
+</pre>
+ This code won't compile because the  <code>writeContent</code> method can throw a  <code>DocGeneratorAPIException</code> exception. We modify the class to properly catch this exception:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">package</span><span> apigeneration;</span>
+
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">import</span><span> java.io.File;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">import</span><span> javax.swing.JFileChooser;</span>
+
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">class</span><span> APIGeneration {</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">private</span><span> DocGeneratorAPI api = </span><span class="syntaxLiteral" style="font-weight:bold;">null</span><span>;</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">APIGeneration</span><span>() {</span>
+<span>      }</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(File directory) </span><span class="syntaxKeyWord1" style="font-weight:bold;">throws</span><span> DocGeneratorAPIException {</span>
+<span>        api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>        api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>        api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(directory);</span>
+
+<span>        </span><span class="syntaxComment" style="font-style:italic;">// generate the wiki (the output directory existing content will be cleaned prior to the generation)</span>
+<span>        api.</span><span class="syntaxDefault" style="font-weight:bold;">writeContent</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);</span>
+<span>      }</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">static</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">main</span><span>(String[] args) {</span>
+<span>        JFileChooser chooser = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JFileChooser</span><span>(</span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">File</span><span>(System.</span><span class="syntaxDefault" style="font-weight:bold;">getProperty</span><span>(</span><span class="syntaxLiteral" style="">"user.dir"</span><span>)));</span>
+<span>        chooser.</span><span class="syntaxDefault" style="font-weight:bold;">setDialogTitle</span><span>(</span><span class="syntaxLiteral" style="">"Select the output directory"</span><span>);</span>
+<span>        chooser.</span><span class="syntaxDefault" style="font-weight:bold;">setDialogType</span><span>(JFileChooser.OPEN_DIALOG);</span>
+<span>        chooser.</span><span class="syntaxDefault" style="font-weight:bold;">setFileSelectionMode</span><span>(JFileChooser.DIRECTORIES_ONLY);</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">if</span><span> (chooser.</span><span class="syntaxDefault" style="font-weight:bold;">showOpenDialog</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">null</span><span>) == JFileChooser.APPROVE_OPTION) {</span>
+<span>          APIGeneration generation = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">APIGeneration</span><span>();</span>
+<span>          </span><span class="syntaxKeyWord1" style="font-weight:bold;">try</span><span> {</span>
+<span>            generation.</span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(chooser.</span><span class="syntaxDefault" style="font-weight:bold;">getSelectedFile</span><span>());</span>
+<span>          } </span><span class="syntaxKeyWord1" style="font-weight:bold;">catch</span><span> (DocGeneratorAPIException e) {</span>
+<span>            e.</span><span class="syntaxDefault" style="font-weight:bold;">printStackTrace</span><span>();</span>
+<span>          }</span>
+<span>        }</span>
+<span>      }</span>
+<span>   }</span>
+</pre>
+
+<h2 id="add_a_text_in_the_index">Add a text in the index</h2>
+ We will add the simple text "This is a wiki about animals" in the index of the wiki:<br/>
+
+<pre class="margin unlimited" >
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(api.</span><span class="syntaxDefault" style="font-weight:bold;">getIndex</span><span>(), </span><span class="syntaxLiteral" style="">"This is a wiki about animals"</span><span>);</span>
+</pre>
+ The full code of the method becomes:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(File directory) </span><span class="syntaxKeyWord1" style="font-weight:bold;">throws</span><span> DocGeneratorAPIException {</span>
+<span>      api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(directory);</span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// generate the wiki (the output directory existing content will be cleaned prior to the generation)</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">writeContent</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);</span>
+
+<span>      </span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addSentence</span><span class="syntaxDefault" style="background-color:#ffff00;">(api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">getIndex</span><span class="syntaxDefault" style="background-color:#ffff00;">(), </span><span class="syntaxLiteral" style="background-color:#ffff00;">"This is a wiki about animals"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">      </span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// generate the wiki (the output directory existing content will be cleaned prior to the generation)</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">writeContent</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);</span>
+<span>   }</span>
+</pre>
+
+<h2 id="add_two_articles">Add two articles</h2>
+
+<h3 id="create_the_two_articles">Create the two articles</h3>
+ We will create an article about birds and another about vertebrates:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(File directory) </span><span class="syntaxKeyWord1" style="font-weight:bold;">throws</span><span> DocGeneratorAPIException {</span>
+<span>      api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(directory);</span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// generate the wiki (the output directory existing content will be cleaned prior to the generation)</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">writeContent</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);</span>
+
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(api.</span><span class="syntaxDefault" style="font-weight:bold;">getIndex</span><span>(), </span><span class="syntaxLiteral" style="">"This is a wiki about animals"</span><span>);</span>
+
+<span>      </span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// create an article about birds</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         XMLArticle birdArticle = api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">createArticle</span><span class="syntaxDefault" style="background-color:#ffff00;">(</span><span class="syntaxLiteral" style="background-color:#ffff00;">"Bird"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+
+<span class="syntaxDefault" style="background-color:#ffff00;">         </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// create an article about vertebrates</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         XMLArticle vertebrateArticle = api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">createArticle</span><span class="syntaxDefault" style="background-color:#ffff00;">(</span><span class="syntaxLiteral" style="background-color:#ffff00;">"Vertebrate"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">      </span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// generate the wiki (the output directory existing content will be cleaned prior to the generation)</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">writeContent</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);</span>
+<span>   }</span>
+</pre>
+
+<h3 id="add_links_between_the_second_article_and_the_first">Add links between the second article and the first</h3>
+We create a  <a href="article_syntax.html#ref">reference</a> between the "Bird" and the "Vertebrate" article. As the second article is not created yet, the link will use the id of the article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(File directory) </span><span class="syntaxKeyWord1" style="font-weight:bold;">throws</span><span> DocGeneratorAPIException {</span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// create an article about birds</span>
+<span>      XMLArticle birdArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"Bird"</span><span>);</span>
+
+<span>      </span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addSentence</span><span class="syntaxDefault" style="background-color:#ffff00;">(birdArticle, </span><span class="syntaxLiteral" style="background-color:#ffff00;">"A bird is a warm-blooded "</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addReference</span><span class="syntaxDefault" style="background-color:#ffff00;">(birdArticle, </span><span class="syntaxLiteral" style="background-color:#ffff00;">"vertebrate"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">      </span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// create an article about vertebrates</span>
+<span>      XMLArticle vertebrateArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"Vertebrate"</span><span>);</span>
+<span>   }</span>
+</pre>
+ Now we create a  <a href="article_syntax.html#ref">reference</a> between the "Vertebrate" and the "Bird" article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(File directory) </span><span class="syntaxKeyWord1" style="font-weight:bold;">throws</span><span> DocGeneratorAPIException {</span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// create an article about birds</span>
+<span>      XMLArticle birdArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"Bird"</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(birdArticle, </span><span class="syntaxLiteral" style="">"A bird is a warm-blooded "</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addReference</span><span>(birdArticle, </span><span class="syntaxLiteral" style="">"vertebrate"</span><span>);</span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// create an article about vertebrates</span>
+<span>      XMLArticle vertebrateArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"Vertebrate"</span><span>);</span>
+
+<span>      </span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addSentence</span><span class="syntaxDefault" style="background-color:#ffff00;">(vertebrateArticle, </span><span class="syntaxLiteral" style="background-color:#ffff00;">"A vertebrate is a mammal who has vertebrae. An example of vertebrate is a "</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addReference</span><span class="syntaxDefault" style="background-color:#ffff00;">(vertebrateArticle, birdArticle);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">      </span>
+<span>   }</span>
+</pre>
+
+<h3 id="add_a_title_in_the_first_article">Add a title in the first article</h3>
+ Now we add a title in the first article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(File directory) </span><span class="syntaxKeyWord1" style="font-weight:bold;">throws</span><span> DocGeneratorAPIException {</span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// create an article about birds</span>
+<span>      XMLArticle birdArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"Bird"</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(birdArticle, </span><span class="syntaxLiteral" style="">"A bird is a warm-blooded "</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addReference</span><span>(birdArticle, </span><span class="syntaxLiteral" style="">"vertebrate"</span><span>);</span>
+
+<span>      </span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addTitle</span><span class="syntaxDefault" style="background-color:#ffff00;">(birdArticle, </span><span class="syntaxLiteral" style="background-color:#ffff00;">"Physiology"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addSentence</span><span class="syntaxDefault" style="background-color:#ffff00;">(birdArticle, </span><span class="syntaxLiteral" style="background-color:#ffff00;">"A bird has two wings"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">      </span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// create an article about vertebrates</span>
+<span>      XMLArticle vertebrateArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"Vertebrate"</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(vertebrateArticle, </span><span class="syntaxLiteral" style="">"A vertebrate is a mammal who has vertebrae. An example of vertebrate is a "</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addReference</span><span>(vertebrateArticle, birdArticle);</span>
+<span>   }</span>
+</pre>
+
+<h3 id="add_a_table_in_the_first_article">Add a table in the first article</h3>
+ Now we add a new title and a table in the first article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">generate</span><span>(File directory) </span><span class="syntaxKeyWord1" style="font-weight:bold;">throws</span><span> DocGeneratorAPIException {</span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// create an article about birds</span>
+<span>      XMLArticle birdArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"Bird"</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(birdArticle, </span><span class="syntaxLiteral" style="">"A bird is a warm-blooded "</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addReference</span><span>(birdArticle, </span><span class="syntaxLiteral" style="">"vertebrate"</span><span>);</span>
+
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addTitle</span><span>(birdArticle, </span><span class="syntaxLiteral" style="">"Physiology"</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(birdArticle, </span><span class="syntaxLiteral" style="">"A bird has two wings"</span><span>);</span>
+
+<span>      </span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addTitle</span><span class="syntaxDefault" style="background-color:#ffff00;">(birdArticle, </span><span class="syntaxLiteral" style="background-color:#ffff00;">"List of birds"</span><span class="syntaxDefault" style="background-color:#ffff00;">); </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// add a new title</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         XMLTable table = api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addTable</span><span class="syntaxDefault" style="background-color:#ffff00;">(birdArticle); </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// add a table</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         table.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">setWidth</span><span class="syntaxDefault" style="background-color:#ffff00;">(20, </span><span class="syntaxLiteral" style="background-color:#ffff00;font-weight:bold;">true</span><span class="syntaxDefault" style="background-color:#ffff00;">); </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// set the width of the table a 20% of the width of the page</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         table.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">setAlignment</span><span class="syntaxDefault" style="background-color:#ffff00;">(Alignment.LEFT); </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// align the table to the left</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         table.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">setCaption</span><span class="syntaxDefault" style="background-color:#ffff00;">(</span><span class="syntaxLiteral" style="background-color:#ffff00;">"List of birds"</span><span class="syntaxDefault" style="background-color:#ffff00;">); </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// set the table caption</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addTableColumn</span><span class="syntaxDefault" style="background-color:#ffff00;">(table, </span><span class="syntaxLiteral" style="background-color:#ffff00;">"Classification"</span><span class="syntaxDefault" style="background-color:#ffff00;">); </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// add only one column to the table, and set its name</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         XMLTableRow row = api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addTableRow</span><span class="syntaxDefault" style="background-color:#ffff00;">(table); </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// add a first row</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addTableCell</span><span class="syntaxDefault" style="background-color:#ffff00;">(row, </span><span class="syntaxLiteral" style="background-color:#ffff00;">"Pigeon"</span><span class="syntaxDefault" style="background-color:#ffff00;">); </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// add one cell to the row</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         row = api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addTableRow</span><span class="syntaxDefault" style="background-color:#ffff00;">(table); </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// add a second row</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addTableCell</span><span class="syntaxDefault" style="background-color:#ffff00;">(row, </span><span class="syntaxLiteral" style="background-color:#ffff00;">"Crow"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         row = api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addTableRow</span><span class="syntaxDefault" style="background-color:#ffff00;">(table); </span><span class="syntaxComment" style="background-color:#ffff00;font-style:italic;">// add a third row</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         api.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addTableCell</span><span class="syntaxDefault" style="background-color:#ffff00;">(row, </span><span class="syntaxLiteral" style="background-color:#ffff00;">"Eagle"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">      </span>
+
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// create an article about vertebrates</span>
+<span>      XMLArticle vertebrateArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"Vertebrate"</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(vertebrateArticle, </span><span class="syntaxLiteral" style="">"A vertebrate is a mammal who has vertebrae. An example of vertebrate is a "</span><span>);</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">addReference</span><span>(vertebrateArticle, birdArticle);</span>
+<span>   }</span>
+</pre>
+
+<h2 id="html_result">Html result</h2>
+ The application generates the full wiki. For example, the "Bird" article has the following html content:<br/>
+<img src="../images/apibirdarticle.png" alt="apibirdarticle" id="_image_0" onclick="openImage(_image_0)" width="50%" class="left marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_docgeneratorapi.html">DocJGenerator API</a>: This article presents an overview of the docJGenerator API</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_tutorials.html">Tutorials</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Plugins framework - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_plugins.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Plugins framework</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#plugin_structure">1&nbsp; Plugin structure</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#plugin_factory_implementation">1.1&nbsp; Plugin factory implementation</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#use_cases">2&nbsp; Use cases</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#providing_a_new_output_format">2.1&nbsp; Providing a new output format</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#supporting_custom_properties">2.2&nbsp; Supporting custom properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#modifying_the_wiki_content_before_the_generation">2.3&nbsp; Modifying the wiki content before the generation</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The directory  <code>plugins</code> allows to develop plugins which propose specific functionalities without incurring any dependencies from the core application: if the plugins directory is not present of any plugin is missing, the application should continue to work without any problem.<br/>
+<br/>
+ The project provides two built-in plugins:<ul>
+<li>The  <a href="article_docx.html">DOCX generation plugin</a> which allows to generate a DOCX document rather than an HTML site</li>
+<li>The  <a href="article_pdf.html">PDF generation plugin</a> which allows to generate a PDF document rather than an HTML site</li>
+<li>The  <a href="article_scripts.html">Scripts plugin</a> which allows to add customized content in a wiki before generating the output</li>
+</ul>
+
+<h2 id="plugin_structure">Plugin structure</h2>
+ A Plugin is simply a Jar file with a specific property in its Manifest specifying where to look for the Plugin class. The Manifets must contain the following property:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   docJPluginFactory</span><span>: &lt;The plugin factory class&gt;</span>
+</pre>
+ The plugin factory class must be a class implementing the <a href="../javadoc/pluginsAPI/org/docgene/plugins/PluginFactory.html" class="apiLink" title="PluginFactory">PluginFactory</a> interface.
+<h3 id="plugin_factory_implementation">Plugin factory implementation</h3>
+The <a href="../javadoc/pluginsAPI/org/docgene/plugins/PluginFactory.html" class="apiLink" title="PluginFactory">PluginFactory</a> implementation is a class which must implement the following interface:<br/>
+<table class="headerTitleAPI">
+<tbody>
+<th valign="middle" class="headerAPI">public interface PluginFactory</th>
+</tbody>
+</table>
+
+<table class="apidoc">
+<caption class="tableAPI">Method Summary</caption>
+<thead>
+<tr>
+<th valign="middle" class="columnAPI">Modifier and Type</th>
+<th valign="middle" class="columnAPI">Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">getCustomProperties()
+<br/>
+<div class="rowContentTextAPI">
+Return the CustomProperties (default is null, which means that there are no custom properties)</div>
+</th>
+</tr>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">public</th>
+<th valign="middle" class="rowContentAPI">getElementHook(DirectoryParser parser, HookContext context)
+<br/>
+<div class="rowContentTextAPI">
+Return the ElementHook defined by this factory. Return null by default. Note that you must implement the  <code>hasElementHook()</code> method accordingly.<br/>
+<br/>
+<b>Parameters</b><br/>
+<span class="argNameAPI">context</span> - The HookContext context<br/>
+<span class="argNameAPI">parser</span> - The directory parser</div>
+</th>
+</tr>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">getID()
+<br/>
+<div class="rowContentTextAPI">
+Return the factory ID. Must be unique for each Plugin</div>
+</th>
+</tr>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">getSupportedOutputFormat()
+<br/>
+<div class="rowContentTextAPI">
+Return the supported output format (default is null, which means that no specific output format is supported)</div>
+</th>
+</tr>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">public</th>
+<th valign="middle" class="rowContentAPI">hasElementHook()
+<br/>
+<div class="rowContentTextAPI">
+Return true if this factory provides an <a href="../javadoc/pluginsAPI/org/docgene/plugins/ElementHook.html" class="apiLink" title="ElementHook">ElementHook</a>. Return false by default. Note that you must implement the  <code>getElementHook()</code> method accordingly</div>
+</th>
+</tr>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">public</th>
+<th valign="middle" class="rowContentAPI">newDirectoryWriter()
+<br/>
+<div class="rowContentTextAPI">
+Return a new  <a href="article_directorywriter.html">Directory writer</a> (default is null, which means that no specific DirectoryWriter is provided). Note that you should provide a <a href="../javadoc/pluginsAPI/org/docgene/writer/DirectoryWriter.html" class="apiLink" title="DirectoryWriter">DirectoryWriter</a> if the  <code>getSupportedOutputFormat()</code> method does not return null</div>
+</th>
+</tr>
+</tbody>
+</table>
+<br/>
+
+<h2 id="use_cases">Use cases</h2>
+
+<h3 id="providing_a_new_output_format">Providing a new output format</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_directorywriter.html">Directory writer</a></div>
+<br/>
+ To provide a new output format, you must implement the following methods:<ul>
+<li><a href="../javadoc/pluginsAPI/org/docgene/plugins/PluginFactory.html#getSupportedOutputFormat--" class="apiLink" title="PluginFactory.getSupportedOutputFormat()">PluginFactory.getSupportedOutputFormat()</a> to get the output format supported by the Plugin</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/plugins/PluginFactory.html#newDirectoryWriter--" class="apiLink" title="PluginFactory.newDirectoryWriter()">PluginFactory.newDirectoryWriter()</a> to create a directory writer generating in this format</li>
+</ul>
+
+<h3 id="supporting_custom_properties">Supporting custom properties</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_customproperties.html">Custom properties</a></div>
+<br/>
+ If the Plugin supports specific custom properties, you should implement the  <code>getCustomProperties()</code> method. Custom properties are usable both on the  <a href="article_commandline.html">command-line</a> and  <a href="article_configFile.html">configuration file</a>.<br/>
+<br/>
+ Note that if you define some of these properties in the command-line, they will be parsed only if you define them <span style="font-weight: bold;">after</span> specifying the docx output type. For example, this will not work:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -hasTOC=false -outputType=docx</span>
+</pre>
+ But this will work:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -outputType=docx -hasTOC=false</span>
+</pre>
+
+<h3 id="modifying_the_wiki_content_before_the_generation">Modifying the wiki content before the generation</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_elementhook.html">Plugin ElementHook</a></div>
+<br/>
+ To modify the  <a href="article_sourcetree.html">wiki source tree</a> content before the generation, you must implement the following methods:<ul>
+<li><a href="../javadoc/pluginsAPI/org/docgene/plugins/PluginFactory.html#getElementHook-org.docgene.parser.DirectoryParser-org.docgene.parser.HookContext-" class="apiLink" title="PluginFactory.getElementHook(org.docgene.parser.DirectoryParser, org.docgene.parser.HookContext)">PluginFactory.getElementHook(DirectoryParser, HookContext)</a> to get the hook which will be used to perform the modifications. It will only be taken into account if the <a href="../javadoc/pluginsAPI/org/docgene/plugins/PluginFactory.html#hasElementHook--" class="apiLink" title="PluginFactory.hasElementHook()">PluginFactory.hasElementHook()</a> method return true</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/plugins/PluginFactory.html#hasElementHook--" class="apiLink" title="PluginFactory.hasElementHook()">PluginFactory.hasElementHook()</a> to specify that the factory provides a hook which will be used to perform the modifications. If you return true, you will need to implement the <a href="../javadoc/pluginsAPI/org/docgene/plugins/PluginFactory.html#getElementHook-org.docgene.parser.DirectoryParser-org.docgene.parser.HookContext-" class="apiLink" title="PluginFactory.getElementHook(org.docgene.parser.DirectoryParser, org.docgene.parser.HookContext)">PluginFactory.getElementHook(DirectoryParser, HookContext)</a> method</li>
+</ul>
+Note that the  <a href="article_scripts.html">Scripts plugin</a> does use this capability.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_directorywriter.html">Directory writer</a>: This article explains how to creata a custom directory writer for a Plugin</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_plugins.html">Plugins</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

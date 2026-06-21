@@ -1,0 +1,210 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Developing the Library - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_developing.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Developing the Library</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#ide_to_build_the_project">1&nbsp; IDE to build the project</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#jdk_version">2&nbsp; JDK version</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#library">3&nbsp; Library</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#project_roots">4&nbsp; Project roots</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#plugins">4.1&nbsp; Plugins</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#support_libraries">4.2&nbsp; Support libraries</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#miscellanous_roots">4.3&nbsp; Miscellanous roots</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#root_specific_to_unit_tests">4.4&nbsp; Root specific to unit tests</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#ant_targets">5&nbsp; Ant targets</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#main_targets">5.1&nbsp; Main targets</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#test_targets">5.2&nbsp; Test targets</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#generating_the_wiki">5.3&nbsp; Generating the wiki</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#deploy_targets">5.4&nbsp; Deploy targets</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#unit_tests">6&nbsp; Unit tests</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article explains how to develop the library.
+<h2 id="ide_to_build_the_project">IDE to build the project</h2>
+ The library is developed using Netbeans. We use for the moment the Netbeans 17. <br/>
+<br/>
+ The structure of the Netbeans project contains:<ul>
+<li>A <span style="font-style: italic;">build.xml</span> build file which is the <span style="font-style: italic;">ant</span> file which is used to build the jar files of the project and create the distribution</li>
+<li>A <span style="font-style: italic;">nbproject</span> directory which is a specific Netbeans directory used to specify the properties of the project</li>
+</ul>
+ It is possible to use Eclipse to build this project, but you will have to create your own project for Eclipse.
+<h2 id="jdk_version">JDK version</h2>
+Netbeans 17 runs on Java 8 and 11. You will need to specify a JDK 8 version at the beginning of the  <code>build.xml</code> file. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"jdk"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"C:\Program Files\Java\jdk1.8.0_152"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ It will be useful to:<ul>
+<li>Build the jars of the library which depend on JavaFX</li>
+<li>Produce the javadocs</li>
+</ul>
+
+<h2 id="library">Library</h2>
+Several jar files are used as libraries for the project. They are defined in the  <a href="article_dependencies.html">dependencies</a> article.<br/>
+<br/>
+ These jar files are in the <span style="font-style: italic;">lib</span> directory. Note that two jar files which are present in this directory are produced in this project:<ul>
+<li>The <span style="font-style: italic;">jxMapViewer.jar</span> file which handle maps</li>
+<li>The <span style="font-style: italic;">mathFormula.jar</span> file which handle  <a href="article_math.html">mathematical formulas</a></li>
+</ul>
+
+<h2 id="project_roots">Project roots</h2>
+The <span style="font-style: italic;">core</span> root generate the main jar file for the project.
+<h3 id="plugins">Plugins</h3>
+ The project contain the following roots for Plugins:<ul>
+<li>The <span style="font-style: italic;">pdf</span> root generate the  <a href="article_pdf.html">PDF</a> plugin</li>
+<li>The <span style="font-style: italic;">dox</span> root generate the  <a href="article_docx.html">DOCX</a> plugin</li>
+<li>The <span style="font-style: italic;">epub</span> root generate the  <a href="article_epub.html">Epub</a> plugin</li>
+<li>The <span style="font-style: italic;">scripts</span> root generate the  <a href="article_scripts.html">Scripts plugin</a></li>
+</ul>
+
+<h3 id="support_libraries">Support libraries</h3>
+The project contain the following roots for support libraries:<ul>
+<li>The <span style="font-style: italic;">css</span> root generate the jar file which is used to handle CSS content with the PDF and DOCX generators</li>
+<li>The <span style="font-style: italic;">html</span> root generate a common jar file used to handle  <a href="article_rawhtmlarticle.html">Hand-written html articles</a></li>
+<li>The <span style="font-style: italic;">math</span> root generate the jar file which is used to handle  <a href="article_math.html">mathematical formulas</a></li>
+<li>The <span style="font-style: italic;">jeuclid</span> root generate the jar file which is used to generate the search content</li>
+<li>The <span style="font-style: italic;">mapviewer</span> root generate the jar file which is used to show maps</li>
+</ul>
+
+<h3 id="miscellanous_roots">Miscellanous roots</h3>
+The project also contains the following roots for miscellanous jar files:<ul>
+<li>The <span style="font-style: italic;">help</span> root generate the jar files which can be used to the  <a href="article_docgenhelp.html">DocGenerator Help</a> system</li>
+<li>The <span style="font-style: italic;">imagemap</span> root generate the jar file which for the  <a href="article_imagemapconverter.html">Image map converter</a></li>
+</ul>
+
+<h3 id="root_specific_to_unit_tests">Root specific to unit tests</h3>
+ The project contain one root which allows to generate a Java API to use in Unit tests:<ul>
+<li>The <span style="font-style: italic;">testutils</span> root is a Java project used to generate a Java API to use in Unit tests</li>
+</ul>
+
+<h2 id="ant_targets">Ant targets</h2>
+
+<h3 id="main_targets">Main targets</h3>
+The main targets are:<ul>
+<li>The <span style="font-style: italic;">jar</span> target, used with the <span style="font-style: italic;">Clean and Build Project</span> for Netbeans, is used to generate all the jar files (for all the roots)</li>
+<li>The <span style="font-style: italic;">javadoc</span> target is used to generate the javadoc for the project</li>
+</ul>
+
+<h3 id="test_targets">Test targets</h3>
+<ul>
+<li>The <span style="font-style: italic;">javadoc-for-test</span> target is used to generate the javadocs for the <span style="font-style: italic;">testutils</span> root, and put is in the appropriate directory</li>
+</ul>
+
+<h3 id="generating_the_wiki">Generating the wiki</h3>
+<ul>
+<li>The <span style="font-style: italic;">copyjavadoc</span> target is used to copy the javadoc of the project for the generation of the wiki. You must run the <span style="font-style: italic;">javadoc</span> target prior to this target</li>
+<li>The <span style="font-style: italic;">generateWiki</span> target is used to generate the wiki for the project. You must must run the <span style="font-style: italic;">copyjavadoc</span> target prior to this target</li>
+<li>The <span style="font-style: italic;">generateTutorial</span> target is used to generate the wikis for the tutorials</li>
+</ul>
+
+<h3 id="deploy_targets">Deploy targets</h3>
+The main targets are:<ul>
+<li>The <span style="font-style: italic;">deploy-version</span> target is used to deploy the properties file for the version to the  <a href="article_docgenhelp.html">DocGenHelp</a> library</li>
+<li>The <span style="font-style: italic;">deploy</span> target is used to deploy the resulting files</li>
+<li>The <span style="font-style: italic;">zip</span> target is used to produce the zip files</li>
+</ul>
+
+<h2 id="unit_tests">Unit tests</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_unitteststructure.html">Structure of a unit test</a></div>
+<br/>
+ The project contains more than 2200 unit tests. The <span style="font-style: italic;">mdiutil/junit/resource</span> directory contains a properties file which allows to filter which unit tests   to execute (by default all unit tests are run).</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editormenus.html">Developing the editor menus</a>: This article explains how to add editor menus</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_development.html">Development</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

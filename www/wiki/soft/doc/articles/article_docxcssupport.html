@@ -1,0 +1,183 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DOCX custom CSS support - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_docxcssupport.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DOCX custom CSS support</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#supported_elements">1&nbsp; Supported elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#supported_properties">2&nbsp; Supported properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#for_hx_elements">2.1&nbsp; For hx elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#for_column_elements">2.2&nbsp; For column elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#for_cell_elements">2.3&nbsp; For cell elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#for_caption_elements">2.4&nbsp; For caption elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#for_a_elements">2.5&nbsp; For a elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#for_ul_and_ol_elements">2.6&nbsp; For ul and ol elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#for_li_elements">2.7&nbsp; For li elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example_of_generation_with_ant">3&nbsp; Example of generation with ant</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+There is a limited level of support for the  <a href="article_customizingstyle.html">custom element styles</a> in the  <a href="article_docx.html">DOCX generation</a>.
+<h2 id="supported_elements">Supported elements</h2>
+ The following elements are supported:<ul>
+<li> <a href="article_syntax.html#title">title</a> elements:  <code>h&lt;x&gt;</code> tag</li>
+<li> <a href="article_syntax.html#box">box</a> elements:  <code>div</code> tag</li>
+<li> <a href="article_syntax.html#table">table</a> elements:  <code>column</code> and  <code>cell</code> tags</li>
+<li> <a href="article_syntax.html#img">image</a> elements:  <code>caption</code> tag</li>
+<li> <a href="article_syntax.html#ref">references</a> elements:  <code>a</code> tag</li>
+<li> <a href="article_syntax.html#a">hyperlink</a> elements:  <code>a</code> tag</li>
+<li> <a href="article_syntax.html#ul">ul</a> elements:  <code>ul</code> tag</li>
+<li> <a href="article_syntax.html#ol">ol</a> elements:  <code>ol</code> tag</li>
+<li>"li" elements:  <code>li</code> tag</li>
+</ul>
+
+<h2 id="supported_properties">Supported properties</h2>
+
+<h3 id="for_hx_elements">For hx elements</h3>
+<ul>
+<li>"color"</li>
+</ul>
+
+<h3 id="for_column_elements">For column elements</h3>
+<ul>
+<li>"background-color"</li>
+<li>"color"</li>
+</ul>
+
+<h3 id="for_cell_elements">For cell elements</h3>
+<ul>
+<li>"width"</li>
+<li>"font-size"</li>
+</ul>
+
+<h3 id="for_caption_elements">For caption elements</h3>
+<ul>
+<li>"caption"</li>
+<li>"text-align"</li>
+</ul>
+
+<h3 id="for_a_elements">For a elements</h3>
+<ul>
+<li>"font-style"</li>
+</ul>
+
+<h3 id="for_ul_and_ol_elements">For ul and ol elements</h3>
+<ul>
+<li>"list-style"</li>
+</ul>
+
+<h3 id="for_li_elements">For li elements</h3>
+<ul>
+<li>"font-size"</li>
+</ul>
+
+<h2 id="example_of_generation_with_ant">Example of generation with ant</h2>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;java</span><span class="syntaxKeyWord2" style="font-weight:bold;"> classname</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"org.docgene.main.DocGenerator"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-input=wiki/input"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-output=wiki/output"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-fileName=docGeneratorWiki"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-outputType=docx"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-css=myStyles.css"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;classpath&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"docGenerator.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"lib/docxWriter.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/classpath&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/java&gt;</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_docx.html">DOCX generation</a>: This article explains how to generate a Word file rather than an HTML site</li>
+<li> <a href="article_docxsupport.html">DOCX syntax support</a>: This article explains the level of support for the syntax by the docx generation</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_docx.html">Docx</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

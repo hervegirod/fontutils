@@ -1,0 +1,171 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>List bullet style - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_listbullet.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>List bullet style</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#ul_list">1&nbsp; ul list</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#ol_list">2&nbsp; ol list</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">2.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#examples_with_start_and_bullet_style">2.2&nbsp; Examples with start and bullet style</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+It is possible to customize the bullet style of lists with the  <code>bulletStyle</code> attribute for   <a href="article_syntax.html#ul">ul</a> and  <a href="article_syntax.html#ol">ol</a> lists. This attribute will set the  <code>list-style-type</code> CSS property for children items in the list.
+<h2 id="ul_list">ul list</h2>
+The allowed values for the  <code>bulletStyle</code> attribute are:<ul>
+<li>"default": the default style, will have the same result as if the attribute is not present</li>
+<li>"circle": the bullet will be a circle</li>
+<li>"square": the bullet will be a square</li>
+<li>"none": the bullet will be absent</li>
+<li>"inherit": the bullet will have the same value as for the parent list</li>
+</ul>
+
+<h2 id="ol_list">ol list</h2>
+The allowed values for the  <code>bulletStyle</code> or  <code>bullet</code> attribute are:<ul>
+<li>"default": the default style, will have the same result as if the attribute is not present</li>
+<li>"upper-roman": the bullet will be upper-roman letters</li>
+<li>"lower-roman" or "roman": the bullet will be lower-roman letters</li>
+<li>"upper-alpha": the bullet will be upper-alpha letters</li>
+<li>"lower-alpha" or "alpha": the bullet will be lower-alpha letters</li>
+<li>"upper-greek": the bullet will be upper-greek letters</li>
+<li>"lower-greek" or "greek": the bullet will be lower-greek letters</li>
+<li>"decimal": the bullet will be decimals</li>
+<li>"none": the bullet will be absent</li>
+<li>"inherit": the bullet will have the same value as for the parent list</li>
+</ul>
+ It is possible to specify the start of the list with the  <code>start</code> attribute. The attribute can be specified as a number or using a value compatible with the bullet style. 
+<h3 id="example">Example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ol</span><span class="syntaxKeyWord2" style="font-weight:bold;"> bulletStyle</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"upper-roman"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>First item</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>Second item</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span><span>      </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ol</span><span class="syntaxKeyWord2" style="font-weight:bold;"> bulletStyle</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"lower-alpha"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>First item</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>Second item</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span><span> </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/ol&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/ol&gt;</span>
+</pre>
+ Result:<ol>
+<li style="list-style-type: upper-roman;">First item</li>
+<li style="list-style-type: upper-roman;">Second item</li>
+
+<ol>
+<li style="list-style-type: lower-alpha;">First item</li>
+<li style="list-style-type: lower-alpha;">Second item</li>
+</ol>
+</ol>
+
+<h3 id="examples_with_start_and_bullet_style">Examples with start and bullet style</h3>
+
+<pre class="margin unlimited" >
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ol</span><span class="syntaxKeyWord2" style="font-weight:bold;"> bullet</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"alpha"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> start</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"c"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>    </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>first element</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>    </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>second element</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/ol&gt;</span>
+</pre>
+ Result:<ol start="3">
+<li style="list-style-type: lower-alpha;">first element</li>
+<li style="list-style-type: lower-alpha;">second element</li>
+</ol>
+
+<pre class="margin unlimited" >
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ol</span><span class="syntaxKeyWord2" style="font-weight:bold;"> bullet</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"roman"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> start</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"IV"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>    </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>first element</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>    </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>second element</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/ol&gt;</span>
+</pre>
+ Result:<ol start="4">
+<li style="list-style-type: lower-roman;">first element</li>
+<li style="list-style-type: lower-roman;">second element</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#ul">ul</a>: url element</li>
+<li> <a href="article_syntax.html#ol">ol</a>: ol element</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

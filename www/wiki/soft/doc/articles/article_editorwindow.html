@@ -1,0 +1,214 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Editor window - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editorwindow.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Editor window</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#editor_menubar">1&nbsp; Editor menubar</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#reload_the_wiki">1.1&nbsp; Reload the wiki</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#options_menu">1.2&nbsp; Options menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#generation_menu">1.3&nbsp; Generation menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#editor_toolbar">2&nbsp; Editor toolbar</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#editor_tree">3&nbsp; Editor tree</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#editor_content_panel">4&nbsp; Editor content panel</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">5&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The editor window has the following panels:<ul>
+<li>The top of the window presents a menubar and a toolbar allowing to manage the content of the wiki and navigate in the wiki content</li>
+<li>The left panel shows the  <a href="article_editortree.html">tree</a> of the wiki  <a href="article_roots.html">roots</a></li>
+<li>The  <a href="article_editorcontent.html">right panel</a> shows the content of the currently selected element in the tree</li>
+<li>The bottom panel is a message area showing potential parsing errors on the selected element in the tree</li>
+</ul>
+<br/>
+ <img src="../images/editorpanel.png" alt="editorpanel" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h2 id="editor_menubar">Editor menubar</h2>
+ The menubar has three menus:<ul>
+<li>The Tool menu allows to refresh the reload of the wiki. </li>
+<li>The Options menu shows options to configure the usage of the editor</li>
+<li>The Generation menu allow to generate the wiki directly through the editor</li>
+</ul>
+
+<h3 id="reload_the_wiki">Reload the wiki</h3>
+<br/>
+ <img src="../images/editormenureload.png" alt="editormenureload" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+ The "Reload" item allows to parse and reload the whole content of the wiki in the editor with the current content of the  <a href="article_roots.html">roots</a> on the file system. The entire content of the articles tree in the editor will be updated.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ If you update the content of the wiki (for example updating articles, adding articles, etc...), the editor will perform an incremental update only for the elements which are concerned by the update (the element and the elements which are using this element), but not the whole wiki. <br/>
+<br/>
+ For example if you remove an article, and this article is referenced by another article by a  <a href="article_syntax.html#ref">ref</a>, the article  which has the reference will show an error because the reference now leads nowhere.<br/>
+<br/>
+ Performing a "Reload" will update all the content of the wiki and will syncrhonize the content of all its content with what is currently on the file system.</div>
+
+<h3 id="options_menu">Options menu</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_editoroptions.html">Editor options</a></div>
+<br/>
+<br/>
+ <img src="../images/editoroptions.png" alt="editoroptions" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+<br/>
+ The "Options" menu allows to:<ul>
+<li>Automatically save the content of XML elements when navigating in the tree. For eaxmple, if you modify the content of an article in the editor, and you select another file in the tree, it will automatically save your changes before switching to the other element</li>
+<li>Change the way the dependency window will work</li>
+</ul>
+
+<h3 id="generation_menu">Generation menu</h3>
+<br/>
+ <img src="../images/editor-generate.png" alt="editor-generate" id="_image_3" onclick="openImage(_image_3)" class="left marginSmall" />
+<br/>
+ The "Generate" menu allows to  <a href="article_gui.html#generating_the_wiki">Generate the wiki</a> through the editor<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Without having to exit the editor</div></span>
+.<br/>
+<br/>
+ The option to generate will be disabled if the output directory is not defined in the  <a href="article_gui.html">GUI interface</a>:<br/>
+ <img src="../images/editor-generate-disabled.png" alt="editor-generate-disabled" id="_image_4" onclick="openImage(_image_4)" class="left marginSmall" />
+
+<h2 id="editor_toolbar">Editor toolbar</h2>
+ <img src="../images/editortoolbar.png" alt="editortoolbar" id="_image_5" onclick="openImage(_image_5)" class="left marginSmall" />
+<br/>
+ The toolbar on top of the window allow to manage the content of the wiki and navigate in the wiki content. The toolbar has the following buttons:<ul>
+<li> <img src="../images/editor-trash.png" alt="editor-trash" id="_image_6" onclick="openImage(_image_6)" class="left" />
+: The  <a href="article_editortrash.html">trash</a> button allows to manage the trash. The trash allows to recover deleted files exactly as in any graphical user interface system</li>
+<li> <img src="../images/editor-home.png" alt="editor-home" id="_image_7" onclick="openImage(_image_7)" class="left" />
+: The Home button allows to navigate to the  <a href="article_indexfiles.html">index article</a></li>
+<li> <img src="../images/editor-navigation.png" alt="editor-navigation" id="_image_8" onclick="openImage(_image_8)" class="left" />
+: The back and forward button allows to navigate back or forward in the articles</li>
+<li> <img src="../images/editor-autocomplete.png" alt="editor-autocomplete" id="_image_9" onclick="openImage(_image_9)" class="left" />
+: The  <a href="article_editorautocomplete.html">autocomplete field</a> is an auto-complete Search allowing to search in the articles exactly as in the  <a href="article_search.html">search box</a> as in the generated wiki</li>
+<li> <img src="../images/editor-search.png" alt="editor-search" id="_image_10" onclick="openImage(_image_10)" class="left" />
+: The  <a href="article_editorsearch.html">editor search</a> button allows to search for elements in the wiki</li>
+<li> <img src="../images/editor-errorsnav.png" alt="editor-errorsnav" id="_image_11" onclick="openImage(_image_11)" class="left" />
+: The errors navigation buttons allows to navigate in errors in the wiki</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The  <a href="article_editorautocomplete.html">autocomplete field</a> and the  <a href="article_editorsearch.html">editor search</a> work differently:<ul>
+<li>The autocomplete field is an auto-complete search box as in the generated wiki. It only search for  <a href="article_articles.html">articles</a>, and does not allow to apply filters for the search</li>
+<li>The search button allows to specify which element you want to search, and to apply regular expression on the name of element</li>
+</ul>
+</div>
+
+<h2 id="editor_tree">Editor tree</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_editortree.html">Editor tree</a></div>
+<br/>
+  The left panel shows the tree of the  <a href="">Editor window</a> shows the wiki  <a href="article_roots.html">roots</a>.
+<h2 id="editor_content_panel">Editor content panel</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_editorcontent.html">Editor content panel</a></div>
+<br/>
+ The right panel of the Editor window shows the content of the currently selected  <a href="article_editorxmlelement.html">element</a> in the  <a href="article_editortree.html">tree</a>.</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Without having to exit the editor</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editor.html">DocGenerator editor</a>: This article explains the DocGenerator editor</li>
+<li> <a href="article_editortree.html">Editor tree</a>: This article is about the left panel of the editor window, which shows the tree of the wiki</li>
+<li> <a href="article_editorcontent.html">Editor content panel</a>: This article is about the right panel of the Editor which shows the content of the currently selected element in the tree</li>
+<li> <a href="article_gui.html">GUI interface</a>: This article is about the GUI interface of the application</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_editor.html">Editor</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

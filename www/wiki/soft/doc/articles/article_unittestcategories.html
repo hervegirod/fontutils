@@ -1,0 +1,165 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Unit tests categories - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_unittestcategories.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Unit tests categories</h1>
+
+<hr/>
+<div  class="justifiedAuto alignedNone" >
+<ul>
+<li> <code>config</code>: tests about the configuration</li>
+<li> <code>tofix</code>: tests whioch are corerctly known to fail, either the test or code have to be fixed</li>
+<li> <code>depend</code>: tests about the  <a href="article_packagedepend.html">packages dependencies</a></li>
+<li> <code>gui</code>: tests about the  <a href="article_gui.html">GUI interface</a></li>
+<li> <code>gene</code>: tests about the complete generation using the application launcher</li>
+<li> <code>parser</code>: tests about the parsing phase</li>
+<li> <code>writer</code>: tests about the writing phase</li>
+<li> <code>menus</code>: tests about the menus</li>
+<li> <code>forked</code>: tests about the  <a href="article_performance.html#forkparser_parameter">forked parsing</a> mode</li>
+<li> <code>pagerank</code>: tests about the  <a href="article_pagerank.html">PageRank</a> parameter</li>
+<li> <code>help</code>: tests about the  <a href="article_docgenhelp.html">DocGenerator Help feature</a></li>
+<li> <code>editor</code>: tests about the  <a href="article_editor.html">DocGenerator editor</a></li>
+<li> <code>utils</code>: tests about the utility classes used in the parser and the writer</li>
+<li> <code>userproperties</code>: tests about user properties</li>
+<li> <code>properties</code>: tests about  <a href="article_properties.html">properties</a></li>
+<li> <code>css</code>: tests about the  <a href="article_css.html">Custom StyleSheets</a></li>
+<li> <code>html</code>: tests about  <a href="article_rawhtmlarticle.html">Hand-written html articles</a></li>
+<li> <code>pdf</code>: tests about the  <a href="article_pdf.html">PDF generation</a></li>
+<li> <code>docx</code>: tests about the  <a href="article_docx.html">DOCX generation</a></li>
+<li> <code>epub</code>: tests about the  <a href="article_epub.html">Epub generation</a></li>
+<li> <code>doccontent</code>: tests about the  <a href="article_pdfdocxconfig.html">content of document</a> generation</li>
+<li> <code>script</code>: tests about  <a href="article_scripts.html">Scripting</a></li>
+<li> <code>math</code>: tests about  <a href="article_math.html">mathematical formulas</a></li>
+<li> <code>links</code>: tests about  <a href="article_syntaxlink.html">external links</a></li>
+<li> <code>include</code>: tests about  <a href="article_templates.html">Templatess</a></li>
+<li> <code>redirect</code>: tests about  <a href="article_redirectarticles.html">redirect articles</a></li>
+<li> <code>maps</code>: tests about  <a href="article_syntax.html#map">maps</a></li>
+<li> <code>packages</code>: tests about  <a href="article_roots.html">packages</a></li>
+<li> <code>disamb</code>: tests about  <a href="article_disambarticles.html">Disambiguation articles</a></li>
+<li> <code>mediawiki</code>: tests about the  <a href="article_mediawiki.html">mediawiki syntax</a></li>
+<li> <code>markdown</code>: tests about the  <a href="article_markdown.html">markdown syntax</a></li>
+<li> <code>encoding</code>: tests about the encodings support</li>
+<li> <code>model</code>: test about the general model structure</li>
+<li> <code>index</code>: tests about  <a href="article_indexfiles.html">index articles</a></li>
+<li> <code>apis</code></li>
+<li> <code>apidoc</code></li>
+<li> <code>apigeneration</code>: tests about the  <a href="article_docgeneratorapi.html">docJGenerator API</a></li>
+<li> <code>images</code>: tests about  <a href="article_imageFiles.html">image files</a></li>
+<li> <code>resources</code>: tests about  <a href="article_resourceFiles.html">resource files</a></li>
+<li> <code>errors</code>: tests about error messages</li>
+<li> <code>headerfooter</code>: tests about  <a href="article_footerAndHeader.html">footer and header files</a></li>
+<li> <code>fallback</code>: tests about  <a href="article_fallbackarticles.html">Fallback articles</a></li>
+<li> <code>glossary</code>: tests about the  <a href="article_glossary.html">glossary</a></li>
+<li> <code>todo</code>: tests about the  <a href="article_syntaxtodo.html">todos</a></li>
+<li> <code>review</code>: tests about the  <a href="article_review.html">review system</a></li>
+<li> <code>search</code>: tests about the  <a href="article_search.html">search</a></li>
+<li> <code>dictionary</code>: tests about the  <a href="article_dictionnary.html">dictionary</a></li>
+<li> <code>categories</code>: tests about the  <a href="article_categories.html">categories</a></li>
+<li> <code>conditions</code>: tests about  <a href="article_syntaxcondition.html">conditions</a></li>
+<li> <code>updateMode</code>: tests about the  <a href="article_incremental.html">incremental generation</a></li>
+<li> <code>sentence</code>: tests about regular sentences decoding</li>
+<li> <code>syntax-alttitle</code>: tests about articles alternate titles</li>
+<li> <code>syntax-meta</code>: tests about articles meta declaration</li>
+<li> <code>syntax-comment</code>: tests about comments</li>
+<li> <code>syntax-code</code>: tests about the code element</li>
+<li> <code>syntax-pre</code>: tests about the pre element</li>
+<li> <code>syntax-html</code>: tests about the  <a href="article_syntaxhtml.html">html element</a></li>
+<li> <code>syntax-table</code>: tests about the table element</li>
+<li> <code>syntax-title</code>: tests about the title element</li>
+<li> <code>syntax-chapter</code>: tests about the chapter element</li>
+<li> <code>syntax-anchor</code>: tests about the anchor element</li>
+<li> <code>syntax-ref</code>: tests about the ref element</li>
+<li> <code>syntax-moreinfo</code>: tests about the moreInfo element</li>
+<li> <code>syntax-note</code>: tests about the note element</li>
+<li> <code>syntax-seealso</code>: tests about the seeAlso element</li>
+<li> <code>syntax-list</code>: tests about the list element</li>
+<li> <code>syntax-tree</code>: tests about the tree element</li>
+<li> <code>syntax-block</code>: tests about the block element</li>
+<li> <code>syntax-blockquote</code>: tests about the blockquote element</li>
+<li> <code>syntax-box</code>: tests about the box element</li>
+<li> <code>syntax-video</code>: tests about the video element</li>
+<li> <code>syntax-infobox</code>: tests about the infobox element</li>
+<li> <code>syntax-todo</code>: tests about the todo element</li>
+<li> <code>syntax-messagebox</code>: tests about the messageBox element</li>
+<li> <code>syntax-font</code>: tests about the font element</li>
+<li> <code>syntax-javadoc</code>: tests about the javadoc element</li>
+<li> <code>syntax-empty: tests about empty lines</code></li>
+<li> <code>syntax-a: tests about the externals links</code></li>
+<li> <code>syntax-javaAPI</code></li>
+<li> <code>syntax-pythonAPI</code></li>
+</ul>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_development.html">Development</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Editor edition mode - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editoreditionmode.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Editor edition mode</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#toolbar">1&nbsp; Toolbar</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#editing_content">2&nbsp; Editing content</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#articles_and_dictionary_description">2.1&nbsp; Articles and dictionary description</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#categories_description">2.2&nbsp; Categories description</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#adding_elements_in_the_content">2.2.1&nbsp; Adding elements in the content</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#footer_and_header_files">2.3&nbsp; Footer and header files</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#other_xml_elements">2.4&nbsp; Other XML elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The right panel of the  <a href="article_editorwindow.html">Editor window</a> shows the content of the currently selected  <a href="article_editorxmlelement.html">element</a> in the  <a href="article_editortree.html">tree</a>.<br/>
+<br/>
+ The toolbar offer initially the following buttons:<ul>
+<li> <img src="../images/editor-content-refresh.png" alt="editor-content-refresh" id="_image_0" onclick="openImage(_image_0)" class="left" />
+: The Refresh button allows to refresh the current content by parsing again the article</li>
+<li> <img src="../images/editor-content-edit.png" alt="editor-content-edit" id="_image_1" onclick="openImage(_image_1)" class="left" />
+: The Edit button allows to enter in an XML edition mode of the article</li>
+</ul>
+<br/>
+ In the edition mode, the content shows an XML editor of the article:<br/>
+ <img src="../images/editor-content-code.png" alt="editor-content-code" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+
+<h2 id="toolbar">Toolbar</h2>
+ The toolbar has the following buttons:<br/>
+ <img src="../images/editor-content-toolbar2.png" alt="editor-content-toolbar2" id="_image_3" onclick="openImage(_image_3)" class="left marginSmall" />
+<br/>
+ The toolbar offer the following buttons:<ul>
+<li> <img src="../images/editor-content-refresh.png" alt="editor-content-refresh" id="_image_4" onclick="openImage(_image_4)" class="left" />
+: The Refresh button allows to refresh the current content by parsing again the element</li>
+<li> <img src="../images/editor-content-undo.png" alt="editor-content-undo" id="_image_5" onclick="openImage(_image_5)" class="left" />
+: The Undo and Redo buttons allows to undo or redo the edition of the current element</li>
+<li> <img src="../images/editor-content-save.png" alt="editor-content-save" id="_image_6" onclick="openImage(_image_6)" class="left" />
+: The Save button allows to save the content of the element on the File system. This will trigger a parsing of the  file on the disk, and eventually will present errors detected during the parsing. If the content of the element has been modified, the icon color will change:  <img src="../images/editor-content-savemodified.png" alt="editor-content-savemodified" id="_image_7" onclick="openImage(_image_7)" class="left" />
+. Note that the CTRL+S key typed also triggers a save of the element.</li>
+<li> <img src="../images/editor-content-format.png" alt="editor-content-format" id="_image_8" onclick="openImage(_image_8)" class="left" />
+: The format button allows to format the XML content of  <a href="article_editorxmlelement.html">Editor XML elements</a>. The indentation for the formatted XML file is defined by the XML formatting  <a href="article_editoroptions.html#xml_formatting">Editor option</a></li>
+<li> <img src="../images/editor-content-view.png" alt="editor-content-view" id="_image_9" onclick="openImage(_image_9)" class="left" />
+: The View button allows to exit the edition mode an enter again the html presentation of the article</li>
+</ul>
+
+<h2 id="editing_content">Editing content</h2>
+When in editing mode, you can edit the XML content in the editor. The menu will be different for the different kinds of  <a href="article_editorxmlelement.html">Editor XML elements</a>:<ul>
+<li>The  <a href="article_roots.html#defining_a_package_for_a_root">Packages</a></li>
+<li>The  <a href="article_resourceFiles.html">Resource definition files</a></li>
+<li>The  <a href="article_imageFiles.html">Image definition files</a></li>
+<li>The  <a href="article_custommenus.html">menus</a> files</li>
+<li>The  <a href="article_footerAndHeader.html">footer and header files</a></li>
+<li>The  <a href="article_articles.html">articles</a></li>
+<li>The  <a href="article_dictionnary.html">dictionary description</a></li>
+<li>The  <a href="article_categoriesdesc.html">categories description</a></li>
+<li>The  <a href="article_infoboxtemplate.html">Infobox definition files</a></li>
+</ul>
+
+<h3 id="articles_and_dictionary_description">Articles and dictionary description</h3>
+ The menu allows to cut, copy, or paste content, and also add elements in the articles, dictionary description or categories description.<ul>
+<li>If you did not select some content, you will have this menu:<br/>
+ <img src="../images/editor-popupmenu-add2.png" alt="editor-popupmenu-add2" id="_image_10" onclick="openImage(_image_10)" class="left marginSmall" />
+<br/>
+</li>
+<li>If you did not select part of the content, you will have this menu:<br/>
+ <img src="../images/editor-popupmenu-replace.png" alt="editor-popupmenu-replace" id="_image_11" onclick="openImage(_image_11)" class="left marginSmall" />
+<br/>
+</li>
+</ul>
+
+<h3 id="categories_description">Categories description</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_categoriesdesc.html">Categories description</a></div>
+<br/>
+ The menu allows to cut, copy, or paste content, and also add elements in the articles, dictionary description or categories description:<br/>
+ <img src="../images/editor-popupmenu-add-cat.png" alt="editor-popupmenu-add-cat" id="_image_12" onclick="openImage(_image_12)" class="left marginSmall" />
+
+<h4 id="adding_elements_in_the_content">Adding elements in the content</h4>
+<div class="moreInfo" >
+Main Article: <a href="article_editorpopupeltslist.html">article popup menu elements list</a></div>
+<br/>
+ The popup menu allows to add elements in the content. For example in the following example the user selects the  <code>first</code> text and selects the menu to put the text in  <a href="article_syntaxJustifElements.html#formatting_text">bold</a>:<br/>
+ <img src="../images/editor-popupmenu-boldmenu.png" alt="editor-popupmenu-boldmenu" id="_image_13" onclick="openImage(_image_13)" class="left marginSmall" />
+<br/>
+ A specific menu for putting the text in bold will appear:<br/>
+ <img src="../images/editor-popupmenu-bold.png" alt="editor-popupmenu-bold" id="_image_14" onclick="openImage(_image_14)" class="left marginSmall" />
+<br/>
+ After clicking the "Yes" button, the text will put the  <code>first</code> text in bold:<br/>
+ <img src="../images/editor-popupmenu-bold2.png" alt="editor-popupmenu-bold2" id="_image_15" onclick="openImage(_image_15)" class="left marginSmall" />
+<br/>
+ Each element has a specific menu, for example here is the menu for the  <a href="article_syntaxJustifElements.html#font_format">font</a>  element: <br/>
+ <img src="../images/editor-popupmenu-font.png" alt="editor-popupmenu-font" id="_image_16" onclick="openImage(_image_16)" class="left marginSmall" />
+
+<h3 id="footer_and_header_files">Footer and header files</h3>
+As for the  <a href="#articles_and_dictionary_description">articles</a> the menu allows to cut, copy, or paste content, and also add elements.<br/>
+<br/>
+ The list of elements to add is limited compared to the articles list:<br/>
+ <img src="../images/editor-popupmenu-header-add.png" alt="editor-popupmenu-header-add" id="_image_17" onclick="openImage(_image_17)" class="left marginSmall" />
+
+<h3 id="other_xml_elements">Other XML elements</h3>
+ Other XML elements are:<ul>
+<li>The  <a href="article_roots.html#defining_a_package_for_a_root">Packages</a></li>
+<li>The  <a href="article_resourceFiles.html">Resource definition files</a></li>
+<li>The  <a href="article_imageFiles.html">Image definition files</a></li>
+<li>The  <a href="article_custommenus.html">menus</a> files</li>
+<li>The  <a href="article_infoboxtemplate.html">Infobox definition files</a></li>
+</ul>
+ The editor in this menu only have menu to add elements. The list of elements to add depends on the type of element.<br/>
+<br/>
+ For example for a package you will have the following menu:<br/>
+ <img src="../images/editor-popupmenu-package-add.png" alt="editor-popupmenu-package-add" id="_image_18" onclick="openImage(_image_18)" class="left marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editor.html">DocGenerator editor</a>: This article explains the DocGenerator editor</li>
+<li> <a href="article_editorwindow.html">Editor window</a>: This article explains the content of the Editor window</li>
+<li> <a href="article_editorcontent.html">Editor content panel</a>: This article is about the right panel of the Editor which shows the content of the currently selected element in the tree</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_editor.html">Editor</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Review system tutorial - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_tutorialreview.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Review system tutorial</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#create_an_index_article">1&nbsp; Create an index article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_a_first_article_with_comments_and_todos">2&nbsp; Create a first article with comments and todos</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_a_first_article_with_comments">3&nbsp; Create a first article with comments</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#generate_the_wiki">4&nbsp; Generate the wiki</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#open_the_wiki">5&nbsp; Open the wiki</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#start_the_navigation">5.1&nbsp; Start the navigation</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#navigate_through_the_comments">5.2&nbsp; Navigate through the comments</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#exist_the_review_mode">5.3&nbsp; Exist the review mode</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article is a tutorial to add a review system to your wiki. You will:<ul>
+<li>Create an index article</li>
+<li>Create a first article with  <a href="article_syntaxcomment.html">comments</a></li>
+<li>Create a second article with comments</li>
+<li>Generate the wiki and include comments in the generation</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The solution of this tutorial is in the  <code>docGenerator-tutorial-&lt;version&gt;.zip</code>, in the  <code>reviewSystemTutorial</code> directory.</div>
+
+<h2 id="create_an_index_article">Create an index article</h2>
+ Choose an empty directory to put your articles.<br/>
+<br/>
+ Now you will create only an  <a href="article_articles.html#index_definition">index</a> article. Let's write our index article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;index&gt;</span>
+<span>   The index for the tutorial wiki.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/index&gt;</span>
+</pre>
+
+<h2 id="create_a_first_article_with_comments_and_todos">Create a first article with comments and todos</h2>
+We will create a first  <a href="article_articles.html#regular_articles">article</a> with a  <a href="article_syntaxcomment.html">comment</a> and a  <a href="article_syntaxtodo.html">todo</a>. Let's do it:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article 1"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>   The article with a comment</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;comment</span><span class="syntaxKeyWord2" style="font-weight:bold;"> author</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"herve"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> comment</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the comment text"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   There can be more than one comment in an article.</span>
+<span>   The text under this title have a new comment</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;comment</span><span class="syntaxKeyWord2" style="font-weight:bold;"> author</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"herve"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> comment</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the second comment"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>, but is also has a TODO:</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;todo</span><span class="syntaxKeyWord2" style="font-weight:bold;"> reason</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"this is a TODO"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="create_a_first_article_with_comments">Create a first article with comments</h2>
+We will create a second article with a  <a href="article_syntaxcomment.html">comment</a>. Let's do it:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article 2"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>      The article with a comment</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;comment</span><span class="syntaxKeyWord2" style="font-weight:bold;"> author</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"herve"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> comment</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the comment text"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> date</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"2022-03-01"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="generate_the_wiki">Generate the wiki</h2>
+ Let's generate our wiki. Double-click on the jar file of the application and:<ul>
+<li>Input directories: Set your directory (with only the <span style="font-style: italic;">index.xml</span> file for the moment)</li>
+<li>Output directory: Set another empty directory for the HTML wiki result</li>
+<li>Review Mode: Check the "Include Comments" checkbox</li>
+<li>Click on "Apply"</li>
+</ul>
+<br/>
+<img src="../images/tutorialReview.png" alt="tutorialReview" id="_image_0" onclick="openImage(_image_0)" width="40%" class="left marginSmall" />
+
+<h2 id="open_the_wiki">Open the wiki</h2>
+
+<h3 id="start_the_navigation">Start the navigation</h3>
+ Double click on the "index.html" file in the output directory. We have the following page:<br/>
+<img src="../images/reviewStart.png" alt="reviewStart" id="_image_1" onclick="openImage(_image_1)" width="60%" class="left marginSmall" />
+<br/>
+ Click on the "Review" button to enter the "Review" mode: A slider menu appear at the left, with the first comment in a box:<br/>
+<img src="../images/reviewBegin.png" alt="reviewBegin" id="_image_2" onclick="openImage(_image_2)" width="80%" class="left marginSmall" />
+
+<h3 id="navigate_through_the_comments">Navigate through the comments</h3>
+Click on the "Next" button to go to the next  <a href="article_syntaxcomment.html">comment</a>:<br/>
+<img src="../images/reviewNext.png" alt="reviewNext" id="_image_3" onclick="openImage(_image_3)" width="80%" class="left marginSmall" />
+<br/>
+ Click on the "Next" button to go to the next comment. In fact the next comment is a  <a href="article_syntaxtodo.html">todo</a>, so the background of the box is yellow:<br/>
+<img src="../images/reviewTodo.png" alt="reviewTodo" id="_image_4" onclick="openImage(_image_4)" width="80%" class="left marginSmall" />
+
+<h3 id="exist_the_review_mode">Exist the review mode</h3>
+ Click on the cross in the slider menu to exist the review mode. We go back to the start page:<br/>
+<img src="../images/reviewStart.png" alt="reviewStart" id="_image_5" onclick="openImage(_image_5)" width="80%" class="left marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_review.html">Review system</a>: This article is about the review system</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_tutorials.html">Tutorials</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Table of content configuration - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_tableofcontent.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Table of content configuration</h1>
+
+<hr/>
+<div  class="justifiedAuto alignedNone" >
+It is possible to configure if and how the table of content is shown in the html output for each  <a href="article_articles.html">article</a>.<br/>
+<br/>
+ By default a table of content is shown for an article in if this article has at least 3  <a href="article_chapters.html">chapters or titles</a> in the article.
+<h2 id="general_configuration_of_the_table_of_content">General configuration of the table of content</h2>
+Several  <a href="article_commandline.html">command-line</a> or  <a href="article_configFile.html">configuration file</a> properties allow to configure the table of content for each article:<ul>
+<li> <a href="article_commandline.html#hastoc">hasTOC</a>: specifies if the table of content must be presented. If set to false, no table of content will be presented on articles, regardless of their number of titles</li>
+<li> <a href="article_commandline.html#tocthreshold">tocThreshold</a>: specifies the threshold of the number of titles for articles on html. By default an article must have at least 3 titles to have a table of content</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -hasTOC=false</span>
+</pre>
+  will not present any table of content for any article.<br/>
+<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -tocThreshold=5</span>
+</pre>
+  will only present a table of content for articles which have at least 5 titles. 
+<h2 id="configuring_the_table_of_content_for_one_article">Configuring the table of content for one article</h2>
+The  <code>toc</code> attribute for an  <a href="article_articles.html">article</a> specifies that this article will not have a table of  content regardless of the general configuration (it can only have the  <code>false</code> value if present).<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"an article without a toc"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> toc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   ...</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

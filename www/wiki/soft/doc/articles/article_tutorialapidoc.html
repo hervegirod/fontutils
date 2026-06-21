@@ -1,0 +1,371 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>API documentation elements basic tutorial - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_tutorialapidoc.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>API documentation elements basic tutorial</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#initialize_the_wiki_content">1&nbsp; Initialize the wiki content</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#add_links_to_existing_apis">2&nbsp; Add links to existing APIs</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#add_a_link_to_a_javadoc_api">2.1&nbsp; Add a link to a javadoc API</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#add_a_link_to_a_.net_api">2.2&nbsp; Add a link to a .NET API</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#embed_apis_in_the_wiki">3&nbsp; Embed APIs in the wiki</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#embed_a_javadoc_api">3.1&nbsp; Embed a javadoc API</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#embed_a_python_api">3.2&nbsp; Embed a python API</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article is a tutorial explaining how to reference APIs in the wiki. You will:<ul>
+<li>Initialize the wiki content</li>
+<li>Add links to  <a href="article_apiselts.html#link_to_an_existing_api">existing APIs</a></li>
+<li>Embed  <a href="article_apiselts.html#embed_an_api">APIs</a> in the wiki</li>
+</ul>
+
+<h2 id="initialize_the_wiki_content">Initialize the wiki content</h2>
+As for the  <a href="article_tutorial1.html">first tutorial</a>, we will:<ul>
+<li>Create an index file</li>
+<li>Create a first empty article</li>
+</ul>
+ Let's create our  <a href="article_articles.html#index_definition">index</a> article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;index&gt;</span>
+<span>   The index for the tutorial wiki.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/index&gt;</span>
+</pre>
+ And also an empty article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"api article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="add_links_to_existing_apis">Add links to existing APIs</h2>
+We will reference existing APIs on the Web. 
+<h3 id="add_a_link_to_a_javadoc_api">Add a link to a javadoc API</h3>
+First we will add a reference to the  <code>javax.swing.JComponent</code> javadoc API for Java:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"api article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"javax.swing.JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  We will have the following result:<br/>
+<a href="https://docs.oracle.com/javase/8/docs/api//java/awt/Button.html" class="apiLink" title="Button">Button</a><br/>
+<br/>
+ Now we will add a reference to a method of the  <code>javax.swing.JComponent</code> class:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"api article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"javax.swing.JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"javax.swing.JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setEnabled(boolean)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  We will have the following result:<br/>
+<a href="https://docs.oracle.com/javase/8/docs/api//javax/swing/JComponent.html" class="apiLink" title="JComponent">JComponent</a><br/>
+<a href="https://docs.oracle.com/javase/8/docs/api//javax/swing/JComponent.html#setEnabled-boolean-" class="apiLink" title="JComponent.setEnabled(boolean)">JComponent.setEnabled(boolean)</a>
+<h3 id="add_a_link_to_a_.net_api">Add a link to a .NET API</h3>
+Now we will add a reference to the  <code>System.AppDomain</code> .NET API:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"api article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"javax.swing.JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"javax.swing.JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setEnabled(boolean)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;empty/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dotnetdoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"System.AppDomain"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  We will have the following result:<br/>
+<a href="https://docs.oracle.com/javase/8/docs/api//javax/swing/JComponent.html" class="apiLink" title="JComponent">JComponent</a><br/>
+<a href="https://docs.oracle.com/javase/8/docs/api//javax/swing/JComponent.html#setEnabled-boolean-" class="apiLink" title="JComponent.setEnabled(boolean)">JComponent.setEnabled(boolean)</a><br/>
+<br/>
+<a href="https://docs.microsoft.com/en-us/dotnet/api//System.AppDomain?view=netcore-3.1" class="apiLink" title="System.AppDomain">System.AppDomain</a><br/>
+<br/>
+ Now we will add a reference to a method of the  <code>System.AppDomain</code> class:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"api article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"javax.swing.JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"javax.swing.JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setEnabled(boolean)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;empty/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dotnetdoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"System.AppDomain"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dotnetdoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"System.AppDomain"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"CreateDomain(string)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  We will have the following result:<br/>
+<a href="https://docs.oracle.com/javase/8/docs/api//javax/swing/JComponent.html" class="apiLink" title="JComponent">JComponent</a><br/>
+<a href="https://docs.oracle.com/javase/8/docs/api//javax/swing/JComponent.html#setEnabled-boolean-" class="apiLink" title="JComponent.setEnabled(boolean)">JComponent.setEnabled(boolean)</a><br/>
+<br/>
+<a href="https://docs.microsoft.com/en-us/dotnet/api//System.AppDomain?view=netcore-3.1" class="apiLink" title="System.AppDomain">System.AppDomain</a><br/>
+<a href="https://docs.microsoft.com/en-us/dotnet/api//System.AppDomain.CreateDomain?view=netcore-3.1#System_AppDomain_CreateDomain_System_String_" class="apiLink" title="System.AppDomain.CreateDomain(System.String)">System.AppDomain.CreateDomain(System.String)</a>
+<h2 id="embed_apis_in_the_wiki">Embed APIs in the wiki</h2>
+We will now embed APIs directly in the wiki. To do that, let's create a second empty article: <br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second api article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h3 id="embed_a_javadoc_api">Embed a javadoc API</h3>
+First we will embed the  <code>JComponent</code> API for Java:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second api article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javaAPI</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> modifiers</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"public"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>The base class for all Swing components except top-level containers.</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/javaAPI&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  We will have the following result:<br/>
+<br/>
+<table class="borderNone" >
+<tbody>
+<th valign="middle" class="headerAPI">public class JComponent</th>
+<br/>
+</tbody>
+</table>
+<br/><br/>
+<br/>
+The base class for all Swing components except top-level containers. <br/>
+<br/>
+ Now let's add the  <code>setEnabled</code> method:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second api article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javaAPI</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> modifiers</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"public"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>The base class for all Swing components except top-level containers.</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/javaAPI&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;method</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setEnabled(boolean enabled)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>Sets whether or not this component is enabled</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/method&gt;</span><span>     </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/javaAPI&gt;</span><span>    </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  We will have the following result:<br/>
+<br/>
+<table class="borderNone" >
+<tbody>
+<th valign="middle" class="headerAPI">public class JComponent</th>
+<br/>
+</tbody>
+</table>
+The base class for all Swing components except top-level containers.<br/><br/>
+<table class="border" >
+<thead>
+<tr>
+<th valign="middle" class="columnAPI">Modifier and Type</th>
+<th valign="middle" class="columnAPI">Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">setEnabled(boolean enabled)
+<br/>
+<div class="rowContentTextAPI">
+Sets whether or not this component is enabled</div>
+</th>
+</tr>
+</tbody>
+</table>
+<br/>
+
+<h3 id="embed_a_python_api">Embed a python API</h3>
+Now we will embed the  <code>io</code> API for Python:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second api article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javaAPI</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> modifiers</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"public"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>The base class for all Swing components except top-level containers.</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/javaAPI&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;method</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setEnabled(boolean enabled)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>Sets whether or not this component is enabled</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/method&gt;</span><span>     </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/javaAPI&gt;</span><span>  </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pythonAPI</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"io"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>The io module provides Python</span><span class="syntaxLabel" style="font-weight:bold;">&amp;#x00E2;&amp;#x20AC;&amp;#x2122;</span><span>s main facilities for dealing with various types of I/O.</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pythonAPI&gt;</span><span>         </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  We will have the following result:<br/>
+<br/>
+<table class="borderNone" >
+<tbody>
+<th valign="middle" class="headerAPI">public class JComponent</th>
+<br/>
+</tbody>
+</table>
+The base class for all Swing components except top-level containers.<br/><br/>
+<table class="border" >
+<thead>
+<tr>
+<th valign="middle" class="columnAPI">Modifier and Type</th>
+<th valign="middle" class="columnAPI">Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">setEnabled(boolean enabled)
+<br/>
+<div class="rowContentTextAPI">
+Sets whether or not this component is enabled</div>
+</th>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<table class="borderNone" >
+<tbody>
+<th valign="middle" class="headerPythonAPI">class io</th>
+<br/>
+</tbody>
+</table>
+<br/><br/>
+<br/>
+The io module provides Python main facilities for dealing with various types of I/O. <br/>
+<br/>
+<br/>
+Now let's add the  <code>open</code> method:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second api article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javaAPI</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"JComponent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> modifiers</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"public"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>The base class for all Swing components except top-level containers.</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/javaAPI&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;method</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"setEnabled(boolean enabled)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>Sets whether or not this component is enabled</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/method&gt;</span><span>     </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/javaAPI&gt;</span><span>  </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pythonAPI</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"io"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>The io module provides Python main facilities for dealing with various types of I/O.</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;method</span><span class="syntaxKeyWord2" style="font-weight:bold;"> member</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"open(file, mode='r', buffering=- 1, encoding=None, errors=None, newline=None, closefd=True, opener=None)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>Open file and return a corresponding file object.</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/method&gt;</span><span>              </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pythonAPI&gt;</span><span>         </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  We will have the following result:<br/>
+<br/>
+<table class="borderNone" >
+<tbody>
+<th valign="middle" class="headerAPI">public class JComponent</th>
+<br/>
+</tbody>
+</table>
+The base class for all Swing components except top-level containers.<br/><br/>
+<table class="border" >
+<thead>
+<tr>
+<th valign="middle" class="columnAPI">Modifier and Type</th>
+<th valign="middle" class="columnAPI">Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">setEnabled(boolean enabled)
+<br/>
+<div class="rowContentTextAPI">
+Sets whether or not this component is enabled</div>
+</th>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<table class="borderNone" >
+<tbody>
+<th valign="middle" class="headerPythonAPI">class io</th>
+<br/>
+</tbody>
+</table>
+The io module provides Python main facilities for dealing with various types of I/O.<br/><br/>
+<table class="borderNone" >
+<tbody>
+<tr class="rowPythonAPI">
+<th valign="middle" class="rowModifierAPI">def</th>
+<th valign="middle" class="rowContentPythonAPI">open(file, mode='r', buffering=- 1, encoding=None, errors=None, newline=None, closefd=True, opener=None)
+<br/>
+<div class="rowContentTextAPI">
+Open file and return a corresponding file object.</div>
+</th>
+</tr>
+</tbody>
+</table><br/>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_apiselts.html">APIs elements</a>: This article presents the elements which link to APIs or embed APIs in the wiki</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_tutorials.html">Tutorials</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

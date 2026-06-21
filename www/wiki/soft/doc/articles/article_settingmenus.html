@@ -1,0 +1,182 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DocGenerator API: setting the menus - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_settingmenus.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DocGenerator API: setting the menus</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_an_item_in_a_menu">2&nbsp; Adding an item in a menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#adding_a_default_item_in_a_menu">2.1&nbsp; Adding a default item in a menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#adding_an_internal_item_in_a_menu">2.2&nbsp; Adding an internal item in a menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#adding_an_external_item_in_a_menu">2.3&nbsp; Adding an external item in a menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article presents how to set the content of the wiki menus through docJGenerator API.
+<h2 id="overview">Overview</h2>
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#getMenus--" class="apiLink" title="DocGeneratorAPI.getMenus()">DocGeneratorAPI.getMenus()</a> method allows to access and configure the menus. <br/>
+<br/>
+ The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#cleanGlobalLeftMenu--" class="apiLink" title="DocGeneratorAPI.cleanGlobalLeftMenu()">DocGeneratorAPI.cleanGlobalLeftMenu()</a> define the same content for the left menu on the the  <a href="article_articles.html#index_definition">index</a> and  <a href="article_articles.html">articles</a>, then clean the default content. <br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+<span>         </span>
+<span>   XMLMenu menu = api.</span><span class="syntaxDefault" style="font-weight:bold;">cleanGlobalLeftMenu</span><span>(); </span><span class="syntaxComment" style="font-style:italic;">// have the same content for the left menu on the index and articles, and clean the content of the left menu</span>
+</pre>
+
+<h2 id="adding_an_item_in_a_menu">Adding an item in a menu</h2>
+
+<h3 id="adding_a_default_item_in_a_menu">Adding a default item in a menu</h3>
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addDefaultMenuItem-org.docgene.model.XMLMenu-short-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addDefaultMenuItem(org.docgene.model.XMLMenu, short, java.lang.String)">DocGeneratorAPI.addDefaultMenuItem(XMLMenu, short, String)</a> and <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addDefaultMenuItem-org.docgene.model.XMLMenu-short-" class="apiLink" title="DocGeneratorAPI.addDefaultMenuItem(org.docgene.model.XMLMenu, short)">DocGeneratorAPI.addDefaultMenuItem(XMLMenu, short)</a> add a default menu item in the left menu.<br/>
+<br/>
+ The types for the default menu items are:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/model/globals/DefaultMenuItem.html#HOME" class="apiLink" title="DefaultMenuItem.HOME">DefaultMenuItem.HOME</a> for the link to the  <a href="article_articles.html#index_definition">index</a> article</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/model/globals/DefaultMenuItem.html#DICTIONARY" class="apiLink" title="DefaultMenuItem.DICTIONARY">DefaultMenuItem.DICTIONARY</a> for the link to the  <a href="article_dictionnary.html">dictionary</a></li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/model/globals/DefaultMenuItem.html#CATEGORIES" class="apiLink" title="DefaultMenuItem.CATEGORIES">DefaultMenuItem.CATEGORIES</a> for the link to the  <a href="article_categories.html">categories</a></li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/model/globals/DefaultMenuItem.html#GLOSSARY" class="apiLink" title="DefaultMenuItem.GLOSSARY">DefaultMenuItem.GLOSSARY</a> for the link to the  <a href="article_glossary.html">glossary</a></li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/model/globals/DefaultMenuItem.html#LINKS_FROM" class="apiLink" title="DefaultMenuItem.LINKS_FROM">DefaultMenuItem.LINKS_FROM</a> for the link to the "What links here" page</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+<span>         </span>
+<span>   ArticlesMenus menus = api.</span><span class="syntaxDefault" style="font-weight:bold;">getMenus</span><span>(); </span><span class="syntaxComment" style="font-style:italic;">// get the menus</span>
+<span>   XMLMenu menu = menus.</span><span class="syntaxDefault" style="font-weight:bold;">cleanGlobalLeftMenu</span><span>(); </span><span class="syntaxComment" style="font-style:italic;">// have the same content for the left menu on the index and articles, and clean the content of the left menu</span>
+<span>      </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addDefaultMenuItem</span><span>(menu, DefaultMenuItem.DICTIONARY); </span><span class="syntaxComment" style="font-style:italic;">// add a default menu item for the dictionary</span>
+</pre>
+
+<h3 id="adding_an_internal_item_in_a_menu">Adding an internal item in a menu</h3>
+The following methods:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addInternalMenuItem-org.docgene.model.XMLMenu-java.lang.String-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addInternalMenuItem(org.docgene.model.XMLMenu, java.lang.String, java.lang.String)">DocGeneratorAPI.addInternalMenuItem(XMLMenu, String, String)</a></li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addInternalMenuItem-org.docgene.model.XMLMenu-org.docgene.model.XMLParentArticle-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addInternalMenuItem(org.docgene.model.XMLMenu, org.docgene.model.XMLParentArticle, java.lang.String)">DocGeneratorAPI.addInternalMenuItem(XMLMenu, XMLParentArticle, String)</a></li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addInternalMenuItem-org.docgene.model.XMLMenu-org.docgene.model.XMLParentArticle-" class="apiLink" title="DocGeneratorAPI.addInternalMenuItem(org.docgene.model.XMLMenu, org.docgene.model.XMLParentArticle)">DocGeneratorAPI.addInternalMenuItem(XMLMenu, XMLParentArticle)</a></li>
+</ul>
+ add a menu item which links to a specifed article. <br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+<span>         </span>
+<span>   ArticlesMenus menus = api.</span><span class="syntaxDefault" style="font-weight:bold;">getMenus</span><span>(); </span><span class="syntaxComment" style="font-style:italic;">// get the menus</span>
+<span>   XMLMenu menu = menus.</span><span class="syntaxDefault" style="font-weight:bold;">cleanGlobalLeftMenu</span><span>(); </span><span class="syntaxComment" style="font-style:italic;">// have the same content for the left menu on the index and articles, and clean the content of the left menu</span>
+<span>      </span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the article"</span><span>);</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addInternalMenuItem</span><span>(menu, article);</span>
+</pre>
+
+<h3 id="adding_an_external_item_in_a_menu">Adding an external item in a menu</h3>
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addExternalMenuItem-org.docgene.model.XMLMenu-java.lang.String-java.net.URL-" class="apiLink" title="DocGeneratorAPI.addExternalMenuItem(org.docgene.model.XMLMenu, java.lang.String, java.net.URL)">DocGeneratorAPI.addExternalMenuItem(XMLMenu, String, URL)</a>  add a menu item which links to a specified URL. <br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+<span>         </span>
+<span>   ArticlesMenus menus = api.</span><span class="syntaxDefault" style="font-weight:bold;">getMenus</span><span>(); </span><span class="syntaxComment" style="font-style:italic;">// get the menus</span>
+<span>   XMLMenu menu = menus.</span><span class="syntaxDefault" style="font-weight:bold;">cleanGlobalLeftMenu</span><span>(); </span><span class="syntaxComment" style="font-style:italic;">// have the same content for the left menu on the index and articles, and clean the content of the left menu</span>
+<span>      </span>
+<span>   URL url = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">URL</span><span>(</span><span class="syntaxLiteral" style="">"http://sourceforge.net/projects/docjgenerator/"</span><span>);</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addExternalMenuItem</span><span>(menu, </span><span class="syntaxLiteral" style="">"Sourceforge"</span><span>, url);</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_docgeneratorapi.html">DocJGenerator API</a>: This article presents an overview of the docJGenerator API</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_api.html">Api</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

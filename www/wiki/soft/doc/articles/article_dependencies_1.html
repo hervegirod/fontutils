@@ -1,0 +1,122 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Editor tree dependencies - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_dependencies_1.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Editor tree dependencies</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#content_of_the_dependencies_window">1&nbsp; Content of the dependencies window</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#navigating_in_the_window">2&nbsp; Navigating in the window</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The dependencies window show the dependencies of the selected element in the tree. Right-clicking on the tree will show in the following menu:<br/>
+ <img src="../images/treerightclick.png" alt="editortree-rightclick" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+<ul>
+<li>The "Dependencies" option show a window showing the dependencies of the selected element</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The dependencies of the elements in the wiki will be updated after  <a href="article_editortreeedit.html">adding or removing an element</a> in the tree.</div>
+
+<h2 id="content_of_the_dependencies_window">Content of the dependencies window</h2>
+ The window will present all the elements which have a reference on the selected element, and the elements wich are referenced by the element. For example, in the following example you will see the articles which have a reference on the selected article, and the articles which are referenced by the selected article:<br/>
+ <img src="../images/dependencies.png" alt="editor-dependencies" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+
+<h2 id="navigating_in_the_window">Navigating in the window</h2>
+ <img src="../images/dependencies2.png" alt="editor-dependencies2" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+<br/>
+   Right-clicking on an element in the window allow to navigate to this element in the tree.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editor.html">DocGenerator editor</a>: This article explains the DocGenerator editor</li>
+<li> <a href="article_editortree.html">Editor tree</a>: This article is about the left panel of the editor window, which shows the tree of the wiki</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_editor.html">Editor</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

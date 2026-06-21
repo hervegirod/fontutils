@@ -1,0 +1,834 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() 
+  {
+    $("#table_0").tablesorter(); 
+  }
+);
+</script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>table element - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_syntaxtable.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>table element</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#table">1&nbsp; Table</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#table_width">1.1&nbsp; Table width</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#sortable_tables">1.2&nbsp; Sortable tables</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#fixedlayout_attribute">1.3&nbsp; fixedLayout attribute</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#table_alignment">1.4&nbsp; Table alignment</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#tables_without_borders">1.5&nbsp; Tables without borders</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#tables_rows_padding">1.6&nbsp; Tables rows padding</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#children_elements">2&nbsp; Children elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#tableheader_element">2.1&nbsp; tableHeader element</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#column_element">2.2&nbsp; column element</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#row_element">2.3&nbsp; row element</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bottom_and_top_border_of_a_row">2.3.1&nbsp; Bottom and top border of a row</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#custom_widths_for_the_row_cells">2.3.2&nbsp; Custom widths for the row cells</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#cell_element">2.4&nbsp; cell element</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#vertical_headers">3&nbsp; Vertical headers</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#vertical_headers_style">3.1&nbsp; Vertical headers style</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">4&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article explains the XML tags which can be used to specify  <a href="article_syntax.html#table">tables</a>.
+<h2 id="table">Table</h2>
+ A table element has several optional attributes:<ul>
+<li>"caption": specifies the caption of the table (by default a table has no caption)</li>
+<li>"sortable": specifies if the table header has arrows to sort the columns (by default a table is not sortable)</li>
+<li>"borders": specifies if the table has borders (by default a table has borders)</li>
+<li>"vertical": specifies if the table is vertical (by default a table is vertical)</li>
+<li>"float": a boolean attribute indicating that the table is float (on the same column as the text)</li>
+<li>"position" or "align": specifies the position of the table, which can be "left", "center", or "right" (by default the position of the table is center)</li>
+<li>"padding": specifies the padding of the table for each cell, which can be "small", "normal", or "large" (by default the padding is normal)</li>
+<li>"width": specifies the width of the table</li>
+<li>"fixedLayout": specifies if the layout of the columns is fixed. See  <a href="#fixedlayout_attribute">fixedLayout attribute</a> for more information</li>
+</ul>
+<br/>
+<br/>
+ The "table" element allows to define a Table. A table must have the following children:<ul>
+<li>"tableHeader" which will define the columns in the table.<ul>
+<li>The header will have one "column" child for each column</li>
+<li>The header can be defined to be vertical</li>
+</ul>
+</li>
+<li>several "row" elements which will define the rows in the table.<ul>
+<li>The row will have one "cell" child for each cell in the row. Each cell contains its content, and can have a background color if using the "color" attribute</li>
+</ul>
+</li>
+</ul>
+
+<h3 id="table_width">Table width</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_syntaxtable.html#tableheader_element">tableHeader width</a></div>
+<br/>
+ The "width" attribute allows to set the table width. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"80%"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+</pre>
+
+<h3 id="sortable_tables">Sortable tables</h3>
+ A table has sortable columns if it has the attribute "sortable" with the value true. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> caption</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"table caption"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> sortable</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+</pre>
+
+<h3 id="fixedlayout_attribute">fixedLayout attribute</h3>
+ The "fixedLayout" attribute allows to specify that the table layout is fixed and words are allowed to be wrapped in cells. It is equivalent to the following specification:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   table-layout</span><span>:fixed;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   word-wrap</span><span>: break-word;</span>
+</pre>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Note that if "fixedLayout" is true and the table has no "width" attribute, the width of the table will be assumed to be "100%".</div>
+<br/>
+<br/>
+ For example suppose the following table specification:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"50%"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"30%"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>column 1</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"70%"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>column 2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the_very_long_name_which_will_take_all_the_place</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the value with should be on a large width</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ We will have the following result:
+<table class="border paddingDefault"  style="width:50%; border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  width="30%" class="column border" >column 1</th>
+<th valign="middle"  width="70%" class="column border" >column 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">the_very_long_name_which_will_take_all_the_place</td>
+<td valign="middle" class="border paddingDefault">the value with should be on a large width</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">name</td>
+<td valign="middle" class="border paddingDefault">value</td>
+</tr>
+</tbody>
+</table>
+ But if we have the following table specification:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"50%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> fixedLayout</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"30%"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>column 1</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"70%"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>column 2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the_very_long_name_which_will_take_all_the_place</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the value with should be on a large width</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ We will have the following result, respecting the columns relative width:
+<table class="border fixedlayout paddingDefault"  style="width:50%; border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  width="30%" class="column border" >column 1</th>
+<th valign="middle"  width="70%" class="column border" >column 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">the_very_long_name_which_will_take_all_the_place</td>
+<td valign="middle" class="border paddingDefault">the value with should be on a large width</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">name</td>
+<td valign="middle" class="border paddingDefault">value</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="table_alignment">Table alignment</h3>
+ Several attributes allow to specify the alignment of the table:<ul>
+<li>"position": specifies the alignment of the table.<ul>
+<li>"left" (the default) for tables aligned to the left</li>
+<li>"right" for tables aligned to the right</li>
+<li>"center" for centered tables</li>
+</ul>
+</li>
+<li>float": a boolean attribute indicating that the table is float (on the same column as the text)</li>
+</ul>
+ For example, a table aligned to the right:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> caption</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"table caption"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> position</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"right"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>first column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>second column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ For example, a float table:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> float</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> position</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"right"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>first column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>second column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+
+<h3 id="tables_without_borders">Tables without borders</h3>
+ It is possible to have a table without any borders between cells if the table has the attribute "borders" with the value false. This can be useful for example to show several images on the same line.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> borders</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;&lt;/cell&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image2"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;&lt;/cell&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+
+<h3 id="tables_rows_padding">Tables rows padding</h3>
+ You can specify the "padding" attribute to control the padding between rows, relative to the content of the rows.<br/>
+<br/>
+ This attribute has three possible values:<ul>
+<li>"default": the default value</li>
+<li>"small": specifies a small padding for rows</li>
+<li>"large": specifies a large padding for rows</li>
+</ul>
+The following example specifies a small padding for rows:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> padding</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"small"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>my cell</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>my other cell</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ With the following result:
+<table class="border paddingSmall"  style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td valign="middle" class="border paddingSmall">my cell</td>
+<td valign="middle" class="border paddingSmall">my other cell</td>
+</tr>
+</tbody>
+</table>
+ The following example specifies a large padding for rows:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> padding</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"large"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>my cell</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>my other cell</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ With the following result:
+<table class="border paddingLarge"  style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td valign="middle" class="border paddingLarge">my cell</td>
+<td valign="middle" class="border paddingLarge">my other cell</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="children_elements">Children elements</h2>
+
+<h3 id="tableheader_element">tableHeader element</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_syntaxtable.html#vertical_headers">Vertical headers</a></div>
+<br/>
+ The  <code>tableHeader</code> element define the columns in the table:<ul>
+<li>The header will have one  <a href="#column_element">column</a> child for each column</li>
+<li>The header can be defined to be vertical</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ You only need to add a tableHeader if you want to customize the columns of the table or set the table as vertical.</div>
+<br/>
+<br/>
+ A tableHeader element has one optional attribute:<ul>
+<li>"vertical": specifies if the table is vertical (by default a table is horizontal)</li>
+</ul>
+ For example here is a table declaration with two columns:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>column 1</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>column 2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+
+<h3 id="column_element">column element</h3>
+The  <code>column</code> element is a child of the  <a href="#tableheader_element">tableHeader</a> element. It defines one column in the table.<br/>
+<br/>
+ A column element has one optional attribute:<ul>
+<li>"colspan": the span of the column</li>
+<li>"width" specifies the width of the column. Note that the width of the column is relative to the parent element, so if you specify a width for columns, you should define a width for the table itself (see  <a href="#table_width">Table width</a>)</li>
+<li>"align" specifies the alignment of the cells in the column. Can be "left", "right", or "center"</li>
+</ul>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"30%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> align</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"center"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>Type</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"70%"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>Content</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"10%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> align</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"center"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>first column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"40%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> align</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"left"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>second column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the cell text</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the second cell text</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ Will have the following result:
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  width="10%" class="column border" >first column</th>
+<th valign="middle"  width="40%" class="column border" >second column</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" align="center" class="border paddingDefault">name</td>
+<td valign="middle" align="left" class="border paddingDefault">the cell text</td>
+</tr>
+<tr>
+<td valign="middle" align="center" class="border paddingDefault">name2</td>
+<td valign="middle" align="left" class="border paddingDefault">the second cell text</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="row_element">row element</h3>
+The  <code>row</code> element define each row in the table.<br/>
+<br/>
+ This element has several optional attributes:<ul>
+<li>"color" specifies the background  <a href="article_colors.html">color</a> of the cells in the row</li>
+<li>"borders" specifies if the row has a border between its cells. By default borders are present</li>
+<li>"borderTop" specifies the style of the top border of the row</li>
+<li>"borderBottom" specifies the style of the bottom border of the row</li>
+<li>"widths" specifies a list of custom widths for the row cells</li>
+</ul>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row</span><span class="syntaxKeyWord2" style="font-weight:bold;"> color</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"green"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the cell text</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row</span><span class="syntaxKeyWord2" style="font-weight:bold;"> borders</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the second cell text</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ Will have the following result:
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault" style="background-color: green;">name</td>
+<td valign="middle" class="border paddingDefault" style="background-color: green;">the cell text</td>
+</tr>
+<tr>
+<td valign="middle" class="borderNone paddingDefault">name2</td>
+<td valign="middle" class="borderNone paddingDefault">the second cell text</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="bottom_and_top_border_of_a_row">Bottom and top border of a row</h4>
+ The "borderTop" and "borderBottom" attributes specify the style of the bottom and top border of each row. The possible values are:<ul>
+<li>"false" or "none": no border</li>
+<li>"true" or "solid": solid border (one solid line)</li>
+<li>"dotted": dotted border</li>
+<li>"dashed": dashed border</li>
+</ul>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>first column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>second column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row</span><span class="syntaxKeyWord2" style="font-weight:bold;"> borderBottom</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"dashed"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the cell text</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the second cell text</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ Will have the following result:
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >first column</th>
+<th valign="middle"  class="column border" >second column</th>
+</tr>
+</thead>
+<tbody>
+<tr class="borderBottomDashed" >
+<td valign="middle" class="border paddingDefault">name</td>
+<td valign="middle" class="border paddingDefault">the cell text</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">name2</td>
+<td valign="middle" class="border paddingDefault">the second cell text</td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="custom_widths_for_the_row_cells">Custom widths for the row cells</h4>
+The  <code>widths</code> attribute for a row specifies custom widths for the row cells, regardless of the fact that the table has specified column widths or not.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"60%"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row</span><span class="syntaxKeyWord2" style="font-weight:bold;"> widths</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"50% 50%"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the cell text</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row</span><span class="syntaxKeyWord2" style="font-weight:bold;"> widths</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"20% 80%"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the second cell text</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ Will have the following result:
+
+<table class="borderNone paddingDefault"  style="width:60%; border-collapse: collapse;">
+<thead class="notSortable">
+<th valign="middle" class="unpadded" width="50%"/>
+<th valign="middle" class="unpadded" width="50%"/>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="borderTop paddingDefault">name</td>
+<td valign="middle" class="borderTop paddingDefault">the cell text</td>
+</tr>
+</tbody>
+</table>
+
+<table class="borderNone paddingDefault"  style="width:60%; border-collapse: collapse;">
+<thead class="notSortable">
+<th valign="middle" class="unpadded" width="20%"/>
+<th valign="middle" class="unpadded" width="80%"/>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">name2</td>
+<td valign="middle" class="border paddingDefault">the second cell text</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="cell_element">cell element</h3>
+The  <code>cell</code> element define each cell in the table.<br/>
+<br/>
+ This element has several optional attributes:<ul>
+<li>"rowspan" specifies the row span of the cell</li>
+<li>"colspan" specifies the column span of the cell</li>
+<li>"color" specifies the background  <a href="article_colors.html">color</a> of the cell. By default the cell will have the background color of its row if it is defined</li>
+<li>"align" specifies the alignment of the cell. Can be "left", "right", or "center". By default the cell will be left aligned or will have the alignment of its column if the column is defined and its alignemnt is specified</li>
+<li>"class" specifies the style class of the cell</li>
+<li>"style" specifies the style of the cell</li>
+</ul>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell</span><span class="syntaxKeyWord2" style="font-weight:bold;"> align</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"center"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>the cell text</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell</span><span class="syntaxKeyWord2" style="font-weight:bold;"> color</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"green"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> colspan</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"2"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>the cell text</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ Will have the following result:
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td valign="middle" align="center" class="border paddingDefault">name</td>
+<td valign="middle" class="border paddingDefault">the cell text</td>
+</tr>
+<tr>
+<td valign="middle" colspan="2" class="border paddingDefault" style="background-color: green;">the cell text</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="vertical_headers">Vertical headers</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_syntaxtable.html#tableheader_element">tableHeader element</a></div>
+<br/>
+ A table has a vertical header if the "vertical" attribute of the header is true. For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> caption</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"table caption"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader</span><span class="syntaxKeyWord2" style="font-weight:bold;"> vertical</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>first row</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>second row</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ Result:
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >table caption</caption>
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >first row</th>
+<th valign="middle"  class="column border" >second row</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">name</td>
+<td valign="middle" class="border paddingDefault">value</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">name2</td>
+<td valign="middle" class="border paddingDefault">value2</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="vertical_headers_style">Vertical headers style</h3>
+Note that vertical headers are implemented in HTML without a  <code>thead</code> element. This means that if you want to use customized styles for tables with vertical headers, styles which are defined for the  <code>thead</code> element will be applied to the header column  <code>th</code> elements instead.<br/>
+<br/>
+ For example, the following specification:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader</span><span class="syntaxKeyWord2" style="font-weight:bold;"> vertical</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> style</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"background: gray; color: white;"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>first row</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>second row</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   ...</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ will have the following HTML result:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table class="border" &gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;caption class="tablecaption" &gt;</span><span>table caption</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/caption&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;thead class="notSortable"&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/thead&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tbody&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tr&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;th valign="center"  style="background: gray; color: white;" class="column border" &gt;</span><span>first row</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/th&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;td valign="center" class="border"&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/td&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;td valign="center" class="border"&gt;</span><span>value</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/td&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tr&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tr&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;th valign="center"  style="background: gray; color: white;" class="column border" &gt;</span><span>second row</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/th&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;td valign="center" class="border"&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/td&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;td valign="center" class="border"&gt;</span><span>value2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/td&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tr&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tbody&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+
+<h2 id="examples">Examples</h2>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> caption</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"table caption"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>first column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column&gt;</span><span>second column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell</span><span class="syntaxKeyWord2" style="font-weight:bold;"> color</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"#00FF00"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ Result:
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >table caption</caption>
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >first column</th>
+<th valign="middle"  class="column border" >second column</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">name</td>
+<td valign="middle" class="border paddingDefault">value</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault" style="background-color: #00FF00;">name2</td>
+<td valign="middle" class="border paddingDefault" style="background-color: #00FF00;">value2</td>
+</tr>
+</tbody>
+</table>
+ Another example (with fixed column width):<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"200"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>first column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"300"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>second column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ Result:
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  width="200" class="column border" >first column</th>
+<th valign="middle"  width="300" class="column border" >second column</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">name</td>
+<td valign="middle" class="border paddingDefault">value</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">name2</td>
+<td valign="middle" class="border paddingDefault">value2</td>
+</tr>
+</tbody>
+</table>
+ Another example (with sortable columns):<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table</span><span class="syntaxKeyWord2" style="font-weight:bold;"> sortable</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;tableHeader&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"150"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>first column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;column</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"150"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>second column</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/column&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/tableHeader&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>name2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>value2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ Result:
+<table id="table_0" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<caption class="tablecaption" >table caption</caption>
+<thead>
+<tr>
+<th valign="middle"  width="150" class="column border" >first column</th>
+<th valign="middle"  width="150" class="column border" >second column</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">name</td>
+<td valign="middle" class="border paddingDefault">value</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">name2</td>
+<td valign="middle" class="border paddingDefault">value2</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#table">syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_syntaxoverview.html">Syntax overview</a>: This article presents an overview of the tags supported in the XML syntax</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

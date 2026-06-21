@@ -1,0 +1,152 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Specifying the index - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_specifyindex.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Specifying the index</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#usage_example">1&nbsp; Usage example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#another_usage_example">2&nbsp; Another usage example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The  <a href="article_indexfiles.html">index</a> is the  <a href="article_articles.html">article</a> which is the entry-point to the wiki.<br/>
+<br/>
+ By default the tool will look for the index in one of the  <a href="article_roots.html">root directories</a>, but it is possible to specify the index explicitly in the configuration. You can do this by using the  <a href="article_commandline.html#index">command-line starting</a> command-line option or the associated  <a href="article_configFile.html#index">configuration file</a> option.<br/>
+<br/>
+ The index file can be anywhere, it is not necessary for it to be in one of the root directories.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Note that in this case,  <a href="article_indexfiles.html">index articles</a> which are in a  <a href="article_roots.html">root</a> will not be taken into account<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Except if the  <a href="article_indexfiles.html">index</a> found in the root is the specified global index of course</div></span>
+, which means that you will not have an error if there is more than one index article in the wiki source.</div>
+
+<h2 id="usage_example">Usage example</h2>
+Suppose that we have the following articles structure (with only one  <a href="article_roots.html">root</a>):<br/>
+
+<pre class="margin unlimited" >
+<span>      wiki</span>
+<span>      --&gt; input</span>
+<span>      ----&gt; article.xml</span>
+<span>      myIndex.xml</span>
+</pre>
+ We don't have any  <a href="article_indexfiles.html">index</a> in the root but we can specify the index on the  <a href="article_commandline.html">command-line</a>:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -index=myIndex.xml</span>
+</pre>
+
+<h2 id="another_usage_example">Another usage example</h2>
+In this case we have two  <a href="article_roots.html">roots</a>, and two  <a href="article_indexfiles.html">index articles</a> (one for each root):<br/>
+
+<pre class="margin unlimited" >
+<span>      wiki</span>
+<span>      --&gt; input1</span>
+<span>      ----&gt; article1.xml</span>
+<span>      ----&gt; index.xml</span>
+<span>      --&gt; input2</span>
+<span>      ----&gt; article2.xml</span>
+<span>      ----&gt; index.xml</span>
+</pre>
+ We have two index articles, in the root but we can specify the one one we want to use on the  <a href="article_commandline.html">command-line</a>:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input1;wiki/input2 -output=wiki/output -index=wiki/input1/index.xml</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Except if the  <a href="article_indexfiles.html">index</a> found in the root is the specified global index of course</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_indexfiles.html">Index article</a>: This article explains the concept of the articles index</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a> |
+ <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

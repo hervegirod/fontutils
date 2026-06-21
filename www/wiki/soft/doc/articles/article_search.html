@@ -1,0 +1,292 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Search box - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_search.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Search box</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#search_options">1&nbsp; Search options</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#pagerank_algorithm">1.1&nbsp; PageRank algorithm</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#search_options_examples">1.2&nbsp; Search options examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#default_search">2&nbsp; Default search</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">2.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#including_anchors_in_the_search">3&nbsp; Including anchors in the search</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#make_a_title_not_searchable">4&nbsp; Make a title not searchable</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#full_text_search">5&nbsp; Full text search</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#full_text_search_compression_level">5.1&nbsp; Full text search compression level</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#removing_accents">5.2&nbsp; Removing accents</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#use_the_metaphone_algorithm">5.3&nbsp; Use the Metaphone algorithm</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example_1">5.4&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#search_configuration_examples">6&nbsp; Search configuration examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+It is possible to show an auto-complete Search box at the top of the articles by setting the  <code>search</code> property in the  <a href="article_configFile.html#search">configuration file</a> or the  <a href="article_commandline.html#search">command-line</a>:<ul>
+<li>By default the Search box allow to search for the articles titles and their table of content  <a href="article_chapters.html">sub-titles</a></li>
+<li>You can also search for  <a href="article_syntax.html#anchor">anchors</a> in articles</li>
+<li>There can be a Search box for the articles titles only</li>
+<li>Or there can be no Search box</li>
+</ul>
+
+<h2 id="search_options">Search options</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_commandline.html#search_configuration">Search configuration</a></div>
+<br/>
+ The search options are:<ul>
+<li>"search": allow to add an autocomplete Search box which will be added for each  <a href="article_articles.html">article</a>.<ul>
+<li>"false" if there is no Search box</li>
+<li>"true" or "articles" if there is a Search box on the  <a href="article_articles.html">articles</a> descriptions only</li>
+<li>"titles" (the default value) if there is a Search box on the articles descriptions and their table of content  <a href="article_chapters.html">sub-titles</a></li>
+<li>"anchors" if there is a Search box on the articles descriptions, their titles, and their  <a href="article_syntax.html#anchor">anchors</a></li>
+<li>"custom": for  <a href="article_customsearch.html">custom search</a> categories</li>
+</ul>
+</li>
+<li>"searchLimit": the limit on the number of results for the Search</li>
+<li>"pageRank" : true if the PageRank algorithm is used to sort the Search results</li>
+<li>"pageRankIterations": the number of iterations for the PageRank algorithm</li>
+<li>"searchCustomSpec": for the  <a href="article_customsearch.html">custom search</a> categories specification</li>
+<li>"fullTextSearch": Set if a Full text search in the wiki is available. Note that for a Full text search to be available, the search must be set.</li>
+<li>"fullTextSearchCompressionLevel": the compression level of the full text search</li>
+<li>"fullTextSearchRemoveAccents": Set if accents should be removed from the full text search (true by default)</li>
+<li>"fullTextSearchMetaphone": Set if the Metaphone algorithm should be used for the full text search (false by default)</li>
+</ul>
+
+<h3 id="pagerank_algorithm">PageRank algorithm</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_pagerank.html">PageRank algorithm</a></div>
+<br/>
+ The following options allow to set and configure a PageRank algorithm to sort articles in the search results:<ul>
+<li>"pageRank": set the PageRank algorithm used to sort the Search results</li>
+<li>"pageRankIterations": the number of iterations for the PageRank algorithm, when the PageRank is using a fixed value for the iterations</li>
+<li>"pageRankMaxIterations": the maximum number of iterations for the PageRank algorithm, when the PageRank is using a convergence algorithm</li>
+<li>"pageRankConvergeDelta": the value to stop the iterations when the PageRank is using a convergence algorithm</li>
+</ul>
+
+<h3 id="search_options_examples">Search options examples</h3>
+ To allow search for the article titles, the table of content titles, and the anchors:<br/>
+
+<pre class="margin unlimited" >
+<span>      search=anchors</span>
+</pre>
+ To allow search for the article titles, the table of content titles, and add a full text search:<br/>
+
+<pre class="margin unlimited" >
+<span>      search= titles</span>
+<span>      fullTextSearch=true</span>
+</pre>
+ To allow search for the article titles only:<br/>
+
+<pre class="margin unlimited" >
+<span>      search=articles</span>
+</pre>
+ To disable search entirely:<br/>
+
+<pre class="margin unlimited" >
+<span>      search=false</span>
+</pre>
+
+<h2 id="default_search">Default search</h2>
+By default the Search box only search for article titles and table of content  <a href="article_chapters.html">sub-titles</a>. Clicking on a link will navigate to the corresponding article, title.<br/>
+<br/>
+ The file used for searching in articles and titles is a javascript file which is in the  <a href="article_outputstructure.html#resources_sub-directory">resources directory</a>.<br/>
+<br/>
+ This article is a list of articles, such as:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">function</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">getArticles</span><span>() {</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">var</span><span> articles = [{</span><span class="syntaxLiteral" style="">"name"</span><span>: </span><span class="syntaxLiteral" style="">"a element"</span><span>,</span><span class="syntaxLiteral" style="">"id"</span><span>: </span><span class="syntaxLiteral" style="">"a_element"</span><span>,</span><span class="syntaxLiteral" style="">"category"</span><span>: </span><span class="syntaxLiteral" style="">"articles"</span><span>,</span><span class="syntaxLiteral" style="">"title"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"titleID"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"url"</span><span>: </span><span class="syntaxLiteral" style="">"articles/article_syntaxlink.html"</span><span>},</span>
+<span>   {</span><span class="syntaxLiteral" style="">"name"</span><span>: </span><span class="syntaxLiteral" style="">"access to external links"</span><span>,</span><span class="syntaxLiteral" style="">"id"</span><span>: </span><span class="syntaxLiteral" style="">"access_to_external_links"</span><span>,</span><span class="syntaxLiteral" style="">"category"</span><span>: </span><span class="syntaxLiteral" style="">"articles"</span><span>,</span><span class="syntaxLiteral" style="">"title"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"titleID"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"url"</span><span>: </span><span class="syntaxLiteral" style="">"articles/article_externallinks.html"</span><span>},</span>
+<span>   {</span><span class="syntaxLiteral" style="">"name"</span><span>: </span><span class="syntaxLiteral" style="">"algorithm"</span><span>,</span><span class="syntaxLiteral" style="">"id"</span><span>: </span><span class="syntaxLiteral" style="">"algorithm"</span><span>,</span><span class="syntaxLiteral" style="">"category"</span><span>: </span><span class="syntaxLiteral" style="">"articles"</span><span>,</span><span class="syntaxLiteral" style="">"title"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"titleID"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"url"</span><span>: </span><span class="syntaxLiteral" style="">"articles/article_algorithm.html"</span><span>},</span>
+<span>   {</span><span class="syntaxLiteral" style="">"name"</span><span>: </span><span class="syntaxLiteral" style="">"ant integration"</span><span>,</span><span class="syntaxLiteral" style="">"id"</span><span>: </span><span class="syntaxLiteral" style="">"ant_integration"</span><span>,</span><span class="syntaxLiteral" style="">"category"</span><span>: </span><span class="syntaxLiteral" style="">"articles"</span><span>,</span><span class="syntaxLiteral" style="">"title"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"titleID"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"url"</span><span>: </span><span class="syntaxLiteral" style="">"articles/article_ant.html"</span><span>},</span>
+<span>   {</span><span class="syntaxLiteral" style="">"name"</span><span>: </span><span class="syntaxLiteral" style="">"api basic tutorial"</span><span>,</span><span class="syntaxLiteral" style="">"id"</span><span>: </span><span class="syntaxLiteral" style="">"api_basic_tutorial"</span><span>,</span><span class="syntaxLiteral" style="">"category"</span><span>: </span><span class="syntaxLiteral" style="">"articles"</span><span>,</span><span class="syntaxLiteral" style="">"title"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"titleID"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"url"</span><span>: </span><span class="syntaxLiteral" style="">"articles/article_tutorialapi.html"</span><span>},</span>
+<span>   {</span><span class="syntaxLiteral" style="">"name"</span><span>: </span><span class="syntaxLiteral" style="">"api documentation elements basic tutorial"</span><span>,</span><span class="syntaxLiteral" style="">"id"</span><span>: </span><span class="syntaxLiteral" style="">"api_documentation_elements_basic_tutorial"</span><span>,</span><span class="syntaxLiteral" style="">"category"</span><span>: </span><span class="syntaxLiteral" style="">"articles"</span><span>,</span><span class="syntaxLiteral" style="">"title"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"titleID"</span><span>: </span><span class="syntaxLiteral" style="">""</span><span>,</span><span class="syntaxLiteral" style="">"url"</span><span>: </span><span class="syntaxLiteral" style="">"articles/article_tutorialapidoc.html"</span><span>},</span>
+<span>   ...</span>
+<span>   {</span><span class="syntaxLiteral" style="">"name"</span><span>: </span><span class="syntaxLiteral" style="">"wiki status"</span><span>,</span><span class="syntaxLiteral" style="">"id"</span><span>: </span><span class="syntaxLiteral" style="">"wiki_status"</span><span>,</span><span class="syntaxLiteral" style="">"category"</span><span>: </span><span class="syntaxLiteral" style="">"titles"</span><span>,</span><span class="syntaxLiteral" style="">"title"</span><span>: </span><span class="syntaxLiteral" style="">"example"</span><span>,</span><span class="syntaxLiteral" style="">"titleID"</span><span>: </span><span class="syntaxLiteral" style="">"example"</span><span>,</span><span class="syntaxLiteral" style="">"url"</span><span>: </span><span class="syntaxLiteral" style="">"articles/article_showstatus.html"</span><span>}]</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">return</span><span> articles;</span>
+<span>   }</span>
+</pre>
+
+<h3 id="example">Example</h3>
+ <img src="../images/searchbox.png" alt="searchbox" id="_image_0" onclick="openImage(_image_0)" class="left simpleBorder marginSmall" />
+
+<h2 id="including_anchors_in_the_search">Including anchors in the search</h2>
+ To allow search for the article titles, the table of content titles, and the anchors:<br/>
+
+<pre class="margin unlimited" >
+<span>      search=anchors</span>
+</pre>
+ In that case the Search box will search for article titles, table of content  <a href="article_chapters.html">sub-titles</a>, and  <a href="article_syntax.html#anchor">anchors</a>. Clicking on a link will navigate to the corresponding article, title, or anchor.
+<h2 id="make_a_title_not_searchable">Make a title not searchable</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_chapters.html#chapters_and_titles_xml_attributes">chapters and titles</a></div>
+<br/>
+ By default if search is enabled, all titles and chapters in articles will be searchable. However it is possible to prevent a specific chapter or article to be included in the search by using the  <code>searchable</code> attribute.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   the first chapter</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> level</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   the second chapter</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"examples"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> searchable</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the second chapter</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ Here the titles in the article are searchable and as such are included in the search except the "examples" title.
+<h2 id="full_text_search">Full text search</h2>
+If the "fullTextSearch" property is set in the  <a href="article_configFile.html#fulltextsearch">configuration file</a> or the  <a href="article_commandline.html#fulltextsearch">command-line</a>, then the search box includes a full-text search in the articles content. Clicking on a link will navigate to a Search page which will present links for all the pages which contain the searched term.<br/>
+<br/>
+ The Full text search uses the <a href="http://elasticlunr.com/" title="http://elasticlunr.com/">elasticlunr</a> Javascript library (or its associated Java conversion for the  <a href="article_docgenhelp.html">JavaHelp</a> implementation) to implement the search.
+<h3 id="full_text_search_compression_level">Full text search compression level</h3>
+ By default, the JSON or Javascript file for the full text search is compressed to save space. It is possible to have a more readable file by setting the  <a href="article_configFile.html#fulltextsearchcompressionlevel">fullTextSearchCompressionLevel</a> configuration property, or in the  <a href="article_commandline.html#fulltextsearchcompressionlevel">command-line</a>.<br/>
+<br/>
+ There are several values for the compression level:<ul>
+<li>"false" or "0" or "minimum" or "no" does not compress the file. This format indent the file to make it more readable, but can be very large</li>
+<li>"true" or "1" or "normal" apply the normal compression to the file (this is the default value). This format does not indent the file and can be three times smaller than the uncompressed one</li>
+<li>"2" or "maximum" apply the maximum compression to the file. This format is much smaller (even than the one with the normal compression), but the json format for the serialized index is not compatible with the regular  <code>elasticlunr</code> JavaScript library. However, the version of the JavaScript library shipped with the generator is compatible with it, so the full-text search will still work if you use the shipped library as is</li>
+</ul>
+<br/>
+<br/>
+ Note that for example, for this wiki:<ul>
+<li>The size of the index for no compression is 3200 Ko</li>
+<li>The size of the index for the normal compression is 750 Ko</li>
+<li>The size of the index for the maximum compression is 310 Ko</li>
+</ul>
+
+<h3 id="removing_accents">Removing accents</h3>
+It is possible to remove the accents for the full text search by setting the  <a href="article_configFile.html#fulltextsearchremoveaccents">fullTextSearchRemoveAccents</a> configuration property, or in the  <a href="article_commandline.html#fulltextsearchremoveaccents">command-line</a>. Accents are removed by default.
+<h3 id="use_the_metaphone_algorithm">Use the Metaphone algorithm</h3>
+It is possible to use the Metaphone algorithm for the full text search by setting the  <a href="article_configFile.html#fulltextsearchmetaphone">fullTextSearchMetaphone</a> configuration property, or in the  <a href="article_commandline.html#fulltextsearchmetaphone">command-line</a>. The algorithm is not used by default.<br/>
+<br/>
+ Metaphone is a phonetic algorithm for indexing words by their English pronunciation. It does a better job of matching words and names which sound similar.
+<h3 id="example_1">Example</h3>
+ <img src="../images/searchboxFullText.png" alt="searchboxFullText" id="_image_1" onclick="openImage(_image_1)" class="left simpleBorder marginSmall" />
+<br/>
+ After clicking on "help", the following page will appear:<br/>
+ <img src="../images/searchboxFullTextResults.png" alt="searchboxFullTextResults" id="_image_2" onclick="openImage(_image_2)" class="left simpleBorder marginSmall" />
+
+<h2 id="search_configuration_examples">Search configuration examples</h2>
+ Examples with search only on articles, without full text search:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -search=true</span>
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -search=articles</span>
+</pre>
+ Example with search on articles and titles, without full text search:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -search=titles</span>
+</pre>
+ Example with search on articles and titles, with full text search:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -search=titles -fullTextSearch=true</span>
+</pre>
+ Example with search on articles and titles, with full text search and maximum index compression:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -search=titles -fullTextSearch=true -fullTextSearchCompressionLevel=maximum</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_customsearch.html">Custom search</a>: This article explains how to customize the search to define custom search categories</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_search.html">Search</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

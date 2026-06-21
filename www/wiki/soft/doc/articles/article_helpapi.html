@@ -1,0 +1,294 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Help API overview - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_helpapi.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Help API overview</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#api_usage">1&nbsp; API usage</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#reloading_the_help_content">2&nbsp; Reloading the help content</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#merging_help_contents">3&nbsp; Merging help contents</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_an_alternate_stylesheet">4&nbsp; Using an alternate stylesheet</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_the_index_path">5&nbsp; Setting the index path</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_the_help_gui_icons">6&nbsp; Setting the help GUI icons</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_the_toolbar_icons">6.1.1&nbsp; Setting the toolbar icons</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_the_tree_icons">6.1.2&nbsp; Setting the tree icons</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_the_context_help_icons">6.1.3&nbsp; Setting the context help icons</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">6.1.4&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_the_help_locale">7&nbsp; Setting the help locale</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_the_api_with_manually_produced_content">8&nbsp; Using the API with manually produced content</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example_with_swing">9&nbsp; Example with Swing</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">10&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">11&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This library is under the BSD license and don't have any dependencies.<br/>
+<br/>
+ The generated help content can be used either for a Swing or JavaFX application. The help content will be presented in a component which can be integrated in any GUI. The Swing and the JavaFX APIs are very similar:<ul>
+<li> <a href="article_helpswing.html">Help Swing API</a> for using the Swing API. The Help Swing API is provided by the  <code>docGeneSwingHelp.jar</code> jar file </li>
+<li> <a href="article_helpjavafx.html">Help JavaFX API</a> for using the JavaFX API. The Help JavaFX API is provided by the  <code>docGeneJFXHelp.jar</code> jar file </li>
+</ul>
+
+<h2 id="api_usage">API usage</h2>
+ To create a Help component:<ul>
+<li>Get the URL of the zip file containing the help content<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+See  <a href="article_docgenhelp.html#content_of_the_help_zip_file">content of the help zip file</a> for what this zip file containes</div></span>
+.  This URL have been generated by the  <a href="article_docgenhelp.html#help_content_generation">help content generation</a></li>
+<li>Create the <a href="../javadoc/helpAPI/org/docgene/help/JavaHelpFactory.html" class="apiLink" title="JavaHelpFactory">JavaHelpFactory</a>. For example:
+<pre class="margin unlimited" >
+<span>   JavaHelpFactory factory = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JavaHelpFactory</span><span>(url);</span>
+<span>   factory.</span><span class="syntaxDefault" style="font-weight:bold;">create</span><span>();</span>
+</pre>
+</li>
+<li>Create a  <code>SwingHelpContentViewer</code> (or  <code>JFXHelpContentViewer</code> for JavaFX) and install the model on this viewer. For example for Swing:
+<pre class="margin unlimited" >
+<span>   SwingHelpContentViewer viewer = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">SwingHelpContentViewer</span><span>();</span>
+<span>   factory.</span><span class="syntaxDefault" style="font-weight:bold;">installModel</span><span>(viewer);</span>
+</pre>
+</li>
+<li>Get the viewer associated component. For example for Swing:
+<pre class="margin unlimited" >
+<span>   JComponent pane = viewer.</span><span class="syntaxDefault" style="font-weight:bold;">getComponent</span><span>();</span>
+</pre>
+</li>
+<li>Alternatively get directly the viewer associated Help window (or Stage for JavaFX). For example for Swing:
+<pre class="margin unlimited" >
+<span>   JDialog dialog = viewer.</span><span class="syntaxDefault" style="font-weight:bold;">getHelpWindow</span><span>(myParentFrame, &lt;Help Content Title&gt;, width, height);</span>
+</pre>
+</li>
+</ul>
+
+<h2 id="reloading_the_help_content">Reloading the help content</h2>
+ It is possible to reload a new Help content by calling again <a href="../javadoc/helpAPI/org/docgene/help/JavaHelpFactory.html#install-org.docgene.help.HelpContentViewer-" class="apiLink" title="JavaHelpFactory.install(org.docgene.help.HelpContentViewer)">JavaHelpFactory.install(HelpContentViewer)</a>, with a factory created with the new content.<br/>
+<br/>
+ For example this code is functional:<br/>
+
+<pre class="margin unlimited" >
+<span>   JavaHelpFactory factory = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JavaHelpFactory</span><span>(url);</span>
+<span>   factory.</span><span class="syntaxDefault" style="font-weight:bold;">create</span><span>();</span>
+
+<span>   SwingHelpContentViewer viewer = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">SwingHelpContentViewer</span><span>();</span>
+<span>   factory.</span><span class="syntaxDefault" style="font-weight:bold;">installModel</span><span>(viewer);</span>
+
+<span>   factory = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JavaHelpFactory</span><span>(url);</span>
+<span>   factory.</span><span class="syntaxDefault" style="font-weight:bold;">create</span><span>();</span>
+<span>   factory.</span><span class="syntaxDefault" style="font-weight:bold;">installModel</span><span>(viewer);</span>
+</pre>
+ Note that the viewer associated component will remain the same.
+<h2 id="merging_help_contents">Merging help contents</h2>
+ It is possible to merge more than one Help content by using the  <a href="../javadoc/helpAPI/org/docgene/help/JavaHelpFactory.html#merge-java.net.URL-" class="apiLink" title="JavaHelpFactory.merge(java.net.URL)">JavaHelpFactory.merge(URL)</a> method. For example, if you want to  use two zip files to create your help model, you can write:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// get the first zip file as an URL</span>
+<span>   URL url = ...      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create the JavaHelpFactory with the first zip file</span>
+<span>   JavaHelpFactory factory = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JavaHelpFactory</span><span>(url);</span>
+<span>   factory.</span><span class="syntaxDefault" style="font-weight:bold;">create</span><span>();      </span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// get the second zip file as an URL</span>
+<span>   URL url2 = ... </span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// cmerge the content of this zip file with the first one</span>
+<span>   factory.</span><span class="syntaxDefault" style="font-weight:bold;">merge</span><span>(url2);                     </span>
+</pre>
+
+<h2 id="using_an_alternate_stylesheet">Using an alternate stylesheet</h2>
+ By default the StyleSheet which will be used to show the html content is in the "resources/stylesheet.css" file in the zip file containing the main help content. <br/>
+<br/>
+ It is possible to set an altenate CSS by specifying it in the  <a href="article_helpcontent.html">Help content configuration</a>. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;helpContent&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;styleSheets</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultStyleSheet</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"myStyleSheet.css"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/helpContent&gt;</span>
+</pre>
+
+<h2 id="setting_the_index_path">Setting the index path</h2>
+ By default the path of the index entry in the zip file containing the main help content is the "resources/index.html" file. <br/>
+<br/>
+ It is possible to specify your own path by <a href="../javadoc/helpAPI/org/docgene/help/JavaHelpFactory.html#setIndexPath-java.lang.String-" class="apiLink" title="JavaHelpFactory.setIndexPath(java.lang.String)">JavaHelpFactory.setIndexPath(String)</a>.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// get the zip file as an URL</span>
+<span>   URL url = ...      </span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create the JavaHelpFactory with the first zip file</span>
+<span>   JavaHelpFactory factory = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JavaHelpFactory</span><span>(url);</span>
+<span>             </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// set the index path</span>
+<span>   factory.</span><span class="syntaxDefault" style="font-weight:bold;">setIndexPath</span><span>(</span><span class="syntaxLiteral" style="">"myHomePage.html"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create the factory</span>
+<span>   factory.</span><span class="syntaxDefault" style="font-weight:bold;">create</span><span>();       </span>
+</pre>
+
+<h2 id="setting_the_help_gui_icons">Setting the help GUI icons</h2>
+Several methods in the <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html" class="apiLink" title="HelpContentViewer">HelpContentViewer</a> interface allow to set the URL of the icons used in the help GUI.
+<h4 id="setting_the_toolbar_icons">Setting the toolbar icons</h4>
+<ul>
+<li>The <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html#setArticleIcon-java.net.URL-" class="apiLink" title="HelpContentViewer.setArticleIcon(java.net.URL)">HelpContentViewer.setArticleIcon(URL)</a> method set the icon for articles in the tree</li>
+<li>The <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html#setExpandedChapterIcon-java.net.URL-" class="apiLink" title="HelpContentViewer.setExpandedChapterIcon(java.net.URL)">HelpContentViewer.setExpandedChapterIcon(URL)</a> method set the icon for expanded chapters in the tree</li>
+<li>The <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html#setClosedChapterIcon-java.net.URL-" class="apiLink" title="HelpContentViewer.setClosedChapterIcon(java.net.URL)">HelpContentViewer.setClosedChapterIcon(URL)</a> method set the icon for closed chapters in the tree</li>
+</ul>
+
+<h4 id="setting_the_tree_icons">Setting the tree icons</h4>
+The <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html#setIcon-java.lang.String-java.net.URL-" class="apiLink" title="HelpContentViewer.setIcon(java.lang.String, java.net.URL)">HelpContentViewer.setIcon(String, URL)</a> method allow to set the icons for buttons:<ul>
+<li><code><span>HelpContentViewer.setIcon(HelpContentViewer.ICON_HOME, URL)</span></code> for the home button</li>
+<li><code><span>HelpContentViewer.setIcon(HelpContentViewer.ICON_FORWARD, URL)</span></code> for the forward button</li>
+<li><code><span>HelpContentViewer.setIcon(HelpContentViewer.ICON_BACKWARD, URL)</span></code> for the backward button</li>
+<li><code><span>HelpContentViewer.setIcon(HelpContentViewer.ICON_GLOSSARY, URL)</span></code> for the glossary button</li>
+</ul>
+
+<h4 id="setting_the_context_help_icons">Setting the context help icons</h4>
+<ul>
+<li>The <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html#setContextHelpIcon-java.net.URL-" class="apiLink" title="HelpContentViewer.setContextHelpIcon(java.net.URL)">HelpContentViewer.setContextHelpIcon(URL)</a> method set the icon for the content help</li>
+<li>The <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html#setContextHelpPointerImage-java.net.URL-" class="apiLink" title="HelpContentViewer.setContextHelpPointerImage(java.net.URL)">HelpContentViewer.setContextHelpPointerImage(URL)</a> method set the image for the content help pointer</li>
+</ul>
+
+<h4 id="example">Example</h4>
+
+<pre class="margin unlimited" >
+<span>   SwingHelpContentViewer viewer = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">SwingHelpContentViewer</span><span>();</span>
+<span>   viewer.</span><span class="syntaxDefault" style="font-weight:bold;">installModel</span><span>(model);</span>
+
+<span>   viewer.</span><span class="syntaxDefault" style="font-weight:bold;">setArticleIcon</span><span>(&lt;icon URL&gt;);</span>
+</pre>
+
+<h2 id="setting_the_help_locale">Setting the help locale</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_helpsetlocale.html">Setting the help locale</a></div>
+<br/>
+ By default the localization of the help GUI is the Platform default localization but it is possible to change it.
+<h2 id="using_the_api_with_manually_produced_content">Using the API with manually produced content</h2>
+ Even if docJGenerator can generate the Help content automatically, it is possible to produce the Help content manually. See  <a href="article_helpmanualcontent.html">Using the Help API with manually produced content</a>.
+<h2 id="example_with_swing">Example with Swing</h2>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// get the zip file as an URL</span>
+<span>   URL url = ...</span>
+
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">try</span><span> {</span>
+<span>     </span><span class="syntaxComment" style="font-style:italic;">// create the Help factory</span>
+<span>     JavaHelpFactory factory = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JavaHelpFactory</span><span>(url);</span>
+<span>     factory.</span><span class="syntaxDefault" style="font-weight:bold;">create</span><span>();</span>
+<span>     ArticlesModel model = factory.</span><span class="syntaxDefault" style="font-weight:bold;">getModel</span><span>();</span>
+
+<span>     </span><span class="syntaxComment" style="font-style:italic;">// create the viewer component</span>
+<span>     SwingHelpContentViewer viewer = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">SwingHelpContentViewer</span><span>();</span>
+<span>     viewer.</span><span class="syntaxDefault" style="font-weight:bold;">installModel</span><span>(model);</span>
+
+<span>     JComponent pane = viewer.</span><span class="syntaxDefault" style="font-weight:bold;">getComponent</span><span>();</span>
+<span>     </span><span class="syntaxComment" style="font-style:italic;">// do whatever you want with the component</span>
+<span>   } </span><span class="syntaxKeyWord1" style="font-weight:bold;">catch</span><span> (IOException | SAXException ex) {</span>
+<span>     ex.</span><span class="syntaxDefault" style="font-weight:bold;">printStackTrace</span><span>();</span>
+<span>   }</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> See  <a href="article_docgenhelp.html#content_of_the_help_zip_file">content of the help zip file</a> for what this zip file containes</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_helpjavafx.html">Help JavaFX API</a>: This article explains how to use the Help JavaFX API</li>
+<li> <a href="article_helpswing.html">Help Swing API</a>: This article explains how to use the Help Swing API</li>
+<li> <a href="article_tutorialJavaHelp.html">Help system tutorial</a>: This article is tutorial which explains how to produce and use a Help content in a Swing application</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_javahelp.html">JavaHelp</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

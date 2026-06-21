@@ -1,0 +1,158 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>APIs property - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_apis.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>APIs property</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#apis_property">1&nbsp; APIs property</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#grammar">2&nbsp; Grammar</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#apis_syntax_elements">3&nbsp; APIs syntax elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">4&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">5&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The  <a href="article_configFile.html#apis">APIs</a> property in the configuration file allows to configure the access to external APIs and wikis.
+<h2 id="apis_property">APIs property</h2>
+The "APIs" property in the  <a href="article_configFile.html">configuration file</a> specifes an XML file defining a list of APIs and wikis.  See  <a href="resources/APIs.xsd">APIs.xsd</a> for the the associated Schema. Thei file allows to specify a list of APIs and Mediawikis, and for each API or wikis:<ul>
+<li>Its URL</li>
+<li>Its ID</li>
+<li>Optionally, for  <a href="article_javadocs.html">Javadocs APIs</a>, a list of local libraries (Jar files) which represent this API. These Jar files will be used to validate the  <a href="article_syntax.html#javadoc">javadoc</a> tags for the corresponding API if the API URL is an http link and the "checkHTTPLinks" property is set to false</li>
+</ul>
+
+<h2 id="grammar">Grammar</h2>
+See  <a href="resources/apis_1.xsd">The APIs Schema</a>.
+<h2 id="apis_syntax_elements">APIs syntax elements</h2>
+ The following elements in the articles will point to APIs:<ul>
+<li> <a href="article_syntax.html#javadoc">javadoc</a> will point to a javadoc documentation</li>
+<li> <a href="article_syntax.html#pydoc">pydoc</a> will point to a Python documentation</li>
+<li> <a href="article_syntax.html#qtdoc">qtdoc</a> will point to a Qt documentation</li>
+<li> <a href="article_syntax.html#doxygen">doxygen</a> will point to a doxygen documentation</li>
+<li> <a href="article_syntax.html#mediawiki">wiki</a> will point to a Mediawiki wiki<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+For wikis, the URL must point to the "final" URL before the articles themselves. For example, for the English wikipedia, it would be "http://en.wikipedia.org/wiki"</div></span>
+<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+Note that it is not necessary to define an API link for wikipedia, the  <a href="article_syntax.html#wikipedia">wikipedia</a> element in article allows to refer directly to Wikipedia articles without having to define the path of Wikipedia itself in the APis configuration file</div></span>
+</li>
+</ul>
+
+<h2 id="example">Example</h2>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;APIs&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javaAPIs&gt;</span>
+<span>       </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javaAPI</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"http://junit.sourceforge.net/javadoc"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"junit"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javaAPILibrary</span><span class="syntaxKeyWord2" style="font-weight:bold;"> jarFile</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"../junit5.jar"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>       </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/javaAPI&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/javaAPIs&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;qtAPIs&gt;</span>
+<span>       </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;qtAPI</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"http://qt.apidoc.info/4.6.4/"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"qt4.6.4"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/qtAPIs&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mediawikis&gt;</span>
+<span>       </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mediawiki</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"https://en.wikipedia.org/wiki"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"wikipediaEN"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mediawikis&gt;</span><span>        </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/APIs&gt;</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> For wikis, the URL must point to the "final" URL before the articles themselves. For example, for the English wikipedia, it would be "http://en.wikipedia.org/wiki"</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> Note that it is not necessary to define an API link for wikipedia, the  <a href="article_syntax.html#wikipedia">wikipedia</a> element in article allows to refer directly to Wikipedia articles without having to define the path of Wikipedia itself in the APis configuration file</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_javadocs.html">Javadocs APIs</a>: Configure how to access external Javadocs APIs</li>
+<li> <a href="article_qtdocs.html">Qt APIs</a>: Configure how to access external Qt APIs</li>
+<li> <a href="article_wikis.html">Mediawikis</a>: Configure how to access external Mediawikis</li>
+<li> <a href="article_apiselts.html">APIs elements</a>: This article presents the elements which link to APIs or embed APIs in the wiki</li>
+<li> <a href="article_configFile.html">Configuration file</a>: It is possible to define an optional property / value configuration file when starting the application (using the graphical UI or the command line)</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a> |
+ <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

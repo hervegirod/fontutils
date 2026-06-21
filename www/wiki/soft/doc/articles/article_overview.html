@@ -1,0 +1,155 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Overview - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_overview.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Overview</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#input_format">1&nbsp; Input format</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">1.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#output_format">2&nbsp; Output format</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#incremental_generation">3&nbsp; Incremental generation</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#structure_of_the_html_output">3.1&nbsp; Structure of the html output</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">4&nbsp; Notes</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The docJGenerator project allows to generate a html site with a list of XML files defining a documentation. It allows to produce an offline wiki-like site. 
+<h2 id="input_format">Input format</h2>
+The default input format is a a list of XML files defining a documentation. It is also possible to configure the tool to parse files with the  <a href="article_mediawiki.html">mediawiki syntax</a> or the  <a href="article_markdown.html">markdown syntax</a>.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ You should use the xml extension for your file, not html. Also you don't need to put any html construct such as  "html", "header", "body", etc... in your file. The source files are NOT html files but xml files. </div>
+<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ The name of the files have no meaning, and also where you put the files is not important either.</div>
+
+<h3 id="example">Example</h3>
+ The following file is incorrect:<br/>
+<div class="preUnlimited">
+
+<pre style="background-color: #FF5733;" class="margin unlimited preUnlimitedNoColor" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;html&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;body&gt;</span><span>      </span>
+<span>       </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The content of the first article.</span>
+<span>       </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/body&gt;</span><span>           </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/html&gt;</span>
+</pre>
+</div>
+ The correct file is:<br/>
+<div class="preUnlimited">
+
+<pre style="background-color: #1ACC2B;" class="margin unlimited preUnlimitedNoColor" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The content of the first article.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+</div>
+
+<h2 id="output_format">Output format</h2>
+ The tool produce by default an offline html site. It is also possible to generate a  <a href="article_pdf.html">PDF file</a>,  <a href="article_docx.html">Word file</a>, or even a  <a href="article_epub.html">Epub file</a> rather than a web site.
+<h2 id="incremental_generation">Incremental generation</h2>
+The generation can be performed in an  <a href="article_incremental.html">incremental</a> mode.
+<h3 id="structure_of_the_html_output">Structure of the html output</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_outputoverview.html">Wiki output overview</a></div>
+<br/>
+ The default html output is a static web site. The web-site content is completely self-contained<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Except if you make explicit references to external resources of course. It means that you can copy the files of the directory which contains the wiki everywhere you want, and it will still work</div></span>
+<br/>
+<br/>
+ The wiki is accessible through an  <code>index.html</code> page which is directly in the output directory.</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Except if you make explicit references to external resources of course. It means that you can copy the files of the directory which contains the wiki everywhere you want, and it will still work</li>
+</ol>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

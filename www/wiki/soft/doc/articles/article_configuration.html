@@ -1,0 +1,173 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Configuration - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_configuration.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Configuration</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#using_the_gui_interface">1&nbsp; Using the GUI interface</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_the_command-line_arguments">2&nbsp; Using the command-line arguments</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_the_configuration_file">3&nbsp; Using the configuration file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#priority_between_the_command-line_arguments_and_the_configuration_file">4&nbsp; Priority between the command-line arguments and the configuration file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ There are several ways to configure the tool:<ul>
+<li>By using the  <a href="article_gui.html">GUI interface</a></li>
+<li>By using the  <a href="article_commandline.html">command-line</a> arguments to configure the options</li>
+<li>By using the  <a href="article_configFile.html">configuration file</a> to configure the options</li>
+</ul>
+
+<h2 id="using_the_gui_interface">Using the GUI interface</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_gui.html">GUI interface</a></div>
+<br/>
+ Double clicking on the Jar file of the application without specifying any command-line parameter will open the GUI of the application.
+<h2 id="using_the_command-line_arguments">Using the command-line arguments</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_commandline.html">Command-line</a></div>
+<br/>
+ The following example specifies:<ul>
+<li>The input directory</li>
+<li>The output directory</li>
+<li>The cleaned option to clean the wiki output before its generation</li>
+<li>The search option to search on the articles names and titles</li>
+</ul>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -cleaned=true -search=titles</span>
+</pre>
+
+<h2 id="using_the_configuration_file">Using the configuration file</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_configFile.html">Configuration file</a></div>
+<br/>
+ The following example specifies:<ul>
+<li>The input directory</li>
+<li>The output directory</li>
+<li>The cleaned option to clean the wiki output before its generation</li>
+<li>The search option to search on the articles names and titles</li>
+</ul>
+ The content of the configuration file is:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   cleaned</span><span>=true</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   search</span><span>=titles</span>
+</pre>
+ To use the configuration file:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar input=wiki/input -output=wiki/output -config=config.properties</span>
+</pre>
+
+<h2 id="priority_between_the_command-line_arguments_and_the_configuration_file">Priority between the command-line arguments and the configuration file</h2>
+Options specified as  <a href="article_commandline.html">command-line</a> arguments are overriding those specified in the  <a href="article_configFile.html">configuration file</a>.<br/>
+<br/>
+ For example, suppose the following command-line arguments:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -search=titles -config=config.properties</span>
+</pre>
+ And the content of the configuration file:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   cleaned</span><span>=true</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   search</span><span>=false</span>
+</pre>
+ The resulting options will be:<ul>
+<li>The input directory</li>
+<li>The output directory</li>
+<li>The cleaned option will be set to  <code>true</code></li>
+<li>The search option will be set to  <code>titles</code></li>
+</ul>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_basicusage.html">Basic usage</a>: This article presents the basic usage and configuration of the tool</li>
+<li> <a href="article_commandline.html">Command-line</a>: This article is about how to execute the application by the command-line without showing the UI</li>
+<li> <a href="article_configFile.html">Configuration file</a>: It is possible to define an optional property / value configuration file when starting the application (using the graphical UI or the command line)</li>
+<li> <a href="article_addingproperties.html">Adding properties</a>: This article explains how to add properties supported by the tool</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a> |
+ <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

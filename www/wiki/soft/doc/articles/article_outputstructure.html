@@ -1,0 +1,134 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Output structure - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_outputstructure.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Output structure</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#sub-directories">1&nbsp; Sub-directories</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#articles_sub-directory">1.1&nbsp; Articles sub-directory</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#categories_sub-directory">1.2&nbsp; Categories sub-directory</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#image_sub-directory">1.3&nbsp; Image sub-directory</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#resources_sub-directory">1.4&nbsp; Resources sub-directory</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#directory_for_hand-written_html_articles">2&nbsp; Directory for hand-written html articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#other_directories">3&nbsp; Other directories</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The output structure of the wiki after the generation has the following files at the root of the generation directory:<ul>
+<li>An  <code>index.html</code> file for the  <a href="article_indexfiles.html">index article</a>. This is the home directory of the wiki</li>
+<li>A  <code>dictionary.html</code> file for the  <a href="article_dictionnary.html">dictionary</a></li>
+<li>A  <code>categories.html</code> file for the list of  <a href="article_categories.html">categories</a></li>
+<li>A  <code>header.html</code> file for the  <a href="article_footerAndHeader.html#header">Header</a> if the wiki has a header</li>
+<li>A  <code>fullTextSearch.html</code> file if the wiki support  <a href="article_search.html#full_text_search">Full text search</a></li>
+</ul>
+
+<h2 id="sub-directories">Sub-directories</h2>
+ The wiki output also contains the following sub-directories:<ul>
+<li>The  <code>articles</code> directory contains all the  <a href="article_articles.html">articles</a></li>
+<li>The  <code>categories</code> directory contains all the  <a href="article_categories.html">categories</a></li>
+<li>The  <code>image</code> directory contains all the  <a href="article_imageFiles.html">image files</a> references in the articles</li>
+<li>The  <code>resources</code> directory contains the css and javascript libraries used by the wiki, including the ones used for the  <a href="article_search.html">search</a></li>
+</ul>
+
+<h3 id="articles_sub-directory">Articles sub-directory</h3>
+This sub-directory contains the html files for the  <a href="article_articles.html">articles</a> (except the  <a href="article_indexfiles.html">index article</a>).
+<h3 id="categories_sub-directory">Categories sub-directory</h3>
+This sub-directory contains the html files for the  <a href="article_categories.html">categories</a> (escept for the categories list).
+<h3 id="image_sub-directory">Image sub-directory</h3>
+This sub-directory contains the html files for the  <a href="article_imageFiles.html">image files</a>.
+<h3 id="resources_sub-directory">Resources sub-directory</h3>
+This sub-directory contains the css and javascript libraries used by the wiki, including the ones used for the  <a href="article_search.html">search</a>
+<h2 id="directory_for_hand-written_html_articles">Directory for hand-written html articles</h2>
+If there are  <a href="article_rawhtmlarticle.html">hand written articles</a>, there is a  <code>rawArticles</code> directory containiong these  handw-written html files.
+<h2 id="other_directories">Other directories</h2>
+There can be other directories for  <a href="article_apis.html">apis</a> embarked in the wiki.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_outputoverview.html">Wiki output overview</a>: This article presents an overview of the wiki web site output</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+:root {
+   --wiki-background: #f5faff; /* the background color for the table of content, the boxes, and the left menu */
+   --wiki-border: #E1E1E1; /* the border color for the table of content, and the boxes */
+   --wiki-pre-background: #BCE4F6; /* the background color for the pre */
+   --wiki-pre-border: #9993A1; /* the border color for the pre */
+   --wiki-apilink-background: #f9f9f9; /* the background color for the api links */
+   --wiki-apilink-color: #36B; /* the text color for the api links */
+   --wiki-api-headertitle: #4A6782; /* the text color for the api headers */
+   --wiki-link: #0000EE; /* color of a normal link */
+   --wiki-link-visited: #551A8B; /* color of a visited link */
+   --wiki-link-active: #EE0000; /* color of an active link */
+   --wiki-lighterlink-background: rgba(255, 255, 255, .4); /* the background color for lighter links */
+   --wiki-lighterlink: blue; /* the text color for lighter links */
+   --wiki-linktooltip-background: #FEFFF0;  /** the background color for the links tooltips */
+   --wiki-linktooltip-border: grey; /* the border color for the links tooltips */
+   --wiki-linktooltip-text-color: black; /* the text color for the links tooltips */
+   --wiki-linktooltipbox-background: whitesmoke;  /** the background color for the links tooltips box */
+   --wiki-tableheader-background: #efefef; /* the background color for the table headers */
+   --wiki-tableheader-color: #4A6782; /* the text color for the table headers */
+   --wiki-tablecell-even-background: #efefef; /* the background for the even rows */
+   --wiki-tablecell-odd-background: white; /* the background for the odd rows */
+   --wiki-table-border: black; /* the border color for the table cells */
+   --wiki-table-row-color: black; /* the border color for the table row text */   
+   --wiki-tablecaption-border: #c8ccd1; /* the border color for the table captions */
+   --wiki-tablecaption-background: #efefef; /* the background color for the table captions */
+   --wiki-infobox-background: #f8f9fa; /* the background color for the infoboxes */
+   --wiki-infobox-border: #a2a9b1; /* the border color for the infoboxes */
+   --wiki-messagebox-default-color: #00529B; /* the color for default message boxes */
+   --wiki-messagebox-defaultbackground: transparent; /* the background color for default message boxes */
+   --wiki-messagebox-info-color: #00529B; /* the color for info message boxes */
+   --wiki-messagebox-info-background: #BCE4F6; /* the background color for info message boxes */
+   --wiki-messagebox-success-color: #4F8A10; /* the color for success message boxes */
+   --wiki-messagebox-success-background: #00FF00; /* the background color for success message boxes */
+   --wiki-messagebox-warning-color: #9F6000; /* the color for warning message boxes */
+   --wiki-messagebox-warning-background: #FFA500; /* the background color for warning message boxes */
+   --wiki-messagebox-error-color: #D8000C; /* the color for error message boxes */
+   --wiki-messagebox-error-background: #FF5237; /* the background color for error message boxes */
+   --wiki-messagebox-progress-color: #00529B; /* the color for progress message boxes */
+   --wiki-messagebox-progress-background: #FFFF00; /* the background color for progress message boxes */
+   --wiki-messagebox-caption-background: white; /* the background color for message boxes caption */
+   --wiki-img-border: #c8ccd1; /* the border color for the images */
+   --wiki-blockquote-border: #ccc; /* the border color for the blockquotes */
+   --wiki-tree-ulborder-color: #a3a3c2; /* the color used for the trees segments */
+   --wiki-comment-background: whitesmoke; /* the background for comments */
+   --wiki-highlight: lightpink; /* the color used for the background highlight for full text search */
+   --wiki-todo-background: yellow; /* the background for the normal TODOs */
+   --wiki-todo-warning-background: orange; /* the background for the important TODOs */   
+   --wiki-todo-critical-background: red; /* the background for the critical TODOs */      
+   --wiki-todo-border: grey; /* the border color for the TODOs panels */
+   --wiki-todo-comments-color: black; /* the text color for the TODOs and comments panels */                             
+   --wiki-lightbox-close: #808080; /* the color of the close button for the lightbox modal dialog */
+   --wiki-lightbox-caption: #ccc; /* the color of the close button for the lightbox modal dialog */
+   --wiki-lightbox-close-focus: #bbb; /* the color of the close button for the lightbox modal dialog when focusing on it */
+   --wiki-syntax-keyWord1: blue; /* the color of the keyword1 elements in the pre with syntax */
+   --wiki-syntax-keyWord2: #0d8200; /* the color of the keyword2 elements in the pre with syntax */
+   --wiki-syntax-comment: darkgray; /* the color of the comments in the pre with syntax */
+   --wiki-syntax-literal: #650099; /* the color of the literal elements in the pre with syntax */
+   --wiki-syntax-label: #990033; /* the color of the label elements in the pre with syntax */
+   --wiki-syntax-default: black; /* the color of the default elements in the pre with syntax */
+}   

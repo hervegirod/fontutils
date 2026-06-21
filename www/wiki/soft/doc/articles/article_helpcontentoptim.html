@@ -1,0 +1,165 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Help content optimization - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_helpcontentoptim.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Help content optimization</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#usage_in_swing">1&nbsp; Usage in Swing</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#help_viewer_component_engine">1.1&nbsp; Help viewer component engine</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_the_stylesheet_theme">1.2&nbsp; Setting the StyleSheet theme</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#usage_in_javafx">2&nbsp; Usage in JavaFX</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+By default the  <a href="article_helparchive.html">help archive</a> is optimized for the Swing API. However the content of the help articles would not be seen correctly using the JavaFX help API. The "helpOptimizedForSwing" property allows to specify how the help content will be encoded.<br/>
+<br/>
+ The JavaFX API uses the <a href="http://docs.oracle.com/javase/8/javafx/api//javafx/scene/web/WebView.html" class="apiLink" title="WebView">WebView</a> class. This class is not able to render images which are local to a zip file as it is the case for the articles packaged for the help system. If you choose to optimize the help content is for the JavaFX API, the images will be inlined in the the HTML files themselves, encoded in Base64. However the Swing <a href="https://docs.oracle.com/javase/8/docs/api//javax/swing/text/html/HTMLEditorKit.html" class="apiLink" title="HTMLEditorKit">HTMLEditorKit</a> is not able to render images inlined in HTML files, encoded in Base64.<br/>
+<br/>
+ Note that the generated zip file contain a  <code>README.txt</code> file which indicates for which format the Help content has been generated, and also if the content allows a full text search.<br/>
+<br/>
+ Also the  <a href="article_docgenhelp.html#content_of_the_help_zip_file">database</a> in the zip file will specify for which format the Help content has been generated.
+<h2 id="usage_in_swing">Usage in Swing</h2>
+By default, the  <a href="article_helpswing.html">Help Swing API</a> will:<ul>
+<li>Use JavaFX internal components to show the content of the wiki if the format is undefined or JavaFX</li>
+<li>Use only Swing components to show the content of the wiki if the format is Swing</li>
+</ul>
+However, if the <a href="../javadoc/helpAPI/org/docgene/help/gui/swing/SwingHelpContentViewer.html#setLoadHTMLInSwing-boolean-" class="apiLink" title="SwingHelpContentViewer.setLoadHTMLInSwing(boolean)">SwingHelpContentViewer.setLoadHTMLInSwing(boolean)</a>  is set to true, then only Swing components will be used show the content of the wiki.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ This method allows to be sure that the only Swing components are used if JavaFX is not available on the system, regardless of how the wiki has been generated. </div>
+
+<h3 id="help_viewer_component_engine">Help viewer component engine</h3>
+ The following table for the Swing help viewer component shows which internal viewer engine will be used depending on:<ul>
+<li>The Help generation format</li>
+<li>The <a href="../javadoc/helpAPI/org/docgene/help/gui/swing/SwingHelpContentViewer.html#setLoadHTMLInSwing-boolean-" class="apiLink" title="SwingHelpContentViewer.setLoadHTMLInSwing(boolean)">SwingHelpContentViewer.setLoadHTMLInSwing(boolean)</a> API setting</li>
+</ul>
+
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >Help generation format</th>
+<th valign="middle"  class="column border" >Force swing loading in Help viewer</th>
+<th valign="middle"  class="column border" >Help viewer component</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Optimized for Swing checked</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">Swing viewer component</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Optimized for Swing checked</td>
+<td valign="middle" class="border paddingDefault"><code><span class="syntaxDefault" style="font-weight:bold;">setLoadHTMLInSwing</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>)</span></code></td>
+<td valign="middle" class="border paddingDefault">Swing viewer component</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Optimized for Swing not checked</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">JavaFX viewer component</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Optimized for Swing not checked</td>
+<td valign="middle" class="border paddingDefault"><code><span class="syntaxDefault" style="font-weight:bold;">setLoadHTMLInSwing</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>)</span></code></td>
+<td valign="middle" class="border paddingDefault">Swing viewer component</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="setting_the_stylesheet_theme">Setting the StyleSheet theme</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_helpswing.html#setting_the_stylesheet_theme">Help Swing API</a></div>
+<br/>
+ Setting a StyleSheet theme with the  <a href="article_helpswing.html">Help Swing API</a> is only possible if you use JavaFX components to show the content of the wiki.
+<h2 id="usage_in_javafx">Usage in JavaFX</h2>
+The  <a href="article_helpjavafx.html">Help JavaFX API</a> will only use JavaFX components to show the content of the wiki.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_helpswing.html">Help Swing API</a>: This article explains how to use the Help Swing API</li>
+<li> <a href="article_helpjavafx.html">Help JavaFX API</a>: This article explains how to use the Help JavaFX API</li>
+<li> <a href="article_helparchive.html">Help archive</a>: This article presents the content of the help archive</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_javahelp.html">JavaHelp</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

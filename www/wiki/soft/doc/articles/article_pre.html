@@ -1,0 +1,485 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>pre - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_pre.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>pre</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#pre_element_background">1&nbsp; Pre element background</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#pre_scrolling_type">2&nbsp; Pre scrolling type</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#handling_of_invisible_characters">3&nbsp; Handling of invisible characters</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#content">4&nbsp; Content</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#relaxed_syntax">5&nbsp; Relaxed syntax</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#syntax_hightlighting">6&nbsp; Syntax hightlighting</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#handling_of_the_space_at_the_left_before_the_spans">7&nbsp; Handling of the space at the left before the spans</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">8&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#basic_example">8.1&nbsp; Basic example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#using_color">8.2&nbsp; Using color</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#boxed_pre">8.3&nbsp; Boxed pre</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#adding_a_shadow">8.4&nbsp; Adding a shadow</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#using_syntax_highlighting">8.5&nbsp; Using syntax highlighting</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#specifying_the_content_in_an_external_file">8.6&nbsp; Specifying the content in an external file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">9&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">10&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The "pre" element allows to enter several lines of unformatted text (keeping the white spaces). However it is possible to specify part of the text in a different font or color by using the  <a href="article_syntax.html#formatting_text">font</a> element.
+<h2 id="pre_element_background">Pre element background</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_codeprebackground.html">Code, pre and source background</a></div>
+<br/>
+ It is possible to put a colored background under the "pre" element with the "boxed" or "border" attribute<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+It is not allowed to have both the "boxed" and "border" attributes on the "pre" element</div></span>
+. This attribute can have the following values<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+Note that it is possible to set a background for all pre elements. See  <a href="article_codeprebackground.html">code, pre and source background</a> for more information</div></span>
+:<ul>
+<li>"true" or "simple": the "pre" element will have a colored background bordered by simple line</li>
+<li>"simple": the "pre" element will have a simple border with a background color</li>
+<li>"shadow" or "softShadow" : the "pre" element will have a soft shadowed border</li>
+<li>"strongShadow": the "pre" element will have a strong shadowed border</li>
+<li>"false" or "noBorder" : (the default) no border</li>
+</ul>
+ The "color" attribute allows to fill the "pre" element with a color. If this attribute is not present:<ul>
+<li>By default of if the  <a href="article_commandline.html#prehasbackground">preHasBackground</a> property is set to true, then a default background color will be used for the "simple" and "shadow" values</li>
+<li>If the  <a href="article_commandline.html#prehasbackground">preHasBackground</a> property is set to false, then no background color will be used for the "simple", "softShadow", "strongShadow", and "shadow" values</li>
+</ul>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> border</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"simple"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>   This is a text with a simple border.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ has the following result:<br/>
+<div class="preUnlimited">
+
+<pre class="margin unlimited" >
+<span>      This is a text with a simple border.</span>
+</pre>
+</div>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> border</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"shadow"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>   This is a text with a soft shadowed border.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ has the following result:<br/>
+<div class="preUnlimited softShadow">
+
+<pre class="margin unlimited" >
+<span>      This is a text with a soft shadowed border.</span>
+</pre>
+</div>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> color</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"#FFFF00"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>   This is a text with a yellow background.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ has the following result:<br/>
+
+<pre style="background-color: #FFFF00;" class="margin unlimited preUnlimitedNoColor" >
+<span>      This is a text with a yellow background.</span>
+</pre>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> border</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"shadow"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> color</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"#FFFF00"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>   This is a text with a yellow background.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ has the following result:<br/>
+<div class="preUnlimited softShadow">
+
+<pre style="background-color: #FFFF00;" class="margin unlimited preUnlimitedNoColor" >
+<span>      This is a text with a yellow background and a shadow.</span>
+</pre>
+</div>
+
+<h2 id="pre_scrolling_type">Pre scrolling type</h2>
+ The "scrollingType" attribute specifies how the content of the "pre" element is scrolled:<ul>
+<li>If the value is  <code>default</code> (or by default if the attribute is not present), the value of the command-line  <a href="article_commandline.html#prescrollingtype">preScrollingType</a> or  <a href="article_configFile.html#prescrollingtype">configuration file</a> will be used</li>
+<li>If the value is "unlimited", the content will not be limited on the page</li>
+<li>If the value is "scrolled", the content will be scrolled with a scroll bar if too wide</li>
+<li>If the value is "wrapped", the content will be wrapped if too wide</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Note that if the "pre" element has a background, the "pre" will be scrolled regardless of the value of this attribute.</div>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      This is a very long text with an unlimited scrolling type, there is no scroll bar and no wrapping for words.</span>
+</pre>
+
+<pre class="margin scrolled" >
+<span>      This is a very long text with a scrolled scrolling type, there is a scroll bar in this case to adapt the text length.</span>
+</pre>
+
+<pre class="margin wrapped" >
+<span>      This is a very long text with a wrapped scrolling type, there is no scroll bar and the text is wrapped.</span>
+</pre>
+
+<h2 id="handling_of_invisible_characters">Handling of invisible characters</h2>
+The "invisibleChars" attribute specifies if the usage of "invisible characters" is allowed. See  <a href="article_syntaxhighlighting.html">syntax highlighting</a> for more information.
+<h2 id="content">Content</h2>
+ There are two ways to define the content of the pre:<ul>
+<li>Put the content as CDATA inside the  <code>pre</code> element. Such as for example:
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre&gt;</span>
+<span>            my pre content</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ In this case, you will need to escape the &lt; and &gt; characters if they appear in the content.</li>
+<li>Or specify an URL where the content of the  <code>pre</code> will be defined. For example:
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thePreFile"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ Here the  <code>preFile</code> is a file which is under the  <code>doc-files</code> sub-directory and contain the same "my pre content" text. In this case, you don't need to escape the &lt; and &gt; characters if they appear in the content<span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_1_">[3]</sup></a>
+<div class="tooltiptext">
+see  <a href="article_docfiles.html">doc-files</a></div></span>
+.</li>
+</ul>
+
+<h2 id="relaxed_syntax">Relaxed syntax</h2>
+ It is possible to allow directly any XML content inside the "pre" element by setting the "relaxedSyntax" property on the command-line or the configuration file. See  <a href="article_relaxedsyntax.html">Relaxed syntax</a> for more information.<br/>
+<br/>
+ For example the following content is not allowed if the "relaxedSyntax" property is not set but is allowed if it is set:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre&gt;</span>
+<span>   first line</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;parent</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"name"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;child</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"child"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/parent&gt;</span>
+<span>   second line</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+
+<h2 id="syntax_hightlighting">Syntax hightlighting</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_syntaxhighlighting.html">Syntax highlighting</a></div>
+<br/>
+ It is possible to use syntax highlighting on the "pre" content by specifying the "syntax" property. See  <a href="article_syntaxhighlighting.html">syntax highlighting</a> for more information.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> syntax</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   public void toto(int i) {</span>
+<span>   _ System.out.println(i);</span>
+<span>   }</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ will have the following result:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">toto</span><span>(</span><span class="syntaxKeyWord1" style="font-weight:bold;">int</span><span> i) {</span>
+<span>     System.out.</span><span class="syntaxDefault" style="font-weight:bold;">println</span><span>(i);</span>
+<span>   }</span>
+</pre>
+ or:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> syntax</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"xml"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;parent</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"name"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;child</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"child"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/parent&gt;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ will have the following result:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;parent</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"name"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;child</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"child"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/parent&gt;</span>
+</pre>
+ It is possible to use the "font" element with syntax hightlighting. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   &lt;pre syntax="xml"&gt;</span>
+<span>      &lt;parent name="name"&gt;</span>
+<span>      the text with a &lt;font background="yellow"&gt;yellow background&lt;/font&gt;</span>
+<span>      &lt;/parent&gt;</span>
+<span>   &lt;/pre&gt;</span>
+</pre>
+ It is also possible to use the "i" or "b" elements with syntax hightlighting. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   &lt;pre syntax="xml"&gt;</span>
+<span>      &lt;parent name="name"&gt;</span>
+<span>      the text with a &lt;b&gt;bold font&lt;/b&gt;</span>
+<span>      &lt;/parent&gt;</span>
+<span>   &lt;/pre&gt;</span>
+</pre>
+ will have the following result:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;parent</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"name"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      the text with a </span><span class="syntaxDefault" style="background-color:#ffff00;">yellow background</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/parent&gt;</span>
+</pre>
+
+<h2 id="handling_of_the_space_at_the_left_before_the_spans">Handling of the space at the left before the spans</h2>
+The parser tries to reduce the space before the actual text in each line if possible.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;table&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;row&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;cell&gt;</span><span>Example for the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;code&gt;</span><span>following</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/code&gt;</span><span> content:</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> syntax</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"xml"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>              </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;literal</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A661_ANIMATION_GROUP"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A1E3"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>              </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;literal</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A661_ANIMATION_GROUP"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A1E4"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>         </span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/cell&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/row&gt;</span><span>              </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/table&gt;</span>
+</pre>
+ will have the following result (rather than having a lot of spaces before each line span in the pre):
+<table class="border paddingDefault"  style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Example for the  <code>following</code> content:
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;literal</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A661_ANIMATION_GROUP"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A1E3"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;literal</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A661_ANIMATION_GROUP"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A1E4"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="basic_example">Basic example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre&gt;</span>
+<span>   first line</span>
+<span>   second line</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ Result:<br/>
+
+<pre class="margin unlimited" >
+<span>      first line</span>
+<span>      second line</span>
+</pre>
+
+<h3 id="using_color">Using color</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre&gt;</span>
+<span>   first line in </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;font</span><span class="syntaxKeyWord2" style="font-weight:bold;"> color</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"blue"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>blue</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/font&gt;</span>
+<span>   second line</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ Result:<br/>
+
+<pre class="margin unlimited" >
+<span>      first line in </span><span class="syntaxKeyWord1" style="">blue</span>
+<span>      second line</span>
+</pre>
+
+<h3 id="boxed_pre">Boxed pre</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> boxed</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   first line</span>
+<span>   second line</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ Result:<br/>
+<div class="preUnlimited">
+
+<pre class="margin unlimited" >
+<span>      first line</span>
+<span>      second line</span>
+</pre>
+</div>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> color</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"#FFFF00"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> boxed</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   first line</span>
+<span>   second line</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ Result:<br/>
+<div class="preUnlimited">
+
+<pre style="background-color: #FFFF00;" class="margin unlimited preUnlimitedNoColor" >
+<span>      first line</span>
+<span>      second line</span>
+</pre>
+</div>
+
+<h3 id="adding_a_shadow">Adding a shadow</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> boxed</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"shadow"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   first line</span>
+<span>   second line</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+ Result:<br/>
+<div class="preUnlimited softShadow">
+
+<pre class="margin unlimited" >
+<span>      first line</span>
+<span>      second line</span>
+</pre>
+</div>
+
+<h3 id="using_syntax_highlighting">Using syntax highlighting</h3>
+
+<pre class="margin unlimited" >
+<span>   &lt;pre syntax="java"&gt;</span>
+<span>      public void toto(int i) {</span>
+<span>      _ System.out.println(i);</span>
+<span>      }</span>
+<span>   &lt;/pre&gt;</span>
+</pre>
+ will have the following result:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">toto</span><span>(</span><span class="syntaxKeyWord1" style="font-weight:bold;">int</span><span> i) {</span>
+<span>     System.out.</span><span class="syntaxDefault" style="font-weight:bold;">println</span><span>(i);</span>
+<span>   }</span>
+</pre>
+
+<h3 id="specifying_the_content_in_an_external_file">Specifying the content in an external file</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"myPre"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ With the following content for the  <code>myPre</code> file under the  <code>doc-files</code> directory<span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_2_">[3]</sup></a>
+<div class="tooltiptext">
+see  <a href="article_docfiles.html">doc-files</a></div></span>
+:<br/>
+
+<pre class="margin unlimited" >
+<span>      first line</span>
+<span>      second line</span>
+</pre>
+ Result:<br/>
+
+<pre class="margin unlimited" >
+<span>      first line</span>
+<span>      second line</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> It is not allowed to have both the "boxed" and "border" attributes on the "pre" element</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> Note that it is possible to set a background for all pre elements. See  <a href="article_codeprebackground.html">code, pre and source background</a> for more information</li>
+<li id="_note_3"><span class="noteRefLink">^</span> <a href="#_note_3_1_" class="noteRefLink">[1]</a> <a href="#_note_3_2_" class="noteRefLink">[2]</a> see  <a href="article_docfiles.html">doc-files</a></li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#pre">syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_codeprebackground.html">Code, pre and source background</a>: This article explains how to customize the background of code, pre and source elements</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

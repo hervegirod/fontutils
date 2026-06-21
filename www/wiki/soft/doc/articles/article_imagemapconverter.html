@@ -1,0 +1,179 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Image map converter - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_imagemapconverter.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Image map converter</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#dependencies">1&nbsp; Dependencies</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#overview_of_the_gui">2&nbsp; Overview of the GUI</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#working_with_an_image_definition_file">3&nbsp; Working with an image definition file</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#opening_an_image_definition_file">3.1&nbsp; Opening an image definition file</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#adding_an_arearef_zone">3.2&nbsp; Adding an areaRef zone</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#editing_arearef_zones">3.3&nbsp; Editing areaRef zones</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#getting_the_img_definition">3.4&nbsp; Getting the img definition</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#opening_an_article_with_an_existing_image_map">3.5&nbsp; Opening an article with an existing image map</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The core zip file contain a  <code>ImageMapConverter.jar</code> jar File which allows to compute the coordinates to use for  <a href="article_syntaximg.html#linking_on_images">linking on an image area</a>.<br/>
+<br/>
+ The selected zone will be a rectangle zone in the image, which can be used in an  <code>areaRef</code> element.<br/>
+<br/>
+ To use the application, just double-click on the jar file.
+<h2 id="dependencies">Dependencies</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_distrib.html#image_map_converter">distribution</a></div>
+<br/>
+ The ImageMapConverter tool depend on the  <a href="article_dependencies.html#dependencies_list">MDIUtilities</a> library. Therefore you must be sure that the  <code>lib</code> directory is in the same directory as the directory where you have put the jar file (as it is the case in the distribution).
+<h2 id="overview_of_the_gui">Overview of the GUI</h2>
+ The GUI has three area:<ul>
+<li>The top left area presents the list of images defined in the selected  <a href="article_imageFiles.html">image file</a></li>
+<li>The bottom left area presents the list of  <a href="article_syntaxarearef.html">areaRef</a> defined for the selected  <a href="article_imageFiles.html">image file</a></li>
+<li>The right area presents the image and its defined areaRef zones</li>
+</ul>
+<br/>
+<img src="../images/imagemapconverter.png" alt="imagemapconverter" id="_image_0" onclick="openImage(_image_0)" width="60%" class="left marginSmall" />
+
+<h2 id="working_with_an_image_definition_file">Working with an image definition file</h2>
+
+<h3 id="opening_an_image_definition_file">Opening an image definition file</h3>
+To open an  <a href="article_imageFiles.html">image file</a>, use the File =&gt; Open Image File menu:<br/>
+ <img src="../images/imagemapconverter2.png" alt="imagemapconvertermenu" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+ The image will appear on the right area, and the top left area will present the list of images defined in this file:<br/>
+<img src="../images/imagemapconverter3.png" alt="imagemapconverter3" id="_image_2" onclick="openImage(_image_2)" width="50%" class="left marginSmall" />
+
+<h3 id="adding_an_arearef_zone">Adding an areaRef zone</h3>
+To add an  <a href="article_syntaxarearef.html">areaRef</a> zone, right-click on the image on top left area:<br/>
+ <img src="../images/imagemapconverter4.png" alt="imagemapconverter4" id="_image_3" onclick="openImage(_image_3)" class="left marginSmall" />
+<br/>
+ Then set the name of the area (which is the name of the linked id):<br/>
+ <img src="../images/imagemapconverter5.png" alt="imagemapconverter5" id="_image_4" onclick="openImage(_image_4)" class="left marginSmall" />
+<br/>
+ Then you can draw the rectangle area using the mouse on the right area presents the image. The bottom left area will present the new areaRef:<br/>
+<img src="../images/imagemapconverter6.png" alt="imagemapconverter6" id="_image_5" onclick="openImage(_image_5)" width="60%" class="left marginSmall" />
+
+<h3 id="editing_arearef_zones">Editing areaRef zones</h3>
+ The image on the right area of the interface present the rectangles for all areaRef zones. If you select a zone on the bottom left area, this zone will be highlighted in red on the image:<br/>
+<img src="../images/imagemapconverter7.png" alt="imagemapconverter7" id="_image_6" onclick="openImage(_image_6)" width="40%" class="left marginSmall" />
+<br/>
+ It is possible to remove an  <a href="article_syntaxarearef.html">areaRef</a>, or redefine its associated rectangle, by right-cliking on the areaRef on the bottom left area.
+<h3 id="getting_the_img_definition">Getting the img definition</h3>
+To get the  <a href="article_syntaximg.html">img</a> definition with all its associated  <a href="article_syntaxarearef.html">areaRef</a>, you can right-click on the areaRef on the bottom left area:<br/>
+<img src="../images/imagemapconverter8.png" alt="imagemapconverter8" id="_image_7" onclick="openImage(_image_7)" width="40%" class="left marginSmall" />
+<br/>
+ The tool copy this content in the system clipboard, you can then paste it on your  <a href="article_imageFiles.html">images definition</a> xml file.<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Note that the id of the area links to a  <a href="article_references.html">reference</a>. You can change this id in your file as you want. Also you may need to edit the  <code>image</code> element in the xml file to add its associated attributes, such as its width or height.</div>
+
+<h3 id="opening_an_article_with_an_existing_image_map">Opening an article with an existing image map</h3>
+After you have opened an Image definition file, you can open an article definition with an existing  <a href="article_syntaximg.html#linking_on_images">image map</a> by selecting the File =&gt; Parse Article menu:<br/>
+ <img src="../images/imagemapconverter9.png" alt="imagemapconvertermenu2" id="_image_8" onclick="openImage(_image_8)" class="left marginSmall" />
+<br/>
+ The tool will look for images for which their id is both present in the top left area and in the selected article, and have a map of  <code>areaRef</code> elements in the article: A list of areas will be created for these images.<br/>
+<br/>
+ The content of  <a href="article_syntaximg.html">img elements</a> which have a map of areas will be used to set the areas in the tool for this image.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ This function allows to update an existing image map definition.</div>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntaximg.html#linking_on_images">img element</a>: This article explains the how to use the img element</li>
+<li> <a href="article_syntaxarearef.html">areaRef element</a>: This article explains the how to use the areaRef element</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a> |
+ <a href="../categories/cat_tools.html">Tools</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

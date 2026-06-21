@@ -1,0 +1,139 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Editor requirements - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editorrequirements.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Editor requirements</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#javafx_requirements">1&nbsp; JavaFX requirements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#opening_the_gui">2&nbsp; Opening the GUI</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+To be able to open the  <a href="article_editor.html">editor</a>, you need:<ul>
+<li>To define at least the inputs of the wiki</li>
+<li>To have the  <code>docGeneratorEditor.jar</code> library in your ClassPath (by default it is included if the jar file is in the same directory as the  <code>docGenerator.jar</code> jar file)</li>
+<li>You also need to have the JavaFX framework in your ClassPath<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Note that by default it is not automatically the case if your Java version is at least Java 11</div></span>
+</li>
+</ul>
+ If one of these conditions is not fulfilled, the option will be grayed-out:<br/>
+ <img src="../images/editordisabled.png" alt="editordisabled" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h2 id="javafx_requirements">JavaFX requirements</h2>
+ You need to have JavaFX on your ClassPath to be able to launch the Editor:<ul>
+<li>JavaFX is on the ClassPath for Java versions before Java 11, but it is not the case beginning with Java 11. You will need to add it explicitly</li>
+</ul>
+You also need to open the  <code>javafx.web/javafx.scene.web</code> and  <code>javafx.web/com.sun.webkit</code> modules to be able to use the Search function.
+<h2 id="opening_the_gui">Opening the GUI</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_opengui.html">Opening the GUI</a></div>
+<br/>
+ If you double-click on the  <code>launcher.jar</code> jar file in the install directory, you will open the  <a href="article_gui.html">GUI interface</a> and the  <a href="article_editor.html">Editor</a> will be available.<br/>
+<br/>
+ You need to configure the  <code>docgenerator.conf</code> file in the same directory. This is a properties file containing two properties:<ul>
+<li> <code>JAVAHOME</code>: the path of the JAVA_HOME directory. If you don't specify the path or it is empty, the default JRE location will be used</li>
+<li> <code>JAVAFXLIB</code>: the path of the JavaFX library. If the JRE is less than Java 11, this will not be used because before Java 11, JavaFX is bundled with the JRE installation</li>
+</ul>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Note that by default it is not automatically the case if your Java version is at least Java 11</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editor.html">Editor</a>: This article explains the DocGenerator editor</li>
+<li> <a href="article_gui.html">GUI interface</a>: This article is about the GUI interface of the application</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_editor.html">Editor</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() 
+  {
+    $("#table_0").tablesorter(); 
+  }
+);
+</script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Comparison with other wikis softwares - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_comparisons.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Comparison with other wikis softwares</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#features_overview">1&nbsp; Features overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#comparison">2&nbsp; Comparison</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article compares the docJGenerator features with other wikis softwares.
+<h2 id="features_overview">Features overview</h2>
+ The main features of docJGenerator are:<ul>
+<li>the result is a Web site which needs no dependencies to work correctly (such as a Database, a Web server, etc...)</li>
+<li>editing articles for docJGenerator must currently be performed through the source of the articles. Web-based edition is not possible for the moment</li>
+<li>it accepts an  <a href="article_syntaxoverview.html">XML-based</a> syntax and the  <a href="article_mediawikimarkup.html">Mediawiki markup</a> or  <a href="article_markdownmarkup.html">Markdown markup</a></li>
+<li>it can also generate the content as a  <a href="article_pdf.html">PDF document</a>,  <a href="article_docx.html">DOCX document</a>, or  <a href="article_epub.html">Epub document</a></li>
+<li>it does <span style="font-weight: bold;">not</span> handle talk pages</li>
+<li>it does <span style="font-weight: bold;">not</span> handle articles history</li>
+<li>it has the concept of  <a href="article_roots.html">roots</a> (packages) allowing to configure the result with the same articles definition<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+It can be useful for example if you want to publish several different documentations using the same source. For example if a part of your documentation deals with OpenSource elements which you want ot publish on the Web, but other deals with closed elements which you only want to publish internally</div></span>
+</li>
+</ul>
+
+<h2 id="comparison">Comparison</h2>
+ Note that the following table do not imply that docJGenerator is better than X / Y / Z wiwki software, but rather to know if it can be useful to your use case, depending on the wiki software you already know.
+<table id="table_0" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Wiki software</th>
+<th valign="middle"  class="column border" >Features comparison</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"><a href="http://en.wikipedia.org/wiki/mediawiki" title="http://en.wikipedia.org/wiki/mediawiki">Mediawiki</a></td>
+<td valign="middle" class="border paddingDefault">docJGenerator:<ul>
+<li>does <span style="font-weight: bold;">not</span> handle talk pages</li>
+<li>does <span style="font-weight: bold;">not</span> handle articles history</li>
+<li>the result is <span style="font-weight: bold;">usable without any Web Server nor any specific software</span> (generated Web site)</li>
+<li>docJGenerator articles <span style="font-weight: bold;">must be modified in source</span> (not modifiable through a Web page)</li>
+<li>docJGenerator can also generate the content as a  <a href="article_pdf.html">PDF document</a>,  <a href="article_docx.html">DOCX document</a>, or  <a href="article_epub.html">Epub document</a></li>
+<li>has the concept of  <a href="article_roots.html">roots</a> (packages) to define only one set of articles, but generates various resulting wikis depending on the generation configuration</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"><a href="http://tiddlywiki.com/" title="http://tiddlywiki.com/">TiddlyWiki</a></td>
+<td valign="middle" class="border paddingDefault">docJGenerator:<ul>
+<li>does <span style="font-weight: bold;">not</span> handle articles history</li>
+<li>docJGenerator articles <span style="font-weight: bold;">must be modified in source</span> (not modifiable through a Web page)</li>
+<li>docJGenerator <span style="font-weight: bold;">result is not one Web page but interlinked pages, allowing to modify each page separately</span></li>
+<li>docJGenerator can also generate the content as a  <a href="article_pdf.html">PDF document</a>,  <a href="article_docx.html">DOCX document</a>, or  <a href="article_epub.html">Epub document</a></li>
+<li>has the concept of  <a href="article_roots.html">roots</a> (packages) to define only one set of articles, but generates various resulting wikis depending on the generation configuration</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"><a href="https://www.dokuwiki.org/dokuwiki" title="https://www.dokuwiki.org/dokuwiki">DokuWiki</a></td>
+<td valign="middle" class="border paddingDefault">docJGenerator:<ul>
+<li>does <span style="font-weight: bold;">not</span> handle articles history</li>
+<li>the result is <span style="font-weight: bold;">usable without any Web Server nor any specific software</span> (generated Web site)</li>
+<li>docJGenerator articles <span style="font-weight: bold;">must be modified in source</span> (not modifiable through a Web page)</li>
+<li>docJGenerator can also generate the content as a  <a href="article_pdf.html">PDF document</a>,  <a href="article_docx.html">DOCX document</a>, or  <a href="article_epub.html">Epub document</a></li>
+<li>has the concept of  <a href="article_roots.html">roots</a> (packages) to define only one set of articles, but generates various resulting wikis depending on the generation configuration</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> It can be useful for example if you want to publish several different documentations using the same source. For example if a part of your documentation deals with OpenSource elements which you want ot publish on the Web, but other deals with closed elements which you only want to publish internally</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_wikipedia.html">Comparison with wikipedia syntax</a>: This article compares the docJGenerator syntax to the wikipedia syntax</li>
+<li> <a href="article_markdowncomp.html">Comparison with markdown syntax</a>: This article compares the docJGenerator syntax to the Markdown syntax</li>
+<li> <a href="article_syntaxoverview.html">Syntax overview</a>: This article presents an overview of the tags supported in the XML syntax</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

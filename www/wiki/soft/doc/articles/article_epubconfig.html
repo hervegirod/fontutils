@@ -1,0 +1,119 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Epub generation configuration - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_epubconfig.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Epub generation configuration</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#command_line_properties">1&nbsp; Command line properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#configuration_properties">2&nbsp; Configuration properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+Specific  <a href="article_commandline.html">command-line</a> and  <a href="article_configFile.html">configuration</a> properties allow to configure the way the  <a href="article_epub.html">epub</a> generation is performed.
+<h2 id="command_line_properties">Command line properties</h2>
+<ul>
+<li>"fileName": the name of the Epub file to generate. The file will be generated in the  <a href="article_commandline.html#output">output directory</a>. Note that if the "docFile" property is defined, the "fileName" property will not be used</li>
+<li>"docFile": the path of the Epub file to generate</li>
+<li>"title": the title of the document. The default title is "Wiki"</li>
+<li>"author": the author of the document. The default is "author"</li>
+<li>"cover": the path of the cover image for the document</li>
+<li>"chaptersContent": the path of the XML file defining the  <a href="article_chapterscontent.html">Document content</a>. By default a default content will be generated</li>
+</ul>
+
+<h2 id="configuration_properties">Configuration properties</h2>
+ The properties have the same names as for the Command line, but without the leading "-". For example: "tocLevel", "docFile", etc...<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   title</span><span>=My Document</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">   author</span><span>=Jon Snow</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_commandline.html">Command-line</a>: This article is about how to execute the application by the command-line without showing the UI</li>
+<li> <a href="article_configFile.html">Configuration file</a>: It is possible to define an optional property / value configuration file when starting the application (using the graphical UI or the command line)</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a> |
+ <a href="../categories/cat_epub.html">Epub</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

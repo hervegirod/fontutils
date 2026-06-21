@@ -1,0 +1,261 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Glossary - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_glossary.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Glossary</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#defining_a_glossary">1&nbsp; Defining a glossary</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#word_alternate_terms">1.1&nbsp; Word alternate terms</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#word_case">1.2&nbsp; Word case</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#word_description">1.3&nbsp; Word description</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#glossary_policy">2&nbsp; Glossary policy</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#automatic_policy">2.1&nbsp; Automatic policy</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#manual_policy">2.2&nbsp; Manual policy</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#usage">3&nbsp; Usage</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">4&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ It is possible to add a glossary to the wiki. Defining a glossary will add a new menu options which will open a glossary of terms, and the articles were this term is used. The corresponding page will present each word defined in the glossary, and all the articles which contain this word.<br/>
+<br/>
+ For example:<br/>
+<img src="../images/glossary.png" alt="glossary" id="_image_0" onclick="openImage(_image_0)" width="60%" class="left marginSmall" />
+
+<h2 id="defining_a_glossary">Defining a glossary</h2>
+A glossary is an xml file which can be defined wherever in the wiki source, with the root element "glossary"<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+It is perfectly valild to have more than one glossary file in the wiki source. In that case they will be merged</div></span>
+.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;glossary&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"text"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;description&gt;</span><span>The text description</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/description&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/word&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"paragraph"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;altTerm</span><span class="syntaxKeyWord2" style="font-weight:bold;"> term</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"par"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/word&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"red"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the red"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/glossary&gt;</span>
+</pre>
+ The glossary contain  <code>word</code> elements. Words have a name and can optionally have an id to another article  or anchor.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ By default the generator will detect automatically which articles contain the word<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+The search is not case-sensitive</div></span>
+, there is no  need to define them yourself. </div>
+
+<h3 id="word_alternate_terms">Word alternate terms</h3>
+ It is possible to define alternate terms for the word.
+<h3 id="word_case">Word case</h3>
+ By default the first character of the word and the alternate terms will be on upper case and the other characters on lower case.<br/>
+<br/>
+ However it is possible to keep the case of the word and the alternate terms with the "keepCase" attribute. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;glossary&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"UA"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> keepCase</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;description&gt;</span><span>The Description</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/description&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/word&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"paragraph"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;altTerm</span><span class="syntaxKeyWord2" style="font-weight:bold;"> term</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"par"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> keepCase</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/word&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"red"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/glossary&gt;</span>
+</pre>
+
+<h3 id="word_description">Word description</h3>
+<ul>
+<li>If the word does not contains a  <code>description</code>, the glossary will only present the word and all the articles which contain this word</li>
+<li>If the word contains a  <code>description</code>, the glossary will present the word with its description</li>
+</ul>
+
+<h2 id="glossary_policy">Glossary policy</h2>
+ There are two possible policies for the glossary generation:<ul>
+<li>"automatic" (the default): The generator will detect automatically which articles contain the word<span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_1_">[3]</sup></a>
+<div class="tooltiptext">
+The search is not case-sensitive</div></span>
+, there is no  need to define them yourself</li>
+<li>"manual": Each word must be specified explicitly</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;glossary</span><span class="syntaxKeyWord2" style="font-weight:bold;"> policy</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"manual"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"UA"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> keepCase</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;description&gt;</span><span>The Description</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/description&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/word&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"paragraph"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;altTerm</span><span class="syntaxKeyWord2" style="font-weight:bold;"> term</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"par"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> keepCase</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/word&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"red"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/glossary&gt;</span>
+</pre>
+
+<h3 id="automatic_policy">Automatic policy</h3>
+By default, the generator will detect automatically which articles contain the word<span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_2_">[3]</sup></a>
+<div class="tooltiptext">
+The search is not case-sensitive</div></span>
+, there is no  need to define them yourself.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Of course if you use this policy, you can have in some cases a lot of articles asspociated with each word in the glossary. Switching to the manual policy will allow to control which articles will be linked to each word.</div>
+
+<h3 id="manual_policy">Manual policy</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_manualglossary.html">Manual glossary</a></div>
+<br/>
+ For the manual policy, you need to add  <code>word</code> anchors in the article where you want to refer to for your words. Note that  <code>word</code> anchors used in a wiki where there is no glossary or an ontology with an automatic policy will be discarded. <br/>
+<br/>
+ For example, suppose that we have the following glossary:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;glossary</span><span class="syntaxKeyWord2" style="font-weight:bold;"> policy</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"manual"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ontology"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;description&gt;</span><span>The description for ontologies</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/description&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/word&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/glossary&gt;</span>
+</pre>
+ We refer here to the "ontology" word in an article (the anchor is applied on the word just before is, in this case "OWL"):<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This is the text which refer to the OWL</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> word</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ontology"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> concept.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ We can omit the  <code>word</code> attribute if the word just before the anchor correspond to a term used for the glossary word:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my second article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This is the text which refer to the ontology</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> concept.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ We can also refer to the content on an "anchor" element. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my second article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This is the text which refer to the </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;anchor</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ontology"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"OWL"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;&lt;word</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> concept.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Words which are associated to no article at all will not appear in the glossary for the manual policy. If the  <a href="article_commandline.html#showglossaryerrors">showGlossaryErrors</a> is set to true, then a warning will appear in this case during the generation.</div>
+
+<h2 id="usage">Usage</h2>
+ When clicking on an article referenced in the glossary, the text which contain the word or its alternate term will be highlighted in the html page.<br/>
+<br/>
+ For example:<br/>
+<img src="../images/glossaryUsage.png" alt="glossaryUsage" id="_image_1" onclick="openImage(_image_1)" width="40%" class="left marginSmall" />
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> It is perfectly valild to have more than one glossary file in the wiki source. In that case they will be merged</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> The search is not case-sensitive</li>
+<li id="_note_3"><span class="noteRefLink">^</span> <a href="#_note_3_1_" class="noteRefLink">[1]</a> <a href="#_note_3_2_" class="noteRefLink">[2]</a> The search is not case-sensitive</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_typesoffiles.html">Types of files</a>: This article explains the types of files which can be found in the wiki input</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

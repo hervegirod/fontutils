@@ -1,0 +1,218 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Custom left menu - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_customleftmenu.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Custom left menu</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#adding_custom_items_to_the_left_menu">1&nbsp; Adding custom items to the left menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#items_refering_to_articles_in_the_wiki">1.1&nbsp; Items refering to articles in the wiki</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#items_refering_to_the_glossary">1.2&nbsp; Items refering to the glossary</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#items_refering_to_external_web_pages">1.3&nbsp; Items refering to external web pages</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#the_what_links_here_item">1.4&nbsp; The What links here item</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_custom_html_content_to_the_left_menu">2&nbsp; Adding custom HTML content to the left menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#completely_change_the_left_menu">3&nbsp; Completely change the left menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#default_menu_items">4&nbsp; Default menu items</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">4.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">5&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+It is possible to add custom items in the  <a href="article_defaultleftmenu.html">left menu</a>, or even to completely change it.
+<h2 id="adding_custom_items_to_the_left_menu">Adding custom items to the left menu</h2>
+ To add custom items to the left menu, you have to define a file with a "leftMenu" top-element. This element has a  <code>onIndex</code> attribute allowing to define if the menu items will be added to the  <a href="article_articles.html#index_definition">index article</a> only or to all the  articles.<br/>
+<br/>
+ This element has as many  <code>menuItem</code> children as there are additional menu items in the menu:<ul>
+<li>The "desc" attribute specifies the text to show in the menu</li>
+<li>The element can have:<ul>
+<li>One  <code>itemInternalRef</code> child for items refering to articles or other  <a href="article_references.html">interwiki links</a>,</li>
+<li>Or one  <code>itemExternalRef</code> child for items refering to external web pages,</li>
+<li>Or one  <code>itemGlossaryRef</code> child for items refering to the  <a href="article_glossary.html">glossary</a><span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+If there is a glossary</div></span>
+,</li>
+<li>Or one  <code>linksFromRef</code> child for the item refering to the "What links here" content for each article</li>
+</ul>
+</li>
+</ul>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;leftMenu</span><span class="syntaxKeyWord2" style="font-weight:bold;"> onIndex</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menuItem</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Website"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;itemExternalRef</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"http://sourceforge.net/projects/docjgenerator/"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/menuItem&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menuItem</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"What links here"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;linksFromRef</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/menuItem&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menuItem</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"License"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;itemInternalRef</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"License"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/menuItem&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/leftMenu&gt;</span>
+</pre>
+
+<h3 id="items_refering_to_articles_in_the_wiki">Items refering to articles in the wiki</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_references.html">References</a></div>
+<br/>
+ The "itemInternalRef" element refer to  <a href="article_articles.html">articles</a> in the wiki. The "id" attribute specifies the article reference as in the  <a href="article_syntax.html#ref">ref</a> element in articles.
+<h3 id="items_refering_to_the_glossary">Items refering to the glossary</h3>
+The "glossaryRef" element refer to the  <a href="article_glossary.html">glossary</a> (if it exists). Note that if there is a glossary but no "glossaryRef" element in the left menu, the glossary will be added automatically at the end of the left menu.
+<h3 id="items_refering_to_external_web_pages">Items refering to external web pages</h3>
+ The "itemExternalRef" element refer to external web pages. The "url" attribute specifies the URL of the web page.
+<h3 id="the_what_links_here_item">The What links here item</h3>
+ The "linksFromRef" element refer to a "What links here" page as it exists in wikipedia. For each article, this will give a list of all the other articles which refer to the current article. For example, the "What links here" page for the  <a href="article_configFile.html">configuration file</a> page is:<br/>
+<img src="../images/whatlinkshere.png" alt="whatlinkshere" id="_image_0" onclick="openImage(_image_0)" width="40%" class="left simpleBorder marginSmall" />
+<br/>
+ Note that there won't be any "What links here" page if the associated Menu item is not present.
+<h2 id="adding_custom_html_content_to_the_left_menu">Adding custom HTML content to the left menu</h2>
+The  <a href="article_configFile.html#leftindexmenu">configuration file</a> allows to specify a file containing the custom HTML content to add at the end of the left menu on the  <a href="article_articles.html#index_definition">index article</a>.
+<h2 id="completely_change_the_left_menu">Completely change the left menu</h2>
+The  <code>hasDefaultContent</code> attribute on the left menu allows to completly change the content of the left menu, if its value is  <code>false</code>. In  that case the elements will be those defined in the xml file:<ul>
+<li>A  <code>defaultMenuItem</code> element will add a default item</li>
+<li>A  <code>menuItem</code> element will add a  <a href="#adding_custom_items_to_the_left_menu">custom item</a></li>
+</ul>
+
+<h2 id="default_menu_items">Default menu items</h2>
+A  <code>defaultMenuItem</code> element specifies a default menu item. This element has the following attributes:<ul>
+<li>The mandatory  <code>type</code> attribute specifies the type of the item, which can be:<ul>
+<li>"home" for the link to the "Home" article (the  <a href="article_articles.html#index_definition">index</a>)</li>
+<li>"dictionary" for the link to  <a href="article_dictionnary.html">dictionary</a>. Note that there will be no menu for the dictionary if the "hasDictionary" property has been set to false<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+See also   <a href="article_dictionnary.html#getting_rid_of_the_dictionary">Getting rid of the dictionary</a></div></span>
+</li>
+<li>"categories" for the link to  <a href="article_categories.html">categories</a>. Note that there will be no menu for the categories if the "hasCategories" property has been set to false<span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_1_">[3]</sup></a>
+<div class="tooltiptext">
+See also   <a href="article_categories.html#getting_rid_of_the_categories">Getting rid of the categories</a></div></span>
+</li>
+<li>"glossary" for the link to  <a href="article_glossary.html">glossary</a></li>
+<li>"linksFrom" for the link to "What links here" page</li>
+</ul>
+</li>
+<li>The optional  <code>desc</code> attribute for the item text</li>
+</ul>
+
+<h3 id="example">Example</h3>
+ With the following menu specification:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;leftMenu</span><span class="syntaxKeyWord2" style="font-weight:bold;"> hasDefaultContent</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;defaultMenuItem</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"home"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menuItem</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"License"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;itemInternalRef</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"License"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/menuItem&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/leftMenu&gt;</span>
+</pre>
+  We will have the following menu on the  <a href="article_articles.html#index_definition">index article</a>:<br/>
+ <img src="../images/customArticleMenu.png" alt="customArticleMenu" id="_image_1" onclick="openImage(_image_1)" class="left simpleBorder marginSmall" />
+<br/>
+ And on  <a href="article_articles.html">articles</a>:<br/>
+ <img src="../images/customIndexMenu.png" alt="customIndexMenu" id="_image_2" onclick="openImage(_image_2)" class="left simpleBorder marginSmall" />
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> If there is a glossary</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> See also   <a href="article_dictionnary.html#getting_rid_of_the_dictionary">Getting rid of the dictionary</a></li>
+<li id="_note_3"> <a href="#_note_3_1_" class="noteRefLink">^</a> See also   <a href="article_categories.html#getting_rid_of_the_categories">Getting rid of the categories</a></li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_custommenus.html">Menus</a>: It is possible to add a custom content to the left menu, and also add a custom right menu to the index file</li>
+<li> <a href="article_defaultleftmenu.html">Default left menu</a>: The default content of the left menu contains:</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

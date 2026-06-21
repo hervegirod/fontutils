@@ -1,0 +1,295 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Chapters and titles - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_chapters.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Chapters and titles</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#chapters_and_titles_xml_attributes">1&nbsp; Chapters and titles XML attributes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#chapter_elements">2&nbsp; Chapter elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#title_elements">3&nbsp; Title elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#title_or_chapter_sequence_id">4&nbsp; Title or chapter sequence ID</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#seq_attribute">4.1&nbsp; seq attribute</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#referencing_a_title_or_chapter">5&nbsp; Referencing a title or chapter</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">5.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#specifying_an_id_for_a_chapter_or_title">5.2&nbsp; Specifying an id for a chapter or title</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#usage_of_seq_as_an_id">5.2.1&nbsp; Usage of seq as an ID</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+Chapters and titles allow to define sections in the articles ("&lt;Hi&gt;" html tag). There are two ways of specifying a section:<ul>
+<li>through a "chapter" element</li>
+<li>through a "title" element</li>
+</ul>
+
+<h2 id="chapters_and_titles_xml_attributes">Chapters and titles XML attributes</h2>
+ A chapter or title has the following attributes:<ul>
+<li>"title": the chapter title to be displayed on the HTML output</li>
+<li>"id": (optional) the chapter id, used in lieu of the title to refer to the chapter or title if it exists</li>
+<li>"seq": (optional) allow to force the chapter or title table of content sequence id. See also  <a href="#title_or_chapter_sequence_id">title or chapter sequence ID</a></li>
+<li>"keepCase": (optional) true if the chapter or title text should be kept as is (which means that the first character won't be forced as UpperCase in the HTML output)</li>
+<li>"searchable": (optional) false if the title should not be searchable in the  <a href="article_search.html">search box</a></li>
+<li>"hr": (optional) true if we should add a thematic break ("hr" element) before the title</li>
+</ul>
+Additionally, a chapter can have a "justify" attribute to specify the justification of the text under the chapter (See the  <a href="article_justification.html">Justification</a> article for more information).
+<h2 id="chapter_elements">Chapter elements</h2>
+ These elements are "chapter" elements in the artile XML file. Nested "chapter" elements will become sub-sections. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   text before all chapters (article header)</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   text inside the  first chapter</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"sub chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   text inside the sub-chapter</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   text inside the second chapter</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/chapter&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+
+<h2 id="title_elements">Title elements</h2>
+ Title elements aren't nested and define their own level. For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"new article3"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   text before all chapters (article header)</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the first chapter</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> level</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"sub chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the sub-chapter</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the second chapter</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ Note that if you don't define the level, it will be assumed to be 1.
+<h2 id="title_or_chapter_sequence_id">Title or chapter sequence ID</h2>
+ The sequence ID of a chapter or title will be constructed by default with the sequence of levels from this title or chapter  to the root chapter or title. This id will wbe used in the table of contents for the article.<br/>
+<br/>
+ For example, suppose the following sequences of titles:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   text before all chapters</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the first chapter</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> level</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"sub chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the sub-chapter</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the second chapter</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  We will have the following text for the table of contents in the article:<ul>
+<li>1 First chapter</li>
+<li>1.1 Sub chapter</li>
+<li>2 second chapter</li>
+</ul>
+
+<h3 id="seq_attribute">seq attribute</h3>
+ It is possible to force the sequence ID for a title, by setting a value for the "seq" attribute. For example, suppose the following sequences of titles:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the first chapter</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> level</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"sub chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> seq</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A.1"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the sub-chapter</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the second chapter</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"third chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the third chapter  </span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  We will have the following result for the article:<br/>
+ <img src="../images/titlesequsage.png" alt="titlesequsage" id="_image_0" onclick="openImage(_image_0)" class="left simpleBorder marginSmall" />
+<br/>
+ By default the sequence number (automatically set with the sequences of levels) for a title or chapter is not shown for  the title shown in the article text. But if the "seq" attribute is specified for a title or chapter, the  specified sequence number will also be shown for this title or chapter.
+<h2 id="referencing_a_title_or_chapter">Referencing a title or chapter</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_namingconstraints.html">Naming constraints</a></div>
+<br/>
+ It is possible to specify an inter-wiki link to a chapter or title in an article. The syntax uses the  <a href="article_syntax.html#ref">interwiki link</a> syntax. The "id" element has the following construction:<ul>
+<li>The article reference, which is the id or desc of the article</li>
+<li>The "#" character</li>
+<li>The title of the chapter</li>
+</ul>
+<br/>
+<br/>
+ The article reference can be:<ul>
+<li>The id of the article if it exists</li>
+<li>The description of the article</li>
+<li>The description of the article where white spaces have been replaced by underscore characters</li>
+</ul>
+<br/>
+ The chapter or title reference can be:<ul>
+<li>The id of the chapter or title (where white spaces have been replaced by underscore characters) it it exists</li>
+<li>The seq of the chapter or title if it exists and the id is not specified</li>
+<li>The title of the chapter or title</li>
+<li>The title of the chapter or title where white spaces have been replaced by underscore characters</li>
+</ul>
+<br/>
+<br/>
+ The case for the name of the article (and for the title of the chapter) is not important. For example for the article "my article", all the following references will correctly link to this article:<ul>
+<li>"my article"</li>
+<li>"my_article"</li>
+<li>"My Article"</li>
+<li>"MY ARTICLE"</li>
+</ul>
+<br/>
+<br/>
+ Not specifying the id of the article will link to a chapter in the current article. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"#first chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the first chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h3 id="example">Example</h3>
+ Suppose the following article:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   ...</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ This article can be referenced through any of the following constructions:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my_article"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ This article title be referenced through any of the following constructions:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle#first chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle#first_chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article#first chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my_article#first_chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h3 id="specifying_an_id_for_a_chapter_or_title">Specifying an id for a chapter or title</h3>
+ Specifying an "id" attribute for a chpater or title will allow to use this id to referene this title rather than its title. This allows to keep a constant id to refer to the title or chapter even if the text used for the title change.<br/>
+<br/>
+ For example suppose the following article:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"t1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   ...</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ This article title be referenced through any of the following constructions:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle#t1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"thisArticle#T1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h4 id="usage_of_seq_as_an_id">Usage of seq as an ID</h4>
+<div class="moreInfo" >
+Main Article: <a href="article_chapters.html#seq_attribute">seq attribute</a></div>
+<br/>
+ If the "id" element is not specified, and the "seq" attribute is present, the "seq" value will be used as an ID to reference the title or chapter.  For example the following is valid:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"first chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> seq</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"A.1"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   text inside the first chapter</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"second chapter"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   Refer to </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"#A.1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+    In that case the text shown by default for the reference will be the "seq" value rather than the title or chapter description.</div>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a> |
+ <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

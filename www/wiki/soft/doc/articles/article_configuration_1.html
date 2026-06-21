@@ -1,0 +1,226 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DocGenerator API configuration - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_configuration_1.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DocGenerator API configuration</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#resetting_the_configuration">2&nbsp; Resetting the configuration</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_the_search_configuration">3&nbsp; Setting the search configuration</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_a_custom_search">3.1&nbsp; Setting a custom search</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_the_locale">4&nbsp; Setting the locale</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_the_output_format">5&nbsp; Setting the output format</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_the_header_and_the_footer">6&nbsp; Setting the header and the footer</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#other_configuration_properties">7&nbsp; Other configuration properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_the_table_of_content_configuration">7.1&nbsp; Setting the table of content configuration</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#getting_rid_of_the_dictionary_or_the_categories">7.2&nbsp; Getting rid of the dictionary or the categories</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">8&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article presents how to configure the wiki generation through docJGenerator API.
+<h2 id="overview">Overview</h2>
+You can configure the generation by calling <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#getConfiguration--" class="apiLink" title="DocGeneratorAPI.getConfiguration()">DocGeneratorAPI.getConfiguration()</a> and setting  <a href="article_configFile.html">configuration properties</a>. <br/>
+<br/>
+ Several configuration properties can be set directly through the  <code>DocGeneratorAPI</code>.
+<h2 id="resetting_the_configuration">Resetting the configuration</h2>
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#resetConfiguration--" class="apiLink" title="DocGeneratorAPI.resetConfiguration()">DocGeneratorAPI.resetConfiguration()</a> method force the resst of the configuration.
+<h2 id="setting_the_search_configuration">Setting the search configuration</h2>
+By default the  <a href="article_search.html">search</a> is on articles and titles. It is possible to configure directly the search options through the following methods:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setSearch-short-" class="apiLink" title="DocGeneratorAPI.setSearch(short)">DocGeneratorAPI.setSearch(short)</a> allows to specify the search type according to the <a href="../javadoc/docgeneratorAPI/org/docgene/model/globals/SearchOptions.html" class="apiLink" title="SearchOptions">SearchOptions</a> search option enumeration. Note that by default the search is on articles and titles</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setFullTextSearch-boolean-int-" class="apiLink" title="DocGeneratorAPI.setFullTextSearch(boolean, int)">DocGeneratorAPI.setFullTextSearch(boolean, int)</a> set the full text search configuration (by default there is no full text search in the wiki)</li>
+</ul>
+ The following example allows to seach on articles, titles, and anchors:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>      </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setSearch</span><span>(SearchOptions.SEARCH_ON_ANCHORS);    </span>
+</pre>
+
+<h3 id="setting_a_custom_search">Setting a custom search</h3>
+To set a custom search configuration, you must set the <a href="../javadoc/docgeneratorAPI/org/docgene/model/globals/SearchOptions.html#SEARCH_CUSTOM" class="apiLink" title="SearchOptions.SEARCH_CUSTOM">SearchOptions.SEARCH_CUSTOM</a> option, and specify which search categories you want to use. <br/>
+<br/>
+ For example, the following code will create two search categories which will appear in the search box: "Bird", and "Mammal":<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// set a custom search</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setSearch</span><span>(SearchOptions.SEARCH_CUSTOM); </span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// specify the custom search categories</span>
+<span>   CustomSearchCategories categories = api.</span><span class="syntaxDefault" style="font-weight:bold;">getCustomSearchCategories</span><span>();</span>
+<span>   categories.</span><span class="syntaxDefault" style="font-weight:bold;">addCategory</span><span>(</span><span class="syntaxLiteral" style="">"Bird"</span><span>);</span>
+<span>   categories.</span><span class="syntaxDefault" style="font-weight:bold;">addCategory</span><span>(</span><span class="syntaxLiteral" style="">"Mammal"</span><span>);      </span>
+</pre>
+
+<h2 id="setting_the_locale">Setting the locale</h2>
+ By default the wiki interface in in English. It is possible to configure the locale through the  <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setLocale-java.lang.String-" class="apiLink" title="DocGeneratorAPI.setLocale(java.lang.String)">DocGeneratorAPI.setLocale(String)</a> method. The supported locales are specified in the <a href="../javadoc/docgeneratorAPI/org/docgene/model/globals/Locales.html" class="apiLink" title="Locales">Locales</a> interface.<br/>
+<br/>
+ For example, to use a "fr" Locale:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setLocale</span><span>(</span><span class="syntaxLiteral" style="">"fr"</span><span>); </span>
+</pre>
+
+<h2 id="setting_the_output_format">Setting the output format</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_outputtype.html">OutputType configuration property</a></div>
+<br/>
+ The Wiki  <a href="article_outputtype.html">output format</a> can be set through the  <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setOutputType-java.lang.String-" class="apiLink" title="DocGeneratorAPI.setOutputType(java.lang.String)">DocGeneratorAPI.setOutputType(String)</a> method: <ul>
+<li>The "help" and "html" formats are always supported</li>
+<li>The "docx", "pdf", and "epub" formats are supported only if the associated plugins are present</li>
+</ul>
+For example, to specify that you want to generate a doxcx file:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputType</span><span>(</span><span class="syntaxLiteral" style="">"docx"</span><span>); </span>
+</pre>
+
+<h2 id="setting_the_header_and_the_footer">Setting the header and the footer</h2>
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setHeader-java.lang.String-" class="apiLink" title="DocGeneratorAPI.setHeader(java.lang.String)">DocGeneratorAPI.setHeader(String)</a> and <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setFooter-java.lang.String-" class="apiLink" title="DocGeneratorAPI.setFooter(java.lang.String)">DocGeneratorAPI.setFooter(String)</a> methods allow to add a header and a footer to the wiki.<br/>
+<br/>
+ The following example add the "My API wiki" text as the header for the wiki:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setHeader</span><span>(</span><span class="syntaxLiteral" style="">"My API wiki"</span><span>);   </span>
+</pre>
+
+<h2 id="other_configuration_properties">Other configuration properties</h2>
+You can access the  <a href="article_configuration.html">configuration</a> through the <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#getConfiguration--" class="apiLink" title="DocGeneratorAPI.getConfiguration()">DocGeneratorAPI.getConfiguration()</a> lmethod. It gives you access to the <a href="../javadoc/docgeneratorAPI/org/docgene/main/Configuration.html" class="apiLink" title="Configuration">Configuration</a> which can be used to set all the configuration properties.
+<h3 id="setting_the_table_of_content_configuration">Setting the table of content configuration</h3>
+You can set the  <a href="article_tableofcontent.html">table of content configuration</a> through the following methods in the <a href="../javadoc/docgeneratorAPI/org/docgene/main/Configuration.html" class="apiLink" title="Configuration">Configuration</a>:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/main/Configuration.html#setArticlesTOC-boolean-" class="apiLink" title="Configuration.setArticlesTOC(boolean)">Configuration.setArticlesTOC(boolean)</a> specifies if the articles must have a table of content</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/main/Configuration.html#setArticlesTOCThreshold-int-" class="apiLink" title="Configuration.setArticlesTOCThreshold(int)">Configuration.setArticlesTOCThreshold(int)</a> specifies the threshold of the number  of titles for articles on html. By default an article must have at least 3 titles to have a table of content</li>
+</ul>
+ The following example set that the articles will not have a table of content:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>      </span>
+<span>   Configuration conf = api.</span><span class="syntaxDefault" style="font-weight:bold;">getConfiguration</span><span>();</span>
+<span>   conf.</span><span class="syntaxDefault" style="font-weight:bold;">setArticlesTOC</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">false</span><span>);    </span>
+</pre>
+ Note that you can set that a specific article must not have a table of content by using the <a href="../javadoc/docgeneratorAPI/org/docgene/model/XMLArticle.html#setTOC-boolean-" class="apiLink" title="XMLArticle.setTOC(boolean)">XMLArticle.setTOC(boolean)</a>.<br/>
+<br/>
+ The following example set that a specific article will not have a table of content:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>         </span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);    </span>
+<span>   article.</span><span class="syntaxDefault" style="font-weight:bold;">setTOC</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">false</span><span>);</span>
+</pre>
+
+<h3 id="getting_rid_of_the_dictionary_or_the_categories">Getting rid of the dictionary or the categories</h3>
+<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/main/Configuration.html#setHasDictionary-boolean-" class="apiLink" title="Configuration.setHasDictionary(boolean)">Configuration.setHasDictionary(boolean)</a> specifies if the wiki must have a  <a href="article_dictionnary.html">dictionary</a></li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/main/Configuration.html#setHasCategories-boolean-" class="apiLink" title="Configuration.setHasCategories(boolean)">Configuration.setHasCategories(boolean)</a> specifies if the wiki must have  <a href="article_categories.html">categories</a></li>
+</ul>
+ The following example set that there will be no  <a href="article_dictionnary.html">dictionary</a> and no  <a href="article_categories.html">categories</a> in the wiki:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>      </span>
+<span>   Configuration conf = api.</span><span class="syntaxDefault" style="font-weight:bold;">getConfiguration</span><span>();</span>
+<span>   conf.</span><span class="syntaxDefault" style="font-weight:bold;">setHasDictionary</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">false</span><span>); </span>
+<span>   conf.</span><span class="syntaxDefault" style="font-weight:bold;">setHasCategories</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">false</span><span>);       </span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_docgeneratorapi.html">DocJGenerator API</a>: This article presents an overview of the docJGenerator API</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_api.html">Api</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>GUI interface - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_gui.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>GUI interface</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#opening_the_gui">1&nbsp; Opening the GUI</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#configuration">2&nbsp; Configuration</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#minimal_configuration">3&nbsp; Minimal configuration</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#generating_the_wiki">4&nbsp; Generating the wiki</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#generation_options">5&nbsp; Generation options</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#editor">6&nbsp; Editor</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#tools">7&nbsp; Tools</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#usage_on_mac_os_x">8&nbsp; Usage on Mac OS X</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">9&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ Double clicking on the Jar file of the application without specifying any command-line parameter will open the GUI of the application.<br/>
+<br/>
+ <img src="../images/gui.png" alt="gui" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h2 id="opening_the_gui">Opening the GUI</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_opengui.html">Opening the GUI</a></div>
+<br/>
+ If you double-click on the  <code>launcher.jar</code> jar file in the install directory, you will open the  <a href="">GUI interface</a> and the  <a href="article_editor.html">Editor</a> will be available.<br/>
+<br/>
+ You need to configure the  <code>docgenerator.conf</code> file in the same directory. This is a properties file containing two properties:<ul>
+<li> <code>JAVAHOME</code>: the path of the JAVA_HOME directory. If you don't specify the path or it is empty, the default JRE location will be used</li>
+<li> <code>JAVAFXLIB</code>: the path of the JavaFX library. If the JRE is less than Java 11, this will not be used because before Java 11, JavaFX is bundled with the JRE installation</li>
+</ul>
+
+<h2 id="configuration">Configuration</h2>
+Many of the configuration properties wich are available through the  <a href="article_commandline.html">command-line</a> or the  <a href="article_configFile.html">configuration file</a> can be specified directly through the GUI. Additionally:<ul>
+<li>Named  <a href="article_properties.html">properties</a> can be set through the "Property / Values" file parameter</li>
+<li>Additional  <a href="article_configFile.html">configuration properties</a> can be set through the "Additional Configuration" file parameter</li>
+</ul>
+
+<h2 id="minimal_configuration">Minimal configuration</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_basicusage.html">Basic usage</a></div>
+<br/>
+ To be able to generate the wiki, you only need at the minimum to specify:<ul>
+<li>The input directory</li>
+<li>The output directory</li>
+</ul>
+<br/>
+ <img src="../images/minimalgui.png" alt="minimalgui" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ If the input directory or the output directory are not specified, the "Apply" button will be disabled and you waon't be able to generate the wiki:<br/>
+ <img src="../images/applyDisabled.png" alt="applyDisabled" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+<br/>
+<br/>
+<br/>
+</div>
+
+<h2 id="generating_the_wiki">Generating the wiki</h2>
+ You generate the wiki by clicking on the "Apply" button. It will produce a html site as an offline wiki-like site in the output directory. <br/>
+ <img src="../images/applyEnabled.png" alt="applyEnabled" id="_image_3" onclick="openImage(_image_3)" class="left marginSmall" />
+<br/>
+ Depending on the size of the wiki, you may see the progress bar status during the generation at the bottom of the GUI:<br/>
+ <img src="../images/progressbar.png" alt="progressbar" id="_image_4" onclick="openImage(_image_4)" class="left marginSmall" />
+
+<h2 id="generation_options">Generation options</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_guigenerationoptions.html">GUI Generation options</a></div>
+<br/>
+ The GUI panel has several tabs for configuring the generation:<ul>
+<li>General properties</li>
+<li>Errors: used to specify how parsing  <a href="article_errors.html">errors</a> are handled</li>
+<li>Search: used for the  <a href="article_search.html">search</a> configuration</li>
+<li>Misc: Miscellanous parameters</li>
+<li>Output formats: used to specify and configure the  <a href="article_outputtype.html">output formats</a> of the generator</li>
+<li>Performance: used to tweak the  <a href="article_performance.html">performance</a> of the generation</li>
+<li>Updates: used for the  <a href="article_incremental.html">incremental generation</a></li>
+</ul>
+
+<h2 id="editor">Editor</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_editor.html">Editor</a></div>
+<br/>
+ You can edit the wiki using any source editor (or even text editor), but the tool provides an associated editor to edit the wiki. <br/>
+<br/>
+ To open the editor, you need to define at least the inputs of the wiki, you can call the editor by using the Editor =&gt; Open Editor menu:<br/>
+ <img src="../images/editorlaunch.png" alt="editorlaunch" id="_image_5" onclick="openImage(_image_5)" class="left marginSmall" />
+. 
+<h2 id="tools">Tools</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_guitools.html">GUI tools</a></div>
+<br/>
+ The "Tools" menu allows to:<ul>
+<li> <a href="article_saveconffile.html">serialize</a> a  <a href="article_configFile.html">configuration file</a> with the current state of the GUI options</li>
+<li>Unserialize a configuration file and update the state of the GUI options</li>
+<li>Reset the state of the GUI options to their default values</li>
+</ul>
+<br/>
+<img src="../images/saveconffile.png" alt="saveconffile" id="_image_6" onclick="openImage(_image_6)" width="40%" class="left marginSmall" />
+
+<h2 id="usage_on_mac_os_x">Usage on Mac OS X</h2>
+ The tool GUI integration on Mac OS X includes:<ul>
+<li>The menus are at the top of the screen</li>
+<li>The UI is the Mac OS X UI</li>
+<li>The name of the application is correct</li>
+</ul>
+<br/>
+<img src="../images/macosX.png" alt="macosX" id="_image_7" onclick="openImage(_image_7)" width="40%" class="left marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_commandline.html">Command-line starting</a>: This article is about how to execute the application by the command-line without showing the UI</li>
+<li> <a href="article_configFile.html">Configuration file</a>: It is possible to define an optional property / value configuration file when starting the application (using the graphical UI or the command line)</li>
+<li> <a href="article_configuration.html">Configuration</a>: This article explains how to configure the tool</li>
+<li> <a href="article_basicusage.html">Basic usage</a>: This article presents the basic usage and configuration of the tool</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

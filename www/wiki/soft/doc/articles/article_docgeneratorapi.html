@@ -1,0 +1,200 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DocJGenerator API overview - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_docgeneratorapi.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DocJGenerator API overview</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#classpath">2&nbsp; Classpath</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#generation_steps">3&nbsp; Generation steps</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#creating_the_generator_context">3.1&nbsp; Creating the generator context</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_the_menus">3.2&nbsp; Setting the menus</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#creating_the_wiki_content">3.3&nbsp; Creating the wiki content</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setting_the_generation_output_directory">3.4&nbsp; Setting the generation output directory</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#calling_the_generator">3.5&nbsp; Calling the generator</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#checking_the_generation_result">3.6&nbsp; Checking the generation result</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">4&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The docJGenerator API allows to use the generator in another Java application.
+<h2 id="overview">Overview</h2>
+ You can use the library through an API to produce a wiki in your Java application. It allows to to create the content of the wiki programmatically, and generate the result through code in your application.<br/>
+<br/>
+ The entry point of the API is the <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html" class="apiLink" title="DocGeneratorAPI">DocGeneratorAPI</a> class.<br/>
+<br/>
+ You can even  <a href="article_merginggenerations.html">merge several generations</a> using the docGenerator API. This can be useful if for example you want several applications to contribute to the same wiki, rather than relying on only one generation.
+<h2 id="classpath">Classpath</h2>
+To use the API, you must put the  <code>docGeneratorAPI.jar</code> Jar file in your classpath. This small Jar depends on the main  <code>docGenerator.jar</code> jar file. You can either:<ul>
+<li>Put the  <code>docGenerator.jar</code> jar file alongside the  <code>docGeneratorAPI.jar</code> in the same directory</li>
+<li>Or add the  <code>docGenerator.jar</code> jar file in your Classpath</li>
+</ul>
+
+<h2 id="generation_steps">Generation steps</h2>
+ The steps for the generation include:<ul>
+<li>Creating the generator context</li>
+<li>Programmatically creating the wiki content</li>
+<li>Setting the generation output directory</li>
+<li>Calling the generator</li>
+</ul>
+
+<h3 id="creating_the_generator_context">Creating the generator context</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_configuration_1.html">DocGenerator API configuration</a></div>
+<br/>
+ To create the generator context:<ul>
+<li>Create an instance of the  <code>DocGeneratorAPI</code> class</li>
+<li>Create a model by calling <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#createModel--" class="apiLink" title="DocGeneratorAPI.createModel()">DocGeneratorAPI.createModel()</a>. The result is an <a href="../javadoc/docgeneratorAPI/org/docgene/model/globals/ArticlesModel.html" class="apiLink" title="ArticlesModel">ArticlesModel</a> instance</li>
+<li>You can configure the generation by calling <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#getConfiguration--" class="apiLink" title="DocGeneratorAPI.getConfiguration()">DocGeneratorAPI.getConfiguration()</a> and setting  <a href="article_configFile.html">configuration properties</a>. See also  <a href="article_configuration_1.html">docGenerator API configuration</a> for more information.</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ By default creating a  <code>DocGeneratorAPI</code> does not reset the configuration. You can force to reset the configuration either by using the <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#resetConfiguration--" class="apiLink" title="DocGeneratorAPI.resetConfiguration()">DocGeneratorAPI.resetConfiguration()</a> method, or by calling the constructor with a boolean argument.</div>
+
+<h3 id="setting_the_menus">Setting the menus</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_settingmenus.html">DocGenerator API: setting the menus</a></div>
+<br/>
+ You an access the wiki menus with the <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#getMenus--" class="apiLink" title="DocGeneratorAPI.getMenus()">DocGeneratorAPI.getMenus()</a> method.
+<h3 id="creating_the_wiki_content">Creating the wiki content</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_createcontent.html">DocGenerator API: creating the wiki content</a></div>
+<br/>
+ You can create the content of the wiki either by using directly the  <code>ArticlesModel</code> which is the result of the  <code>createModel()</code> method, or by using direct methods in the API.
+<h3 id="setting_the_generation_output_directory">Setting the generation output directory</h3>
+You must call the <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setOutputDirectory-java.net.URL-" class="apiLink" title="DocGeneratorAPI.setOutputDirectory(java.net.URL)">DocGeneratorAPI.setOutputDirectory(URL)</a> or the <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#setOutputDirectory-java.io.File-" class="apiLink" title="DocGeneratorAPI.setOutputDirectory(java.io.File)">DocGeneratorAPI.setOutputDirectory(File)</a> method. Note that of course the directory must be set before the generation.
+<h3 id="calling_the_generator">Calling the generator</h3>
+The generation is performed through the <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#writeContent-boolean-" class="apiLink" title="DocGeneratorAPI.writeContent(boolean)">DocGeneratorAPI.writeContent(boolean)</a> or <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#writeContent--" class="apiLink" title="DocGeneratorAPI.writeContent()">DocGeneratorAPI.writeContent()</a>.<br/>
+<br/>
+ Note that for the generation to perform, you must have:<ul>
+<li>Create a model prior to the generation</li>
+<li>Set the generation output directory</li>
+</ul>
+
+<h3 id="checking_the_generation_result">Checking the generation result</h3>
+ Several methods allow to check if the generation performed correctly:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#hasGenerationExceptions--" class="apiLink" title="DocGeneratorAPI.hasGenerationExceptions()">DocGeneratorAPI.hasGenerationExceptions()</a> method return true if there were some  <a href="article_errors.html">errors</a> during the generation</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#getGenerationExceptions--" class="apiLink" title="DocGeneratorAPI.getGenerationExceptions()">DocGeneratorAPI.getGenerationExceptions()</a> method return the list of errors</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#showGenerationExceptions--" class="apiLink" title="DocGeneratorAPI.showGenerationExceptions()">DocGeneratorAPI.showGenerationExceptions()</a> method shows the list of errors in a popup window</li>
+</ul>
+ The errors can be:<ul>
+<li>Errors which appear during the resolving or the checking links steps of the  <a href="article_algorithm.html">generation algorithm</a></li>
+<li>Errors which appear during the  <a href="article_importarticles.html">import of articles</a></li>
+</ul>
+
+<h2 id="example">Example</h2>
+ The following example creates the context, and one article, and generates the wiki:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a sentence in the index</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(api.</span><span class="syntaxDefault" style="font-weight:bold;">getIndex</span><span>(), </span><span class="syntaxLiteral" style="">"this is the index"</span><span>);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"article1"</span><span>);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a sentence in the article</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"this is the article"</span><span>);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// generate the wiki (the output directory existing content will be cleaned prior to the generation)</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">writeContent</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_tutorialapi.html">API basic tutorial</a>: This article is a basic tutorial explaining how to use the generator in another Java applicationy</li>
+<li> <a href="article_merginggenerations.html">merging several generations</a>: This article presents how to merge several generations in the docGenerator API</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_api.html">Api</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

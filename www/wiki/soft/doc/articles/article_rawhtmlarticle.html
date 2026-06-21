@@ -1,0 +1,220 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Raw html article - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_rawhtmlarticle.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Raw html article</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#article_xml_attributes">1&nbsp; Article XML attributes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#html_file_url">2&nbsp; Html file url</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#url_relative_paths">2.1&nbsp; Url relative paths</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#http_or_https_urls">2.2&nbsp; Http or https urls</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#frame">3&nbsp; Frame</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#titles">4&nbsp; Titles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">5&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">6&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ A raw html article is not using the docGenerator syntax, but is a hand-written html file. The attributes of the element defined in the wiki point to a hand-written html file, which can be on the disk or accessible on the Web.<br/>
+<br/>
+ A raw html article has the top-level element "rawHTML". It can contain:<ul>
+<li>An optional list of  <a href="article_regulararticle.html#alttitle_element">alternate titles</a> for the article</li>
+<li>A  <a href="article_regulararticle.html#meta_element">meta</a> element at the top of the article, specifies the text which should be written as an explanation for an article in the dictionary or categories</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ You can see that you can't put a hand-written html file directly in the wiki source files. You must define an xml file with the  <code>rawHTML</code> top-level element which will point to the html file you want to show. </div>
+
+<h2 id="article_xml_attributes">Article XML attributes</h2>
+ A raw html article has the following attributes:<ul>
+<li>"desc": the article description</li>
+<li>"id": (optional) an alternate article ID</li>
+<li>"keepCase": (optional) true if the article description case should be kept as is (which means that the first character won't be forced as UpperCase in the HTML output)</li>
+<li>"url": the url of the html file on which this article point</li>
+<li>"frame": true if the html content is enclosed in a frame. See also  <a href="#frame">frame</a></li>
+<li>"removeNav": true if the  <code>nav</code> elements should be removed. By default they are preserved.</li>
+<li>"removeH1Titles": true if titles of level h1 should be skipped in the result</li>
+<li>"titles": true if titles found in the hand-written html file must be added in the  <a href="article_search.html">search box</a>. See also  <a href="#titles">titles</a></li>
+</ul>
+
+<h2 id="html_file_url">Html file url</h2>
+ The "url" attribute of the raw html article specifies where to find the hand-written html file to show. It can point to:<ul>
+<li>A relative path. In that case, the file will be in a "doc-files" sub-directory relative to the xml description</li>
+<li>An absolute path</li>
+<li>An http or https path</li>
+</ul>
+The generator will copy all the hand-written html files in a  <code>rawArticles</code> directory in the wiki root<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+See also  <a href="article_outputstructure.html">output structure</a> for more information</div></span>
+.<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The generator will also copy the files referenced by these html files (such as the CSS StyleSheets they use) relative to these files in an associated child directory, even if they are not local or on remote directories. This means that you will normally be able to move the wiki wherever you want without any problem.</div>
+
+<h3 id="url_relative_paths">Url relative paths</h3>
+If the path of the  <code>url</code> attribute is relative, the file will be in a "doc-files" sub-directory relative to the xml description.<br/>
+<img src="../images/rawhtmlrelpath.png" alt="rawhtmlrelpath" id="_image_0" onclick="openImage(_image_0)" width="60%" class="left marginSmall" />
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;rawHTML</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Pablo Picasso"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Pablo Picasso.html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h3 id="http_or_https_urls">Http or https urls</h3>
+If the path of the  <code>url</code> attribute points to a http or https resource, then the generator will get the resource from the network. <br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ This way of pointing to the hand-written html file may cause you problems if these files are accessed through a  PHP get command. The docJGenerator will not be able to get resources accessible as PHP resources. It is therefore advisable to save the html file you want to put in your wiki locally before using it for the generation.</div>
+
+<h2 id="frame">Frame</h2>
+The "frame" attribute allows to put the html content in a frame, preserving the  <a href="article_footerAndHeader.html">header</a> and the  <a href="article_custommenus.html">left menu</a>.<br/>
+<br/>
+ By default the header and the customs menus are not visible, for example with the following article description:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;rawHTML</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article 2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"L:/my/directory/Pablo Picasso.html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+<br/>
+<img src="../images/rawarticleNoFrame.png" alt="rawarticleNoFrame" id="_image_1" onclick="openImage(_image_1)" width="80%" class="left marginSmall" />
+<br/>
+ Setting the value of this attribute to  <code>true</code> will preserve the header and the customs menus. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;rawHTML</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article 2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"L:/my/directory/1349 (band) - Wikipedia.htm"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> frame</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+<br/>
+<img src="../images/rawarticleFrame.png" alt="rawarticleFrame" id="_image_2" onclick="openImage(_image_2)" width="80%" class="left marginSmall" />
+
+<h2 id="titles">Titles</h2>
+The "titles" attribute allows to add the titles found in the hand-written html file in the  <a href="article_search.html">search box</a>. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;rawHTML</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article 2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"L:/my/directory/1349 (band) - Wikipedia.htm"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> titles</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h2 id="examples">Examples</h2>
+ The following description point to a "L:/my/directory/Pablo Picasso.html" file:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;rawHTML</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article 2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"L:/my/directory/Pablo Picasso.html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ The following description point to a "Pablo Picasso.html" file under a "doc-files" sub-directory relative to this article declaration:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;rawHTML</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Pablo Picasso"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Pablo Picasso.html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ The following description point to the same file, but will enclose the content in a frame:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;rawHTML</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Pablo Picasso"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Pablo Picasso.html"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> frame</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> See also  <a href="article_outputstructure.html">output structure</a> for more information</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_typesoffiles.html">Types of files</a>: This article explains the types of files which can be found in the wiki input</li>
+<li> <a href="article_handwrittentutorial.html">Hand written articles tutorial</a>: This article is a tutorial explaining how to add hand-written html articles in the wiki</li>
+<li> <a href="article_includehtml.html">Including html content</a>: There are two ways to include hand-written html content in the wiki:</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a> |
+ <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

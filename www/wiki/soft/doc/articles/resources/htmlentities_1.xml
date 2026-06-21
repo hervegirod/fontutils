@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities>
+    <entity html="eacute" unicode="00E9" comment="small letter E with acute" />
+    <entity html="egrave" unicode="00E8" comment="small letter E with grave"/>
+    <entity html="ecirc" unicode="00EA" comment="small letter E with circumflex"/>
+    <entity html="euml" unicode="00EB" comment="small letter E with diaeresis"/>
+    <entity html="ucirc" unicode="00FB" comment="small letter U with circumflex"/>
+    <entity html="aacute" unicode="00E1" comment="small letter A with acute"/>
+    <entity html="agrave" unicode="00E0" comment="small letter A with grave"/>
+    <entity html="copy" unicode="00A9" comment="copyright"/>
+    <entity html="reg" unicode="00AE" comment="registered trademark"/>
+    <entity html="trade" unicode="2122" comment="trademark"/>
+    <entity html="cent" unicode="00A2" comment="cent"/>
+    <entity html="yen" unicode="00A5" comment="yen"/>
+    <entity html="pound" unicode="00A3" comment="pound"/>
+    <entity html="euro" unicode="20AC" comment="euro"/>
+    <entity html="frac12" unicode="00BD" comment="fraction 1/2"/>
+    <entity html="frac14" unicode="00BC" comment="fraction 1/4"/>
+    <entity html="Oslash" unicode="00D8" comment="capital O with slash"/>
+    <entity html="deg" unicode="00B0" comment="degree"/>
+    <entity html="times" unicode="00D7" comment="times"/>
+    <entity html="InvisibleTimes" unicode="2062" comment="invisible times"/>
+    <entity html="comma" unicode="002C" escape="false" comment="comma"/>
+    <entity html="InvisibleComma" unicode="2063" comment="invisible separator"/>
+    <entity html="micro" unicode="00B5" comment="micro"/>
+    <entity html="nbsp" unicode="00A0" comment="non breakable space"/>
+    <entity html="bullet" unicode="2022" comment="bullet"/>
+    <entity html="bull" unicode="2022" comment="bullet"/>
+    <entity html="isin" unicode="2208" comment="element of"/>
+    <entity html="notin" unicode="2209" comment="not element of"/>
+    <entity html="empty" unicode="2205" comment="empty"/>
+    <entity html="forall" unicode="2200" comment="for all"/>
+    <entity html="prod" unicode="220F" comment="n-ary product"/>
+    <entity html="sum" unicode="2211" comment="n-ary sum"/>
+    <entity html="exist" unicode="2203" comment="there exist"/>
+    <entity html="alpha" unicode="03B1" comment="small alpha"/>
+    <entity html="beta" unicode="03B2" comment="small beta"/>
+    <entity html="delta" unicode="03B4" comment="small delta"/>
+    <entity html="rho" unicode="0961" comment="small rho"/>
+    <entity html="pi" unicode="03C0" comment="small pi"/>
+    <entity html="sigma" unicode="03C3" comment="small sigma"/>
+    <entity html="phi" unicode="03C6" comment="small phi"/>
+    <entity html="psi" unicode="03C8" comment="small psi"/>
+    <entity html="omega" unicode="03C9" comment="small omega"/>
+    <entity html="mu" unicode="03BC" comment="small mu"/>
+    <entity html="lambda" unicode="03BB" comment="small lambda"/>
+    <entity html="gamma" unicode="03B3" comment="small gamma"/>
+    <entity html="epsilon" unicode="03B5" comment="small epsilon"/>
+    <entity html="theta" unicode="03B8" comment="small theta"/>
+    <entity html="piv" unicode="03D6" comment="pi symbol"/>
+    <entity html="straightphi" unicode="03D5" comment="phi symbol"/>
+    <entity html="Delta" unicode="0394" comment="big delta"/>
+    <entity html="larr" unicode="2190" comment="left arrow"/>
+    <entity html="rarr" unicode="2192" comment="right arrow"/>
+    <entity html="uarr" unicode="2191" comment="up arrow"/>
+    <entity html="darr" unicode="2193" comment="down arrow"/>
+    <entity html="harr" unicode="2194" comment="left and right arrow"/>
+    <entity html="lArr" unicode="21D0" comment="left double arrow"/>
+    <entity html="rArr" unicode="21D2" comment="right double arrow"/>
+    <entity html="uArr" unicode="21D1" comment="up double arrow"/>
+    <entity html="dArr" unicode="21D3" comment="down double arrow"/>
+    <entity html="hArr" unicode="21D4" comment="left and right double arrow"/>
+    <entity html="xlarr" unicode="27F5" comment="long left arrow"/>
+    <entity html="xrarr" unicode="27F6" comment="long right arrow"/>
+    <entity html="xharr" unicode="27F7" comment="long left and right arrow"/>
+    <entity html="xlArr" unicode="27F8" comment="long left double arrow"/>
+    <entity html="xrArr" unicode="27F9" comment="long right double arrow"/>
+    <entity html="xhArr" unicode="27FA" comment="long left and right double arrow"/>
+    <entity html="lt" unicode="003C" comment="less than"/>
+    <entity html="gt" unicode="003E" comment="greater than"/>
+    <entity html="amp" unicode="0026" comment="ampersand"/>
+    <entity html="le" unicode="2264" comment="less or equal than"/>
+    <entity html="ge" unicode="2265" comment="greater or equal than"/>
+    <entity html="minus" unicode="2012" comment="minus"/>
+    <entity html="minus" unicode="2013" comment="minus"/>
+    <entity html="minus" unicode="2014" comment="minus"/>
+    <entity html="int" unicode="222B" comment="integral"/>
+    <entity html="cong" unicode="2245" comment="congruent"/>
+    <entity html="cap" unicode="2229" comment="cap"/>
+    <entity html="cup" unicode="222A" comment="cup"/>
+    <entity html="asymp" unicode="2248" comment="almost equal"/>
+    <entity html="sim" unicode="223C" comment="similar to"/>
+    <entity html="sub" unicode="2282" comment="subset of"/>
+    <entity html="sup" unicode="2283" comment="superset of"/>
+    <entity html="nsub" unicode="2284" comment="not subset of"/>
+    <entity html="sube" unicode="2286" comment="subset or equal"/>
+    <entity html="supe" unicode="2287" comment="superset or equal"/>
+    <entity html="ne" unicode="2260" comment="not equal"/>
+    <entity html="infin" unicode="221E" comment="infinity"/>
+    <entity html="radic" unicode="221A" comment="square root"/>
+    <entity html="ni" unicode="220B" comment="contains as member"/>
+    <entity html="plusmn" unicode="00B1" comment="plus or minus"/>
+    <entity html="not" unicode="00AC" comment="not"/>
+    <entity html="and" unicode="2227" comment="and"/>
+    <entity html="or" unicode="2228" comment="or"/>
+    <entity html="lowast" unicode="2217" comment="asterisk"/>
+    <entity html="ang" unicode="2220" comment="angle"/>
+    <entity html="sdot" unicode="22C5" comment="dot operator"/>
+    <entity html="nabla" unicode="2207" comment="nabla"/>
+    <entity html="permil" unicode="2030" comment="per mille"/>
+    <entity html="dagger" unicode="2020" comment="dagger"/>
+</entities>

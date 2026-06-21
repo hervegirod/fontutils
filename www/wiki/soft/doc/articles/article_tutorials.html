@@ -1,0 +1,169 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Tutorials - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_tutorials.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Tutorials</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#wiki_generation_tutorials">1&nbsp; Wiki generation tutorials</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#wiki_editor_tutorials">2&nbsp; Wiki editor tutorials</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#packages_tutorials">3&nbsp; Packages tutorials</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#review_system_tutorial">4&nbsp; Review system tutorial</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#api_documentation_elements_tutorials">5&nbsp; API documentation elements tutorials</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#api_tutorials">6&nbsp; API tutorials</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#help_system_tutorials">7&nbsp; Help system tutorials</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#document_generation_tutorials">8&nbsp; Document generation tutorials</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article presents a list of tutorials.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The solutions of the tutorials are in the  <code>docGenerator-tutorial-&lt;version&gt;.zip</code><br/>
+<br/>
+</div>
+
+<h2 id="wiki_generation_tutorials">Wiki generation tutorials</h2>
+The  <a href="article_tutorial1.html">first tutorial</a> explains how to create your first wiki, and explains notions about:<ul>
+<li>The  <a href="article_articles.html#index_definition">index</a></li>
+<li>Creating an  <a href="article_articles.html#regular_articles">article</a>, both in XML or using the  <a href="article_mediawikimarkup.html">Mediawiki markup</a></li>
+<li>Adding an  <a href="article_syntax.html#ref">internal wikilink</a></li>
+<li>Adding  <a href="article_categories.html">categories</a> to an article</li>
+<li>Adding  <a href="article_footerAndHeader.html">footer and header files</a> to the wiki</li>
+<li>Customizing the  <a href="article_custommenus.html#adding_custom_content_to_the_left_menu">left menu</a></li>
+<li>Generating the wiki</li>
+</ul>
+The  <a href="article_tutorial2.html">second tutorial</a> explains how to:<ul>
+<li>Add  <a href="article_imageFiles.html">images</a> and use these images in articles</li>
+<li>Use a  <a href="article_resourceFiles.html">resource file</a> and link to this file in articles</li>
+</ul>
+The  <a href="article_tutorialHeader.html">header tutorial</a> explains how to customize the  <a href="article_footerAndHeader.html">header</a>.<br/>
+<br/>
+ The  <a href="article_tutorialTheme.html">StyleSheet theme tutorial</a> explains how to:<ul>
+<li>Use a custom  <a href="article_theme.html">StyleSheet theme</a> for the wiki</li>
+</ul>
+The  <a href="article_handwrittentutorial.html">hand written articles tutorial</a> explains how to add  <a href="article_rawhtmlarticle.html">hand-written articles</a> in the wiki.
+<h2 id="wiki_editor_tutorials">Wiki editor tutorials</h2>
+The  <a href="article_editortutorial.html">editor tutorial</a> explains how to use an editor to edit the wiki.
+<h2 id="packages_tutorials">Packages tutorials</h2>
+The  <a href="article_tutorialpackages.html">packages tutorial</a> explains how to use  <a href="article_roots.html">packages</a> to separate Open Source and Closed Source content.<br/>
+<br/>
+ The  <a href="article_tutorialpackages2.html">second packages tutorial</a> explains how to use  <a href="article_roots.html">packages</a> to separate wiki content which is finished from content which is still unfinished.
+<h2 id="review_system_tutorial">Review system tutorial</h2>
+The  <a href="article_tutorialreview.html">Review system tutorial</a> explains how to add a review system in the wiki.
+<h2 id="api_documentation_elements_tutorials">API documentation elements tutorials</h2>
+The  <a href="article_tutorialapidoc.html">API documentation elements basic tutorial</a> explains how to reference  <a href="article_apiselts.html">APIs</a> in the wiki:<ul>
+<li>Add links to  <a href="article_apiselts.html#link_to_an_existing_api">existing APIs</a></li>
+<li>Embed  <a href="article_apiselts.html#embed_an_api">APIs</a> in the wiki</li>
+</ul>
+
+<h2 id="api_tutorials">API tutorials</h2>
+The  <a href="article_tutorialapi.html">API basic tutorial</a> explains how to use the generator in another Java application.
+<h2 id="help_system_tutorials">Help system tutorials</h2>
+The  <a href="article_tutorialJavaHelp.html">Help system Swing tutorial</a> explains how to:<ul>
+<li>Generate a zip file containing the  <a href="article_docgenhelp.html">Help content</a></li>
+<li>Use this content to create a help system for a Swing application</li>
+</ul>
+The  <a href="article_tutorialJavaHelpJFX.html">Help system JavaFX tutorial</a> explains how to:<ul>
+<li>Use the same help content to create a help system for a JavaFX application</li>
+</ul>
+The  <a href="article_tutorialJavaHelpThemes.html">Help system Swing themes tutorial</a> explains how to:<ul>
+<li>Generate a zip file containing the  <a href="article_docgenhelp.html">Help content</a> with  <a href="article_theme.html">StyleSheet themes</a></li>
+<li>Use this content to create a help system for a Swing application allowing to switch themes at runtime</li>
+</ul>
+The  <a href="article_tutorialContextHelp.html">Context-sensitive Help Swing tutorial</a> explains how to:<ul>
+<li>Add context-sensitive help to a Swing application</li>
+</ul>
+The  <a href="article_tutorialContextHelpJFX.html">Context-sensitive Help JavaFX tutorial</a> explains how to:<ul>
+<li>Add context-sensitive help to a JavaFX application</li>
+</ul>
+
+<h2 id="document_generation_tutorials">Document generation tutorials</h2>
+The  <a href="article_tutorialdoc.html">Document generation tutorial</a> explains how to:<ul>
+<li>generate a  <a href="article_pdf.html">PDF</a> or  <a href="article_docx.html">DOCX</a> document</li>
+</ul>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_tutorials.html">Tutorials</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

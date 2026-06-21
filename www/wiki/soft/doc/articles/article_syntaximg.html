@@ -1,0 +1,380 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>img element - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_syntaximg.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>img element</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#default_usage">2&nbsp; Default usage</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_the_href_attribute">3&nbsp; Using the href attribute</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#specifying_the_size_of_the_image">4&nbsp; Specifying the size of the image</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#specifying_the_position_of_the_image">5&nbsp; Specifying the position of the image</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_a_border_or_a_caption">6&nbsp; Adding a border or a caption</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_a_lightbox">7&nbsp; Adding a lightbox</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#unresolved_references">8&nbsp; Unresolved references</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#linking_on_images">9&nbsp; Linking on images</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#linking_on_arearef_elements">9.1&nbsp; Linking on areaRef elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#linking_on_an_internal_wiki_element">9.2&nbsp; Linking on an internal wiki element</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#linking_on_a_category">9.3&nbsp; Linking on a category</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#linking_on_an_external_file">9.4&nbsp; Linking on an external file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">10&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article explains the how to use the "img" element.
+<h2 id="overview">Overview</h2>
+ The "img" element allows to show an image specified by its id. The attributes of this element are:<ul>
+<li>"id": The image id, if the image refers to an  <a href="article_imageFiles.html">Image definition</a>. See  <a href="article_imageFiles.html">image files</a> for the specification of image ids</li>
+<li>"href": The relative path of the image, if the image do not refer to an Image definition</li>
+<li>"width": The optional image width: can be specified in pixels or in % of the HTML page width</li>
+<li>"maxWidth": Same as "width", but the width can not exceed the native  <a href="article_imageFiles.html">image reference</a> width</li>
+<li>"height": The optional image height: can be specified in pixels, in % of the HTML page width, or with the "text" value specifying that the image will have the same height as the enclosing text</li>
+<li>"maxHeight": Same as "height", but the width can not exceed the native  <a href="article_imageFiles.html">image reference</a> height</li>
+<li>"caption": The optional image caption</li>
+<li>"border": Optionally, the property specifying that we should add a border around the image. This attribute can have the following values:<ul>
+<li>"true" or "simple": the image will be bordered by simple line</li>
+<li>"shadow" or "softShadow" : the image will have a soft shadowed border</li>
+<li>"strongShadow": the image will have a strong shadowed border</li>
+<li>"false" or "noBorder" : (the default) no border</li>
+</ul>
+</li>
+<li>"margin": Optionally, the property specifying the margin around the image. See also  <a href="article_imagemargins.html">image margins</a> for more information</li>
+<li>"package": The optional package attribute allows to reference an image in  <a href="article_roots.html#using_package_ids">another package</a></li>
+<li>"position" or "align": Optionally the alignment of the image. Can be "left", "right", or "center"</li>
+<li>"valign": Optionally the vertical alignment of the image relative to the text. Can be "middle", or "baseline". This can be useful if you want to add an icon in a line of text</li>
+<li>"float": Optional, true if the image should have the "float" attribute (which means that there will be text around the image)</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ You must either have the "id" or the "href" attribute:<ul>
+<li>The "id" attribute is for images which refer to an  <a href="article_imageFiles.html">Image definition</a></li>
+<li>The "href" attribute is for images which point to a relative image file</li>
+</ul>
+</div>
+
+<h2 id="default_usage">Default usage</h2>
+The following attributes allow to specify the  <a href="article_imageFiles.html">image reference</a>:<ul>
+<li>"id": The image id. See  <a href="article_imageFiles.html">image files</a> for the specification of image ids</li>
+<li>"package": The optional package attribute allows to reference an image in  <a href="article_roots.html#using_package_ids">another package</a></li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ In that case you don't need to use the "href" attribute.</div>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+
+<span>   An SVG image:</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"svgLogo"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"60"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ Result:<br/>
+<br/>
+ <img src="../images/ball.jpg" alt="image1" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ An SVG image:<img src="../images/SVG_logo.svg" alt="svgLogo" id="_image_1" onclick="openImage(_image_1)" width="60" class="left" />
+
+<h2 id="using_the_href_attribute">Using the href attribute</h2>
+If you specify the "href" attribute, the image points to a relative image file, which must be under a  <code>doc-files</code> directory in the same directory as the article which uses the  <code>img</code> element.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ In that case you must not use the "id" and "package" attributes.</div>
+<br/>
+<br/>
+ For example, suppose the following file structure:<br/>
+
+<pre class="margin unlimited" >
+<span>      wiki</span>
+<span>      -- doc-files</span>
+<span>      ---- ball.jpg</span>
+<span>      -- article.xml</span>
+<span>      -- index.xml</span>
+</pre>
+ And the following content for the article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"My article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball.jpg"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ The  <code>img</code> will point to the  <code>ball.jpg</code> Jpeg file.
+<h2 id="specifying_the_size_of_the_image">Specifying the size of the image</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_imageFiles.html#specifying_the_default_size_of_the_image">default size</a></div>
+<br/>
+ By default the image will have the native width and height of the  <a href="article_imageFiles.html">image reference</a>. The following attributes allow to specify the width or height of the image:<ul>
+<li>"width": The optional image width: can be specified in pixels or in % of the HTML page width</li>
+<li>"maxWidth": Same as "width", but the width can not exceed the native  <a href="article_imageFiles.html">image reference</a> width</li>
+<li>"height": The optional image height: can be specified in pixels, in % of the HTML page width, or with the "text" value specifying that the image will have the same height as the enclosing text</li>
+<li>"maxHeight": Same as "height", but the width can not exceed the native  <a href="article_imageFiles.html">image reference</a> height</li>
+</ul>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"20%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ Result:<br/>
+<img src="../images/ball.jpg" alt="image1" id="_image_2" onclick="openImage(_image_2)" width="20%" class="left marginSmall" />
+<br/>
+ Enclosing the image in text with the same height:<br/>
+
+<pre class="margin unlimited" >
+<span>   The </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> height</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"text"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> image</span>
+</pre>
+ Result:<br/>
+<br/>
+ The <img src="../images/ball.jpg" alt="image1" id="_image_3" onclick="openImage(_image_3)" style="width:1em; height=:1.0" class="left" />
+ image <br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ If no width and height is defined and the  <a href="article_imageFiles.html">image reference</a> has a default size, the element will use the width and height of the image definition (except of course if you use the "text" value for the height of the image).</div>
+
+<h2 id="specifying_the_position_of_the_image">Specifying the position of the image</h2>
+ The following attributes allow to specify the position of the image:<ul>
+<li>"position": Optionally the alignment of the image. Can be "left", "right", or "center"</li>
+<li>"valign": Optionally the vertical alignment of the image relative to the text. Can be "middle", or "baseline". THis can be useful if you want to add an icon in a line of text</li>
+<li>"float": Optional, true if the image should have the "float" attribute (which means that there will be text around the image)</li>
+</ul>
+ The alignment of an image can be set through the "position" attribute, which can have the values "center", "left", or "right".<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   An image:</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> valign</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"middle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"40"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+
+<span>   The image aligned on the left:</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"40"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> position</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"left"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ Result:<br/>
+<br/>
+ An image:<img src="../images/ball.jpg" alt="image1" id="_image_4" onclick="openImage(_image_4)" width="40" class="left middle" />
+<br/>
+ The image aligned on the left:<br/>
+<img src="../images/ball.jpg" alt="image1" id="_image_5" onclick="openImage(_image_5)" width="40" class="left marginSmall" />
+
+<h2 id="adding_a_border_or_a_caption">Adding a border or a caption</h2>
+ The following attributes allow to add a border an a caption to the image:<ul>
+<li>"border": Optionally, the property specifying that we should add a border around the image. This attribute can have the following values:<ul>
+<li>"true" or "simple": the image will be bordered by simple line</li>
+<li>"shadow" or "softShadow" : the image will have a soft shadowed border</li>
+<li>"strongShadow": the image will have a strong shadowed border</li>
+<li>"false" or "noBorder" : (the default) no border</li>
+</ul>
+</li>
+<li>"caption": The optional image caption</li>
+</ul>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   An image with a border:</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"20%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> border</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+
+<span>   The same image with a border and a caption:</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"20%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> border</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> caption</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the caption"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+
+<span>   The same image with a shadowed border:</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"20%"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> border</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"shadow"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ Result:<br/>
+<br/>
+ An image with a border:<br/>
+<img src="../images/ball.jpg" alt="image1" id="_image_6" onclick="openImage(_image_6)" width="20%" class="left simpleBorder marginSmall" />
+<br/>
+ The same image with a border and a caption:<br/>
+<table class="imageWrappedLeft">
+<tr>
+<td valign="middle" class="borderNone">
+<img src="../images/ball.jpg" alt="the caption" id="_image_7" onclick="openImage(_image_7)" width="20%" class="center middle simpleBorder" />
+</td>
+</tr>
+<tr>
+<td valign="middle" class="borderNone">
+<figure>
+<figcaption id="_image_7_caption" class="imageWrapped">the caption</figcaption>
+</figure></td>
+</tr>
+</table>
+
+<h2 id="adding_a_lightbox">Adding a lightbox</h2>
+ A Lightbox effect is a JavaScript mechanism that displays images and videos by filling the screen, and dimming out the rest of the web page, when the image is clicked on.<br/>
+<br/>
+ It is possible for images to have a <a href="https://en.wikipedia.org/wiki/Lightbox_(JavaScript)" title="https://en.wikipedia.org/wiki/Lightbox_(JavaScript)">Lightbox</a> effect if the  <a href="article_configFile.html#lightbox">lightbox</a> property is set on the command line or the configuration properties.
+<h2 id="unresolved_references">Unresolved references</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_packagedepend.html#checking_behavior_on_unsolved_references">packages dependencies</a></div>
+<br/>
+ By default unresolved images will emit an error during the generation, but it is possible to set the  <a href="article_packagedepend.html">packages dependencies</a> to specify that unresolved images from one  <a href="article_roots.html">package</a> to another will not emit an error.
+<h2 id="linking_on_images">Linking on images</h2>
+It is possible to link on an image by adding inside the  <code>img</code> element:<ul>
+<li>A list of  <a href="article_syntaxarearef.html">areaRef</a> elements to link on portions of the image</li>
+<li>A  <a href="article_syntax.html#ref">ref</a> element to link on an internal wiki element</li>
+<li>A  <a href="article_syntax.html#catref">catRef</a> element to link on a category</li>
+<li>An  <a href="article_syntax.html#a">a</a> element to link on an external file</li>
+</ul>
+
+<h3 id="linking_on_arearef_elements">Linking on areaRef elements</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_syntaxarearef.html">areaRef element</a></div>
+<br/>
+ It is possible to add internal wiki links on portions of images using the "areaRef" element inside an "img" element. The attributes of the "areaRef" elements which specify each area are:<ul>
+<li>"type": the type of the active area ("rect", "circle", or "poly")</li>
+<li>"coords": the coordinates of the active area. The coordinates are separated by "," (commas)</li>
+<li>"id": the id of the inter-wiki reference, specified exactly as for the  <a href="article_syntax.html#ref">ref</a> element</li>
+<li>"desc": the optional alternate text for the inter-wiki reference, specified exactly as for the  <a href="article_syntax.html#ref">ref</a> element</li>
+<li>"package": the optional package for the inter-wiki reference, specified exactly as for the  <a href="article_syntax.html#ref">ref</a> element</li>
+</ul>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"200"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;areaRef</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"img element#Linking on images"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> coords</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"0,0,200,100"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;areaRef</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"syntax#img"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> coords</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"0,100,200,200"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/img&gt;</span>
+</pre>
+
+<h3 id="linking_on_an_internal_wiki_element">Linking on an internal wiki element</h3>
+ It is possible to add an internal wiki link on the image using a "ref" element inside the "img" element.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"200"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the reference"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/img&gt;</span>
+</pre>
+
+<h3 id="linking_on_a_category">Linking on a category</h3>
+ It is possible to add an internal category link on the image using a "catRef" element inside the "img" element.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"200"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;catRef</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"general"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/img&gt;</span>
+</pre>
+
+<h3 id="linking_on_an_external_file">Linking on an external file</h3>
+ It is possible to add a link on an external file on the image using an "a" element inside the "img" element.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"image1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> width</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"200"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;a</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"http://docs.oracle.com/javase/8/docs/api/index.html"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/img&gt;</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_imageFiles.html">Image files</a>: This article is about specifying and using image files</li>
+<li> <a href="article_syntax.html#img">syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_syntaxarearef.html">areaRef element</a>: This article explains the how to use the areaRef element</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

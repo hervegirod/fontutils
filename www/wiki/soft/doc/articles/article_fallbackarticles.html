@@ -1,0 +1,182 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Fallback articles - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_fallbackarticles.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Fallback articles</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#use_cases">1&nbsp; Use cases</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#specifying_a_fallback_article">2&nbsp; Specifying a fallback article</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#fallback_article_for_invalid_links">2.1&nbsp; Fallback article for invalid links</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#fallback_article_for_not_included_article">2.2&nbsp; Fallback article for not included article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">3&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+Fallback articles allow to specify articles which will be used where a  <a href="article_references.html">reference</a> to another  <a href="article_articles.html">article</a> point to an article which does not exist.
+<h2 id="use_cases">Use cases</h2>
+ There are two cases where you may want to specify fallback articles:<ul>
+<li>You don't want inter-wiki links which point to non existing articles to point to nothing, but you want to provide a custom article where these invalid linkds will point</li>
+<li>You want links to article in  <a href="article_roots.html">packages</a> you  <a href="article_packagedepend.html#dont_include_packages">don't include</a> to point to a custom article</li>
+</ul>
+
+<h2 id="specifying_a_fallback_article">Specifying a fallback article</h2>
+
+<h3 id="fallback_article_for_invalid_links">Fallback article for invalid links</h3>
+To have a falback article which will be used for invalid links, you have to create an article with the  <code>fallbackInvalid</code> root. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;fallbackInvalid</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Invalid link"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This link point to a not existing article.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/fallbackInvalid&gt;</span>
+</pre>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The title of the article is optional, by default the generator will use the title from the  <a href="article_localization.html">localization</a>.</div>
+
+<h3 id="fallback_article_for_not_included_article">Fallback article for not included article</h3>
+To have a falback article which will be used for links to  <a href="article_packagedepend.html#dont_include_packages">not included articles</a>, you have to create an article with the  <code>fallbackNotIncluded</code> root. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;fallbackNotIncluded</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Article not included"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   This link point to an article which is not included.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/fallbackINotIncluded&gt;</span>
+</pre>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The title of the article is optional, by default the generator will use the title from the  <a href="article_localization.html">localization</a>.</div>
+
+<h2 id="example">Example</h2>
+ Suppose the following wiki file structure:<br/>
+
+<pre class="margin unlimited" >
+<span>      -- source</span>
+<span>      ---- article1.xml</span>
+<span>      ---- index.xml</span>
+</pre>
+ If we have for the  <code>article1.xml</code> article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article1"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ref</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ By default we will have the following content for this article:<br/>
+ <img src="../images/fallbackarticle.png" alt="fallbackarticle" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ If we click on the link (which points to a not existing article), we will get on the browser:<br/>
+ <img src="../images/fallbackarticle2.png" alt="fallbackarticle2" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+ Now suppose that we create the following fallback article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;fallbackInvalid&gt;</span>
+<span>   The text for the fallback invalid.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/fallbackInvalid&gt;</span>
+</pre>
+ We will have the following wiki file structure:<br/>
+
+<pre class="margin unlimited" >
+<span>      -- source</span>
+<span>      ---- article1.xml</span>
+<span>      ---- fallback.xml</span>
+<span>      ---- index.xml</span>
+</pre>
+ Now if we click on the link we will go to this fallback article:<br/>
+ <img src="../images/fallbackarticle3.png" alt="fallbackarticle3" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_articles.html">Articles</a>: Article files are XML files which define the articles in the wiki</li>
+<li> <a href="article_typesoffiles.html">Types of files</a>: This article explains the types of files which can be found in the wiki input</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

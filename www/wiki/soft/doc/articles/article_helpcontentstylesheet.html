@@ -1,0 +1,193 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Help content StyleSheet configuration - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_helpcontentstylesheet.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Help content StyleSheet configuration</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#limitations">1.1&nbsp; Limitations</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#runtime_usage">2&nbsp; Runtime usage</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">2.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+It is possible to specify several  <a href="article_theme.html">StyleSheet themes</a> in the Help content file. This will allow to customize the StlyeSheet of the help, the theme, or even to specify more than one theme and switch dynamically from one theme to another.
+<h2 id="overview">Overview</h2>
+The  <a href="article_helpcontent.html">Help content configuration</a> allows to specify:<ul>
+<li>The  <a href="article_css.html">StyleSheet</a>, if you want to replace the default StyleSheet used in the wiki<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Note that it will exactly have the same result as if you specify the  <code>css</code> property</div></span>
+ in the  <a href="article_commandline.html">command-line</a> or the  <a href="article_configFile.html">configuration file</a></li>
+<li>The  <a href="article_theme.html">default theme</a>, if you want to replace the default theme used in the wiki<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+Note that it will exactly have the same result as if you specify the  <code>styleSheetTheme</code> property</div></span>
+ in the  <a href="article_commandline.html">command-line</a> or the  <a href="article_configFile.html">configuration file</a></li>
+<li>Several named themes which willl allow you to switch the theme at runtime</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+<ul>
+<li>It is not mandatory to define any chapter content if you define theme. You can define only the StyleSheets without specifying any Chapter</li>
+<li>You always have access to the default theme</li>
+</ul>
+</div>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;helpContent&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;styleSheets&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;styleSheetTheme</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"black"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"themeBlack.css"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/styleSheets&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/helpContent&gt;</span>
+</pre>
+
+<h3 id="limitations">Limitations</h3>
+Using themes is only possible when you use the Help system in  <a href="article_helpjavafx.html">JavaFX</a> or in   <a href="article_helpswing.html">Swing</a> but using the JavaFX rendering of the Web content. 
+<h2 id="runtime_usage">Runtime usage</h2>
+ The theme used at start will always be the default theme. You can change the theme at runtime at any time by using one of the following methods:<ul>
+<li>The <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html#setStyleSheetTheme-java.lang.String-" class="apiLink" title="HelpContentViewer.setStyleSheetTheme(java.lang.String)">HelpContentViewer.setStyleSheetTheme(String)</a> to switch to a named theme</li>
+<li>The <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html#resetStyleSheetTheme--" class="apiLink" title="HelpContentViewer.resetStyleSheetTheme()">HelpContentViewer.resetStyleSheetTheme()</a> to switch to the default theme</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ If the theme you try to switch to does not exist, the method will return false and you will switch to the default theme instead.</div>
+
+<h3 id="example">Example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;helpContent&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;styleSheets</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultStyleSheetTheme</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"myDefaultTheme.css"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;styleSheetTheme</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"black"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"themeBlack.css"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/styleSheets&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/helpContent&gt;</span>
+</pre>
+  In this example:<ul>
+<li>The  <code>myDefaultTheme.css</code> is the  <a href="article_theme.html">default theme</a> which replaces the default theme provided by the tool</li>
+<li>The  <code>themeBlack.css</code> is a theme associated with the  <code>black</code> id</li>
+</ul>
+It is possible to switch from the new custom default theme to the theme associated with the  <code>black</code> id at runtime.<br/>
+<br/>
+ For example in Swing:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// get the zip file as an URL</span>
+<span>      URL url = ...</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">try</span><span> {</span>
+<span>        </span><span class="syntaxComment" style="font-style:italic;">// create the Help factory</span>
+<span>        JavaHelpFactory factory = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JavaHelpFactory</span><span>(url);</span>
+<span>        factory.</span><span class="syntaxDefault" style="font-weight:bold;">create</span><span>();</span>
+<span>      </span>
+<span>        </span><span class="syntaxComment" style="font-style:italic;">// create the viewer component</span>
+<span>        SwingHelpContentViewer viewer = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">SwingHelpContentViewer</span><span>();</span>
+<span>        factory.</span><span class="syntaxDefault" style="font-weight:bold;">install</span><span>(viewer);</span>
+<span>      </span>
+<span>        JComponent pane = viewer.</span><span class="syntaxDefault" style="font-weight:bold;">getHelpComponent</span><span>();    </span>
+<span>        </span><span class="syntaxDefault" style="background-color:#ffff00;">viewer.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">setStyleSheetTheme</span><span class="syntaxDefault" style="background-color:#ffff00;">(</span><span class="syntaxLiteral" style="background-color:#ffff00;">"black"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span>      } </span><span class="syntaxKeyWord1" style="font-weight:bold;">catch</span><span> (IOException | SAXException ex) {</span>
+<span>        ex.</span><span class="syntaxDefault" style="font-weight:bold;">printStackTrace</span><span>();</span>
+<span>      }</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Note that it will exactly have the same result as if you specify the  <code>css</code> property</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> Note that it will exactly have the same result as if you specify the  <code>styleSheetTheme</code> property</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_helpcontent.html">Help content configuration</a>: This article explains how to configure the help content</li>
+<li> <a href="article_tutorialJavaHelpThemes.html">Help system Swing themes tutorial</a>: This article is tutorial which explains how to produce and use a Help content with StyleSheet themes in a Swing application</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_javahelp.html">JavaHelp</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

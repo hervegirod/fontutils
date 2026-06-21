@@ -1,0 +1,154 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Handling HTML entities - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_handlingHTMLEntities.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Handling HTML entities</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#in_the_configuration_file">1&nbsp; In the configuration file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#on_the_command-line">2&nbsp; On the command-line</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#supported_entities">3&nbsp; Supported entities</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">4&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ By default HTML entities are handled:<ul>
+<li>When using the GUI interface (see  <a href="article_gui.html">GUI interface</a>)</li>
+<li>When using the command-line starting parameters (see  <a href="article_commandline.html">command-line</a>)</li>
+<li>When using the configuration file (see  <a href="article_configFile.html#allowhtmlentities">allowHTMLEntities</a>)</li>
+</ul>
+Note that the &amp;lt; and &amp;gt; entities are always allowed in the articles, because they are part of the XML specification.
+<h2 id="in_the_configuration_file">In the configuration file</h2>
+This is configured by the  <a href="article_configFile.html#escapenonutf8">escapeNonUTF8</a> property. For example:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   allowHTMLEntities</span><span>=false</span>
+</pre>
+
+<h2 id="on_the_command-line">On the command-line</h2>
+This is configured by the  <a href="article_commandline.html#allowhtmlentities">allowHTMLEntities</a> command-line property. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -allowHTMLEntities=false</span>
+</pre>
+
+<h2 id="supported_entities">Supported entities</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_htmlEntitiesList.html">HTML entities list</a></div>
+<br/>
+ See the  <a href="resources/htmlEntities.xml">htmlEntities</a> file for the list of supported HTML entities.<br/>
+<br/>
+ For example:<ul>
+<li>"&amp;times;": the multiplication sign (&times;) character</li>
+<li>"&amp;isin;": the element of character (&isin;) </li>
+<li>"&amp;prod;": the ary product (&prod;) character</li>
+<li>"&amp;radic;": the square root (&radic;) character</li>
+<li>"&amp;infin;": the infinity (&infin;) character</li>
+<li>"&amp;int;": the integral (&int;) character</li>
+<li>"&amp;sum;": the sum (&sum;) character</li>
+</ul>
+
+<h2 id="example">Example</h2>
+ The following text:<br/>
+
+<pre class="margin unlimited" >
+<span>      this is a t&amp;eacute;xt</span>
+</pre>
+ Will have the following result in the HTML file:<br/>
+
+<pre class="margin unlimited" >
+<span>      this is a t&amp;#x00E9;xt</span>
+</pre>
+ Which will show the following text:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxDefault" style="font-family:'Courier New';font-size:12;">this is a t&eacute;xt</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_configFile.html#allowhtmlentities">configuration file</a>: It is possible to define an optional property / value configuration file when starting the application (using the graphical UI or the command line)</li>
+<li> <a href="article_commandline.html#allowhtmlentities">command-line</a>: This article is about how to execute the application by the command-line without showing the UI</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

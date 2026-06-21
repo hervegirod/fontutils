@@ -1,0 +1,177 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Justification - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_justification.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Justification</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#justification_types">1&nbsp; Justification types</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#at_the_wiki_level">2&nbsp; At the wiki level</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#at_the_article_level">3&nbsp; At the article level</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#at_the_chapter_level">4&nbsp; At the chapter level</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#at_the_div_level">5&nbsp; At the div level</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">6&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The justification is the way the text for several consecutive lines is aligned. By default the articles text are justified with a default justification. However it is possible to configure if and were the justification is applied.<br/>
+<br/>
+ There are several levels of justification:<ul>
+<li>At the wiki level</li>
+<li>At the  <a href="article_articles.html">article</a> level</li>
+<li>At the  <a href="article_chapters.html#chapter_elements">chapter</a> level</li>
+<li>At the  <a href="article_syntax.html#div">div</a> level</li>
+</ul>
+
+<h2 id="justification_types">Justification types</h2>
+ There are two justifications attributes:<ul>
+<li>The alignment</li>
+<li>The justification</li>
+</ul>
+ The different levels of alignment can have the following values:<ul>
+<li>"none": the alignment has its default value (correspond to the "initial" CSS property)</li>
+<li>"inherit" : inherit the alignment from its parent</li>
+<li>"center": center alignment</li>
+<li>"left" : left alignment</li>
+<li>"right" : right alignment</li>
+<li>"justify" : justify alignment</li>
+</ul>
+<br/>
+<br/>
+ The different levels of justification can have the following values:<ul>
+<li>"none" or "false": no justification</li>
+<li>"inherit" : inherit the justification from its parent</li>
+<li>"auto" or "true": default justification, will set the "auto" CSS justification type</li>
+<li>"word" : word justification type, will set the "inter-word" CSS justification type</li>
+<li>"character" : character justification type, will set the "inter-character" CSS justification type</li>
+</ul>
+
+<h2 id="at_the_wiki_level">At the wiki level</h2>
+The command-line  <a href="article_commandline.html#justification">justification</a> argument and configuration  <a href="article_configFile.html#justification">justification</a> property allows to specify the default justification for the wiki.<br/>
+<br/>
+ The command-line  <a href="article_commandline.html#alignment">alignment</a> argument and configuration  <a href="article_configFile.html#alignment">alignment</a> property allows to specify the default alignment for the wiki.
+<h2 id="at_the_article_level">At the article level</h2>
+ The "justification" attribute for articles allows to override the default wiki justification for one article. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> justification</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"word"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+</pre>
+
+<h2 id="at_the_chapter_level">At the chapter level</h2>
+ The "justification" attribute for chapters allows to override the article justification for all the text under this chapter. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;chapter</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my Chapter"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> justification</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"word"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+</pre>
+
+<h2 id="at_the_div_level">At the div level</h2>
+The "justification" attribute for  <a href="article_syntax.html#div">div</a> elements allows to override the article justification for all the text under this element. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;div</span><span class="syntaxKeyWord2" style="font-weight:bold;"> justification</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"word"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   the text with a word justification.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/div&gt;</span>
+</pre>
+
+<h2 id="examples">Examples</h2>
+ For an article:<br/>
+
+<pre class="margin unlimited" >
+<span>  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> justification</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"word"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> alignment</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"left"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+</pre>
+ For a div:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;div</span><span class="syntaxKeyWord2" style="font-weight:bold;"> justification</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"word"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> alignment</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"right"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   the text with a word justification and a right alignment.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/div&gt;</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#justification">syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

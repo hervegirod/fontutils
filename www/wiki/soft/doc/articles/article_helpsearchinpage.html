@@ -1,0 +1,155 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Help search in page - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_helpsearchinpage.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Help search in page</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#usage">1&nbsp; Usage</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#limitations">2&nbsp; Limitations</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#showing_help_search_exczptions">2.1&nbsp; Showing Help search exczptions</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+It is possible to show an  <a href="article_helpsearch.html">auto-complete Search box</a> at the top of the articles in the help GUI. This will allow to search for articles or even for terms in the whole wiki.<br/>
+<br/>
+ However you can also search for a term in any page by typing Ctrl+F as you could do in any Web browser.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ This capability is only supported for the JavaFX component, and the Swing component if the  <a href="article_helpswing.html#internal_html_content">underlying engine</a> is JavaFX.</div>
+
+<h2 id="usage">Usage</h2>
+ Just type CTRL+F in the article page, and a small window allowing to search in a page will appear:<br/>
+ <img src="../images/searchctrlf.png" alt="searchctrlf" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ This window contains:<ul>
+<li>One text field for the search term</li>
+<li>One button to search forward a term</li>
+<li>One button to search backward a term</li>
+<li>One button to close the window</li>
+</ul>
+
+<h2 id="limitations">Limitations</h2>
+ Beginning with Java 9, the search function in page will not be available by default because it tries to make accessible a private internal field of the <a href="http://docs.oracle.com/javase/8/javafx/api//javafx/scene/web/WebEngine.html" class="apiLink" title="WebEngine">WebEngine</a>.<br/>
+<br/>
+ To make it available, you must add several  <code>--add-opens</code>:<br/>
+
+<pre class="margin unlimited" >
+<span>      --add-opens javafx.web/javafx.scene.web=ALL-UNNAMED --add-opens javafx.web/com.sun.webkit=ALL-UNNAMED</span>
+</pre>
+ For information, you can use the  <code>--add-opens</code> runtime option to allow your code to access non-public members. This can be referred to as deep reflection. Libraries that do this deep reflection are able to access all members, private and public. To grant this type of access to your code, you use the <code>--add-opens</code> option.<br/>
+<br/>
+ Here is the syntax:<br/>
+
+<pre class="margin unlimited" >
+<span>--add-opens module/package=target-module(,target-module)*</span>
+</pre>
+ This allows the given module to open the specified package. The compiler will not produce any errors or warnings when this is used<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+See also <a href="https://openjdk.org/jeps/261" title="https://openjdk.org/jeps/261">https://openjdk.org/jeps/261</a> for more information</div></span>
+
+<h3 id="showing_help_search_exczptions">Showing Help search exczptions</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_searchexceptions.html">Showing Help search exceptions</a></div>
+<br/>
+ by default the possible exception will not be shown, and the search by CTRL+F will simply do nothing. It is possible to change this behavior in the <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html" class="apiLink" title="HelpContentViewer">HelpContentViewer</a>.</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> See also <a href="https://openjdk.org/jeps/261" title="https://openjdk.org/jeps/261">https://openjdk.org/jeps/261</a> for more information</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_search.html">Search</a>: This article is about the Search box which is shown on articles</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_javahelp.html">JavaHelp</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

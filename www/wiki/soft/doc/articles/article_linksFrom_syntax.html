@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Syntax - DocGenerator</title>
+</head>
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>What links here: Syntax</h1>
+
+<hr/>
+ <a href="article_algorithm.html">Algorithm</a> : This article presents the way the tool works<br/>
+ <a href="article_apidoc.html">apidoc</a> : This article explains how the apidoc element can be used<br/>
+ <a href="article_apiselts.html">APIs elements</a> : This article presents the elements which link to APIs or embed APIs in the wiki<br/>
+ <a href="article_articles.html">Articles</a> : Article files are XML files which define the articles in the wiki<br/>
+ <a href="article_syntaxcomment.html">Comment</a> : The "comment" element allows to add a comment in the wiki<br/>
+ <a href="article_docx.html">DOCX generation</a> : This article explains how to generate a Word file rather than an HTML site<br/>
+ <a href="article_docxsupport.html">DOCX syntax support</a> : This article explains the level of support for the syntax by the docx generation<br/>
+ <a href="article_errorslist.html">Errors list</a> : This article presents the list of errors which can be emitted during the parsing<br/>
+ <a href="article_syntaxjavadoc.html">javadoc element</a> : The "javadoc" element allows to define a link to a Java class documentation for an API<br/>
+ <a href="article_markdownmarkup.html">Markdown markup</a> : This article explains the supported Markdown markup<br/>
+ <a href="article_mediawikimarkup.html">Mediawiki markup</a> : This article explains the supported Mediawiki markup<br/>
+ <a href="article_syntaxmessagebox.html">messageBox element</a> : The "messageBox" element allows to enter a warning or informative message associated with an image<br/>
+ <a href="article_pdf.html">PDF generation</a> : This article explains how to generate a PDF file rather than an HTML site<br/>
+ <a href="article_pdfsupport.html">PDF syntax support</a> : This article explains the level of support for the syntax by the PDF generation<br/>
+ <a href="article_syntaxlangapi.html">Programmming language API</a> : Several elements allows to show a link to different a programming language API:<br/>
+ <a href="article_regulararticle.html">Regular article</a> : Regular articles are the pages composing the wiki, similar to Wikipedia articles<br/>
+ <a href="article_syntaxEndElements.html">Syntax end elements</a> : This article explains the XML tags which can be used at the beginning of articles<br/>
+ <a href="article_syntaxJustifElements.html">Syntax justification elements</a> : This article explains the XML tags which can be used to specify the articles justification<br/>
+ <a href="article_syntaxoverview.html">Syntax overview</a> : This article presents an overview of the tags supported in the XML syntax<br/>
+ <a href="article_syntaxStartingElements.html">Syntax starting elements</a> : This article explains the XML tags which can be used at the beginning of articles<br/>
+ <a href="article_templates.html">Templates</a> : A template is similar to a regular article but has the top-level element "template"<br/>
+ <a href="article_syntaxtodo.html">TODO</a> : The "todo" element allows to add a "TODO" in the wiki<br/>
+ <a href="article_todosystem.html">TODO system</a> : This article is about the TODO system<br/>
+
+<hr/>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

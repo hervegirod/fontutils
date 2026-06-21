@@ -1,0 +1,174 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DocGenerator API: importing articles - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_importarticles.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DocGenerator API: importing articles</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#import_an_article">1&nbsp; Import an article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#include_an_article">2&nbsp; Include an article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#import_an_image_definition_file">3&nbsp; Import an Image definition file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ Several methods allow to import articles from XML files. it is possible to:<ul>
+<li>Import an  <a href="article_articles.html">XML article</a>, which will be one of the articles in the generated wiki</li>
+<li>Include an XML article in an article  <a href="article_createcontent.html#creating_an_article">created through the API</a></li>
+<li>It is even possible to import an  <a href="article_imageFiles.html">Image definition file</a></li>
+</ul>
+
+<h2 id="import_an_article">Import an article</h2>
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#importArticle-java.net.URL-" class="apiLink" title="DocGeneratorAPI.importArticle(java.net.URL)">DocGeneratorAPI.importArticle(URL)</a> and <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#importArticle-java.io.File-" class="apiLink" title="DocGeneratorAPI.importArticle(java.io.File)">DocGeneratorAPI.importArticle(File)</a> will import an article defined in an XML  file in the wiki.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>         </span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"an article about birds"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">try</span><span> {</span>
+<span>      File theXMLFile = ...</span>
+<span>      XMLArticle importedArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">importArticle</span><span>(theXMLFile);</span>
+<span>   } </span><span class="syntaxKeyWord1" style="font-weight:bold;">catch</span><span> (DocGeneratorAPIException e) {</span>
+<span>      System.err.</span><span class="syntaxDefault" style="font-weight:bold;">println</span><span>(e.</span><span class="syntaxDefault" style="font-weight:bold;">getMessage</span><span>());</span>
+<span>   }</span>
+</pre>
+
+<h2 id="include_an_article">Include an article</h2>
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#includeArticle-org.docgene.model.XMLArticle-java.net.URL-boolean-" class="apiLink" title="DocGeneratorAPI.includeArticle(org.docgene.model.XMLArticle, java.net.URL, boolean)">DocGeneratorAPI.includeArticle(XMLArticle, URL, boolean)</a> and <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#includeArticle-org.docgene.model.XMLArticle-java.io.File-boolean-" class="apiLink" title="DocGeneratorAPI.includeArticle(org.docgene.model.XMLArticle, java.io.File, boolean)">DocGeneratorAPI.includeArticle(XMLArticle, File, boolean)</a> will  <a href="article_syntax.html#include">include</a> an article defined in an XML file in another article. The second argument specifies if the levels of the titles in the included article must be kept.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Contrary to the usage of  <a href="article_templates.html">templates</a> in regular wiki generation, the included article will never be present as a  <a href="article_articles.html#regular_articles">regular article</a> in the wiki. It will not appear in the  <a href="article_dictionnary.html">dictionary</a> for example.</div>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>         </span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"an article about birds"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">try</span><span> {</span>
+<span>      File theXMLFile = ...</span>
+<span>      File includedArticle = api.</span><span class="syntaxDefault" style="font-weight:bold;">article</span><span>(article, theXMLFile, </span><span class="syntaxLiteral" style="font-weight:bold;">false</span><span>);</span>
+<span>   } </span><span class="syntaxKeyWord1" style="font-weight:bold;">catch</span><span> (DocGeneratorAPIException e) {</span>
+<span>      System.err.</span><span class="syntaxDefault" style="font-weight:bold;">println</span><span>(e.</span><span class="syntaxDefault" style="font-weight:bold;">getMessage</span><span>());</span>
+<span>   }      </span>
+</pre>
+
+<h2 id="import_an_image_definition_file">Import an Image definition file</h2>
+The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#importImageDefinition-java.net.URL-" class="apiLink" title="DocGeneratorAPI.importImageDefinition(java.net.URL)">DocGeneratorAPI.importImageDefinition(URL)</a> and <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#importImageDefinition-java.io.File-" class="apiLink" title="DocGeneratorAPI.importImageDefinition(java.io.File)">DocGeneratorAPI.importImageDefinition(File)</a> will import the images from an  <a href="article_imageFiles.html">Image definition</a> file in the wiki. <br/>
+<br/>
+ The ids of the imported image definitions will be usable in the following method:<ul>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addImage-org.docgene.model.XMLArticle-java.lang.String-boolean-" class="apiLink" title="DocGeneratorAPI.addImage(org.docgene.model.XMLArticle, java.lang.String, boolean)">DocGeneratorAPI.addImage(XMLArticle, String, boolean)</a> method</li>
+<li>The <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addImage-org.docgene.model.globals.XMLRootElement-org.docgene.model.ParagraphElementParent-java.lang.String-boolean-" class="apiLink" title="DocGeneratorAPI.addImage(org.docgene.model.globals.XMLRootElement, org.docgene.model.ParagraphElementParent, java.lang.String, boolean)">DocGeneratorAPI.addImage(XMLRootElement, ParagraphElementParent, String, boolean)</a> method</li>
+</ul>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>         </span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"an article about birds"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// import the images</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">try</span><span> {</span>
+<span>      File theXMLFile = ...</span>
+<span>      api.</span><span class="syntaxDefault" style="font-weight:bold;">importImageDefinition</span><span>(theXMLFile);</span>
+<span>   } </span><span class="syntaxKeyWord1" style="font-weight:bold;">catch</span><span> (DocGeneratorAPIException e) {</span>
+<span>      System.err.</span><span class="syntaxDefault" style="font-weight:bold;">println</span><span>(e.</span><span class="syntaxDefault" style="font-weight:bold;">getMessage</span><span>());</span>
+<span>   }     </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// use one of the images</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addImage</span><span>(article, </span><span class="syntaxLiteral" style="">"myImageID"</span><span>, </span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);  </span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_docgeneratorapi.html">DocJGenerator API</a>: This article presents an overview of the docJGenerator API</li>
+<li> <a href="article_createcontent.html">DocGenerator API: creating the wiki content</a>: This article presents how to create the wiki content through docJGenerator API</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_api.html">Api</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

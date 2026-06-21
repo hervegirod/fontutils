@@ -1,0 +1,297 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Editor tutorial - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editortutorial.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Editor tutorial</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#open_the_editor">1&nbsp; Open the editor</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_the_index">2&nbsp; Create the index</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#edit_the_index_article">3&nbsp; Edit the index article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_the_first_article">4&nbsp; Create the first article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#edit_the_first_article">5&nbsp; Edit the first article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#add_a_link_to_the_first_article_in_the_index">6&nbsp; Add a link to the first article in the index</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#add_an_image">7&nbsp; Add an image</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#add_an_image_in_the_source_directory">7.1&nbsp; Add an image in the source directory</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#create_an_image_definition_file">7.2&nbsp; Create an image definition file</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#use_the_image_in_the_first_article">7.3&nbsp; Use the image in the first article</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">8&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">9&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article is a tutorial to explaining how to use the  <a href="article_editor.html">editor</a>. <br/>
+<br/>
+ You will:<ul>
+<li>Open the editor</li>
+<li>Create an  <a href="article_indexfiles.html">index</a> article</li>
+<li>Create a first article</li>
+<li>Create a second article</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The content of the wiki we will create in the editor will be the same as for the  <a href="article_tutorial1.html">first tutorial</a>.</div>
+
+<h2 id="open_the_editor">Open the editor</h2>
+ Choose an empty directory to put your articles, and another to put the result of the wiki generation. <br/>
+<br/>
+ Now double-click on the jar file of the application and:<ul>
+<li>Input directories: Set your directory (with only the <span style="font-style: italic;">index.xml</span> file for the moment)</li>
+<li>Output directory: there is no need to select any directory for now</li>
+</ul>
+<br/>
+ <img src="../images/tutoeditor1.png" alt="tutoeditor1" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ Click on Editor =&gt; Open Editor:<br/>
+ <img src="../images/tutoeditor2.png" alt="tutoeditor2" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+ The window of the editor will appear. The only element in the tree is the name of the source directory for the wiki:<br/>
+ <img src="../images/tutoeditor3.png" alt="tutoeditor3" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+
+<h2 id="create_the_index">Create the index</h2>
+We will now create the  <a href="article_indexfiles.html">index</a> article in the editor. <br/>
+<br/>
+ Right-click on the source directory element in the tree and choose the "Add Index" sub-menu:<br/>
+ <img src="../images/tutoeditor4.png" alt="tutoeditor4" id="_image_3" onclick="openImage(_image_3)" class="left marginSmall" />
+<br/>
+ Now we will have to specify the name of the index file in the popup dialog window:<br/>
+ <img src="../images/editoraddindex.png" alt="editortree-addindex" id="_image_4" onclick="openImage(_image_4)" class="left marginSmall" />
+<br/>
+ Click on the button at the right of the "File" field and type "index":<br/>
+ <img src="../images/tutoeditor5.png" alt="tutoeditor5" id="_image_5" onclick="openImage(_image_5)" class="left marginSmall" />
+<br/>
+ We will create an  <a href="article_indexfiles.html">index</a> article named "index.xml" just under the input directory:<br/>
+ <img src="../images/tutoeditor6.png" alt="tutoeditor6" id="_image_6" onclick="openImage(_image_6)" class="left marginSmall" />
+<br/>
+ Type "Yes": an empty  <a href="article_indexfiles.html">index</a> article has now been created and the tree has been updated:<br/>
+ <img src="../images/tutoeditor7.png" alt="tutoeditor7" id="_image_7" onclick="openImage(_image_7)" class="left marginSmall" />
+<br/>
+ Now if we select the index in the tree, the left panel show an empty html content because the index is empty for the moment:<br/>
+ <img src="../images/tutoeditor8.png" alt="tutoeditor8" id="_image_8" onclick="openImage(_image_8)" class="left marginSmall" />
+
+<h2 id="edit_the_index_article">Edit the index article</h2>
+If we click on the  <img src="../images/editor-content-edit.png" alt="editor-content-edit" id="_image_9" onclick="openImage(_image_9)" class="left" />
+ button, we will enter the  <a href="article_editorcontent.html#edition_mode">edition mode</a>, and we see an XML content which we can edit:<br/>
+ <img src="../images/tutoeditor9.png" alt="tutoeditor9" id="_image_10" onclick="openImage(_image_10)" class="left marginSmall" />
+<br/>
+ Now type the following content: "The index for the tutorial wiki." in the editor area:<br/>
+ <img src="../images/tutoeditor10.png" alt="tutoeditor10" id="_image_11" onclick="openImage(_image_11)" class="left marginSmall" />
+<br/>
+ And lastly click on the  <img src="../images/editor-content-save.png" alt="editor-content-save" id="_image_12" onclick="openImage(_image_12)" class="left" />
+ button to save the html content on the disk.<br/>
+<br/>
+ Now we can click again on the  <img src="../images/editor-content-view.png" alt="editor-content-view" id="_image_13" onclick="openImage(_image_13)" class="left" />
+ button to go back to the  <a href="article_editorcontent.html#content_for_articles">view mode</a>. We will see the following html content:<br/>
+ <img src="../images/tutoeditor11.png" alt="tutoeditor11" id="_image_14" onclick="openImage(_image_14)" class="left marginSmall" />
+
+<h2 id="create_the_first_article">Create the first article</h2>
+We will now create a  <a href="article_regulararticle.html">regular article</a> in the editor.<br/>
+<br/>
+ Select the index article we just created in the tree and choose the "Add Article" sub-menu:<br/>
+ <img src="../images/editoraddafter.png" alt="editortree-addafter" id="_image_15" onclick="openImage(_image_15)" class="left marginSmall" />
+<br/>
+ Now we will have to specify the name of the article file and its name in the popup dialog window:<br/>
+ <img src="../images/editoraddarticle.png" alt="editortree-addarticle" id="_image_16" onclick="openImage(_image_16)" class="left marginSmall" />
+<br/>
+ Click on the button at the right of the "File" field and type "article1":<br/>
+ <img src="../images/tutoeditor12.png" alt="tutoeditor12" id="_image_17" onclick="openImage(_image_17)" class="left marginSmall" />
+<br/>
+ JNow type "first article" for the name field:<br/>
+ <img src="../images/tutoeditor13.png" alt="tutoeditor13" id="_image_18" onclick="openImage(_image_18)" class="left marginSmall" />
+<br/>
+ Type "Yes": an empty  <a href="article_regulararticle.html">regular article</a> has now been created and the tree has been updated:<br/>
+ <img src="../images/tutoeditor14.png" alt="tutoeditor14" id="_image_19" onclick="openImage(_image_19)" class="left marginSmall" />
+<br/>
+ Now if we select the article in the tree, the left panel show a default html content for the article:<br/>
+ <img src="../images/tutoeditor15.png" alt="tutoeditor15" id="_image_20" onclick="openImage(_image_20)" class="left marginSmall" />
+
+<h2 id="edit_the_first_article">Edit the first article</h2>
+If we click on the  <img src="../images/editor-content-edit.png" alt="editor-content-edit" id="_image_21" onclick="openImage(_image_21)" class="left" />
+ button, we will enter the  <a href="article_editorcontent.html#edition_mode">edition mode</a>, and we see an XML content which we can edit:<br/>
+ <img src="../images/tutoeditor16.png" alt="tutoeditor16" id="_image_22" onclick="openImage(_image_22)" class="left marginSmall" />
+<br/>
+ Now type the following content: "The content of the first article." in the editor area:<br/>
+ <img src="../images/tutoeditor17.png" alt="tutoeditor17" id="_image_23" onclick="openImage(_image_23)" class="left marginSmall" />
+<br/>
+ And lastly click on the  <img src="../images/editor-content-save.png" alt="editor-content-save" id="_image_24" onclick="openImage(_image_24)" class="left" />
+ button to save the html content on the disk.<br/>
+<br/>
+ Now we can click again on the  <img src="../images/editor-content-view.png" alt="editor-content-view" id="_image_25" onclick="openImage(_image_25)" class="left" />
+ button to go back to the  <a href="article_editorcontent.html#content_for_articles">view mode</a>. We will see the following html content:<br/>
+ <img src="../images/tutoeditor18.png" alt="tutoeditor18" id="_image_26" onclick="openImage(_image_26)" class="left marginSmall" />
+
+<h2 id="add_a_link_to_the_first_article_in_the_index">Add a link to the first article in the index</h2>
+We will also add an  <a href="article_syntax.html#ref">internal wikilink</a> to this article in our index file. Select the index again, and go in the edit  <a href="article_editorcontent.html#edition_mode">edition mode</a>:<br/>
+ <img src="../images/tutoeditor10.png" alt="tutoeditor10" id="_image_27" onclick="openImage(_image_27)" class="left marginSmall" />
+<br/>
+ We will type the following content: "The index for the tutorial wiki. A link to the &lt;ref id="first article" /&gt;.":<br/>
+ <img src="../images/tutoeditor19.png" alt="tutoeditor19" id="_image_28" onclick="openImage(_image_28)" class="left marginSmall" />
+<br/>
+ And now click on the  <img src="../images/editor-content-save.png" alt="editor-content-save" id="_image_29" onclick="openImage(_image_29)" class="left" />
+ button to save the html content on the disk.<br/>
+<br/>
+ Now we can click again on the  <img src="../images/editor-content-view.png" alt="editor-content-view" id="_image_30" onclick="openImage(_image_30)" class="left" />
+ button to go back to the  <a href="article_editorcontent.html#content_for_articles">view mode</a>. We will see the following html content:<br/>
+ <img src="../images/tutoeditor20.png" alt="tutoeditor20" id="_image_31" onclick="openImage(_image_31)" class="left marginSmall" />
+<br/>
+  If we click on the hyperlink, we go to the second article.
+<h2 id="add_an_image">Add an image</h2>
+We will add an image in the source director, use this image in an  <a href="article_imageFiles.html">image definition file</a>, and use it in an article.
+<h3 id="add_an_image_in_the_source_directory">Add an image in the source directory</h3>
+ We will add an image in the source directory. To do that, Right-click on the source directory element in the tree and choose the "Shown in Desktop" sub-menu:<br/>
+ <img src="../images/tutoeditor21.png" alt="tutoeditor21" id="_image_32" onclick="openImage(_image_32)" class="left marginSmall" />
+<br/>
+ The directory is opened in the file system:<br/>
+ <img src="../images/tutoeditor22.png" alt="tutoeditor22" id="_image_33" onclick="openImage(_image_33)" class="left marginSmall" />
+<br/>
+ Copy an image in this directory:<br/>
+ <img src="../images/tutoeditor23.png" alt="tutoeditor23" id="_image_34" onclick="openImage(_image_34)" class="left marginSmall" />
+<br/>
+ Now we can refresh the content of the source directory to see the image in the tree:<br/>
+ <img src="../images/tutoeditor24.png" alt="tutoeditor24" id="_image_35" onclick="openImage(_image_35)" class="left marginSmall" />
+<br/>
+ The tree is updated:<br/>
+ <img src="../images/tutoeditor25.png" alt="tutoeditor25" id="_image_36" onclick="openImage(_image_36)" class="left marginSmall" />
+
+<h3 id="create_an_image_definition_file">Create an image definition file</h3>
+We will now create an  <a href="article_imageFiles.html">image definition file</a> and use this image.<br/>
+<br/>
+ First select the source directory and choose the "Add Images Definition" sub-menu:<br/>
+ <img src="../images/tutoeditor26.png" alt="tutoeditor26" id="_image_37" onclick="openImage(_image_37)" class="left marginSmall" />
+<br/>
+ We will call the images file "images.xml"<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Any other name would work</div></span>
+:<br/>
+ <img src="../images/tutoeditor27.png" alt="tutoeditor27" id="_image_38" onclick="openImage(_image_38)" class="left marginSmall" />
+<br/>
+ The tree is updated:<br/>
+ <img src="../images/tutoeditor28.png" alt="tutoeditor28" id="_image_39" onclick="openImage(_image_39)" class="left marginSmall" />
+<br/>
+ Now select the new file in the tree:<br/>
+ <img src="../images/tutoeditor29.png" alt="tutoeditor29" id="_image_40" onclick="openImage(_image_40)" class="left marginSmall" />
+<br/>
+ We now have to add the image definition in this file. Add the <code><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;imgage</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball.jpg"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span></code> line:<br/>
+ <img src="../images/tutoeditor30.png" alt="tutoeditor30" id="_image_41" onclick="openImage(_image_41)" class="left marginSmall" />
+<br/>
+ And now click on the  <img src="../images/editor-content-save.png" alt="editor-content-save" id="_image_42" onclick="openImage(_image_42)" class="left" />
+ button to save the file.
+<h3 id="use_the_image_in_the_first_article">Use the image in the first article</h3>
+Select again the first article and click on the  <img src="../images/editor-content-edit.png" alt="editor-content-edit" id="_image_43" onclick="openImage(_image_43)" class="left" />
+ button:<br/>
+<br/>
+ Add the <code><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;img</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span></code> line:<br/>
+ <img src="../images/tutoeditor31.png" alt="tutoeditor31" id="_image_44" onclick="openImage(_image_44)" class="left marginSmall" />
+<br/>
+ And now click on the  <img src="../images/editor-content-save.png" alt="editor-content-save" id="_image_45" onclick="openImage(_image_45)" class="left" />
+ button to save the html content on the disk.<br/>
+<br/>
+ Now we can click again on the  <img src="../images/editor-content-view.png" alt="editor-content-view" id="_image_46" onclick="openImage(_image_46)" class="left" />
+ button to go back to the  <a href="article_editorcontent.html#content_for_articles">view mode</a>. We will see the following html content:<br/>
+ <img src="../images/tutoeditor32.png" alt="tutoeditor32" id="_image_47" onclick="openImage(_image_47)" class="left marginSmall" />
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Any other name would work</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editor.html">Editor</a>: This article explains the DocGenerator editor</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_tutorials.html">Tutorials</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

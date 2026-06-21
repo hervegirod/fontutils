@@ -1,0 +1,150 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Menus - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_custommenus.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Menus</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#default_menu_content">1&nbsp; Default menu content</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#default_menus_types">1.1&nbsp; Default menus types</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#styling_the_left_menu">1.2&nbsp; Styling the left menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_custom_content_to_the_left_menu">2&nbsp; Adding custom content to the left menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#adding_a_custom_right_menu">3&nbsp; Adding a custom right menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ It is possible to add a custom content to the left menu, and also add a custom right menu to the index file.
+<h2 id="default_menu_content">Default menu content</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_defaultleftmenu.html">Default left menu</a></div>
+<br/>
+ By default there is no right menu, and the left menu contains:<ul>
+<li>For the "Home" article ( <a href="article_articles.html#index_definition">index</a>): a link to the  <a href="article_categories.html">categories</a> and the  <a href="article_dictionnary.html">dictionary</a></li>
+<li>For the "Categories" : a link to the "Home" article and the  <a href="article_dictionnary.html">dictionary</a></li>
+<li>For the "Dictionary" : a link to the "Home" article and the  <a href="article_categories.html">categories</a></li>
+<li>For any  <a href="article_articles.html">article</a>: a link to the "Home" article, the  <a href="article_categories.html">categories</a>, and the  <a href="article_dictionnary.html">dictionary</a>. There is also a link to the  <a href="article_glossary.html">glossary</a>, if there is a glossary for the wiki</li>
+</ul>
+
+<h3 id="default_menus_types">Default menus types</h3>
+ The possible menus types for default menu items are:<ul>
+<li>"home" for a link to the  <a href="article_articles.html#index_definition">index</a> page</li>
+<li>"dictionary" for a link to the  <a href="article_dictionnary.html">dictionary</a></li>
+<li>"categories" for a link to the  <a href="article_categories.html">categories</a></li>
+<li>"glossary" for a link to the  <a href="article_glossary.html">glossary</a></li>
+<li>"linksFrom" for the  <a href="article_customleftmenu.html#the_what_links_here_item">What links here</a> text for the menu which presents for each article  the articles which link to this article</li>
+</ul>
+
+<h3 id="styling_the_left_menu">Styling the left menu</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_cssSelectors.html">Stylable syntax elements</a></div>
+<br/>
+ The left menu is a  <a href="article_cssSelectors.html">Stylable syntax elements</a>, which means that you can set its "class" and "style" elements. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;leftMenu</span><span class="syntaxKeyWord2" style="font-weight:bold;"> onIndex</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> style</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"font-size: 10px;"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   ...</span>
+</pre>
+ Note that it is possible to style the left menu ithout cusotmizing its content, therefore the following menu specification is valid:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;leftMenu</span><span class="syntaxKeyWord2" style="font-weight:bold;"> onIndex</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> style</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"font-size: 10px;"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h2 id="adding_custom_content_to_the_left_menu">Adding custom content to the left menu</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_customleftmenu.html">Custom left menu</a></div>
+<br/>
+ There are two ways to add custom content to the left menus:<ul>
+<li>By adding new custom items to the menu</li>
+<li>By adding a custom content to the menu</li>
+</ul>
+
+<h2 id="adding_a_custom_right_menu">Adding a custom right menu</h2>
+The  <a href="article_configFile.html#rightindexmenu">configuration file</a> allows to specify a file containing the custom HTML content for the right menu on the  <a href="article_articles.html#index_definition">index article</a>.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_defaultleftmenu.html">Default left menu</a>: The default content of the left menu contains:</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Troubleshooting - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_troubleshooting.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Troubleshooting</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#i_have_no_index_file_found_error_why">1&nbsp; I have No index file found error, why?</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_dont_understand_an_error_message">2&nbsp; I don't understand an error message</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_have_a_lot_of_unreachable_url_links_errors_whats_going_on">3&nbsp; I have a lot of Unreachable URL Links errors, what's going on?</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_have_a_few_unreachable_url_links_errors_but_the_majority_are_ok_whats_going_on">4&nbsp; I have a few Unreachable URL Links errors, but the majority are OK, what's going on?</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#some_characters_are_not_shown_correctly">5&nbsp; Some characters are not shown correctly</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_used_the_apidoc_element_to_embed_an_api_but_it_does_not_show_anything_on_my_pdf_or_docx_result">6&nbsp; I used the apidoc element to embed an API, but it does not show anything on my PDF or docx result</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_linked_to_local_javadoc_in_the_wiki_but_the_links_are_invalid">7&nbsp; I linked to local javadoc in the wiki, but the links are invalid</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_linked_to_a_file_outside_the_wiki_and_i_have_an_error_even_if_the_file_exists">8&nbsp; I linked to a file outside the wiki, and I have an error even if the file exists</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_used_a_custom_stylesheet_theme_and_i_have_a_strange_result">9&nbsp; I used a custom StyleSheet theme, and I have a strange result</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_generated_the_help_content_file_for_the_help_system_but_i_dont_see_any_images">10&nbsp; I generated the help content file for the help system, but I don't see any images</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_generated_the_help_content_file_for_the_help_system_an_my_custom_themes_are_not_showing">11&nbsp; I generated the help content file for the help system, an my custom themes are not showing</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#the_search_field_does_not_work_on_internet_explorer">12&nbsp; The Search field does not work on Internet Explorer</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_have_a_message_concerning_a_property_name_not_allowed_in_infobox_definition_why">13&nbsp; I have a message concerning a property name not allowed in infobox definition, why?</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_have_an_alternate_title_for_an_article_which_is_in_the_dictionary_but_i_would_prefer_not_too_is_it_possible">14&nbsp; I have an alternate title for an article which is in the dictionary, but I would prefer not too, is it possible?</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_have_a_forked_java_vm_exited_abnormally_when_executing_my_unit_tests">15&nbsp; I have a Forked Java VM exited abnormally when executing my unit tests</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#i_usa_the_help_system_and_the_search_in_page_function_does_not_work">16&nbsp; I usa the help system, and the Search in page function does not work</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">17&nbsp; Notes</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article present possible problems and their solution.
+<h2 id="i_have_no_index_file_found_error_why">I have No index file found error, why?</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_indexfiles.html">Index</a></div>
+<br/>
+ You forgot to add an index to your wiki.
+<h2 id="i_dont_understand_an_error_message">I don't understand an error message</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_errorslist.html">Errors list</a></div>
+<br/>
+ See  <a href="article_errorslist.html">errors list</a> for a comprehensive list of error messages and their meaning.
+<h2 id="i_have_a_lot_of_unreachable_url_links_errors_whats_going_on">I have a lot of Unreachable URL Links errors, what's going on?</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_checklinks.html">Checking external links</a></div>
+<br/>
+ Chance is that you don't have access to the internet on your system, but you have a lot of external links. In that case you should configure the wiki to not check external links. This can be done on the command-line by setting to false the  <a href="article_commandline.html#checkhttplinks">checkHTTPLinks</a> property, or in the configuration file by setting to false the  <a href="article_configFile.html#checkhttplinks">checkHTTPLinks</a> property. See also  <a href="article_checklinks.html">checking external links</a>.
+<h2 id="i_have_a_few_unreachable_url_links_errors_but_the_majority_are_ok_whats_going_on">I have a few Unreachable URL Links errors, but the majority are OK, what's going on?</h2>
+ Chance is that that the affected linked URL is much slower to access than the others. By default the timeOut for the access to one site is 300 ms, but you can  <a href="article_checklinks.html#configuration">configure its value</a>.<br/>
+<br/>
+ Beware that if you increase the timeOut value for all URLs, you will have an adverse result on the performance of the tool. Another way you have to get rid of this warning is no specify explicitly for the link that you don't want to check its validity (see  <a href="article_checklinks.html#not_checking_links_for_one_element">not checking links for one element</a>).
+<h2 id="some_characters_are_not_shown_correctly">Some characters are not shown correctly</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_characterencoding.html#decoding_of_the_input_files">decoding of the input files</a></div>
+<br/>
+ docGenerator try to infer the encoding of each XML file to escape correctly the characters in the HTML result. However there is no way other than guessing to get the encoding of a text file. An alternate way to force the encoding is to set explictly the encoding of the file by setting the XML declaration. For example<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Note that "ISO-8859-1" is the standard encoding for French text</div></span>
+:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span>
+</pre>
+
+<h2 id="i_used_the_apidoc_element_to_embed_an_api_but_it_does_not_show_anything_on_my_pdf_or_docx_result">I used the apidoc element to embed an API, but it does not show anything on my PDF or docx result</h2>
+Unfortunately, for the moment, the  <a href="article_apidoc.html">apidoc</a> element is only rendered in html.
+<h2 id="i_linked_to_local_javadoc_in_the_wiki_but_the_links_are_invalid">I linked to local javadoc in the wiki, but the links are invalid</h2>
+ You might have put the javadoc in an incorrect directory. Note that relative APIs are by default relative to the root of the wiki output directory. See  <a href="article_javadocs.html">Javadocs APIs</a> for more information.
+<h2 id="i_linked_to_a_file_outside_the_wiki_and_i_have_an_error_even_if_the_file_exists">I linked to a file outside the wiki, and I have an error even if the file exists</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_acceptLocalLinks.html">Checking local links</a></div>
+<br/>
+ By default no local links outside of the wiki are allowed.
+<h2 id="i_used_a_custom_stylesheet_theme_and_i_have_a_strange_result">I used a custom StyleSheet theme, and I have a strange result</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_theme.html">StyleSheet theme</a></div>
+<br/>
+ Beware that all the properties in the default theme must be specified in your custom theme CSS file, or else some colors will have a  default value. 
+<h2 id="i_generated_the_help_content_file_for_the_help_system_but_i_dont_see_any_images">I generated the help content file for the help system, but I don't see any images</h2>
+You might have specified the wrong format for the result. See  <a href="article_docgenhelp.html#help_content_optimization">help content optimization</a>. The  <code>README.txt</code> file in the zip file used for the help indicates for which format the Help content has been generated.
+<h2 id="i_generated_the_help_content_file_for_the_help_system_an_my_custom_themes_are_not_showing">I generated the help content file for the help system, an my custom themes are not showing</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_helpcontentstylesheet.html">Help content StyleSheet configuration</a></div>
+<br/>
+ The custom themes are only working if you are using JavaFX or Swing with a JavaFX engine.
+<h2 id="the_search_field_does_not_work_on_internet_explorer">The Search field does not work on Internet Explorer</h2>
+Look if you have set the  <a href="article_commandline.html#iecompatibilityedge">IECompatibilityEdge</a> property to false. In that case, Internet Explorer of versions greater or equal than 11 will try to keep the behavior of older versions, which can throw exceptions in jQuery. Give the property the default value (true).
+<h2 id="i_have_a_message_concerning_a_property_name_not_allowed_in_infobox_definition_why">I have a message concerning a property name not allowed in infobox definition, why?</h2>
+ The message should be: "name property is not allowed in infobox definition". It is because it is not allowed to define a property with the key "name", because this property is defined by default for all infoboxes (see  <a href="article_infoboxtemplate.html">infobox template</a>).
+<h2 id="i_have_an_alternate_title_for_an_article_which_is_in_the_dictionary_but_i_would_prefer_not_too_is_it_possible">I have an alternate title for an article which is in the dictionary, but I would prefer not too, is it possible?</h2>
+Yes, see  <a href="article_dictionnary.html#prevent_an_article_alternate_title_to_be_in_the_dictionary">dictionary</a>.
+<h2 id="i_have_a_forked_java_vm_exited_abnormally_when_executing_my_unit_tests">I have a Forked Java VM exited abnormally when executing my unit tests</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_junit.html#using_the_docgenerator_class_directly">executing unit tests</a></div>
+<br/>
+ When using the  <code>org.docgene.main.DocGenerator</code> class directly to generate the wiki in Unit tests, you may have the following JVM error:<br/>
+
+<pre class="margin unlimited" >
+<span>      Forked Java VM exited abnormally. Please note the time in the report does not reflect the time until the VM exit.</span>
+</pre>
+ This error may be due to the fact that the class will exit by executing <code><span>System.</span><span class="syntaxDefault" style="font-weight:bold;">exit</span><span>(0)</span></code> exiting the JVM before the Unit test class could be executed completely. To fix this problem, you must use the <code><span>DocGenerator.</span><span class="syntaxDefault" style="font-weight:bold;">preventExit</span><span>(</span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>);</span></code> before exeucting the generation.
+<h2 id="i_usa_the_help_system_and_the_search_in_page_function_does_not_work">I usa the help system, and the Search in page function does not work</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_helpsearchinpage.html#limitations">help search in page</a></div>
+<br/>
+ The  <a href="article_helpsearchinpage.html">help search in page</a> function is supported only when using JavaFX<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+Using the help with JavaFX or with Swing using an internal JavaFX content</div></span>
+. Additionally, you will need to specify the  <code>--add-opens</code> options to make it available.   </div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Note that "ISO-8859-1" is the standard encoding for French text</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> Using the help with JavaFX or with Swing using an internal JavaFX content</li>
+</ol>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

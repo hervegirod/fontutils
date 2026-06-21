@@ -1,0 +1,140 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>History - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_history.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>History</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#version_1.4">1&nbsp; Version 1.4</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.4.14">2&nbsp; Version 1.4.14</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.4.5">3&nbsp; Version 1.4.5</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.4.7">4&nbsp; Version 1.4.7</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.4.18">5&nbsp; Version 1.4.18</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.6.3.1">6&nbsp; Version 1.6.3.1</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.6.4.1">7&nbsp; Version 1.6.4.1</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.6.4.2">8&nbsp; Version 1.6.4.2</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.6.4.11">9&nbsp; Version 1.6.4.11</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.6.5">10&nbsp; Version 1.6.5</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.6.5.1">11&nbsp; Version 1.6.5.1</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.6.5.3">12&nbsp; Version 1.6.5.3</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#version_1.6.5.4">13&nbsp; Version 1.6.5.4</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article explains the major updates of the tool. To see the change logs, go to <a href="https://sourceforge.net/p/docjgenerator/blog/" title="https://sourceforge.net/p/docjgenerator/blog/">sourceforge.net/p/docjgenerator/blog/</a>.
+<h2 id="version_1.4">Version 1.4</h2>
+Support  <a href="article_docx.html">DOCX generation</a> and  <a href="article_pdf.html">PDF generation</a>.
+<h2 id="version_1.4.14">Version 1.4.14</h2>
+Support  <a href="article_scripts.html">Scripting</a>.
+<h2 id="version_1.4.5">Version 1.4.5</h2>
+Support the  <a href="article_markdown.html">markdown</a> syntax.
+<h2 id="version_1.4.7">Version 1.4.7</h2>
+Support  <a href="article_search.html#full_text_search">Full text search</a>.
+<h2 id="version_1.4.18">Version 1.4.18</h2>
+Support  <a href="article_epub.html">Epub generation</a>.
+<h2 id="version_1.6.3.1">Version 1.6.3.1</h2>
+Allow to use the tool as a  <a href="article_docgeneratorapi.html">library API</a>.
+<h2 id="version_1.6.4.1">Version 1.6.4.1</h2>
+Add an  <a href="article_incremental.html">incremental generation</a> option.
+<h2 id="version_1.6.4.2">Version 1.6.4.2</h2>
+ Prior to 1.6.4.2, JavaFX was used in the core tool, meaning that you add to add the JavaFX libraries to the ClassPath when using it beginning with Java 9. This was fixed in 1.6.4.2.
+<h2 id="version_1.6.4.11">Version 1.6.4.11</h2>
+Fix a lot of issues with the  <a href="article_imagemapconverter.html">Image map converter</a>, and improve it.
+<h2 id="version_1.6.5">Version 1.6.5</h2>
+Add options to use the  <a href="article_pagerank.html">PageRank</a> algorithm.
+<h2 id="version_1.6.5.1">Version 1.6.5.1</h2>
+ Improve the integration of the tool on Mac OS X.
+<h2 id="version_1.6.5.3">Version 1.6.5.3</h2>
+Fix the  <a href="article_docgenhelp.html">help system</a> distribution not containing some necessary files.
+<h2 id="version_1.6.5.4">Version 1.6.5.4</h2>
+ With versions prior to 1.6.5.4, you could have a message in the error console such as <code>Can't find the Class for Plugin Factory org.docgene.scripts.ScriptFactory</code> when using the tool through  <a href="article_ant.html">ant</a> or maven.<br/>
+<br/>
+ The reason was that you could run into problems whith ClassPath when running ant. ant do not take into account the libraries classpath but use the default classpath (however it allows to explictly set his own). It is said in the ant manual about the  <code>java</code> task that:<span style="font-style: italic;">If you need to locate a JAR file relative to the directory the task will be run in, you need to explicitly create the full path to the JAR file.</span> The way to fix it was to add explictly the relevant libraries to the  <code>classpath</code> in ant. This was fixed in 1.6.5.4.</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

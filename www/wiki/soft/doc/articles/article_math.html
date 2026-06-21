@@ -1,0 +1,344 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Mathematical formulas - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_math.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Mathematical formulas</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#special_characters">1&nbsp; Special characters</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">2&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#basic_example">2.1&nbsp; Basic example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#a_square_root">2.2&nbsp; A square root</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#a_fraction">2.3&nbsp; A fraction</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#a_multiplication_sign">2.4&nbsp; A multiplication sign</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#a_formula_with_parenthesis">2.5&nbsp; A formula with parenthesis</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#an_integral">2.6&nbsp; An integral</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#a_sum">2.7&nbsp; A sum</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#a_matrix">2.8&nbsp; A matrix</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#a_complex_formula">2.9&nbsp; A complex formula</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The "math" element allows to add math formulas. The syntax of the formula must conform to the <a href="https://www.w3.org/TR/MathML2/" title="https://www.w3.org/TR/MathML2/">MathML2</a> syntax, which is an XML-based way of describing mathematical formulas.<br/>
+<br/>
+ This article present an overview of the MathML2 syntax.
+<h2 id="special_characters">Special characters</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_htmlEntitiesList.html#mathematical_symbols">HTML entities list</a></div>
+<br/>
+ Mathematical characters are not ASCII. Therefore you should escape these characters. For example:<ul>
+<li>"&amp;#x2212;": the mathematical minus character (−)</li>
+<li>"&amp;times;": the multiplication sign (&times;) character</li>
+<li>"&amp;#x00B1;" or "&amp;plusmn;": the plus or minus character (&plusmn;)</li>
+<li>"&amp;#x2208;" or "&amp;isin;": the element of character (&isin;) </li>
+<li>"&amp;#x220F;" or "&amp;prod;": the ary product (&prod;) character</li>
+<li>"&amp;#x221A;" or "&amp;radic;": the square root (&radic;) character</li>
+<li>"&amp;#x221E;" or "&amp;infin;": the infinity (&infin;) character</li>
+<li>"&amp;#x222B;" or "&amp;int;": the integral (&int;) character</li>
+<li>"&amp;#x2211;" or "&amp;sum;": the sum (&sum;) character</li>
+</ul>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="basic_example">Basic example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;math&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>a</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;msup&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>x</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mn&gt;</span><span>2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mn&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/msup&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/math&gt;</span>
+</pre>
+   Result:<br/>
+<br/>
+ <img src="../images/__math__0.png" alt="__math__0" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h3 id="a_square_root">A square root</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;math&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;msqrt&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>x</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span>+</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>y</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/msqrt&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/math&gt;</span>
+</pre>
+   Result:<br/>
+<br/>
+ <img src="../images/__math__1.png" alt="__math__1" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+
+<h3 id="a_fraction">A fraction</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;math&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mfrac&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>a</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>b</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mfrac&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span>=</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>c</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/math&gt;</span>
+</pre>
+   Result:<br/>
+<br/>
+ <img src="../images/__math__2.png" alt="__math__2" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+
+<h3 id="a_multiplication_sign">A multiplication sign</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;math&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>a</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span class="syntaxLabel" style="font-weight:bold;">&amp;</span><span>times;</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>b</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/math&gt;</span>
+</pre>
+   Result:<br/>
+<br/>
+ <img src="../images/__math__3.png" alt="__math__3" id="_image_3" onclick="openImage(_image_3)" class="left marginSmall" />
+
+<h3 id="a_formula_with_parenthesis">A formula with parenthesis</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;math&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>a</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mfenced&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>b</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span>-</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>c</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mfenced&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/math&gt;</span>
+</pre>
+   Result:<br/>
+<br/>
+ <img src="../images/__math__4.png" alt="__math__4" id="_image_4" onclick="openImage(_image_4)" class="left marginSmall" />
+
+<h3 id="an_integral">An integral</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;math&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;munderover&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span class="syntaxLabel" style="font-weight:bold;">&amp;</span><span>int;</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mn&gt;</span><span>-1</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mn&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mn&gt;</span><span>+1</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mn&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/munderover&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mfrac&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>d</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>x</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>x</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mfrac&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/math&gt;</span>
+</pre>
+   Result:<br/>
+<br/>
+ <img src="../images/__math__5.png" alt="__math__5" id="_image_5" onclick="openImage(_image_5)" class="left marginSmall" />
+
+<h3 id="a_sum">A sum</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;math&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;munderover&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span class="syntaxLabel" style="font-weight:bold;">&amp;</span><span>sum;</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>n</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span>=</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mn&gt;</span><span>1</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mn&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mn&gt;</span><span>5</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mn&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/munderover&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;msup&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>n</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mn&gt;</span><span>2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mn&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/msup&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/math&gt;</span>
+</pre>
+   Result:<br/>
+<br/>
+ <img src="../images/__math__6.png" alt="__math__6" id="_image_6" onclick="openImage(_image_6)" class="left marginSmall" />
+
+<h3 id="a_matrix">A matrix</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;math&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mfenced</span><span class="syntaxKeyWord2" style="font-weight:bold;"> open</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"["</span><span class="syntaxKeyWord2" style="font-weight:bold;"> close</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"]"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mtable&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mtr&gt;</span>
+<span>                     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mtd&gt;</span>
+<span>                        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>a</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>                     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mtd&gt;</span>
+<span>                     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mtd&gt;</span>
+<span>                        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>b</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>                     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mtd&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mtr&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mtr&gt;</span>
+<span>                     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mtd&gt;</span>
+<span>                        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>c</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>                     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mtd&gt;</span>
+<span>                     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mtd&gt;</span>
+<span>                        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>d</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>                     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mtd&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mtr&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mtable&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mfenced&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/math&gt;</span>
+</pre>
+   Result:<br/>
+<br/>
+ <img src="../images/__math__7.png" alt="__math__7" id="_image_7" onclick="openImage(_image_7)" class="left marginSmall" />
+
+<h3 id="a_complex_formula">A complex formula</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;math&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>x</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span>=</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mfrac&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span class="syntaxLabel" style="font-weight:bold;">&amp;#x2212;</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>b</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span class="syntaxLabel" style="font-weight:bold;">&amp;#x00B1;</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;msqrt&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;msup&gt;</span>
+<span>                     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>b</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>                     </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mn&gt;</span><span>2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mn&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/msup&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mo&gt;</span><span>-</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mo&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mn&gt;</span><span>4</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mn&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>a</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>                  </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>c</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/msqrt&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mrow&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mn&gt;</span><span>2</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mn&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;mi&gt;</span><span>a</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mi&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mfrac&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/mrow&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/math&gt;</span>
+</pre>
+   Result:<br/>
+<br/>
+ <img src="../images/__math__8.png" alt="__math__8" id="_image_8" onclick="openImage(_image_8)" class="left marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#math">syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

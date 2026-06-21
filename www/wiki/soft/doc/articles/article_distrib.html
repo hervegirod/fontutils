@@ -1,0 +1,181 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Distribution - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_distrib.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Distribution</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#core_tool">1&nbsp; Core tool</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#image_map_converter">1.1&nbsp; Image map converter</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#pdf_generation">2&nbsp; PDF generation</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#word_generation">3&nbsp; Word generation</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#epub_generation">4&nbsp; Epub generation</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#scripts_plugins">5&nbsp; Scripts Plugins</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#help_api">6&nbsp; Help API</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#docjgenerator_api">7&nbsp; DocJGenerator API</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+
+<h2 id="core_tool">Core tool</h2>
+The  <code>docGenerator-bin-&lt;version&gt;.zip</code> contains the core content of the tool. Just unzip the content of the zip anywhere, and execute it by either:<ul>
+<li>Double clicking on the  <code>docGenerator.jar</code> executable. Note that you need a Java 8 JRE to start the tool. See  <a href="article_commandline.html">command-line starting</a> for more information</li>
+<li>Integrate the application in an ant build file. See  <a href="article_ant.html">ant integration</a> for more information</li>
+</ul>
+You must make sure that the  <code>lib</code> directory is in the same directory as the directory where you have put the jar file (as it is the case in the distribution). For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      docGenerator.jar</span>
+<span>      -- lib</span>
+</pre>
+
+<h3 id="image_map_converter">Image map converter</h3>
+The core zip file contain a  <code>ImageMapConverter.jar</code> jar File which allows to compute the coordinates to use for  <a href="article_syntaximg.html#linking_on_images">linking on an image area</a>.<br/>
+<br/>
+ The ImageMapConverter tool depend on the  <a href="article_dependencies.html#dependencies_list">MDIUtilities</a> library. Therefore you must make sure that the  <code>lib</code> directory is in the same directory as the directory where you have put the jar file (as it is the case in the distribution). For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      ImageMapConverter.jar</span>
+<span>      -- lib</span>
+</pre>
+
+<h2 id="pdf_generation">PDF generation</h2>
+The  <code>docGenerator-pdf-&lt;version&gt;.zip</code> contains the  <a href="article_pdf.html">PDF generation</a> library. Just merge the content of the zip file with the  <code>plugins</code> directory. You will have:<br/>
+
+<pre class="margin unlimited" >
+<span>      docGenerator.jar</span>
+<span>      -- lib</span>
+<span>      -- plugins</span>
+<span>      ----- pdfWriter.jar</span>
+<span>      ----- itext</span>
+</pre>
+
+<h2 id="word_generation">Word generation</h2>
+The  <code>docGenerator-docx-&lt;version&gt;.zip</code> contains the  <a href="article_docx.html">Word generation</a> library. Just merge the content of the zip file with the  <code>plugins</code> directory. You will have:<br/>
+
+<pre class="margin unlimited" >
+<span>      docGenerator.jar</span>
+<span>      -- lib</span>
+<span>      -- plugins</span>
+<span>      ----- docxWriter.jar</span>
+<span>      ----- poi</span>
+</pre>
+
+<h2 id="epub_generation">Epub generation</h2>
+The  <code>docGenerator-epub-&lt;version&gt;.zip</code> contains the  <a href="article_epub.html">Epub generation</a> library. Just merge the content of the zip file with the  <code>plugins</code> directory. You will have:<br/>
+
+<pre class="margin unlimited" >
+<span>      docGenerator.jar</span>
+<span>      -- lib</span>
+<span>      -- plugins</span>
+<span>      ----- epubWriter.jar</span>
+<span>      ----- epub</span>
+</pre>
+
+<h2 id="scripts_plugins">Scripts Plugins</h2>
+The  <code>docGenerator-scripts-&lt;version&gt;.zip</code> contains the  <a href="article_scripts.html">Scripts Plugin</a> library. Just merge the content of the zip file with the  <code>plugins</code> directory. You will have:<br/>
+
+<pre class="margin unlimited" >
+<span>      docGenerator.jar</span>
+<span>      -- lib</span>
+<span>      -- plugins</span>
+<span>      ----- scripts.jar</span>
+<span>      ----- scripts</span>
+</pre>
+
+<h2 id="help_api">Help API</h2>
+The  <code>docGenerator-help-&lt;version&gt;.zip</code> contains the  <a href="article_helpapi.html">Help API</a> library, for noth Swing and JavaFX applications.
+<h2 id="docjgenerator_api">DocJGenerator API</h2>
+The  <code>docGenerator-api-&lt;version&gt;.zip</code> contains the  <a href="article_docgeneratorapi.html">docJGenerator API</a> library, which allows to use the generator in another Java application.<br/>
+<br/>
+ You must make sure that the  <code>docGeneratorAPI.jar</code> jar is in the same directory as the directory as the jar file of the core tool. For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      docGeneratorAPI.jar</span>
+<span>      docGenerator.jar</span>
+<span>      -- lib</span>
+</pre>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

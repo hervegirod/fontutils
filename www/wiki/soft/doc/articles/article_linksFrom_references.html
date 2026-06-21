@@ -1,0 +1,85 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>References - DocGenerator</title>
+</head>
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>What links here: References</h1>
+
+<hr/>
+ <a href="article_syntaxarearef.html">areaRef element</a> : This article explains the how to use the areaRef element<br/>
+ <a href="article_articles.html">Articles</a> : Article files are XML files which define the articles in the wiki<br/>
+ <a href="article_customleftmenu.html">Custom left menu</a> : It is possible to add custom items in the left menu, or even to completely change it<br/>
+ <a href="article_merginggenerations.html">DocGenerator API: merging several generations</a> : This article presents how to merge several generations in the docGenerator API<br/>
+ <a href="article_opaquearticles.html">DocGenerator API: opaque articles</a> : Opaque articles are articles  which can be used in references, but for which no file will be generated in the wiki<br/>
+ <a href="article_errors.html">Errors</a> : This article explains how errors are handled in the parsing<br/>
+ <a href="article_errorslist.html">Errors list</a> : This article presents the list of errors which can be emitted during the parsing<br/>
+ <a href="article_fallbackarticles.html">Fallback articles</a> : Fallback articles allow to specify articles which will be used where a reference to another article point to an article which does not exist<br/>
+ <a href="article_howto.html">How to</a> : This article explains how to use the syntax of the tool<br/>
+ <a href="article_imagemapconverter.html">Image map converter</a> : This article explains the how to use the ImageMapConverter application<br/>
+ <a href="article_infoboxtemplate.html">Infobox template</a> : This article explains how to specify infobox templates<br/>
+ <a href="article_packagedepend.html">Packages dependencies</a> : This article explains how to enforce package dependencies<br/>
+ <a href="article_pagerank.html">PageRank</a> : This article is about the PageRank algorithm which can be used with the Search box<br/>
+ <a href="article_resolving wiki links.html">Resolving inter-wiki links</a> : This article explains how the inter-wiki links are resolved<br/>
+ <a href="article_tutorialTheme.html">StyleSheet theme tutorial</a> : This article is a tutorial which explains how to a custom StyleSheet theme for the wiki<br/>
+ <a href="article_syntax.html">Syntax</a> : This article explains the XML tags which can be used to specify the articles syntax<br/>
+
+<hr/>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>archiveurl element - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_syntaxarchiveurl.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>archiveurl element</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#configuration_properties">1&nbsp; Configuration properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">2&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The "archiveurl" element allow to define a link to an external file which is stored in the <a href="https://archive.org/web/" title="https://archive.org/web/">Internet Wayback machine</a>. The attributes of this element are:<ul>
+<li>"href": the URL of the link</li>
+<li>"archive": the URL of the archive</li>
+<li>"checkLink":  <code>false</code> to not check the validity of the link even if the configuration property specifies that links should be checked<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+See  <a href="article_checklinks.html#not_checking_links_for_one_element">checking external links</a></div></span>
+</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ One and only one of the "href" and "archive" attributes must be present:<ul>
+<li>"href" is used to specify the original URL of the web page which is archived in the Internet Wayback machine. The tool will access the Internet Wayback machine api to get the "closest" archive for this web page</li>
+<li>"archive" is used to specify the archive to use for the external link</li>
+</ul>
+</div>
+
+<h2 id="configuration_properties">Configuration properties</h2>
+Several  <a href="article_configFile.html">configuration properties</a> allow to configure if the existence of links is checked or not:<ul>
+<li>"checkLinks" specify that the presence of external links must be checked<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+for the "archiveurl" element, the presence of anchors if the "#" tag is found in the link construction is not checked</div></span>
+</li>
+<li>"checkHTTPLinks" specify if the URL links with the "http" protocol are checked. This property will only be used if the "checkLinks" property is set to true.</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The preence of the link will be checked whatever the value for "checkHTTPLinks" for the "href" attribute case, because the tool must access the Internet Wayback machine to get the effective archive link.</div>
+
+<h2 id="example">Example</h2>
+
+<pre class="margin unlimited" >
+<span>   This is an </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;archiveurl</span><span class="syntaxKeyWord2" style="font-weight:bold;"> archive</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"https://web.archive.org/web/20231215081820/https://www.marmottan.fr/expositions/morisot-sacriste/"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>morisot-sacriste</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/a&gt;</span>
+</pre>
+ or<br/>
+
+<pre class="margin unlimited" >
+<span>   This is an </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;archiveurl</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"https://www.marmottan.fr/expositions/morisot-sacriste/"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>morisot-sacriste</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/a&gt;</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> See  <a href="article_checklinks.html#not_checking_links_for_one_element">checking external links</a></li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> for the "archiveurl" element, the presence of anchors if the "#" tag is found in the link construction is not checked</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#archiveurl">syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_syntaxlink.html">a element</a>: The a element allows to add included embedded html content</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

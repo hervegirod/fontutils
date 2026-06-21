@@ -1,0 +1,209 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Directory writer - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_directorywriter.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Directory writer</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#directory_writer_api">2&nbsp; Directory writer API</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#directory_writer_features">2.1&nbsp; Directory writer features</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article explains how to creata a custom <a href="../javadoc/pluginsAPI/org/docgene/writer/DirectoryWriter.html" class="apiLink" title="DirectoryWriter">DirectoryWriter</a> for a Plugin.
+<h2 id="overview">Overview</h2>
+The <a href="../javadoc/pluginsAPI/org/docgene/writer/DirectoryWriter.html" class="apiLink" title="DirectoryWriter">DirectoryWriter</a> is the class which is responsible for effectively writing the content of the wiki The default output is a html site. However, it is also possible to generate the wiki in the following formats:<ul>
+<li>The  <a href="article_pdf.html">PDF</a> format</li>
+<li>The  <a href="article_docx.html">DOCX</a> format</li>
+<li>The  <a href="article_epub.html">Epub</a> format</li>
+</ul>
+You can also create your own format using the  <a href="article_plugins.html">plugins</a> system and setting the <a href="../javadoc/pluginsAPI/org/docgene/plugins/PluginFactory.html#newDirectoryWriter--" class="apiLink" title="PluginFactory.newDirectoryWriter()">PluginFactory.newDirectoryWriter()</a> method.
+<h2 id="directory_writer_api">Directory writer API</h2>
+ The main useful methods of the writer are:<br/>
+<table class="headerTitleAPI">
+<tbody>
+<th valign="middle" class="headerAPI">public interface DirectoryWriter</th>
+</tbody>
+</table>
+
+<table class="apidoc">
+<caption class="tableAPI">Method Summary</caption>
+<thead>
+<tr>
+<th valign="middle" class="columnAPI">Modifier and Type</th>
+<th valign="middle" class="columnAPI">Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">getModel()
+<br/>
+<div class="rowContentTextAPI">
+Get the articles model</div>
+</th>
+</tr>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">setModel(File dir, ArticlesModel model)
+<br/>
+<div class="rowContentTextAPI">
+Set the articles model, and the directory to write the wiki</div>
+</th>
+</tr>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">writeContent()
+<br/>
+<div class="rowContentTextAPI">
+Write the wiki content</div>
+</th>
+</tr>
+</tbody>
+</table>
+<br/>
+
+<h3 id="directory_writer_features">Directory writer features</h3>
+ The writer has the concept of features which allow to customize which elements will be writtent and how. The two methods which customize these features are:<br/>
+<table class="headerTitleAPI">
+<tbody>
+<th valign="middle" class="headerAPI">public interface DirectoryWriter</th>
+</tbody>
+</table>
+
+<table class="apidoc">
+<caption class="tableAPI">Method Summary</caption>
+<thead>
+<tr>
+<th valign="middle" class="columnAPI">Modifier and Type</th>
+<th valign="middle" class="columnAPI">Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">getFeature(String name)
+<br/>
+<div class="rowContentTextAPI">
+Return a property value for the writer. Return false by default.</div>
+</th>
+</tr>
+<tr class="rowAPI">
+<th valign="middle" class="rowModifierAPI">void</th>
+<th valign="middle" class="rowContentAPI">setFeature(String name, boolean value)
+<br/>
+<div class="rowContentTextAPI">
+Set a property value for the writer. Do nothing by default</div>
+</th>
+</tr>
+</tbody>
+</table>
+<br/>
+<br/>
+<br/>
+ The list of features which can be set are:<ul>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_ARTICLES_TOC" class="apiLink" title="WriterFeatures.WRITE_ARTICLES_TOC">WriterFeatures.WRITE_ARTICLES_TOC</a> if the table of contents must be written (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_CATEGORIES" class="apiLink" title="WriterFeatures.WRITE_CATEGORIES">WriterFeatures.WRITE_CATEGORIES</a> if the categories must be written (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_DICTIONARY" class="apiLink" title="WriterFeatures.WRITE_DICTIONARY">WriterFeatures.WRITE_DICTIONARY</a> if the dictionary must be written (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_GLOSSARY" class="apiLink" title="WriterFeatures.WRITE_GLOSSARY">WriterFeatures.WRITE_GLOSSARY</a> if the glossary must be written (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_RESOURCES" class="apiLink" title="WriterFeatures.WRITE_RESOURCES">WriterFeatures.WRITE_RESOURCES</a> if the resources files must be written (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_SCRIPTS" class="apiLink" title="WriterFeatures.WRITE_SCRIPTS">WriterFeatures.WRITE_SCRIPTS</a> if the scripts files must be written (default is true). If false, scripts are not allowed but database scripts (such as full text) are allowed</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_ANY_SCRIPTS" class="apiLink" title="WriterFeatures.WRITE_ANY_SCRIPTS">WriterFeatures.WRITE_ANY_SCRIPTS</a> if any scripts files (incuding database scripts) must be written (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_HEADER_FRAME" class="apiLink" title="WriterFeatures.WRITE_HEADER_FRAME">WriterFeatures.WRITE_HEADER_FRAME</a> if the articles header frame must be written (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_IMAGES" class="apiLink" title="WriterFeatures.WRITE_IMAGES">WriterFeatures.WRITE_IMAGES</a> if the images must be written (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_SEEALSO" class="apiLink" title="WriterFeatures.WRITE_SEEALSO">WriterFeatures.WRITE_SEEALSO</a> if the see also content must be written (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_SUBDIRECTORIES" class="apiLink" title="WriterFeatures.WRITE_SUBDIRECTORIES">WriterFeatures.WRITE_SUBDIRECTORIES</a> if the writer allow to write articles, resources and images in sub-directories (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_HTML_FRAMES" class="apiLink" title="WriterFeatures.WRITE_HTML_FRAMES">WriterFeatures.WRITE_HTML_FRAMES</a> if the writer allow to enclose html articles in frames. (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#ALLOW_IDENTICAL_TITLE_IDS" class="apiLink" title="WriterFeatures.ALLOW_IDENTICAL_TITLE_IDS">WriterFeatures.ALLOW_IDENTICAL_TITLE_IDS</a> if the parser accept identical title IDs. (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#WRITE_COMMENTS" class="apiLink" title="WriterFeatures.WRITE_COMMENTS">WriterFeatures.WRITE_COMMENTS</a> if the writer allow to write the comments. (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#XHTML_COMPLIANT" class="apiLink" title="WriterFeatures.XHTML_COMPLIANT">WriterFeatures.XHTML_COMPLIANT</a> if the writer is XHTML compliant. (default is true)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#FORCE_ABSOLUTE_LINKS" class="apiLink" title="WriterFeatures.FORCE_ABSOLUTE_LINKS">WriterFeatures.FORCE_ABSOLUTE_LINKS</a> if relative links to files on the file system outside of the wiki will be converted to absolute links. (default is false)</li>
+<li><a href="../javadoc/pluginsAPI/org/docgene/writer/WriterFeatures.html#SUPPORT_THEMES" class="apiLink" title="WriterFeatures.SUPPORT_THEMES">WriterFeatures.SUPPORT_THEMES</a> if the styling support  <a href="article_theme.html">themes</a> (default is true)</li>
+</ul>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_plugins.html">Plugins</a>: This article explains the Plugins framework</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_plugins.html">Plugins</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

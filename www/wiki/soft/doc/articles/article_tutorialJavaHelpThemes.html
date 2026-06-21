@@ -1,0 +1,256 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Help system Swing themes tutorial - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_tutorialJavaHelpThemes.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Help system Swing themes tutorial</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#create_the_content_of_the_wiki">1&nbsp; Create the content of the wiki</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#generate_the_help_content">2&nbsp; Generate the help content</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_our_swing_application">3&nbsp; Create our Swing application</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#create_a_dark_theme">4&nbsp; Create a dark theme</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#generate_the_help_content_with_our_dark_theme">5&nbsp; Generate the help content with our dark theme</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#allow_to_switch_the_theme_in_our_swing_application">6&nbsp; Allow to switch the theme in our Swing application</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#create_the_toggle_button">6.1&nbsp; Create the toggle button</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#handle_the_switch">6.2&nbsp; Handle the switch</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#switch_between_the_themes">7&nbsp; Switch between the themes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">8&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article is tutorial which explains how to produce and use a  <a href="article_docgenhelp.html">Help content</a> with  <a href="article_theme.html">StyleSheet themes</a> in a Swing application.<br/>
+<br/>
+ You will:<ul>
+<li>Generate a zip file containing the help content, including custom  <a href="article_theme.html">StyleSheet themes</a></li>
+<li>Use this content to create a help system for a  <a href="article_helpswing.html">Swing application</a></li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The solution of this tutorial is in the  <code>docGenerator-tutorial-&lt;version&gt;.zip</code>, in the  <code>helpThemesTutorial</code> directory. The source code of the Swing application is in the  <code>HelpSwingViewer</code> sub-directory.</div>
+
+<h2 id="create_the_content_of_the_wiki">Create the content of the wiki</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_tutorialTheme.html#create_the_content_of_the_wiki">StyleSheet theme tutorial</a></div>
+<br/>
+ We will create the same wiki content as for the  <a href="article_tutorialTheme.html">StyleSheet theme tutorial</a>. We will have two articles in the wiki.
+<h2 id="generate_the_help_content">Generate the help content</h2>
+ Let's generate our help content. Double-click on the jar file of the application and:<ul>
+<li>Input directories: Set your directory</li>
+<li>Output directory: Set another empty directory for the help content result</li>
+<li>Output type: Set "HELP" as the output type and <span style="font-weight: bold;">uncheck the Optimized for Swing</span> checkbox</li>
+<li>Click on "Apply"</li>
+</ul>
+<br/>
+<img src="../images/tutorialHelpTheme1.png" alt="tutorialHelpTheme1" id="_image_0" onclick="openImage(_image_0)" width="40%" class="left marginSmall" />
+<br/>
+ As for the  <a href="article_tutorialJavaHelp.html">Help system tutorial</a> tutorial, we have a file named  <code>articles.zip</code> at the same level as the output directory. <br/>
+<br/>
+ In this case we will show the content in Swing but using the JavaFX engine.
+<h2 id="create_our_swing_application">Create our Swing application</h2>
+As for the  <a href="article_tutorialJavaHelp.html">Help system tutorial</a> tutorial, we will use the same code: a JFrame which will show the content of our help system upon clicking on a Menu item. First we will create our very simple application with a MenuBar but without our help system.<br/>
+<br/>
+ We will have exactly the same code as for the  <a href="article_tutorialJavaHelp.html#create_our_swing_application">Help system tutorial</a> tutorial.<br/>
+<br/>
+ See the  <a href="resources/swingjavahelp_1.java">full source code for the example</a>. Now the help system is integrated in our Swing application, and the following Window appear upon clicking on the "Load" menu item:<br/>
+<img src="../images/tutorialHelpTheme2.png" alt="tutorialHelpTheme2" id="_image_1" onclick="openImage(_image_1)" width="40%" class="left simpleBorder marginSmall" />
+
+<h2 id="create_a_dark_theme">Create a dark theme</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_tutorialTheme.html#create_a_dark_theme">StyleSheet theme tutorial</a></div>
+<br/>
+ We will do exactly the same as for the  <a href="article_tutorialTheme.html#create_a_dark_theme">StyleSheet theme tutorial</a>.<br/>
+<br/>
+ We have the following  <a href="resources/themeBlack.css">StyleSheet theme for the example</a>.<br/>
+<br/>
+ We now must specify the XML file which will specify this dark theme in our viewer. This XML file will be the  <a href="article_helpcontentstylesheet.html">Help content StyleSheet configuration</a>, where we only need to specify the new dark theme and associate it with and id:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;helpContent&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;styleSheets&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;styleSheetTheme</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"black"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> url</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"themeBlack.css"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/styleSheets&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/helpContent&gt;</span>
+</pre>
+ Now the  <code>themeBlack.css</code> theme will be associated with the  <code>black</code> id. 
+<h2 id="generate_the_help_content_with_our_dark_theme">Generate the help content with our dark theme</h2>
+ Let's generate our help content. Double-click on the jar file of the application and:<ul>
+<li>Input directories: Set your directory</li>
+<li>Output directory: Set another empty directory for the help content result</li>
+<li>Output type: Set "HELP" as the output type and <span style="font-weight: bold;">uncheck the Optimized for Swing</span> checkbox</li>
+<li>Help content: Set "our XML file as the Help Content in the Output Format tab</li>
+<li>Click on "Apply"</li>
+</ul>
+<br/>
+<img src="../images/tutorialHelpTheme3.png" alt="tutorialHelpTheme3" id="_image_2" onclick="openImage(_image_2)" width="40%" class="left marginSmall" />
+
+<h2 id="allow_to_switch_the_theme_in_our_swing_application">Allow to switch the theme in our Swing application</h2>
+ We will add a toggle button in our code to allow to switch from the default theme to our new dark theme.
+<h3 id="create_the_toggle_button">Create the toggle button</h3>
+ The code to handle the toggle button is straightforward and not lined to our help API:<br/>
+
+<pre class="margin unlimited" >
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">class</span><span> SwingThemeJavaHelp </span><span class="syntaxKeyWord1" style="font-weight:bold;">extends</span><span> JFrame {</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">private</span><span> SwingHelpContentViewer viewer = </span><span class="syntaxLiteral" style="font-weight:bold;">null</span><span>;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">private</span><span> JComponent view = </span><span class="syntaxLiteral" style="font-weight:bold;">null</span><span>;</span>
+<span>         </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">private</span><span class="syntaxDefault" style="background-color:#ffff00;"> JToggleButton themeButton = </span><span class="syntaxLiteral" style="background-color:#ffff00;font-weight:bold;">null</span><span class="syntaxDefault" style="background-color:#ffff00;">;</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">         </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">private</span><span class="syntaxDefault" style="background-color:#ffff00;"> </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">boolean</span><span class="syntaxDefault" style="background-color:#ffff00;"> isDefaultTheme = </span><span class="syntaxLiteral" style="background-color:#ffff00;font-weight:bold;">true</span><span class="syntaxDefault" style="background-color:#ffff00;">;</span>
+<span>   ...</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">private</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">createLayout</span><span>() {</span>
+<span>        Container cont = </span><span class="syntaxLiteral" style="font-weight:bold;">this</span><span>.</span><span class="syntaxDefault" style="font-weight:bold;">getContentPane</span><span>();</span>
+<span>        cont.</span><span class="syntaxDefault" style="font-weight:bold;">setLayout</span><span>(</span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">BorderLayout</span><span>());</span>
+<span>        view = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JPanel</span><span>();</span>
+<span>        cont.</span><span class="syntaxDefault" style="font-weight:bold;">add</span><span>(view, BorderLayout.CENTER);</span>
+<span>        JPanel toolbar = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JPanel</span><span>();</span>
+<span>        toolbar.</span><span class="syntaxDefault" style="font-weight:bold;">setLayout</span><span>(</span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">BoxLayout</span><span>(toolbar, BoxLayout.X_AXIS));</span>
+<span>        JButton loadButton = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JButton</span><span>(</span><span class="syntaxLiteral" style="">"Load"</span><span>);</span>
+<span>        loadButton.</span><span class="syntaxDefault" style="font-weight:bold;">addActionListener</span><span>(</span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">ActionListener</span><span>() {</span>
+<span>          @Override</span>
+<span>          </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">actionPerformed</span><span>(ActionEvent e) {</span>
+<span>            </span><span class="syntaxDefault" style="font-weight:bold;">load</span><span>();</span>
+<span>          }</span>
+<span>        });</span>
+<span>        toolbar.</span><span class="syntaxDefault" style="font-weight:bold;">add</span><span>(Box.</span><span class="syntaxDefault" style="font-weight:bold;">createHorizontalStrut</span><span>(5));</span>
+<span>        toolbar.</span><span class="syntaxDefault" style="font-weight:bold;">add</span><span>(loadButton);</span>
+<span>        toolbar.</span><span class="syntaxDefault" style="font-weight:bold;">add</span><span>(Box.</span><span class="syntaxDefault" style="font-weight:bold;">createHorizontalStrut</span><span>(5));</span>
+
+<span>           </span><span class="syntaxDefault" style="background-color:#ffff00;">themeButton = </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">new</span><span class="syntaxDefault" style="background-color:#ffff00;"> </span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">JToggleButton</span><span class="syntaxDefault" style="background-color:#ffff00;">(</span><span class="syntaxLiteral" style="background-color:#ffff00;">"Default"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">           themeButton.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">setEnabled</span><span class="syntaxDefault" style="background-color:#ffff00;">(</span><span class="syntaxLiteral" style="background-color:#ffff00;font-weight:bold;">false</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">           themeButton.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">addActionListener</span><span class="syntaxDefault" style="background-color:#ffff00;">(</span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">new</span><span class="syntaxDefault" style="background-color:#ffff00;"> </span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">ActionListener</span><span class="syntaxDefault" style="background-color:#ffff00;">() {</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">             @Override</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">             </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">public</span><span class="syntaxDefault" style="background-color:#ffff00;"> </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">void</span><span class="syntaxDefault" style="background-color:#ffff00;"> </span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">actionPerformed</span><span class="syntaxDefault" style="background-color:#ffff00;">(ActionEvent e) {</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">             }</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">           });</span>
+<span class="syntaxDefault" style="background-color:#ffff00;">           toolbar.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">add</span><span class="syntaxDefault" style="background-color:#ffff00;">(themeButton);</span>
+
+<span>        cont.</span><span class="syntaxDefault" style="font-weight:bold;">add</span><span>(toolbar, BorderLayout.NORTH);</span>
+<span>        }</span>
+<span>   }    </span>
+</pre>
+ We now have the following result for our application, but we still don't do anything when clicking on the toggle button:<br/>
+<img src="../images/tutorialHelpTheme4.png" alt="tutorialHelpTheme4" id="_image_3" onclick="openImage(_image_3)" width="40%" class="left simpleBorder marginSmall" />
+
+<h3 id="handle_the_switch">Handle the switch</h3>
+We will use the API to switch between the default theme to the  <code>black</code> theme:<br/>
+
+<pre class="margin unlimited" >
+<span>      themeButton.</span><span class="syntaxDefault" style="font-weight:bold;">addActionListener</span><span>(</span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">ActionListener</span><span>() {</span>
+<span>         @Override</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">actionPerformed</span><span>(ActionEvent e) {</span>
+<span>           </span><span class="syntaxKeyWord1" style="font-weight:bold;">if</span><span> (isDefaultTheme) {</span>
+<span>             isDefaultTheme = </span><span class="syntaxLiteral" style="font-weight:bold;">false</span><span>;</span>
+<span>             themeButton.</span><span class="syntaxDefault" style="font-weight:bold;">setText</span><span>(</span><span class="syntaxLiteral" style="">"Black"</span><span>);</span>
+<span>             </span><span class="syntaxDefault" style="background-color:#ffff00;">viewer.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">setStyleSheetTheme</span><span class="syntaxDefault" style="background-color:#ffff00;">(</span><span class="syntaxLiteral" style="background-color:#ffff00;">"black"</span><span class="syntaxDefault" style="background-color:#ffff00;">);</span><span> </span><span class="syntaxComment" style="font-style:italic;">// switch to the "black" theme</span>
+<span>           } </span><span class="syntaxKeyWord1" style="font-weight:bold;">else</span><span> {</span>
+<span>             isDefaultTheme = </span><span class="syntaxLiteral" style="font-weight:bold;">true</span><span>;</span>
+<span>             themeButton.</span><span class="syntaxDefault" style="font-weight:bold;">setText</span><span>(</span><span class="syntaxLiteral" style="">"Default"</span><span>);</span>
+<span>             </span><span class="syntaxDefault" style="background-color:#ffff00;">viewer.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">resetStyleSheetTheme</span><span class="syntaxDefault" style="background-color:#ffff00;">();</span><span> </span><span class="syntaxComment" style="font-style:italic;">// reset to the default theme</span>
+<span>           }</span>
+<span>         }</span>
+<span>      });</span>
+</pre>
+
+<h2 id="switch_between_the_themes">Switch between the themes</h2>
+ Now we can "switch between the themes. After clicking on the toggle, we have:<br/>
+<br/>
+<img src="../images/tutorialHelpTheme5.png" alt="tutorialHelpTheme5" id="_image_4" onclick="openImage(_image_4)" width="40%" class="left simpleBorder marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_tutorials.html">Tutorials</a>: This article presents a list of tutorials</li>
+<li> <a href="article_docgenhelp.html">Help system</a>: This article explains how to use the JavaHelp-like feature of the tool</li>
+<li> <a href="article_helpswing.html">Help Swing API</a>: This article explains how to use the Help Swing API</li>
+<li> <a href="article_helpcontentstylesheet.html">Help content StyleSheet configuration</a>: This article explains how to configure the StyleSheet for the help content</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_javahelp.html">JavaHelp</a> |
+ <a href="../categories/cat_tutorials.html">Tutorials</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>DocGenerator API: sentences - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_sentences.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>DocGenerator API: sentences</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#combining_sentences">1&nbsp; Combining sentences</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#converting_new_lines_and_tabulations">2&nbsp; Converting new lines and tabulations</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+To add a sentence, you can either use<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addSentence-org.docgene.model.ParagraphElementParent-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addSentence(org.docgene.model.ParagraphElementParent, java.lang.String)">DocGeneratorAPI.addSentence(ParagraphElementParent, String)</a></div></span>
+:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addSentence-org.docgene.model.XMLArticle-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addSentence(org.docgene.model.XMLArticle, java.lang.String)">DocGeneratorAPI.addSentence(XMLArticle, String)</a> adds a regular sentence</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addSentence-org.docgene.model.XMLArticle-java.lang.String-int-" class="apiLink" title="DocGeneratorAPI.addSentence(org.docgene.model.XMLArticle, java.lang.String, int)">DocGeneratorAPI.addSentence(XMLArticle, String, int)</a> adds a regular sentence, and sets its font type</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addSentence-org.docgene.model.XMLArticle-java.lang.String-org.docgene.api.SentenceStyle-" class="apiLink" title="DocGeneratorAPI.addSentence(org.docgene.model.XMLArticle, java.lang.String, org.docgene.api.SentenceStyle)">DocGeneratorAPI.addSentence(XMLArticle, String, SentenceStyle)</a> adds a regular sentence, and sets its style</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add a sentence</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"the regular sentence"</span><span>);      </span>
+</pre>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+<ul>
+<li>A sentence has only one style (for example the whole sentence use a bold or regular font). If you want to mix several styles, you must add several sentences (see  <a href="#combining_sentences">combining sentences</a> for more information)</li>
+<li>If you want to add new lines or tabulations in the middle of a sentence, you must add a break or a tab because new lines an tabulations in the html source are not directly. supported in html. However, some methods in the API allows to automatically convert them (see  <a href="#converting_new_lines_and_tabulations">converting new lines and tabulations</a> for more information)</li>
+</ul>
+</div>
+
+<h2 id="combining_sentences">Combining sentences</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_sentencestyle.html">DocGenerator API: sentence style</a></div>
+<br/>
+ Of course, you can combine sentences, new lines, and break. For example, the following code will create this content:<br/>
+<br/>
+This is a <span style="font-weight: bold;">bold</span> text in <span style="color:red;">red</span><br/>
+ and some text on a new line.<br/>
+<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add the text on the first line</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"This is a "</span><span>);</span>
+<span>      </span>
+<span>   SentenceStyle style = SentenceStyle.</span><span class="syntaxDefault" style="font-weight:bold;">createTypeStyle</span><span>(FontType.BOLD);</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"bold"</span><span>, style);</span>
+<span>      </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">" text in "</span><span>);</span>
+<span>      </span>
+<span>   style = SentenceStyle.</span><span class="syntaxDefault" style="font-weight:bold;">createColorStyle</span><span>(</span><span class="syntaxLiteral" style="">"red"</span><span>);</span>
+<span>   XMLTextStyle textStyle = api.</span><span class="syntaxDefault" style="font-weight:bold;">addTextStyle</span><span>(article, style);  </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(textStyle, </span><span class="syntaxLiteral" style="">"red"</span><span>);</span>
+<span>      </span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addBreak</span><span>(article);</span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add the text on the second line</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"and some text on a new line."</span><span>);      </span>
+</pre>
+
+<h2 id="converting_new_lines_and_tabulations">Converting new lines and tabulations</h2>
+If you want to add new lines or tabulations in the middle of a sentence, you must add a break because new lines in the html source does not produce line break or tabulations. However several methods automatically convert new lines in the text to line breaks or tabulations. <br/>
+<br/>
+ For example:<ul>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addMultilineSentence-org.docgene.model.XMLArticle-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addMultilineSentence(org.docgene.model.XMLArticle, java.lang.String)">DocGeneratorAPI.addMultilineSentence(XMLArticle, String)</a> adds a sentence, and will create line breaks if necessary</li>
+<li><a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addMultilineSentence-org.docgene.model.XMLArticle-java.lang.String-org.docgene.api.SentenceStyle-" class="apiLink" title="DocGeneratorAPI.addMultilineSentence(org.docgene.model.XMLArticle, java.lang.String, org.docgene.api.SentenceStyle)">DocGeneratorAPI.addMultilineSentence(XMLArticle, String, SentenceStyle)</a> adds a regular sentence, and sets its style. It will create line breaks if necessary</li>
+</ul>
+All these methods will correctly handle new lines and tabulations ( <code>\n</code> and  <code>\t</code>).<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   DocGeneratorAPI api = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">DocGeneratorAPI</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">createModel</span><span>();</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">setOutputDirectory</span><span>(&lt;the wiki directory&gt;);</span>
+
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// create an article</span>
+<span>   XMLArticle article = api.</span><span class="syntaxDefault" style="font-weight:bold;">createArticle</span><span>(</span><span class="syntaxLiteral" style="">"the first article"</span><span>);</span>
+<span>      </span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add some text on two lines</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addMultilineSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"This is a text on the first line\nand on the second line"</span><span>);</span>
+<span>   </span><span class="syntaxComment" style="font-style:italic;">// add some tabulated text</span>
+<span>   api.</span><span class="syntaxDefault" style="font-weight:bold;">addMultilineSentence</span><span>(article, </span><span class="syntaxLiteral" style="">"\tThis is a text after a tab"</span><span>);      </span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> There are equivalent methods using a  <code>ParagraphElement</code> parent, for example: <a href="../javadoc/docgeneratorAPI/org/docgene/api/DocGeneratorAPI.html#addSentence-org.docgene.model.ParagraphElementParent-java.lang.String-" class="apiLink" title="DocGeneratorAPI.addSentence(org.docgene.model.ParagraphElementParent, java.lang.String)">DocGeneratorAPI.addSentence(ParagraphElementParent, String)</a><br/>
+<br/>
+</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_createcontent.html#sentences">sentences</a>: This article presents how to create the wiki content through docJGenerator API</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_api.html">Api</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

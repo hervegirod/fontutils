@@ -1,0 +1,218 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Editor tree - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editortree.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Editor tree</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#structure_of_the_tree">1&nbsp; Structure of the tree</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#actions_in_the_tree">2&nbsp; Actions in the tree</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#actions_on_directory_elements">2.1&nbsp; Actions on directory elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#actions_on_image_and_resource_elements">2.2&nbsp; Actions on image and resource elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#adding_or_deleting_an_element">2.3&nbsp; Adding or deleting an element</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#showing_the_dependencies_on_an_element">2.4&nbsp; Showing the dependencies on an element</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The left panel shows the tree of the  <a href="article_editorwindow.html">Editor window</a> shows the wiki  <a href="article_roots.html">roots</a>.<br/>
+ <img src="../images/editortree.png" alt="editortree" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h2 id="structure_of_the_tree">Structure of the tree</h2>
+ The tree is structured as the wiki file system. Elements in the tree are shown corresponding to their type:<ul>
+<li> <img src="../images/treeroot.png" alt="editortree-root" id="_image_1" onclick="openImage(_image_1)" class="left" />
+:  <a href="article_roots.html#usage_with_more_than_one_root_directory">Root directories</a></li>
+<li> <img src="../images/treepackage.png" alt="editortree-package" id="_image_2" onclick="openImage(_image_2)" class="left" />
+:  <a href="article_roots.html#defining_a_package_for_a_root">Packages</a></li>
+<li> <img src="../images/treedirectory.png" alt="editortree-directory" id="_image_3" onclick="openImage(_image_3)" class="left" />
+: Sub-directories</li>
+<li> <img src="../images/treedocfiles.png" alt="editortree-docfiles" id="_image_4" onclick="openImage(_image_4)" class="left" />
+:  <a href="article_docfiles.html">doc-files</a> directories</li>
+<li> <img src="../images/treeresource.png" alt="editortree-resource" id="_image_5" onclick="openImage(_image_5)" class="left" />
+: resource files<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Resource files are referenced in  <a href="article_resourceFiles.html">Resource definition files</a></div></span>
+</li>
+<li> <img src="../images/treeimage.png" alt="editortree-image" id="_image_6" onclick="openImage(_image_6)" class="left" />
+: Image files<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+Image files are referenced in  <a href="article_imageFiles.html">Image definition files</a></div></span>
+</li>
+<li> <img src="../images/treedictionary.png" alt="editortree-dictionary" id="_image_7" onclick="openImage(_image_7)" class="left" />
+: The  <a href="article_dictionnary.html">dictionary</a> file</li>
+<li> <img src="../images/treecategories.png" alt="editortree-categories" id="_image_8" onclick="openImage(_image_8)" class="left" />
+:  <a href="article_categories.html">Categories</a> files</li>
+<li> <img src="../images/treemenus.png" alt="editortree-menus" id="_image_9" onclick="openImage(_image_9)" class="left" />
+:  <a href="article_custommenus.html">menus</a> files</li>
+<li> <img src="../images/treefooter.png" alt="editortree-footer" id="_image_10" onclick="openImage(_image_10)" class="left" />
+: The  <a href="article_footerAndHeader.html">footer and header files</a></li>
+<li> <img src="../images/treearticle.png" alt="editortree-article" id="_image_11" onclick="openImage(_image_11)" class="left" />
+:  <a href="article_articles.html">articles</a></li>
+<li> <img src="../images/fallback.png" alt="editortree-fallback" id="_image_12" onclick="openImage(_image_12)" class="left" />
+:  <a href="article_fallbackarticles.html">Fallback articles</a></li>
+<li> <img src="../images/treehome.png" alt="editortree-home" id="_image_13" onclick="openImage(_image_13)" class="left" />
+: The  <a href="article_indexfiles.html">index article</a></li>
+<li> <img src="../images/treeimagedef.png" alt="editortree-imagedef" id="_image_14" onclick="openImage(_image_14)" class="left" />
+:  <a href="article_imageFiles.html">Image definition files</a></li>
+<li> <img src="../images/treeresourcedef.png" alt="editortree-resourcedef" id="_image_15" onclick="openImage(_image_15)" class="left" />
+:  <a href="article_resourceFiles.html">Resource definition files</a></li>
+<li> <img src="../images/treeinfobox.png" alt="editortree-infobox" id="_image_16" onclick="openImage(_image_16)" class="left" />
+:  <a href="article_infoboxtemplate.html">Infobox definition files</a></li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Note that:<ul>
+<li>The name of each  <a href="article_articles.html">article</a> in the tree is the article description, and not the name of the associated file</li>
+<li>The name of each  <a href="article_infoboxtemplate.html">infobox definition</a> in the tree is the infox ID, and not the name of the associated file</li>
+<li>The name of other elements in the tree is the name of the element file name</li>
+</ul>
+There is a tooltip on each element in the tree, which is the relative path of the file from its  <a href="article_roots.html">root</a>.</div>
+
+<h2 id="actions_in_the_tree">Actions in the tree</h2>
+ Right-clicking on the tree show the following menu:<br/>
+ <img src="../images/treerightclick.png" alt="editortree-rightclick" id="_image_17" onclick="openImage(_image_17)" class="left marginSmall" />
+<br/>
+<ul>
+<li>The "Copy path..." option allows to copy the complete path of the file associated with the element in the System Clipboard</li>
+<li>The "Show in Desktop" option use the file manager of the System Platform to open the directory of the element</li>
+<li>The "Dependencies" option show a window showing the  <a href="article_dependencies_1.html">dependencies</a> of the selected element</li>
+<li>The "Add After" (or "Add Under" option for a directory) option will allow to add an element after the selected element</li>
+<li>The "Delete &lt;element&gt;" option allows to delete the selected element</li>
+</ul>
+
+<h3 id="actions_on_directory_elements">Actions on directory elements</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_editorrefresh.html">Refresh Editor Tree</a></div>
+<br/>
+ Directory elements have the following menu:<br/>
+ <img src="../images/treerightclick3.png" alt="editortree-rightclick3" id="_image_18" onclick="openImage(_image_18)" class="left marginSmall" />
+<br/>
+ The "Refresh Tree" option will refresh the tree under the selected directory. It can be useful if you want to add images or resources in the wiki and use them without having to  <a href="article_editorwindow.html#reload_the_wiki">reload</a> the complete wiki. <br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Note that the action will not go in sub-directories, so if you add a sub-directory under the directory you select for the action, this sub-directory will appear empty.</div>
+
+<h3 id="actions_on_image_and_resource_elements">Actions on image and resource elements</h3>
+ Image and resource elements have the following tree:<br/>
+ <img src="../images/treerightclick2.png" alt="editortree-rightclick2" id="_image_19" onclick="openImage(_image_19)" class="left marginSmall" />
+<br/>
+ The "Copy file name..." option will copy the file name in the System Clipboard, allowing to reference the image or resource easily in a   <a href="article_imageFiles.html">Image definition file</a> or  <a href="article_resourceFiles.html">Resource definition file</a>. <br/>
+<br/>
+ The "Copy file name..." option will copy the file name in the System Clipboard, allowing to reference the image or resource easily in a   <a href="article_imageFiles.html">Image definition file</a> or  <a href="article_resourceFiles.html">Resource definition file</a>.
+<h3 id="adding_or_deleting_an_element">Adding or deleting an element</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_editortreeedit.html">Editing in the Editor tree</a></div>
+<br/>
+
+<h3 id="showing_the_dependencies_on_an_element">Showing the dependencies on an element</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_dependencies_1.html">Editor tree dependencies</a></div>
+<br/>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> Resource files are referenced in  <a href="article_resourceFiles.html">Resource definition files</a></li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> Image files are referenced in  <a href="article_imageFiles.html">Image definition files</a></li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editor.html">DocGenerator editor</a>: This article explains the DocGenerator editor</li>
+<li> <a href="article_editorwindow.html">Editor window</a>: This article explains the content of the Editor window</li>
+<li> <a href="article_editorcontent.html">Editor content panel</a>: This article is about the right panel of the Editor which shows the content of the currently selected element in the tree</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_editor.html">Editor</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

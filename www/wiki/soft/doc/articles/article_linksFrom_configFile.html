@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Configuration file - DocGenerator</title>
+</head>
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>What links here: Configuration file</h1>
+
+<hr/>
+ <a href="article_syntaxlink.html">a element</a> : The a element allows to add included embedded html content<br/>
+ <a href="article_externallinks.html">Access to external links</a> : Configure how to access external links<br/>
+ <a href="article_addingproperties.html">Adding properties</a> : This article explains how to add properties supported by the tool<br/>
+ <a href="article_algorithm.html">Algorithm</a> : This article presents the way the tool works<br/>
+ <a href="article_ant.html">Ant integration</a> : This article is about how to integrate the wiki generator in ant build files<br/>
+ <a href="article_apiselts.html">APIs elements</a> : This article presents the elements which link to APIs or embed APIs in the wiki<br/>
+ <a href="article_apis.html">APIs property</a> : Configure how to access external APIs and wikis<br/>
+ <a href="article_syntaxarchiveurl.html">archiveurl element</a> : The archiveurl element allows to add included embedded html content for an archived content in the Internet Wayback machine<br/>
+ <a href="article_basicusage.html">Basic usage</a> : This article presents the basic usage and configuration of the tool<br/>
+ <a href="article_commandline.html">Command-line starting</a> : This article is about how to execute the application by the command-line without showing the UI<br/>
+ <a href="article_configuration.html">Configuration</a> : This article explains how to configure the tool<br/>
+ <a href="article_customleftmenu.html">Custom left menu</a> : It is possible to add custom items in the left menu, or even to completely change it<br/>
+ <a href="article_customproperties.html">Custom properties</a> : This article explains how to implements custom properties for Plugins<br/>
+ <a href="article_css.html">Custom StyleSheet</a> : The "css" property in the configuration file or the command-line allows to specify a custom StyleSheet for the HTML result<br/>
+ <a href="article_customize.html">Customizing the wiki</a> : This article explains how to customize the wiki presentation<br/>
+ <a href="article_configuration_1.html">DocGenerator API configuration</a> : This article presents how to configure the wiki content through docJGenerator API<br/>
+ <a href="article_docgenhelp.html">DocGenerator Help feature</a> : This article explains how to use the JavaHelp-like feature of the tool<br/>
+ <a href="article_docgeneratorapi.html">DocJGenerator API overview</a> : This article presents an overview of the docJGenerator API<br/>
+ <a href="article_docx.html">DOCX generation</a> : This article explains how to generate a Word file rather than an HTML site<br/>
+ <a href="article_epub.html">Epub generation</a> : This article explains how to generate a Epub document rather than an HTML site<br/>
+ <a href="article_epubconfig.html">Epub generation configuration</a> : This article explains how to configure the generation of the Epub file<br/>
+ <a href="article_errorslist.html">Errors list</a> : This article presents the list of errors which can be emitted during the parsing<br/>
+ <a href="article_faq.html">FAQ</a> : Frequently Asked Questions<br/>
+ <a href="article_apidocstyles.html">Generic apidocs API styles</a> : This article presents the generic styles used by the apidocs configuration<br/>
+ <a href="article_genericapitypes.html">Generic apidocs API types</a> : This article explains which elements are managed by each generic API type<br/>
+ <a href="article_guigenerationoptions.html">GUI Generation options</a> : This article presents the generation options of the GUI<br/>
+ <a href="article_gui.html">GUI interface</a> : This article is about the GUI interface of the application<br/>
+ <a href="article_guitools.html">GUI tools</a> : This article presents the GUI tools menu<br/>
+ <a href="article_helpcontentstylesheet.html">Help content StyleSheet configuration</a> : This article explains how to configure the StyleSheet for the help content<br/>
+ <a href="article_apidocconf.html">Internal API documentation configuration</a> : This article explains how to specify internal APIs documentations languages, used in the apidoc element<br/>
+ <a href="article_javadocs.html">Javadocs APIs</a> : Configure how to access external Javadocs APIs<br/>
+ <a href="article_localization.html">Localization</a> : This article explains how to customize the localization of the wiki article pages<br/>
+ <a href="article_wikis.html">Mediawikis</a> : Configure how to access external Mediawikis<br/>
+ <a href="article_outputtype.html">OutputType configuration property</a> : This article is about the outputType configuration property<br/>
+ <a href="article_pdfdocxconfig.html">PDF and DOCX generation configuration</a> : This article explains how to configure the generation of the PDF or DOCX file<br/>
+ <a href="article_pdf.html">PDF generation</a> : This article explains how to generate a PDF file rather than an HTML site<br/>
+ <a href="article_performance.html">Performance</a> : This article explains how to speed-up the performance of the generator<br/>
+ <a href="article_plugins.html">Plugins framework</a> : This article explains the Plugins framework<br/>
+ <a href="article_qtdocs.html">Qt APIs</a> : Configure how to access external Qt APIs<br/>
+ <a href="article_roots.html">Root directories and packages</a> : This article explains how to use the generator with more than one root directory<br/>
+ <a href="article_saveconffile.html">Saving a configuration file</a> : This article explains how to save a configuration file with the current state of the GUI<br/>
+ <a href="article_scripts.html">Scripts</a> : This article explains how to use the Scripting Plugin<br/>
+ <a href="article_background.html">Setting a background</a> : The optional background image or color to use for the articles page<br/>
+ <a href="article_theme.html">StyleSheet theme</a> : The "styleSheetTheme" property in the configuration file or the command-line allows to specify the StyleSheet theme for the HTML result<br/>
+ <a href="article_syntax.html">Syntax</a> : This article explains the XML tags which can be used to specify the articles syntax<br/>
+ <a href="article_syntaxhighlighting.html">Syntax highlighting</a> : This article explains how the syntax highlighting in the pre or source elements work<br/>
+ <a href="article_tableofcontent.html">Table of content configuration</a> : It is possible to configure if and how the table of content is shown in the html output for each article<br/>
+
+<hr/>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

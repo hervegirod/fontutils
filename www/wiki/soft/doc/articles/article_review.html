@@ -1,0 +1,164 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Review system - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_review.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Review system</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#review_mode">2&nbsp; Review mode</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example_of_generation_with_ant">3&nbsp; Example of generation with ant</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">4&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+By using the command-line  <a href="article_commandline.html#includecomments">includeComments</a> or the  <a href="article_configFile.html#includecomments">configuration property</a>, you will be able to add a review system to the wiki. Note that this will only be available for the default html output type of the wiki.<br/>
+<br/>
+ The comments will only be included if:<ul>
+<li>The command-line  <a href="article_commandline.html#includecomments">includeComments</a> or the configuration file  <a href="article_configFile.html#includecomments">includeComments</a> property is true</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Note that there will be no review system if the  <code>includeComments</code> option is set to false (the default value), or if there are no  <a href="article_syntax.html#comment">comments</a> nor  <a href="article_syntax.html#todo">todos</a> in the wiki.</div>
+
+<h2 id="overview">Overview</h2>
+If the wiki has been generated with the  <a href="article_commandline.html#includecomments">includeComments</a> option, and there are   <a href="article_syntax.html#comment">comments</a> or  <a href="article_syntax.html#todo">todos</a> in the wiki source, then the wiki will show a "Review" button allowing to enter in the "review" mode:<br/>
+<img src="../images/reviewStart.png" alt="reviewStart" id="_image_0" onclick="openImage(_image_0)" width="80%" class="left marginSmall" />
+<br/>
+ Upon clicking on the "Review" button, you enter the "review" mode: The interface of the wiki changes, and a slider menu appear on the left, which shows comments and todos.
+<h2 id="review_mode">Review mode</h2>
+ In the "review" mode, the interface of the wiki changes, and a slider menu appear on the left, which shows comments and todos:<br/>
+<img src="../images/reviewBegin.png" alt="reviewBegin" id="_image_1" onclick="openImage(_image_1)" width="80%" class="left marginSmall" />
+<br/>
+<ul>
+<li>A "Previous" button allows to go to the previous comment or todo<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+regardless of the article</div></span>
+</li>
+<li>A "Next" button allows to go to the next comment or todo<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_2_">[1]</sup></a>
+<div class="tooltiptext">
+regardless of the article</div></span>
+</li>
+<li>A "Begin" button allows to go to the first comment or todo<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_3_">[1]</sup></a>
+<div class="tooltiptext">
+regardless of the article</div></span>
+</li>
+<li>Clicking on the cross in the left comments menu allows to exit the "review" mode</li>
+</ul>
+ The current comment or todo is presented in the left comments menu. 
+<h2 id="example_of_generation_with_ant">Example of generation with ant</h2>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;java</span><span class="syntaxKeyWord2" style="font-weight:bold;"> classname</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"org.docgene.main.DocGenerator"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-input=wiki/input"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-output=wiki/output"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;arg</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"-includeComments=true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;classpath&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pathelement</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"docGenerator.jar"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/classpath&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/java&gt;</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"><span class="noteRefLink">^</span> <a href="#_note_1_1_" class="noteRefLink">[1]</a> <a href="#_note_1_2_" class="noteRefLink">[2]</a> <a href="#_note_1_3_" class="noteRefLink">[3]</a> regardless of the article</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_tutorialreview.html">Review system tutorial</a>: This article is a tutorial explaining how to add a review system to your wiki</li>
+<li> <a href="article_syntaxtodo.html">TODO</a>: The "todo" element allows to add a "TODO" in the wiki</li>
+<li> <a href="article_syntaxcomment.html">Comment</a>: The "comment" element allows to add a comment in the wiki</li>
+<li> <a href="article_outputtype.html">OutputType configuration property</a>: This article is about the outputType configuration property</li>
+<li> <a href="article_todosystem.html">TODO system</a>: This article is about the TODO system</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_review.html">Review</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

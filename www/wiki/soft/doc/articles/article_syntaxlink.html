@@ -1,0 +1,213 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>a element - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_syntaxlink.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>a element</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#configuration_properties">1&nbsp; Configuration properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#relative_links">2&nbsp; Relative links</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#writing_relative_links">2.1&nbsp; Writing relative links</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#setbaseurl">2.2&nbsp; setBaseURL</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">3&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">4&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The "a" element allow to define a link to an external file on the web. The attributes of this element are:<ul>
+<li>"href": the URL of the link</li>
+<li>"checkLink":  <code>false</code> to not check the validity of the link even if the configuration property specifies that links should be checked<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+See  <a href="article_checklinks.html#not_checking_links_for_one_element">checking external links</a></div></span>
+</li>
+</ul>
+
+<h2 id="configuration_properties">Configuration properties</h2>
+Several  <a href="article_configFile.html">configuration properties</a> allow to configure if the existence of links is checked or not:<ul>
+<li>"checkLinks" specify that the presence of external links must be checked<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+for html pages, the presence of anchors if the "#" tag is found in the link construction is also checked</div></span>
+</li>
+<li>"checkHTTPLinks" specify if the URL links with the "http" protocol are checked. This property will only be used if the "checkLinks" property is set to true.</li>
+</ul>
+
+<h2 id="relative_links">Relative links</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_acceptLocalLinks.html">Checking local links</a></div>
+<br/>
+ Relative links will be considered relative to the  <a href="article_outputstructure.html">output directory</a>.<br/>
+<br/>
+ For example, if you have the following structure:<br/>
+
+<pre class="margin unlimited" >
+<span>      -- &gt; myRef.html</span>
+<span>      wiki</span>
+<span>      -- &gt; index.html</span>
+<span>      ---- &gt; articles</span>
+<span>      -------- &gt; article1.html</span>
+</pre>
+ and you have the following article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article1"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;a</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"myRef.html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>reference</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/a&gt;</span><span>.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ The link will point to the  <code>myRef.html</code> file.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Note that by default no local links outside of the wiki are allowed, so you will encounter an error if you have these kinds of links.</div>
+
+<h3 id="writing_relative_links">Writing relative links</h3>
+ By default, relative links outside of the wiki will be written as relative.<br/>
+<br/>
+ For example, if you have the following structure:<br/>
+
+<pre class="margin unlimited" >
+<span>      -- &gt; myRef.html</span>
+<span>      wiki</span>
+<span>      -- &gt; index.html</span>
+<span>      ---- &gt; articles</span>
+<span>      -------- &gt; article1.html</span>
+</pre>
+ and you have the following article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article1"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;a</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"myRef.html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>reference</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/a&gt;</span><span>.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ The html link will be:<br/>
+
+<pre class="margin unlimited" >
+<span>   The </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;a</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"../../myRef.html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>reference</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/a&gt;</span><span>.</span>
+</pre>
+ However it is possible for the write to specify that these relative links will be written instead as absolute. This is the case for:<ul>
+<li>The  <a href="article_docx.html">DOCX generation</a></li>
+<li>The  <a href="article_pdf.html">PDF generation</a></li>
+<li>The  <a href="article_epub.html">Epub generation</a></li>
+<li>The  <a href="article_docgenhelp.html">Help generation</a></li>
+</ul>
+
+<h3 id="setbaseurl">setBaseURL</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_syntax.html#setbaseurl">syntax</a></div>
+<br/>
+ The "setBaseURL" element allows to define the base directory to use for all relative external links following this declaration in the same article.<br/>
+<br/>
+ For example, the following:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;setBaseURL</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"href"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;a</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"theFile.xml"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>The ref</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/a&gt;</span>
+</pre>
+ Is equivalent to:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;a</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"href/theFile.xml"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>The ref</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/a&gt;</span>
+</pre>
+
+<h2 id="example">Example</h2>
+
+<pre class="margin unlimited" >
+<span>   This is an </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;a</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"http://docs.oracle.com/javase/8/docs/api/index.html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>external link</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/a&gt;</span>
+</pre>
+ Result: This is an <a href="http://docs.oracle.com/javase/8/docs/api/index.html" title="http://docs.oracle.com/javase/8/docs/api/index.html">external link</a></div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> See  <a href="article_checklinks.html#not_checking_links_for_one_element">checking external links</a></li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> for html pages, the presence of anchors if the "#" tag is found in the link construction is also checked</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#a">syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_syntaxarchiveurl.html">archiveurl element</a>: The archiveurl element allows to add included embedded html content for an archived content in the Internet Wayback machine</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

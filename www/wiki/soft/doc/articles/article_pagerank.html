@@ -1,0 +1,186 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>PageRank - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_pagerank.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>PageRank</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#fixed_number_of_iterations_type">2&nbsp; Fixed number of iterations type</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#convergence_type">3&nbsp; Convergence type</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#default_properties_values">3.1&nbsp; Default properties values</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#performance">4&nbsp; Performance</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">5&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">6&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+It is possible to set and configure a <a href="https://en.wikipedia.org/wiki/PageRank" title="https://en.wikipedia.org/wiki/PageRank">PageRank</a> algorithm to sort articles in the  <a href="article_search.html">search</a> results. The associated options are:<ul>
+<li>"pageRank": set the PageRank algorithm used to sort the Search results</li>
+<li>"pageRankIterations": the number of iterations for the PageRank algorithm, when the PageRank is using a fixed value for the iterations<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+The default value of this property is 5</div></span>
+</li>
+<li>"pageRankMaxIterations": the maximum number of iterations for the PageRank algorithm, when the PageRank is using a convergence algorithm</li>
+<li>"pageRankConvergeDelta": the value to stop the iterations when the PageRank is using a convergence algorithm</li>
+</ul>
+The  <code>pageRank</code> property specifies the PageRank algorithm used to sort the Search results:<ul>
+<li>"false": don't use the PageRank algorithm to sort the Search results</li>
+<li>"true" or "fixed": use the PageRank algorithm with a fixed number of iterations to sort the Search results. The "pageRankIterations" property specifies the number of iterations</li>
+<li>"converge": use the PageRank algorithm to converge to obtain the final rank of the articles and sort the Search results. The "pageRankMaxIterations" property specifies the maximum number of iterations, and the "pageRankConvergeDelta" the value to use for the convergence</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Note that this algorithm is only used on a normal Search, but not currently on the  <a href="article_search.html#full_text_search">Full text search</a>.</div>
+
+<h2 id="overview">Overview</h2>
+ PageRank is an algorithm used by Google Search to rank web pages in their search engine results. PageRank works by counting the number and quality of links to a page to determine a rough estimate of how important the website is. This algorithm is used in the wiki generation with internal wikilinks (which are  <a href="article_references.html">references</a> in the wiki). In our case this works by counting the outgoing links from each articles, and the incoming links to each article.<br/>
+<br/>
+ The algorithm is based on several iterations on the articles to determine their rank, and sort these articles depending on their rank after these iterations. There are two ways to perform the iterations:<ul>
+<li>Use the PageRank algorithm with a fixed number of iterations to obtain the final rank of the articles and sort the Search results</li>
+<li>Use the PageRank algorithm to converge to obtain the final rank and obtain the Search results</li>
+</ul>
+<br/>
+<br/>
+ For example, suppose that we have the following wiki structure:<br/>
+<img src="../images/pagerank.png" alt="pagerank" id="_image_0" onclick="openImage(_image_0)" width="30%" class="left marginSmall" />
+<br/>
+ The default order of the Search is:<ul>
+<li>article1</li>
+<li>article2</li>
+<li>article3</li>
+</ul>
+ But the following order would be more adapted, because of the relative importance of the articles:<ul>
+<li>article3</li>
+<li>article2</li>
+<li>article1</li>
+</ul>
+
+<h2 id="fixed_number_of_iterations_type">Fixed number of iterations type</h2>
+ If we set the "pageRank" property to "true" or "fixed", we apply the iterations for the "pageRankIterations" times:<br/>
+<img src="../images/pageRankFixed.png" alt="pageRankFixed" id="_image_1" onclick="openImage(_image_1)" width="50%" class="left marginSmall" />
+
+<h2 id="convergence_type">Convergence type</h2>
+ If we set the "pageRank" property to "converge", we apply the iterations until for each article the difference between rank before the iteration and the rank the iterationafter is less than "pageRankConvergeDelta", or until we achieved the "pageRankMaxIterations" number of iterations.<br/>
+<img src="../images/pageRankConverged.png" alt="pageRankConverged" id="_image_2" onclick="openImage(_image_2)" width="50%" class="left marginSmall" />
+
+<h3 id="default_properties_values">Default properties values</h3>
+<ul>
+<li>The default value of the "pageRankConvergeDelta" property is 0.001, which appears to be generally well adapted to the desired result</li>
+<li>The default value of the "pageRankMaxIterations" property is 100. Normally the algorihm will converge with less than 10 iterations</li>
+</ul>
+
+<h2 id="performance">Performance</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_performance.html">Performance</a></div>
+<br/>
+ Using the algorithm with the default value does not seem to have a significant impact on the performance of the generation. For example, using the PageRank algorithm for this wiwki (which has a little les than 200 articles) takes less than 5 ms.
+<h2 id="example">Example</h2>
+On this wiki, if you don't set the  <code>pageRank</code> option, you will have the following results if you type  <code>ar</code>:<br/>
+<img src="../images/searchDefault.png" alt="searchDefault" id="_image_3" onclick="openImage(_image_3)" width="50%" class="left marginSmall" />
+<br/>
+ It you set the  <code>pageRank</code> option, you will have the following results if you type  <code>ar</code>:<br/>
+<img src="../images/searchPageRank.png" alt="searchPageRank" id="_image_4" onclick="openImage(_image_4)" width="50%" class="left marginSmall" />
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> The default value of this property is 5</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_search.html">Search</a>: This article is about the Search box which is shown on articles</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_search.html">Search</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>GUI tools - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_guitools.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>GUI tools</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#serializing_a_configuration_file">1&nbsp; Serializing a configuration file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#unserializing_a_configuration_file">2&nbsp; Unserializing a configuration file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#reset_the_gui_options">3&nbsp; Reset the GUI options</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#export_the_css_file_specifying_the_default_stylesheet_theme">4&nbsp; Export the CSS file specifying the default StyleSheet theme</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The "Tools" menu allows to:<ul>
+<li> <a href="article_saveconffile.html">serialize</a> a  <a href="article_configFile.html">configuration file</a> with the current state of the GUI options</li>
+<li>Unserialize a configuration file and update the state of the GUI options</li>
+<li>Reset the state of the GUI options to their default values</li>
+<li>Export the CSS file specifying the default  <a href="article_theme.html">StyleSheet theme</a></li>
+</ul>
+<br/>
+<img src="../images/saveconffile.png" alt="saveconffile" id="_image_0" onclick="openImage(_image_0)" width="40%" class="left marginSmall" />
+
+<h2 id="serializing_a_configuration_file">Serializing a configuration file</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_saveconffile.html">Saving a configuration file</a></div>
+<br/>
+  The Tools menu "Save Configuration File" option allows to generate a  <a href="article_configFile.html">configuration file</a> with the current state of the  <a href="article_gui.html">GUI interface</a> options. 
+<h2 id="unserializing_a_configuration_file">Unserializing a configuration file</h2>
+The Tools menu "Apply Configuration File" option allows to use a previously saved configuration file and update the state of the options.<br/>
+<br/>
+ Note that another way to Unserialize the configuration File is to set the "Additional Configuration" fields in the <span style="font-style: italic;">Properties</span> area in the GUI with the previously saved configuration :<br/>
+ <img src="../images/guiApplyConfig.png" alt="guiApplyConfig" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+
+<h2 id="reset_the_gui_options">Reset the GUI options</h2>
+The Tools menu "Set Configuration" option allows to update the state of the options to their respective default value. 
+<h2 id="export_the_css_file_specifying_the_default_stylesheet_theme">Export the CSS file specifying the default StyleSheet theme</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_theme.html#specify_a_custom_css_theme_file">StyleSheet theme</a></div>
+<br/>
+ The Tools menu "Export Theme" allows to export the the default  <a href="article_theme.html">StyleSheet theme</a> in a CSS file.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_saveconffile.html">Saving a configuration file</a>: This article explains how to save a configuration file with the current state of the GUI</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

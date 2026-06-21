@@ -1,0 +1,172 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Errors viewer - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_errorsviewer.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Errors viewer</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#file_paths">1.1&nbsp; File paths</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#viewing_the_files">1.2&nbsp; Viewing the files</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#saving_the_errors">1.3&nbsp; Saving the errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#headless_environment_usage">2&nbsp; Headless environment usage</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#configuration_options">3&nbsp; Configuration options</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#gui_options">4&nbsp; GUI options</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#errors_list">5&nbsp; Errors list</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+If some  <a href="article_errors.html">errors</a> are encountered during the parsing, a Popup window will appear showing the errors.
+<h2 id="overview">Overview</h2>
+ The panel presents the list of errors, ordered by the file in which they were encountered:<br/>
+ <img src="../images/errorPanel.png" alt="errorPanel" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h3 id="file_paths">File paths</h3>
+Each file is only shown by default with its path relative to its  <a href="article_roots.html">root directory</a>.<br/>
+<br/>
+ For example, if there there is only one input directory with the path  <code>C:/docgenerator/input</code>, and there is an error in the article at  <code>C:/docgenerator/input/core/article1.xml</code>, the panel will present the text:<span style="color:red;">input/core/article.xml parsing Errors:</span>.<br/>
+<br/>
+ If the  <code>errorsFullPath</code> option is set to true, then the full path of the files will be shown instead.
+<h3 id="viewing_the_files">Viewing the files</h3>
+The  <code>errorsViewerType</code> option specifies if and how the files with errors will be opened from the error panel:<ul>
+<li>"none": the files won't be opened from the error panel</li>
+<li>"browser": (the default value) the source file for each error will be opened in the platform default browser</li>
+<li>"editor": the source file for each error will be opened in a built-in editor</li>
+</ul>
+<br/>
+<br/>
+ If the value is set to "editor", then a built-in editor will be opened when clicking on the file or on an error which has a line number:<br/>
+<img src="../images/errorPanelEdit.png" alt="errorPanelEdit" id="_image_1" onclick="openImage(_image_1)" width="60%" class="left marginSmall" />
+<br/>
+ When clicking on an error which has a line number, the cursor will be on this line. For example:<br/>
+<img src="../images/errorPanelEditLines.png" alt="errorPanelEditLines" id="_image_2" onclick="openImage(_image_2)" width="60%" class="left marginSmall" />
+<br/>
+ The editor allows to save the file after correcting its content.
+<h3 id="saving_the_errors">Saving the errors</h3>
+ The "Print" button allows to save the list of errors as an html file. For example:<br/>
+ <img src="../images/errorPanelPrint.png" alt="errorPanelPrint" id="_image_3" onclick="openImage(_image_3)" class="left simpleBorder marginSmall" />
+
+<h2 id="headless_environment_usage">Headless environment usage</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_headless.html">Usage in a headless environment</a></div>
+<br/>
+ The Popup window will not appear if the tool is working in a headless environment. In that case the tool will create a log file if errors are encountered.<br/>
+<br/>
+ The  <a href="article_commandline.html#isheadless">isHeadless</a> command-line option also allows to force the tool to work without opening a Popup window.
+<h2 id="configuration_options">Configuration options</h2>
+The  <code>errorsViewerType</code> <a href="article_commandline.html#errorsviewertype">command-line option</a> and  <a href="article_configFile.html#errorsviewertype">configuration option</a> allow to specifies if and how the files with errors will be opened from the error panel:<ul>
+<li>"none": the files won't be opened from the error panel</li>
+<li>"browser": (the default value) the files will be opened in the platform default browser</li>
+<li>"editor": the files will be opened in a built-in editor</li>
+</ul>
+The  <code>errorsFullPath</code> <a href="article_commandline.html#errorsfullpath">command-line option</a> and  <a href="article_configFile.html#errorsfullpath">configuration option</a> allow to specifies if the full path of the files where errors are encountered must be presented (by default only the relative path to the  <a href="article_roots.html">root directory</a> is shown)
+<h2 id="gui_options">GUI options</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_guigenerationoptions.html#errors_viewer">GUI Generation options</a></div>
+<br/>
+ The GUI allows to specify how the files with errors will be opened from the error panel.
+<h2 id="errors_list">Errors list</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_errorslist.html">Errors list</a></div>
+<br/>
+ The  <a href="article_errorslist.html">errors list</a> article presents the list of errors which can be emitted during the parsing.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_errors.html">Errors</a>: This article explains how errors are handled in the parsing</li>
+<li> <a href="article_errorslist.html">Errors list</a>: This article presents the list of errors which can be emitted during the parsing</li>
+<li> <a href="article_guigenerationoptions.html#errors_viewer">GUI Generation options</a>: This article presents the generation options of the GUI</li>
+<li> <a href="article_configFile.html#errorsviewertype">configuration file</a>: It is possible to define an optional property / value configuration file when starting the application (using the graphical UI or the command line)</li>
+<li> <a href="article_commandline.html#errorsviewertype">command-line</a>: This article is about how to execute the application by the command-line without showing the UI</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

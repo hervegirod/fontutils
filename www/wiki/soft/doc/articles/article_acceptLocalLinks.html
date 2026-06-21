@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Checking local links - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_acceptLocalLinks.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Checking local links</h1>
+
+<hr/>
+<div  class="justifiedAuto alignedNone" >
+ This article presents how to use the acceptLocalLinks property. This property can be set through the  <a href="article_configFile.html#acceptlocallinks">configuration file</a> or on the   <a href="article_commandline.html#acceptlocallinks">command-line</a>.
+<h2 id="overview">Overview</h2>
+The  <code>acceptLocalLinks</code> property specifies which kinds of local links which are defined outside the wiki are allowed:<ul>
+<li>"none "or "false": specifies that all local links outside of the wiki are not allowed</li>
+<li>"relative": specifies that only relative local links outside of the wiki are allowed. Relative links will be considered relative  to the  <a href="article_outputstructure.html">output directory</a></li>
+<li>"all" or "true": specifies that all local links outside of the wiki are allowed</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Note that by default no local links outside of the wiki are allowed.</div>
+
+<h2 id="example">Example</h2>
+ For example, if you have the following structure:<br/>
+
+<pre class="margin unlimited" >
+<span>      -- &gt; myRef.html      </span>
+<span>      wiki</span>
+<span>      -- &gt; index.html</span>
+<span>      ---- &gt; articles</span>
+<span>      -------- &gt; article1.html</span>
+</pre>
+ and you have the following article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"article1"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   The </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;a</span><span class="syntaxKeyWord2" style="font-weight:bold;"> href</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"myRef.html"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>reference</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/a&gt;</span><span>.</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+  The link is a relative link which point to the  <code>myRef.html</code> file. <ul>
+<li>By default, or if the  <code>acceptLocalLinks</code> property is set to "none "or "false", the tool will emit an error</li>
+<li>If the  <code>acceptLocalLinks</code> property is set to "relative": no error will be emitted</li>
+<li>If the  <code>acceptLocalLinks</code> property is set to "all" or "true":: no error will be emitted</li>
+</ul>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

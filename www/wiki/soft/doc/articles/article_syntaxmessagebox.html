@@ -1,0 +1,334 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>messageBox element - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_syntaxmessagebox.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>messageBox element</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#attributes">1&nbsp; Attributes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#using_the_imagehref_attribute">2&nbsp; Using the imageHref attribute</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">3&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#info_without_a_caption">3.1&nbsp; Info without a caption</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#info_with_a_caption">3.2&nbsp; Info with a caption</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#warning">3.3&nbsp; Warning</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#error_without_a_caption">3.4&nbsp; Error without a caption</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#error_with_a_caption">3.5&nbsp; Error with a caption</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#progress">3.6&nbsp; Progress</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#progress_included_in_todos">3.7&nbsp; Progress included in TODOs</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#custom">3.8&nbsp; Custom</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The "messageBox" element allows to enter a warning or informative message associated with an image.
+<h2 id="attributes">Attributes</h2>
+ This element has the following attributes:<ul>
+<li>"imageID" (optional): The image id. See  <a href="article_imageFiles.html">image files</a> for the specification of image ids</li>
+<li>"imageHref" (optional): The relative path of the image, if the image do not refer to an Image definition</li>
+<li>"type" (optional): the message box type. Can be:<ul>
+<li>"info": for an information message</li>
+<li>"success": for a "success" message</li>
+<li>"warning": for a warning message</li>
+<li>"error": for an error message</li>
+<li>"progress": for a "in progress" message</li>
+<li>"default" (the default value): for an undefined message type</li>
+</ul>
+</li>
+<li>"caption" (optional): add a caption to the message box</li>
+<li>"captionPosition" (optional): specify the position of the message box caption. Can be:<ul>
+<li>"inside": to put it inside the box</li>
+<li>"border": to put it on the message box border</li>
+</ul>
+</li>
+<li>"todo" (optional): only useful for "progress" type message boxes, allow to include them in the  <a href="article_syntax.html#todolist">todolist</a></li>
+<li>"color" (optional): the background color of the box, specified in HTML color codes</li>
+<li>"package": The optional package attribute allows to reference an image in  <a href="article_roots.html#using_package_ids">another package</a></li>
+</ul>
+ If the type of the message box is different from "default", the image id and the background color will get default values if they are not specified.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ You must not have both the "imageID" and the "imageHref" attribute:<ul>
+<li>The "imageID" attribute is for message boxes for which the background image refer to an  <a href="article_imageFiles.html">Image definition</a></li>
+<li>The "imageHref" attribute is for message boxes for which the background image point to a relative image file</li>
+</ul>
+</div>
+
+<h2 id="using_the_imagehref_attribute">Using the imageHref attribute</h2>
+If you specify the "imageHref" attribute, the image points to a relative image file, which must be under a  <code>doc-files</code> directory in the same directory as the article which uses the  <code>messageBox</code> element.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ In that case you must not use the "id" and "package" attributes.</div>
+<br/>
+<br/>
+ For example, suppose the following file structure:<br/>
+
+<pre class="margin unlimited" >
+<span>      wiki</span>
+<span>      -- doc-files</span>
+<span>      ---- ball.jpg</span>
+<span>      -- article.xml</span>
+<span>      -- index.xml</span>
+</pre>
+ And the following content for the article:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;article</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"My article"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"info"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> imageHref</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ball.jpg"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>        this an information text</span>
+<span>        </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;br/&gt;</span>
+<span>        the second line</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/article&gt;</span>
+</pre>
+ The background of the message box will point to the  <code>ball.jpg</code> Jpeg file.
+<h2 id="examples">Examples</h2>
+
+<h3 id="info_without_a_caption">Info without a caption</h3>
+
+<pre class="margin unlimited" >
+<span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"info"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   this an information text</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;br/&gt;</span>
+<span>   the second line</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox&gt;</span>
+</pre>
+ Result:<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ this an information text<br/>
+ the second line</div>
+
+<h3 id="info_with_a_caption">Info with a caption</h3>
+
+<pre class="margin unlimited" >
+<span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"info"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> caption</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the caption"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   this an information text</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;br/&gt;</span>
+<span>   the second line</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox&gt;</span>
+</pre>
+ Result:<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+
+<div class="captionbox">The caption</div>
+ this an information text<br/>
+ the second line</div>
+<br/>
+<br/>
+
+<pre class="margin unlimited" >
+<span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"info"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> caption</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the caption"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> captionPosition</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"border"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   this an information text</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;br/&gt;</span>
+<span>   the second line</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox&gt;</span>
+</pre>
+ Result:<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+
+<div class="captionboxMiddle">The caption</div>
+ this an information text<br/>
+ the second line</div>
+
+<h3 id="warning">Warning</h3>
+
+<pre class="margin unlimited" >
+<span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"warning"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   this a warning text</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;br/&gt;</span>
+<span>   the second line</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox&gt;</span>
+</pre>
+ Result:<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ this a warning text<br/>
+ the second line</div>
+
+<h3 id="error_without_a_caption">Error without a caption</h3>
+
+<pre class="margin unlimited" >
+<span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"error"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   this a a text for an error</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;br/&gt;</span>
+<span>   the second line</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox&gt;</span>
+</pre>
+ Result:<br/>
+
+<div class="messageBox messageBoxError softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__4_0.png');background-position: 10px;">
+ this a a text for an error<br/>
+ the second line</div>
+
+<h3 id="error_with_a_caption">Error with a caption</h3>
+
+<pre class="margin unlimited" >
+<span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"error"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> caption</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the caption"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> captionPosition</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"border"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   this a a text for an error</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;br/&gt;</span>
+<span>   the second line</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox&gt;</span>
+</pre>
+ Result:<br/>
+
+<div class="messageBox messageBoxError softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__4_0.png');background-position: 10px;">
+
+<div class="captionboxMiddleError">The caption</div>
+ this a a text for an error<br/>
+ the second line</div>
+
+<h3 id="progress">Progress</h3>
+
+<pre class="margin unlimited" >
+<span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"progress"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   this a in-progress text</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;br/&gt;</span>
+<span>   the second line</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox&gt;</span>
+</pre>
+ Result:<br/>
+
+<div class="messageBoxBackgroundParent messageBoxProgress" style="color: white;;background-image: url('../images/__messageBoxImg__inWork.png');background-repeat:repeat; background-position: 10px; max-width: 100%; height: auto;text-shadow: 2px 2px 5px gray;">
+
+<div class="messageBoxBackgroundChild" style="color: white;;background-image: url('../images/__messageBoxImg__5_0.png');border:none;  background-repeat:no-repeat; background-position: 0px; max-width: 100%; height: auto;text-shadow: 2px 2px 5px gray;">
+
+<div class="messageBoxBackgroundText">
+ this a in-progress text<br/>
+ the second line</div>
+</div>
+</div>
+
+<h3 id="progress_included_in_todos">Progress included in TODOs</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_syntaxtodo.html">TODO</a></div>
+<br/>
+ In that case the message box will be included in the  <a href="article_syntax.html#todolist">todolist</a>.<br/>
+
+<pre class="margin unlimited" >
+<span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"progress"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> todo</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"this will be in TODOs"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   this a in-progress text</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;br/&gt;</span>
+<span>   the second line</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox&gt;</span>
+</pre>
+ Result:<br/>
+
+<div class="messageBoxBackgroundParent messageBoxProgress" style="color: white;;background-image: url('../images/__messageBoxImg__inWork.png');background-repeat:repeat; background-position: 10px; max-width: 100%; height: auto;text-shadow: 2px 2px 5px gray;">
+
+<div class="messageBoxBackgroundChild" style="color: white;;background-image: url('../images/__messageBoxImg__5_0.png');border:none;  background-repeat:no-repeat; background-position: 0px; max-width: 100%; height: auto;text-shadow: 2px 2px 5px gray;">
+
+<div class="messageBoxBackgroundText">
+ this a in-progress text<br/>
+ the second line</div>
+</div>
+</div>
+
+<h3 id="custom">Custom</h3>
+
+<pre class="margin unlimited" >
+<span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox</span><span class="syntaxKeyWord2" style="font-weight:bold;"> color</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"#00FF00"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   this a custom message box</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">&lt;messageBox&gt;</span>
+</pre>
+ Result:<br/>
+
+<div class="messageBox messageBoxDefault softShadow" style="background: #00FF00">
+ this a custom message box</div>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html">Syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+<li> <a href="article_syntaxoverview.html">Syntax overview</a>: This article presents an overview of the tags supported in the XML syntax</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

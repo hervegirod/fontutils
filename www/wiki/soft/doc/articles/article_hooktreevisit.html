@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>ElementHook tree visit - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_hooktreevisit.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>ElementHook tree visit</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#articles_visit">1&nbsp; Articles visit</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#elements_visit">2&nbsp; Elements visit</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">3&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">4&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article explains how and when the  <a href="article_elementhook.html">ElementHook</a> is called to modify the the  <a href="article_sourcetree.html">wiki source tree</a>  content before the generation.
+<h2 id="articles_visit">Articles visit</h2>
+The  <code>ElementHook</code> will be called for:<ul>
+<li>All articles if no  <a href="article_chapterscontent.html">Wiki content specification</a> is specified (it is the "wikiContent" or "chaptersContent" property on the  <a href="article_commandline.html#wikicontent">command-line</a> or   <a href="article_configFile.html#wikicontent">configuration file</a></li>
+<li>Only articles which are included if there is a specified Wiki content specification</li>
+</ul>
+
+<h2 id="elements_visit">Elements visit</h2>
+ For all articles which are included in the visit:<ul>
+<li>The <a href="../javadoc/pluginsAPI/org/docgene/plugins/ElementHook.html#startArticle-org.docgene.model.XMLArticle-" class="apiLink" title="ElementHook.startArticle(org.docgene.model.XMLArticle)">ElementHook.startArticle(XMLArticle)</a> is  called</li>
+<li>For all the <a href="../javadoc/pluginsAPI/org/docgene/model/ParagraphElement.html" class="apiLink" title="ParagraphElement">ParagraphElement</a> in the article:<ul>
+<li>If the element is in the set returned by <a href="../javadoc/pluginsAPI/org/docgene/plugins/ElementHook.html#supportedElements--" class="apiLink" title="ElementHook.supportedElements()">ElementHook.supportedElements()</a> for the hook, then call <a href="../javadoc/pluginsAPI/org/docgene/plugins/ElementHook.html#handleElement-org.docgene.model.ParagraphElement-" class="apiLink" title="ElementHook.handleElement(org.docgene.model.ParagraphElement)">ElementHook.handleElement(ParagraphElement)</a> for this element<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+The Strings in the set are the declarations of the supported elements</div></span>
+</li>
+<li>If the element is a parent, recurse to the children of this element (note that this will happen if the element is a parent even if it is not handled by itself)</li>
+</ul>
+</li>
+</ul>
+
+<h2 id="example">Example</h2>
+ Suppose the following article content:<br/>
+
+<pre class="margin unlimited" >
+<span>   The introductory text</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"the title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   paragraph content with </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;code&gt;</span><span>theCode</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/code&gt;</span><span>.</span>
+</pre>
+ It will have the following wiki source tree:<ul>
+<li>The default starting  <a href="article_syntax.html#paragraphs">paragraph</a> (it is the default paragraph at the start of the article because no paragraph is defined).<ul>
+<li>The "The introductory text" sentence</li>
+<li>A  <a href="article_syntax.html#title">title</a></li>
+<li>The "paragraph content with " sentence</li>
+<li>The "theCode"  <a href="article_syntax.html#code">code</a></li>
+</ul>
+</li>
+</ul>
+Suppose that the <a href="../javadoc/pluginsAPI/org/docgene/plugins/ElementHook.html#supportedElements--" class="apiLink" title="ElementHook.supportedElements()">ElementHook.supportedElements()</a> only returns "title". Then the  <code>ElementHook</code> will only be called for the  <a href="article_syntax.html#title">title</a> element.</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> The Strings in the set are the declarations of the supported elements</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_elementhook.html">ElementHook</a>: This article explains how to implements the ElementHook to modify the wiki source tree content before the generation</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_plugins.html">Plugins</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

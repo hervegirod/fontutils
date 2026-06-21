@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() 
+  {
+    $("#table_0").tablesorter(); 
+  }
+);
+</script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Comparison with wikipedia syntax - DocGenerator</title>
+</head>
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>What links here: Comparison with wikipedia syntax</h1>
+
+<hr/>
+ <a href="article_comparisons.html">Comparison with other wikis softwares</a> : This article compares the docJGenerator features with other wikis softwares<br/>
+ <a href="article_faq.html">FAQ</a> : Frequently Asked Questions<br/>
+ <a href="article_mediawikimarkup.html">Mediawiki markup</a> : This article explains the supported Mediawiki markup<br/>
+ <a href="article_mediawiki.html">Mediawiki syntax</a> : This article explains the Mediawiki syntax which is supported by the tool<br/>
+ <a href="article_relaxedsyntax.html">Relaxed Syntax</a> : This article is about the relaxed syntax which can be used on the articles<br/>
+ <a href="article_syntax.html">Syntax</a> : This article explains the XML tags which can be used to specify the articles syntax<br/>
+ <a href="article_syntaxoverview.html">Syntax overview</a> : This article presents an overview of the tags supported in the XML syntax<br/>
+ <a href="article_typesoffiles.html">Types of files</a> : This article explains the types of files which can be found in the wiki input<br/>
+
+<hr/>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

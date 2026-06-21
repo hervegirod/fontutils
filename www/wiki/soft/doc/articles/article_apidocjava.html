@@ -1,0 +1,168 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() 
+  {
+    $("#table_0").tablesorter(); 
+  }
+);
+</script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Java generic API - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_apidocjava.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Java generic API</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#structure_of_the_api">1&nbsp; Structure of the API</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#list_of_managed_types">2&nbsp; List of managed types</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The "java" generic API models the Java language elements. 
+<h2 id="structure_of_the_api">Structure of the API</h2>
+ The structure of the API is the following:<ul>
+<li>Only "class" and "enum" parent elements can be at the root of each API</li>
+<li>A "class" parent element can have "method" or "field" children. Note that a "property" parent element is a "field"</li>
+<li>An "enum" parent element can have "method" and "constant" children. Note that an enum state is a "constant"</li>
+</ul>
+ Note that the elements described here are the parent type of the element. See  <a href="article_genericapitypes.html#list_of_all_types">Generic apidocs API types</a> for the list of  parent element for each API element.<br/>
+<img src="../images/javaapidoc.png" alt="javaapidoc" id="_image_0" onclick="openImage(_image_0)" width="60%" class="left marginSmall" />
+
+<h2 id="list_of_managed_types">List of managed types</h2>
+ The following table presents the list of parent types which are managed by the Java generic API.
+<table id="table_0" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  width="150" class="column border" >Parent Type</th>
+<th valign="middle"  width="150" class="column border" >Top Element</th>
+<th valign="middle"  width="400" class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">class</td>
+<td valign="middle" class="border paddingDefault">Yes</td>
+<td valign="middle" class="border paddingDefault">Represents a class</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">enum</td>
+<td valign="middle" class="border paddingDefault">Yes</td>
+<td valign="middle" class="border paddingDefault">Represents an enum</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">constructor</td>
+<td valign="middle" class="border paddingDefault">No</td>
+<td valign="middle" class="border paddingDefault">Represents a constructor</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">method</td>
+<td valign="middle" class="border paddingDefault">No</td>
+<td valign="middle" class="border paddingDefault">Represents a method</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">field</td>
+<td valign="middle" class="border paddingDefault">No</td>
+<td valign="middle" class="border paddingDefault">Represents a field or a property</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">constant</td>
+<td valign="middle" class="border paddingDefault">No</td>
+<td valign="middle" class="border paddingDefault">Represents a constant used for example for enum states</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">argument</td>
+<td valign="middle" class="border paddingDefault">No</td>
+<td valign="middle" class="border paddingDefault">Represents an argument</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_genericapitypes.html">Generic API types</a>: This article explains which elements are managed by each generic API type</li>
+<li> <a href="article_apidoc.html">apidoc</a>: This article explains how the apidoc element can be used</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

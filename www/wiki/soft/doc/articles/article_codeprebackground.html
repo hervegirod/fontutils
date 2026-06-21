@@ -1,0 +1,153 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Code, pre and source background - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_codeprebackground.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Code, pre and source background</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#code_and_source_elements">1&nbsp; Code and source elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#pre_elements">2&nbsp; Pre elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">3&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example_without_backgrounds">3.1&nbsp; Example without backgrounds</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example_with_backgrounds">3.2&nbsp; Example with backgrounds</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+
+<h2 id="code_and_source_elements">Code and source elements</h2>
+By default  <a href="article_syntax.html#code">code</a> and  <a href="article_syntax.html#source">source</a> elements do not have any background.<br/>
+<br/>
+ If the command-line  <a href="article_commandline.html#codehasbackground">codeHasBackground</a> option or the configuration  <a href="article_configFile.html#codehasbackground">codeHasBackground</a> option is set to true, these elements will have a background similar to the code background in Wikipedia.<br/>
+<br/>
+ Alternatively, the "background" attribute on a  <a href="article_syntax.html#code">code</a> and  <a href="article_syntax.html#source">source</a> element allows to specify it for one of these elements only. The possible values are:<ul>
+<li>"true": the element will have a background regardless of the value of the "codeHasBackground" option</li>
+<li>"false": the element will not have a background regardless of the value of the "codeHasBackground" option</li>
+<li>"default": the element will have a background as specified by the value of the "codeHasBackground" option (same as if the attribute is not present)</li>
+</ul>
+
+<h2 id="pre_elements">Pre elements</h2>
+By default  <a href="article_pre.html">pre</a> elements do not have any background nor border, except if the "boxed", "border", or "color" attributes are used.<br/>
+<br/>
+ If the command-line  <a href="article_commandline.html#prehasbackground">preHasBackground</a> option or the configuration  <a href="article_configFile.html#prehasbackground">preHasBackground</a> option is set to true, these elements will have a background similar to the code background in Wikipedia.<br/>
+<br/>
+ Alternatively, the "background" attribute on a  <a href="article_pre.html">pre</a> element allows to specify it for one of these elements only. The possible values are:<ul>
+<li>"true": the element will have a background regardless of the value of the "preHasBackground" option</li>
+<li>"false": the element will not have a background regardless of the value of the "preHasBackground" option</li>
+<li>"default": the element will have a background as specified by the value of the "preHasBackground" option (same as if the attribute is not present)</li>
+</ul>
+Note that if you specify the "boxed", "border", or "color" attributes for a pre element, then the  <code>preHasBackground</code> property will not have any effect on this element.
+<h2 id="examples">Examples</h2>
+ The two following examples show the result of the following "pre" and "code" elements:<br/>
+
+<pre class="margin unlimited" >
+<span>   The pre element:</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre&gt;</span>
+<span>   This is the first line</span>
+<span>   This is the second line</span>
+<span>   This is a line with </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt; and &gt;</span><span> characters</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+
+
+<span>   The </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;code&gt;</span><span>code</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/code&gt;</span><span> element</span>
+</pre>
+
+<h3 id="example_without_backgrounds">Example without backgrounds</h3>
+ <img src="../images/preNoBackground.png" alt="preNoBackground" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h3 id="example_with_backgrounds">Example with backgrounds</h3>
+ <img src="../images/preBackground.png" alt="preBackground" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_syntax.html#code">code</a>: code element</li>
+<li> <a href="article_syntax.html#source">source</a>: source element</li>
+<li> <a href="article_pre.html">pre</a>: pre element</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

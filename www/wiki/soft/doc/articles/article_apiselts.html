@@ -1,0 +1,185 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>APIs elements - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_apiselts.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>APIs elements</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#link_to_an_existing_api">1&nbsp; Link to an existing API</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#embed_an_api">2&nbsp; Embed an API</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#apis_provided_by_default">2.1&nbsp; APIs provided by default</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ There are two types of elements for APIs:<ul>
+<li>A first type of elements act like external references and link to an existing API (for example, to a resource on the web)</li>
+<li>A second type of elements embed the API in the wiki</li>
+</ul>
+
+<h2 id="link_to_an_existing_api">Link to an existing API</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_apis.html">APIs property</a></div>
+<br/>
+ The elements which link to an existing API are:<ul>
+<li> <a href="article_syntax.html#javadoc">javadoc</a>: link to a Java API</li>
+<li> <a href="article_syntax.html#qtdoc">qtdoc</a>: link to a Qt API</li>
+<li> <a href="article_syntax.html#pydoc">pydoc</a>: link to a Python API</li>
+<li> <a href="article_syntax.html#dotnetdoc">dotnetdoc</a>: link to a .NET API</li>
+<li> <a href="article_syntax.html#doxygen">doxygen</a>: link to an API produced by Doxygen</li>
+</ul>
+The location of APIs can be configured by the  <a href="article_apis.html">APIs</a> property in the  <a href="article_configFile.html">configuration file</a>.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   This is a link to </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;javadoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java.awt.Button"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ Has the following result: This is a link to <a href="https://docs.oracle.com/javase/8/docs/api//java/awt/Button.html" class="apiLink" title="Button">Button</a>
+<h2 id="embed_an_api">Embed an API</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_apidoc.html">apidoc</a></div>
+<br/>
+ There are several elements which allow to embed an existing API:<ul>
+<li> <a href="article_syntax.html#javaapi">javaAPI</a>: embed a Java API</li>
+<li> <a href="article_syntax.html#pythonapi">pythonAPI</a>: embed a Python API</li>
+<li> <a href="article_apidoc.html">apidoc</a>: embed any language API. The model for the languages can be configured by the  <a href="article_apidocconf.html">API documentation configuration</a></li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;apidoc</span><span class="syntaxKeyWord2" style="font-weight:bold;"> lang</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"python"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"module"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Class"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>Representation of a class documentation</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;element</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"field"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"doc"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>A mapping from identifier name to a Doc objects</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/element&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;element</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"method"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> path</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"class_variables(self, include_inherited=True, sort=True)"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   Returns an optionaly-sorted list of Variable objects that represent this class class variables.</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/element&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/apidoc&gt;</span>
+</pre>
+ Has the following result:<br/>
+<table class="headerTitlePythonAPI">
+<tbody>
+<th valign="middle" class="headerPythonAPI">module Class</th>
+</tbody>
+</table>
+Representation of a class documentation<table class="apidoc">
+<tbody>
+<tr class="rowPythonAPI">
+<th valign="middle" class="rowModifierPythonAPI">def</th>
+<th valign="middle" class="rowContentPythonAPI">doc
+<br/>
+<div class="rowContentPythonTextAPI">
+A mapping from identifier name to a Doc objects</div>
+</th>
+</tr>
+</tbody>
+</table>
+<br/><br/>
+<table class="apidoc">
+<tbody>
+<tr class="rowPythonAPI">
+<th valign="middle" class="rowModifierPythonAPI">def</th>
+<th valign="middle" class="rowContentPythonAPI">class_variables(self, include_inherited=True, sort=True)
+<br/>
+<div class="rowContentPythonTextAPI">
+ Returns an optionaly-sorted list of Variable objects that represent this class class variables.</div>
+</th>
+</tr>
+</tbody>
+</table><br/>
+
+<h3 id="apis_provided_by_default">APIs provided by default</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_apidocconf.html">API documentation configuration</a></div>
+<br/>
+ The APIs provided by default with the  <a href="article_apidoc.html">apidoc</a> element are:<ul>
+<li>Java APIs</li>
+<li>Python APIs. It is a "pdoc-like" API (See <a href="https://pdoc3.github.io/pdoc/doc/pdoc/" title="https://pdoc3.github.io/pdoc/doc/pdoc/">pdoc3.github.io</a>)</li>
+<li>C# APIs</li>
+<li>Doxygen APIs (for both C and C++ programs)</li>
+</ul>
+However it is possible to configure to model any kind of language.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_tutorials.html#api_tutorials">API tutorials</a>: This article presents a list of tutorials</li>
+<li> <a href="article_syntax.html">Syntax</a>: This article explains the XML tags which can be used to specify the articles syntax</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a> |
+ <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

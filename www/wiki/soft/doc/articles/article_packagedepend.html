@@ -1,0 +1,289 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Packages dependencies - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_packagedepend.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Packages dependencies</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#grammar">1&nbsp; Grammar</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#checking_package_dependencies">2&nbsp; Checking package dependencies</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#dependency_checks">2.1&nbsp; Dependency checks</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#checking_behavior_on_unsolved_references">2.2&nbsp; Checking behavior on unsolved references</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#examples">2.3&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#dont_include_packages">3&nbsp; Don't include packages</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#categories_creation">4&nbsp; Categories creation</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">4.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples_1">5&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#basic_example">5.1&nbsp; Basic example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#a_more_complex_example">5.2&nbsp; A more complex example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#a_third_example">5.3&nbsp; A third example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">6&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">7&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+As explained in the  <a href="article_roots.html#usage_with_more_than_one_root_directory">root directories and packages</a> article, it is possible to use the generator on more than one root package.  <a href="article_roots.html#defining_a_package_for_a_root">packages</a> can be defined for each root directory.<br/>
+<br/>
+ It is possible to specify in the configuration file the  <a href="article_configFile.html#dependencies">dependencies</a> or  <a href="article_commandline.html#dependencies">command-line</a> property to define the allowed dependencies between packages. Every found dependency which is not allowed in this dependencies configuration will emit an exception in the tool logger<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+These dependencies cover all the elements which have a "package" attribute, such as the  <a href="article_syntax.html#ref">ref</a> element for example</div></span>
+. Note that the elements at the origin of the error will still be generated correctly.<br/>
+<br/>
+ The configuration of the  <a href="article_configFile.html#dependencies">ckage dependencies</a> file allows to:<ul>
+<li>Specify which dependencies between packages are allowed</li>
+<li>Specify how references for not included packages will appear</li>
+<li>Specify if a package can declare categories</li>
+</ul>
+
+<h2 id="grammar">Grammar</h2>
+See  <a href="resources/packagesDependencies.xsd">the packages dependencies Schema</a>.
+<h2 id="checking_package_dependencies">Checking package dependencies</h2>
+ The configuration of the ckage dependencies file amllows to Specify which dependencies between packages are allowed.
+<h3 id="dependency_checks">Dependency checks</h3>
+The  <code>defaultCheck</code> (for the root) or the  <code>check</code> (for all child packages dependencies) can have the following values:<ul>
+<li>"accept": the dependencies between different  <a href="article_roots.html">packages</a> are allowed</li>
+<li>"refuse": the dependencies between different packages are refused, and a warning message will be issued for any detected dependency. If the dependency is a  <a href="article_syntax.html#ref">reference</a> will not be shown at all</li>
+<li>"showAndWarn": the dependencies between different packages are refused, and a warning message will be issued for any detected dependency. If the dependency is a  <a href="article_syntax.html#ref">reference</a> it will be shown as a text (without a hyperlink)</li>
+<li>"show": the dependencies between different packages are refused, but no warning message will be issued for any detected dependency. If the dependency is a  <a href="article_syntax.html#ref">reference</a> it will be shown as a text (without a hyperlink)</li>
+</ul>
+<br/>
+<br/>
+ Note that regardless of the check type, if an element correspond to a not allowed dependency between packages, the element will not be shown, except for  <a href="article_syntax.html#ref">references</a>, with the "showAndWarn" or "show" type. For example, for an  <a href="article_syntax.html#img">image</a>, the image will not be shown regardless of the check type.
+<h3 id="checking_behavior_on_unsolved_references">Checking behavior on unsolved references</h3>
+It is possible to configure the dependencies to specify that unresolved references from one  <a href="article_roots.html">package</a> to another will not emit an error.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ It can be useful if part of your wiki is still unfinished, and you don't want to use it in your generation, but you don't want to emit errors for the references to this  <a href="article_roots.html">package</a>.</div>
+ To specify this, you can use the following attributes on the  <code>package</code> or the  <code>dependency</code> element:<ul>
+<li>The value  <code>false</code> for the  <code>showUnresolvedReferences</code> attribute specifies that  <a href="article_references.html">references</a> and  <a href="article_syntax.html#resource">resources</a> which are not found from the package to the other package will not emit an error</li>
+<li>The value  <code>false</code> for the  <code>showUnresolvedImages</code> attribute specifies that  <a href="article_syntaximg.html">images</a> which are not found from the package to the other package will not emit an error</li>
+<li>The value  <code>false</code> for the  <code>showUnresolvedInfoboxes</code> attribute specifies that  <a href="article_syntaxinfobox.html">infoboxes</a> which are not found from the package to the other package will not emit an error</li>
+</ul>
+
+<h3 id="examples">Examples</h3>
+In the following example, unresolved references, resources or images any package to any <span style="font-weight: bold;">other</span> package will not emit any error:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> showUnresolvedReferences</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> showUnresolvedImages</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   _  ....</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+ In the following example, unresolved references, resources or images from  <code>package1</code> to any <span style="font-weight: bold;">other</span> package will not emit any error:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> showUnresolvedReferences</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> showUnresolvedImages</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+ In the following example, unresolved references, resources or images from  <code>package1</code> to  <code>package2</code> will not emit any error, but unresolved references or images from  <code>package1</code> to any other package will emit an error:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package1"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> showUnresolvedReferences</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> showUnresolvedImages</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+
+<h2 id="dont_include_packages">Don't include packages</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_fallbackarticles.html">Fallback articles</a></div>
+<br/>
+ It is possible to declare that a  <a href="article_roots.html">package</a> will not be included in the wiki output, by specifying the  <code>includePackage</code> for the package. This attribute can have one of the following values:<ul>
+<li>"include": the default value, specifies that the package will be included in the wiki</li>
+<li>"forget": specifies that the package will not be included in the wiki, but that all errors detected in the package (for example  <a href="article_errorslist.html#references_errors">references errors</a> detected in this package will still be emitted</li>
+<li>"forgetSilent": specifies that the package will not be included in the wiki, <span style="font-weight: bold;">and</span> that all errors detected in the package will be forgotten and not be emitted</li>
+</ul>
+<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> includePackage</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"forgetSilent"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+ In this example, the  <code>package1</code> is included in the wiki output, but the  <code>package2</code> is not included, and all errors detected in <code>package2</code> will not be emitted.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ It is possible to point to a fallback article if a link points to some article in this package, see  <a href="article_fallbackarticles.html">Fallback articles</a> for more information.</div>
+
+<h2 id="categories_creation">Categories creation</h2>
+It is possible to declare that a package can not declare categories, either by specifying a  <a href="article_categories.html#adding_descriptions_to_categories">categories</a> file to create categories descriptions, or by simply add a  <a href="article_syntaxEndElements.html#cat">cat</a> element at the end of an article.
+<h3 id="example">Example</h3>
+For example in the following example, articles in  <code>package1</code> can create categories, but elements in  <code>packaeg2</code> can not.<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> allowCategoryCreation</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+ This means that:<ul>
+<li>If no article in  <code>package1</code> define the "cat2" package, and it is defined in an article in  <code>package2</code>, and error will be emitted</li>
+<li>But if an article in  <code>package1</code> define the "cat1" package, and it is defined in an article in  <code>package2</code>, no error will  be emitted</li>
+</ul>
+
+<h2 id="examples_1">Examples</h2>
+
+<h3 id="basic_example">Basic example</h3>
+In the following example, we refuse dependencies from  <code>package1</code> to  <code>package2</code>:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package1"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> check</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"refuse"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+ In this example, Dependencies from  <code>package1</code> to  <code>package2</code> are not allowed. One of the references in the articles in  <code>package1</code> will therefore be refused and lead to a warning during parsing:<br/>
+<img src="../images/packagesKO.png" alt="packagesKO" id="_image_0" onclick="openImage(_image_0)" width="70%" class="left marginSmall" />
+
+<h3 id="a_more_complex_example">A more complex example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package1"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> check</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"refuse"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"refuse"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package3"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> check</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+ Here:<ul>
+<li>By default dependencies between packages are allowed</li>
+<li>Dependencies from  <code>package1</code> to  <code>package2</code> are not allowed</li>
+<li>By default all Dependencies from  <code>package2</code> are not allowed</li>
+<li>Dependencies from  <code>package2</code> to  <code>package3</code> are allowed</li>
+</ul>
+
+<h3 id="a_third_example">A third example</h3>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"show"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package1"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> check</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"showAndWarn"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"refuse"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package3"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> check</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+ Here:<ul>
+<li>By default dependencies between packages are not allowed, and  <a href="article_syntax.html#ref">references</a> will be shown as text sentences (without hyperlinks). However no warning message will be issued for a detected dependency</li>
+<li>Dependencies from  <code>package1</code> to  <code>package2</code> will also be shown as text sentences (without hyperlinks). A warning message will be issued for each dependency</li>
+<li>By default all Dependencies from  <code>package2</code> are not allowed</li>
+<li>Dependencies from  <code>package2</code> to  <code>package3</code> are allowed</li>
+</ul>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> These dependencies cover all the elements which have a "package" attribute, such as the  <a href="article_syntax.html#ref">ref</a> element for example</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_roots.html">Root directories and packages</a>: This article explains how to use the generator with more than one root directory</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a> |
+ <a href="../categories/cat_structure.html">Structure</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Setting the help locale - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_helpsetlocale.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Setting the help locale</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#supported_locales">1&nbsp; Supported locales</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#localized_keys">2&nbsp; Localized keys</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_the_locale_in_the_javahelpfactory">3&nbsp; Setting the locale in the JavaHelpFactory</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_the_locale_in_the_helpcontentviewer">4&nbsp; Setting the locale in the HelpContentViewer</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ By default the localization of the help GUI is the Platform default localization but it is possible to change it.
+<h2 id="supported_locales">Supported locales</h2>
+ The supported language names are:<ul>
+<li>"en": English</li>
+<li>"fr": French</li>
+<li>"de": German</li>
+<li>"es": Spanish</li>
+<li>"it": Italian</li>
+<li>"ru": Russian</li>
+</ul>
+
+<h2 id="localized_keys">Localized keys</h2>
+ The localized keys are:<ul>
+<li>The Articles name</li>
+<li>The Titles name</li>
+<li>The Anchors name</li>
+<li>The "Search..." hint text in the  <a href="article_helpsearch.html">Search box</a></li>
+<li>The "Containing..." text in the full text Search</li>
+</ul>
+
+<h2 id="setting_the_locale_in_the_javahelpfactory">Setting the locale in the JavaHelpFactory</h2>
+The <a href="../javadoc/helpAPI/org/docgene/help/JavaHelpFactory.html#setLocale-java.util.locale-" class="apiLink" title="JavaHelpFactory.setLocale(java.util.locale)">JavaHelpFactory.setLocale(locale)</a> allows to override the Locale to use in the viewer.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// get the zip file as an URL</span>
+<span>      URL url = ...</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">try</span><span> {</span>
+<span>        </span><span class="syntaxComment" style="font-style:italic;">// create the Help factory</span>
+<span>        JavaHelpFactory factory = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JavaHelpFactory</span><span>(url);</span>
+<span>      </span><span class="syntaxDefault" style="background-color:#ffff00;">  factory.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">setLocale</span><span class="syntaxDefault" style="background-color:#ffff00;">(Locale.FRENCH);</span>
+<span>        factory.</span><span class="syntaxDefault" style="font-weight:bold;">create</span><span>();</span>
+<span>        ArticlesModel model = factory.</span><span class="syntaxDefault" style="font-weight:bold;">getModel</span><span>();</span>
+
+<span>        </span><span class="syntaxComment" style="font-style:italic;">// create the viewer component</span>
+<span>        SwingHelpContentViewer viewer = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">SwingHelpContentViewer</span><span>();</span>
+<span>        viewer.</span><span class="syntaxDefault" style="font-weight:bold;">installModel</span><span>(model);</span>
+<span>      }</span>
+</pre>
+
+<h2 id="setting_the_locale_in_the_helpcontentviewer">Setting the locale in the HelpContentViewer</h2>
+The <a href="../javadoc/helpAPI/org/docgene/help/HelpContentViewer.html#setLocale-java.util.locale-" class="apiLink" title="HelpContentViewer.setLocale(java.util.locale)">HelpContentViewer.setLocale(locale)</a> allows to override the Locale to use directly in the viewer.<br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxComment" style="font-style:italic;">// get the zip file as an URL</span>
+<span>      URL url = ...</span>
+
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">try</span><span> {</span>
+<span>        </span><span class="syntaxComment" style="font-style:italic;">// create the Help factory</span>
+<span>        JavaHelpFactory factory = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">JavaHelpFactory</span><span>(url);</span>
+<span>        factory.</span><span class="syntaxDefault" style="font-weight:bold;">create</span><span>();</span>
+<span>        ArticlesModel model = factory.</span><span class="syntaxDefault" style="font-weight:bold;">getModel</span><span>();</span>
+
+<span>        </span><span class="syntaxComment" style="font-style:italic;">// create the viewer component</span>
+<span>        SwingHelpContentViewer viewer = </span><span class="syntaxKeyWord1" style="font-weight:bold;">new</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">SwingHelpContentViewer</span><span>();</span>
+<span>      </span><span class="syntaxDefault" style="background-color:#ffff00;">  viewer.</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">setLocale</span><span class="syntaxDefault" style="background-color:#ffff00;">(Locale.FRENCH);</span>
+<span>        viewer.</span><span class="syntaxDefault" style="font-weight:bold;">installModel</span><span>(model);</span>
+<span>      }</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_helpapi.html">Help API</a>: This article presents an overview of the Help API</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_javahelp.html">JavaHelp</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

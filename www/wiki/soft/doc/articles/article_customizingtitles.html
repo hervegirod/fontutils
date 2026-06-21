@@ -1,0 +1,131 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Customizing articles titles - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_customizingtitles.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Customizing articles titles</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#default_configuration">1&nbsp; Default configuration</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#customize_the_title">2&nbsp; Customize the title</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article explains how to customize the articles titles in the browser.
+<h2 id="default_configuration">Default configuration</h2>
+ By default:<ul>
+<li>The  <a href="article_articles.html#index_definition">index</a> has the "Home" title in the browser</li>
+<li>The other  <a href="article_articles.html#regular_articles">articles</a> have the description of the article as title in the browser</li>
+<li>Other elements, such as the  <a href="article_glossary.html">glossary</a>,  <a href="article_dictionnary.html">dictionary</a>,  <a href="article_categories.html">categories</a>, or  <a href="article_search.html#full_text_search">Full text search</a> have their own  <a href="article_localization.html">localized name</a> as their title</li>
+</ul>
+ For example for the index:<br/>
+ <img src="../images/indextitle.png" alt="indextitledefault" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h2 id="customize_the_title">Customize the title</h2>
+It is possible to customize the title for articles through the  <a href="article_commandline.html#wikititle">command-line</a> or the  <a href="article_configFile.html#wikititle">configuration file</a>.<br/>
+<br/>
+ The "wikiTitle" property in the  <a href="article_commandline.html#wikititle">command-line</a> or the  <a href="article_configFile.html#wikititle">configuration file</a> allows to configure how the titles will be shown in the browser. If this property is set:<ul>
+<li>The  <a href="article_articles.html#index_definition">index</a> has the  <code>wikiTitle</code> title in the browser</li>
+<li>The other  <a href="article_articles.html#regular_articles">articles</a> have the description of the article added with the  <code>wikiTitle</code> as title in the browser, as in wikipedia<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+For example:  <code>The article - docJGenerator</code></div></span>
+</li>
+<li>Other elements, such as the  <a href="article_glossary.html">glossary</a>,  <a href="article_dictionnary.html">dictionary</a>,  <a href="article_categories.html">categories</a>, or  <a href="article_search.html#full_text_search">Full text search</a> have their own  <a href="article_localization.html">localized name</a> have their localized name with the  <code>wikiTitle</code>, as in wikipedia<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+For example:  <code>Glossary - docJGenerator</code></div></span>
+</li>
+</ul>
+For example for the index:<br/>
+ <img src="../images/indextitlecustom.png" alt="indextitlecustom" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> For example:  <code>The article - docJGenerator</code></li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> For example:  <code>Glossary - docJGenerator</code></li>
+</ol>
+</div>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

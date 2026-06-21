@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Element names unicity - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_nameunicity.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Element names unicity</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#articles">1&nbsp; Articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#image_definitions">2&nbsp; Image definitions</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#resource_definitions">3&nbsp; Resource definitions</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#categories">4&nbsp; Categories</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#infobox">5&nbsp; Infobox</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The element names must be unique for all the wiki. This applies to:<ul>
+<li>The  <a href="article_articles.html">articles</a></li>
+<li>The  <a href="article_imageFiles.html">image definitions</a></li>
+<li>The  <a href="article_resourceFiles.html">resource definitions</a></li>
+<li>The  <a href="article_categories.html">categories</a></li>
+<li>The  <a href="article_syntaxinfobox.html">infobox</a></li>
+</ul>
+ The conditions for the unicity, and the result of a name clashing, varies depenbding on the element type.
+<h2 id="articles">Articles</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_disambarticles.html">Disambiguation articles</a></div>
+<br/>
+ <a href="article_articles.html">articles</a> names must be unique for all the wiki (note that the names of the articles are normalized as explained in the  <a href="article_namingconstraints.html">naming constraints</a> article).<br/>
+<br/>
+ If two articles have the same name, regardless of their respective  <a href="article_roots.html">packages</a>, the name of the second one will be modified (an index will be added at the end of the article name) and a  <a href="article_disambarticles.html">Disambiguation article</a>  will be created.<br/>
+<br/>
+ For example, the two following articles are considered to have the same name:<ul>
+<li>"my article"</li>
+<li>"my_Article"</li>
+</ul>
+
+<h2 id="image_definitions">Image definitions</h2>
+<a href="article_imageFiles.html">image definitions</a> must be unique. Note that the wiki does not consider that two image definitions are identical if the two definitions are in two different  <a href="article_roots.html">packages</a>.<br/>
+<br/>
+ Contrary to  <a href="article_articles.html">articles</a>, their names are not normalized.
+<h2 id="resource_definitions">Resource definitions</h2>
+<a href="article_resourceFiles.html">resource definitions</a> must be unique. Note that the wiki does not consider that two image definitions are identical if the two definitions are in two different  <a href="article_roots.html">packages</a>.<br/>
+<br/>
+ Contrary to  <a href="article_articles.html">articles</a>, their names are also not normalized. 
+<h2 id="categories">Categories</h2>
+<a href="article_categories.html">categories</a> names must be unique.
+<h2 id="infobox">Infobox</h2>
+<a href="article_syntaxinfobox.html">infobox</a> names must be unique.   </div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_namingconstraints.html">Naming constraints</a>: This article is about the naming constraints of the articles</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

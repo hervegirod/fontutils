@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Editor options - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editoroptions.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Editor options</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#auto_save_option">1&nbsp; Auto Save option</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#xml_formatting">2&nbsp; XML formatting</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#show_menus_in_context">3&nbsp; Show menus in Context</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#auto_refresh_option">4&nbsp; Auto Refresh option</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The "Options" menu of the  <a href="article_editorwindow.html">Editor</a> allows to:<ul>
+<li>Automatically save the content of  <a href="article_editorxmlelement.html">XML elements</a> when navigating in the tree. For eaxmple, if you modify  the content of an article in the editor, and you select another file in the tree, it will automatically save your changes before switching to the  other element</li>
+<li>Specify the indentation of the editor XML formatting</li>
+<li>Specify if the menus must be shown in context</li>
+<li>Change the way the dependency window will work</li>
+</ul>
+<br/>
+ <img src="../images/editoroptions.png" alt="editoroptions" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h2 id="auto_save_option">Auto Save option</h2>
+If the "Auto Save" checkbox is checked, then if you modify an  <a href="article_editorxmlelement.html">XML element</a>, it will automatically be saved when selecting another element in the tree.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ The editor will also automatically save the current article if you exit the editor after having modified its content.</div>
+
+<h2 id="xml_formatting">XML formatting</h2>
+ The "Indentation" numeric editor specifies the indentation to use when formatting XML elements. 
+<h2 id="show_menus_in_context">Show menus in Context</h2>
+ The "Show menus in Context" checkbox specifies if the menus must be shown in context. It is checked by default. <br/>
+<br/>
+ If checked, it means that only the elements allowed in the position when the menu is added or replaced by th users are presented. For example, if this option  is checked, and you try to add an element under a  <a href="article_syntax.html#moreinfo">moreInfo</a> element, you will have the following menu:<br/>
+ <img src="../images/editor-menusincontext.png" alt="editor-menusincontext" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+ If this option is not checked, you will have the following menu:<br/>
+ <img src="../images/editor-menusincontext2.png" alt="editor-menusincontext2" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+
+<h2 id="auto_refresh_option">Auto Refresh option</h2>
+If the "Auto Refresh" checkbox is checked, then the  <a href="article_dependencies_1.html">dependencies window</a> will automatically be   refreshed when navigating in the window.</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editor.html">DocGenerator editor</a>: This article explains the DocGenerator editor</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_editor.html">Editor</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

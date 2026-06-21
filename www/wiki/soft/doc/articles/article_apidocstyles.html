@@ -1,0 +1,287 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Generic apidocs API styles - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_apidocstyles.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Generic apidocs API styles</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#list_of_style_ids">1&nbsp; List of style IDs</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">2&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+It is possible to specify custom CSS styles for an element in the  <a href="article_apidoc.html">apidoc</a> html rendering. It will override the styles defined for this element by default in the API type. 
+<h2 id="list_of_style_ids">List of style IDs</h2>
+
+<table style="font-size:11px;" class="border paddingDefault"  style="border-collapse: collapse;">
+<thead class="notSortable">
+<tr>
+<th valign="middle"  class="column border" >Style ID</th>
+<th valign="middle"  width="150" class="column border" >Apply On</th>
+<th valign="middle"  width="150" class="column border" >Default Java styleClass</th>
+<th valign="middle"  width="150" class="column border" >Default Python styleClass</th>
+<th valign="middle"  width="150" class="column border" >Default CSharp styleClass</th>
+<th valign="middle"  width="150" class="column border" >Default Doxygen styleClass</th>
+<th valign="middle"  width="300" class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">header</td>
+<td valign="middle" class="border paddingDefault">table</td>
+<td valign="middle" class="border paddingDefault">headerTitleAPI</td>
+<td valign="middle" class="border paddingDefault">headerTitlePythonAPI</td>
+<td valign="middle" class="border paddingDefault">headerTitleCSharpAPI</td>
+<td valign="middle" class="border paddingDefault">headerTitleDoxygenAPI</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the table enclosing the title of the API</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">apiTitle</td>
+<td valign="middle" class="border paddingDefault">th</td>
+<td valign="middle" class="border paddingDefault">headerAPI</td>
+<td valign="middle" class="border paddingDefault">headerPythonAPI</td>
+<td valign="middle" class="border paddingDefault">headerCSharpAPI</td>
+<td valign="middle" class="border paddingDefault">headerTitleDoxygenAPI</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the title of the API</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">api</td>
+<td valign="middle" class="border paddingDefault">table</td>
+<td valign="middle" class="border paddingDefault">headerAPI</td>
+<td valign="middle" class="border paddingDefault">headerPythonAPI</td>
+<td valign="middle" class="border paddingDefault">headerCSharpAPI</td>
+<td valign="middle" class="border paddingDefault">headerTitleDoxygenAPI</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the title of the API</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">caption</td>
+<td valign="middle" class="border paddingDefault">caption</td>
+<td valign="middle" class="border paddingDefault">tableAPI</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the tables caption</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">api</td>
+<td valign="middle" class="border paddingDefault">table</td>
+<td valign="middle" class="border paddingDefault">apidoc</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">CSharpAPI</td>
+<td valign="middle" class="border paddingDefault">DoxygenAPI</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the element tables</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">api</td>
+<td valign="middle" class="border paddingDefault">table</td>
+<td valign="middle" class="border paddingDefault">apidoc</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">CSharpAPI</td>
+<td valign="middle" class="border paddingDefault">DoxygenAPI</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the element tables</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">row</td>
+<td valign="middle" class="border paddingDefault">tr</td>
+<td valign="middle" class="border paddingDefault">rowAPI</td>
+<td valign="middle" class="border paddingDefault">rowPythonAPI</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the rows</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">rowModifier</td>
+<td valign="middle" class="border paddingDefault">th</td>
+<td valign="middle" class="border paddingDefault">rowModifierAPI</td>
+<td valign="middle" class="border paddingDefault">rowModifierPythonAPI</td>
+<td valign="middle" class="border paddingDefault">rowModifierCSharpAPI</td>
+<td valign="middle" class="border paddingDefault">rowModifierDoxygenAPI</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the cells specifying the modifier and types of the elements</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">rowContent</td>
+<td valign="middle" class="border paddingDefault">th</td>
+<td valign="middle" class="border paddingDefault">rowContentAPI</td>
+<td valign="middle" class="border paddingDefault">rowContenPythonAPI</td>
+<td valign="middle" class="border paddingDefault">rowContenCSharpAPI</td>
+<td valign="middle" class="border paddingDefault">rowContenDoxygenAPI</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the cells specifying the path of the elements</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">rowContentText</td>
+<td valign="middle" class="border paddingDefault">div</td>
+<td valign="middle" class="border paddingDefault">rowContentTextAPI</td>
+<td valign="middle" class="border paddingDefault">rowContenTextPythonAPI</td>
+<td valign="middle" class="border paddingDefault">rowContenTextCSharpAPI</td>
+<td valign="middle" class="border paddingDefault">rowContenTextDoxygenAPI</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the div specifying the description of the elements</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">argName</td>
+<td valign="middle" class="border paddingDefault">span</td>
+<td valign="middle" class="border paddingDefault">argNameAPI</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the arguments names</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">stateAPI</td>
+<td valign="middle" class="border paddingDefault">span</td>
+<td valign="middle" class="border paddingDefault">argNameAPI</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">stateDoxygenAPI</td>
+<td valign="middle" class="border paddingDefault">styleClass specifying the style of the states names</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="example">Example</h2>
+ Suppose that we want to define a custom "java" API, with the method arguments highlighted in yellow. The original Java  API has the following specification:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;api</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Java"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>   ...  </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;element</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"method"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"method"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;children&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;child</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"argument"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>       </span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/children&gt;</span><span>           </span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"modifierAndType"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Modifier and Type"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"description"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Method and Description"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"params"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Parameters"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/element&gt;</span><span>  </span>
+<span>   ...</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/api&gt;</span>
+</pre>
+ The default style for arguments  <code>span</code> is  <code>argNameAPI</code>:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord2" style="font-weight:bold;">   span</span><span>.argNameAPI {</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     font-family</span><span>: Monospace;</span>
+<span>   }      </span>
+</pre>
+ The result is the following:<br/>
+ <img src="../images/apidocparamdefault.png" alt="apidocparamdefault" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ We will define a new API (for example we could call it "java2") and add a custom style for the  <code>argName</code> style id:<br/>
+
+<pre class="margin unlimited" >
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;api</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"CustomJava"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"java"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      ...  </span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;element</span><span class="syntaxKeyWord2" style="font-weight:bold;"> type</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"method"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"method"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;children&gt;</span>
+<span>               </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;child</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"argument"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>       </span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/children&gt;</span><span>           </span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"modifierAndType"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Modifier and Type"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"description"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Method and Description"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>            </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"params"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> desc</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Parameters"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span> </span>
+<span>            </span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;">&lt;style</span><span class="syntaxKeyWord2" style="background-color:#ffff00;font-weight:bold;"> id</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">=</span><span class="syntaxLiteral" style="background-color:#ffff00;">"argName"</span><span class="syntaxKeyWord2" style="background-color:#ffff00;font-weight:bold;"> style</span><span class="syntaxDefault" style="background-color:#ffff00;font-weight:bold;">=</span><span class="syntaxLiteral" style="background-color:#ffff00;">"myArgStyle"</span><span class="syntaxKeyWord1" style="background-color:#ffff00;font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/element&gt;</span><span>  </span>
+<span>      ...</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/api&gt;</span>
+</pre>
+ and the associated new CSS rules:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord2" style="font-weight:bold;">   span</span><span>.argNameAPI {</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     font-family</span><span>: Monospace;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">     background-color</span><span>: yellow;</span>
+<span>   }      </span>
+</pre>
+ We could set the new CSS file using the "css" property in the  <a href="article_configFile.html">configuration file</a> or the  <a href="article_commandline.html">command-line</a>.<br/>
+<br/>
+ The result will be:<br/>
+ <img src="../images/apidocparamcustom.png" alt="apidocparamcustom" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_apidocconf.html">API documentation configuration</a>: This article explains how to specify internal APIs documentations languages, used in the apidoc element</li>
+<li> <a href="article_apidoc.html">apidoc</a>: This article explains how the apidoc element can be used</li>
+<li> <a href="article_configFile.html">Configuration file</a>: It is possible to define an optional property / value configuration file when starting the application (using the graphical UI or the command line)</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

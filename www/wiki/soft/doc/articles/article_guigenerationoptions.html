@@ -1,0 +1,384 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>GUI Generation options - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_guigenerationoptions.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>GUI Generation options</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#global_options">1&nbsp; Global options</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#general_options_tab">2&nbsp; General options tab</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#mediawiki_and_markdown_markup">2.1&nbsp; Mediawiki and markdown markup</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#output_type">2.2&nbsp; Output type</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#errors_tab">3&nbsp; Errors tab</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#checking_links">3.1&nbsp; Checking links</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#errors_viewer">3.2&nbsp; Errors Viewer</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#search_options_tab">4&nbsp; Search options tab</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#pagerank_options">4.1&nbsp; PageRank options</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#roots_tab">5&nbsp; Roots tab</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#miscellanous_options_tab">6&nbsp; Miscellanous options tab</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#background">6.1&nbsp; Background</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#output_formats_options_tab">7&nbsp; Output formats options tab</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#performance_options_tab">8&nbsp; Performance options tab</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#updates_tab">9&nbsp; Updates tab</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">10&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">11&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ The GUI panel has several global options and several tabs for configuring the generation:<ul>
+<li>General properties</li>
+<li>Errors: used to specify how parsing  <a href="article_errors.html">errors</a> are handled</li>
+<li>Search: used for the  <a href="article_search.html">search</a> configuration</li>
+<li>Roots: used for  <a href="article_roots.html">root directories and packages</a> configuration</li>
+<li>Misc: Miscellanous parameters</li>
+<li>Output formats: used to specify and configure the  <a href="article_outputtype.html">output formats</a> of the generator</li>
+<li>Performance: used to tweak the  <a href="article_performance.html">performance</a> of the generation</li>
+<li>Updates: used for the  <a href="article_incremental.html">incremental generation</a> mode</li>
+</ul>
+
+<h2 id="global_options">Global options</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_inputandoutput.html">Input and ouput arguments</a></div>
+<br/>
+<br/>
+ <img src="../images/guiGlobalProperties.png" alt="guiGlobalProperties" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ The two following properties are the only one which are mandatory to be able to generate the wiki<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+The "Apply" button will only be enabled if both these properties are specified</div></span>
+:<ul>
+<li>"Input Directories" : the input directories containing the wiki specification</li>
+<li>"Output Directory" : the output directory containing the generated wiki</li>
+</ul>
+<br/>
+<br/>
+ All the other properties are optional:<ul>
+<li>"Alternate Input Index File" : the alternate index File to use for the wiki. See  <a href="article_commandline.html#index">index</a></li>
+<li>"Custom CSS StyleSheet" : a  <a href="article_css.html">custom additional CSS StyleSheet</a> that will be added to each article. See  <a href="article_commandline.html#css">css</a></li>
+<li>"Additional API docs" : an optional file specifying the the custom internal API documentation.. See  <a href="article_commandline.html#apidocs">apidocs</a></li>
+<li>"Property / Values File" : an additional properties / values file. See  <a href="article_properties.html#user-defined_properties">user-defined properties</a></li>
+<li>"Additional Configuration" : the path to a  <a href="article_configFile.html">configuration file</a></li>
+</ul>
+
+<h2 id="general_options_tab">General options tab</h2>
+<br/>
+ <img src="../images/guiGeneralTab.png" alt="guiGeneralTab" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+<ul>
+<li>"Locale" : the localization of the wiki (the default is "en", which means that the wiki will be in English). See  <a href="article_commandline.html#locale">locale</a></li>
+<li>"Limit Articles per Directory" : specifies if there should be a limitation of the number of output articles per directory</li>
+<li>"Generation Limit" : specifies the maximum number of output articles per directory (if this is limited). See  <a href="article_commandline.html#limit">limit</a></li>
+<li>"Dynamic Maps": specifies if  <a href="article_syntax.html#map">maps</a> will be dynamically loaded</li>
+<li>"Notes Tooltips": specifies if  <a href="article_syntax.html#note">notes</a> show an integrated tooltip when hovering on the note associated element</li>
+<li>"Wikilinks Tooltips": specifies if  <a href="article_syntax.html#wikipedia">wikipedia</a> show an integrated tooltip when hovering on the note associated element</li>
+<li>"FixedLeftMenu": Specifies if the options in the left menu are always present. See  <a href="article_defaultleftmenu.html#structure_of_the_menu">default left menu</a> for more information</li>
+<li>"Lightbox": specifies if images use lightboxes</li>
+<li>"Include TODOs": specifies if TODOs are included. See also  <a href="article_todosystem.html">TODO system</a></li>
+<li>"Include Comments": specifies if comments are included. See also  <a href="article_review.html">Review system</a></li>
+<li>"Theme": specifies the theme of the wiki. See also  <a href="article_theme.html">StyleSheet theme</a></li>
+<li>"Allow Mediawiki Markup": specifies if Mediawiki markup files are allowed. See  <a href="article_commandline.html#allowmediawiki">allowMediawiki</a></li>
+<li>"Allow Markdown Markup": specifies if Markdown markup files are allowed. See  <a href="article_commandline.html#allowmarkdown">allowMarkdown</a>. Note that both Mediawiki and Markdown markups can't be allowed at the same time</li>
+<li>"Output Type" : the type of the Wiki output. The default is html, but other formats (Help, Word, PDF, or ePub) can be allowed depending on the installed Plugins. See  <a href="article_commandline.html#outputtype">outputType</a></li>
+<li>"Optimized for Swing" : Only useful if the Output Type is "help". It specifies if the help content is optimized for the Swing API</li>
+</ul>
+
+<h3 id="mediawiki_and_markdown_markup">Mediawiki and markdown markup</h3>
+<div class="moreInfo" >
+See also <a href="article_mediawikimarkup.html">Mediawiki markup</a> and <a href="article_markdownmarkup.html">Markdown markup</a></div>
+<br/>
+ The "Allow Mediawiki Markup" and "Allow Markdown Markup" espectively allow a subset of Mediawiki and markdown markups for the wiki source (in addition to XML files).<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Mediawiki or Markdown files are files with the ".md" extension. Because these two kind of files have the same extension, you can't allow both Mediawiki and Markdown markups.</div>
+
+<h3 id="output_type">Output type</h3>
+ By default the output will be an html static website. Depending on the included plugins, you will be able to select also:<ul>
+<li> <a href="article_docgenhelp.html">Help format</a> to produce a JavaHelp-like output</li>
+<li>Word</li>
+<li>PDF</li>
+<li>ePub</li>
+</ul>
+
+<h2 id="errors_tab">Errors tab</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_errorsviewer.html">Errors viewer</a></div>
+<br/>
+<br/>
+ <img src="../images/guiErrorsTab.png" alt="guiErrorsTab" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+<br/>
+<ul>
+<li>"Check Links": specifies that the presence of external links must be checked. See  <a href="article_commandline.html#checklinks">checkLinks</a></li>
+<li>"Check HTTP Links": specifies if the URL links with the "http" protocol are checked. See  <a href="article_commandline.html#checkhttplinks">checkHTTPLinks</a></li>
+<li>"Local Links": specifies which kinds of local links outside of the wiki are allowed. See also  <a href="article_acceptLocalLinks.html">checking local links</a></li>
+<li>"Resolve Internal API Links": specifies if APIs which are defined internal to the wiki output will be resolved. See  <a href="article_commandline.html#resolveapilinks">resolveAPILinks</a></li>
+<li>"Show Warnings": specifies if the warnings should be presented (by default only errors are presented)</li>
+<li>"Show Glossary Errors": show the warnings in the glossary generation. See  <a href="article_commandline.html#showglossaryerrors">showGlossaryErrors</a></li>
+<li>"Show Absolute Paths": show the absolute paths rather than the relative path from the root directory for files where errors are encountered</li>
+<li>"Errors Viewer": specifies how to view the files if errors are encountered</li>
+<li>"Packages Dependencies": specifies the file which specifies the packages dependencies. See also  <a href="article_roots.html">packages</a> for more information</li>
+</ul>
+
+<h3 id="checking_links">Checking links</h3>
+ By default all links existence will be checked.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ If you are in an environment where you don't have access to the Web, you should uncheck the "Check HTTP Links" checkbox.</div>
+
+<h3 id="errors_viewer">Errors Viewer</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_errorsviewer.html">Errors viewer</a></div>
+<br/>
+ This combobox specifies how to view the files if errors are encountered:<ul>
+<li>"None" : the error files cannot be opened</li>
+<li>"Browser" : (default value) the platform browser will be used to open the error files</li>
+<li>"Editor" : a built-in editor will be used to open the error files</li>
+</ul>
+
+<h2 id="search_options_tab">Search options tab</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_search.html">Search box</a></div>
+<br/>
+<br/>
+ <img src="../images/guiSearchTab.png" alt="guiSearchTab" id="_image_3" onclick="openImage(_image_3)" class="left marginSmall" />
+<br/>
+<ul>
+<li>"Add a Search Box" : allow to add an autocomplete  <a href="article_search.html">Search box</a> which will be added for each article. See  <a href="article_commandline.html#search">search</a></li>
+<li>"Search Type" : specifies which elements to include in the Search boxNote that if will only have an effect if there is a Search box. It can be on articles only, on articles and titles, on articles, titles and  <a href="article_syntax.html#anchor">anchors</a>, or it can be a custom Search</li>
+<li>"Limit Search" : set if there is a limit on the number of results for the Search</li>
+<li>"Search Limit" : set the limit on the number of results for the Search</li>
+<li>"PageRank": set if the PageRank algorithm is used to sort the results on the Search box, and how the iteration values are set</li>
+<li>"PageRank Iterations": set the number of iterations for the PageRank algorithm</li>
+<li>"PageRank Max Iterations": set the maximum number of iterations for the PageRank algorithm, when the iterations are using a convergence algorithm</li>
+<li>"PageRank Delta": set the value to stop the iterations when the iterations are using a convergence algorithm</li>
+<li>"Full Text Search" : specifies if the Search box will also have a full text search option. Note that if will only have an effect if there is a Search box. See  <a href="article_commandline.html#fulltextsearch">fullTextSearch</a></li>
+<li>"Remove Accents": specifies if accents should be removed in the full text search. See  <a href="article_commandline.html#fulltextsearchremoveaccents">fullTextSearchRemoveAccents</a></li>
+<li>"Use Metaphone": specifies if the Metaphone algorithm should be used in the full text search. See  <a href="article_commandline.html#fulltextsearchmetaphone">fullTextSearchMetaphone</a></li>
+<li>"Remove Similar Alternate Titles from Dictionary": if alternate titles are automatically pruned in the dictionary if their text is sufficiently similar to the article title. See  <a href="article_commandline.html#prunealttitles">pruneAltTitles</a> for more information</li>
+</ul>
+
+<h3 id="pagerank_options">PageRank options</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_pagerank.html">PageRank</a></div>
+<br/>
+ The following options allow to set the PageRank algorithm for the Search:<ul>
+<li>"PageRank": set if the PageRank algorithm is used to sort the results on the Search box, and how the iteration values are set</li>
+<li>"Iterations": set the number of iterations for the PageRank algorithm</li>
+<li>"Max Iterations": set the maximum number of iterations for the PageRank algorithm, when the iterations are using a convergence algorithm</li>
+<li>"Delta": set the value to stop the iterations when the iterations are using a convergence algorithm</li>
+</ul>
+<br/>
+<br/>
+ The PageRank option can have the following values:<ul>
+<li>"No PageRank": the PageRank algorithm is not used to sort the results</li>
+<li>"Fixed Iterations": the PageRank algorithm uses a fixed number of iterations, specified by the "Iterations" option</li>
+<li>"Converge Iterations": the PageRank algorithm is converging until the difference between the previous values and the new values is less than "Delta". The maximum value for the iterations is specified by the "Iterations" option</li>
+</ul>
+ Note that the interface will change if the PageRank option is set to "Converge Iterations":<br/>
+ <img src="../images/guiSearchTab2.png" alt="guiSearchTab2" id="_image_4" onclick="openImage(_image_4)" class="left marginSmall" />
+
+<h2 id="roots_tab">Roots tab</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_roots.html">Packages</a></div>
+<br/>
+<br/>
+ <img src="../images/guiRootsTab.png" alt="guiRootsTab" id="_image_5" onclick="openImage(_image_5)" class="left marginSmall" />
+<br/>
+<ul>
+<li>"Packages Dependencies": specifies the file which specifies the packages dependencies. See also  <a href="article_roots.html">packages</a> for more information</li>
+<li>"Use sub-directories for inputs": specifies that the inputs sub-directories will be used rather that directly the inputs directory. See also  <a href="article_roots.html#using_the_inputs_sub-directories">Using the inputs sub-directories</a> for more information </li>
+</ul>
+
+<h2 id="miscellanous_options_tab">Miscellanous options tab</h2>
+<br/>
+ <img src="../images/guiMiscTab.png" alt="guiMiscTab" id="_image_6" onclick="openImage(_image_6)" class="left marginSmall" />
+<br/>
+<ul>
+<li>"Relaxed Syntax" : specifies if the syntax of the articles is relaxed. See  <a href="article_commandline.html#relaxedsyntax">relaxedSyntax</a></li>
+<li>"IE Highest Compatibility" : specifies if the compatibility mode for Internet Explorer is set to the highest value. This may be necessary to allow jQuery to work correctly with high-level versions of IE (used for the Search field). See  <a href="article_commandline.html#iecompatibilityedge">IECompatibilityEdge</a></li>
+<li>"Escape Non UTF8 Characters" : specifies if non UTF8 characters should be escaped in articles. See  <a href="article_commandline.html#escapenonutf8">escapeNonUTF8</a></li>
+<li>"Empty Lines as New Lines" : specifies how empty lines in the source should be converted. See  <a href="article_configFile.html#processing_empty_lines">processing empty lines</a></li>
+<li>"Allow HTML Entities" : specifies if HTML entities are taken into account. See  <a href="article_commandline.html#allowhtmlentities">allowHTMLEntities</a></li>
+<li>"Background" : specifies the background file to use for the wiki, if there is one. See  <a href="article_commandline.html#background">background</a></li>
+<li>"Background Color" : specifies the background color to use for the wiki, if there is one. See  <a href="article_commandline.html#backgroundcolor">backgroundColor</a>. Note that you can't have both a background file and a background color</li>
+<li>"Background Opacity" : specifies the background opacity. See  <a href="article_commandline.html#backgroundopacity">backgroundOpacity</a></li>
+<li>"Global Background" : specifies if the background should be put on all pages. See  <a href="article_commandline.html#backgroundglobal">backgroundGlobal</a></li>
+<li>"Notes on two Columns": specifies if the notes chapter presents the notes on two columns rather than one. See  <a href="article_commandline.html#notestwocolumns">notesTwoColumns</a></li>
+<li>"Code/Source Background" : specifies if "code" and "source" elements must have a background. See  <a href="article_commandline.html#codehasbackground">codeHasBackground</a></li>
+<li>"Pre Background" : specifies if "pre" elements must have a background. See  <a href="article_commandline.html#prehasbackground">preHasBackground</a></li>
+<li>"Pre Scroll Type": specifies how the content of the "pre" element are scrolled. See  <a href="article_commandline.html#prescrollingtype">preScrollingType</a></li>
+<li>"Wiki Title" : specifies the title of the wiki. See  <a href="article_commandline.html#wikititle">wikiTitle</a></li>
+<li>"Table of Contents" : specifies if there is a Table of content for each article in the wiki. See  <a href="article_commandline.html#hastoc">hasTOC</a></li>
+<li>"TOC Threshold" : specifies the threshold of the Table of content for each article in the wiki. See  <a href="article_commandline.html#tocthreshold">tocThreshold</a></li>
+</ul>
+
+<h3 id="background">Background</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_background.html">Setting a background</a></div>
+<br/>
+ The following options allow to set a background under the pages of the wiki:<ul>
+<li>"Background" : specifies the background file to use for the wiki, if there is one</li>
+<li>"Background Color" : specifies the background color to use for the wiki, if there is one. Note that you can't have both a background file and a background color</li>
+<li>"Background Opacity" : specifies the background opacity</li>
+<li>"Global Background" : specifies if the background should be put on all pages</li>
+</ul>
+
+<h2 id="output_formats_options_tab">Output formats options tab</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_outputtype.html">OutputType configuration property</a></div>
+<br/>
+<br/>
+ <img src="../images/guiOutputFormatsTab.png" alt="guiOutputFormatsTab" id="_image_7" onclick="openImage(_image_7)" class="left marginSmall" />
+<br/>
+<ul>
+<li>"Help Content" : the file specifying the content for the help format. See  <a href="article_commandline.html#helpcontent">helpContent</a></li>
+<li>"Document Content" : the file specifying the content for the document (Word, ePub, PDF) format. See  <a href="article_commandline.html#wikicontent">wikiContent</a></li>
+<li>"Document File" : the file specifying the output document for the (Word, ePub, PDF) format. See  <a href="article_commandline.html#docfile">docFile</a></li>
+<li>"Document Cover" : the file specifying the output document cover for the (Word, ePub, PDF) format. See  <a href="article_commandline.html#cover">cover</a></li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ These options are only useful for format which are different from the default "html" format.</div>
+
+<h2 id="performance_options_tab">Performance options tab</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_performance.html">Performance</a></div>
+<br/>
+<br/>
+ <img src="../images/guiPerformanceTab.png" alt="guiPerformanceTab" id="_image_8" onclick="openImage(_image_8)" class="left marginSmall" />
+<br/>
+<ul>
+<li>"Check Links in Thread Pool" : specifies if the checking of HTTP Links is performed in a Thread pool. See  <a href="article_commandline.html#checkhttplinksthreaded">checkHTTPLinksThreaded</a></li>
+<li>"Check Links Thread Pool Size" : the number of Threads to use to check HTTP Links. See  <a href="article_commandline.html#checkhttplinkspool">checkHTTPLinksPool</a></li>
+<li>"Fork Parsing" : specifies of the parsing is performed in forked Threads. See  <a href="article_commandline.html#forkparser">forkParser</a></li>
+<li>"Fork Parsing Size per Thread" : specifies the number of articles to parse per each Thread. See  <a href="article_commandline.html#forkparsersplit">forkParserSplit</a></li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Just checking the "Fork Parsing" checkbox without changing anything else can rather speed-up the parsing.</div>
+
+<h2 id="updates_tab">Updates tab</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_incremental.html">Incremental generation</a></div>
+<br/>
+<br/>
+ <img src="../images/guiUpdateTab.png" alt="guiUpdateTab" id="_image_9" onclick="openImage(_image_9)" class="left marginSmall" />
+<br/>
+<ul>
+<li>"Incremental Generation": check if the generator is in incremental generation mode (it will only parse and generate updated content)</li>
+<li>"Specify Update File" and "Custom Update File": used to specify the Incremental Generation file to use</li>
+</ul>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> The "Apply" button will only be enabled if both these properties are specified</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_gui.html">GUI interface</a>: This article is about the GUI interface of the application</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

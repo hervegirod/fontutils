@@ -1,0 +1,175 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Editor content panel - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editorcontent.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Editor content panel</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#content_for_articles">1&nbsp; Content for articles</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#search_in_html_content">1.1&nbsp; Search in html content</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#edition_mode">1.2&nbsp; Edition mode</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#content_for_images_definition_resources_definition_and_infobox_definitions">2&nbsp; Content for images definition, resources definition, and infobox definitions</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#content_for_images">3&nbsp; Content for images</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The right panel of the  <a href="article_editorwindow.html">Editor window</a> shows the content of the currently selected  <a href="article_editorxmlelement.html">element</a> in the  <a href="article_editortree.html">tree</a>.<br/>
+<br/>
+ The content of the panel is different if the  <a href="article_editorxmlelement.html">selected element</a> is:<ul>
+<li>An  <a href="article_articles.html">article</a> or the  <a href="article_indexfiles.html">index article</a></li>
+<li>A  <a href="article_resourceFiles.html">Resource definition file</a></li>
+<li>A  <a href="article_imageFiles.html">Image definition file</a></li>
+<li>A  <a href="article_infoboxtemplate.html">Infobox definition files</a></li>
+<li>The  <a href="article_dictionnary.html">Dictionary</a></li>
+<li>A  <a href="article_categories.html">Category</a></li>
+<li>The  <a href="article_custommenus.html">menus</a></li>
+<li>The  <a href="article_footerAndHeader.html">footer and header files</a></li>
+</ul>
+
+<h2 id="content_for_articles">Content for articles</h2>
+The default content for an  <a href="article_articles.html">article</a> shows the html content for the article, as it would be in the generated wiki:<br/>
+ <img src="../images/editor-content-html.png" alt="editor-content-html" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+ A toolbar at the top of the html content allows several actions:<br/>
+ <img src="../images/editor-content-toolbar.png" alt="editor-content-toolbar" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+<br/>
+ The toolbar offer initially the following buttons:<ul>
+<li> <img src="../images/editor-content-refresh.png" alt="editor-content-refresh" id="_image_2" onclick="openImage(_image_2)" class="left" />
+: The Refresh button allows to refresh the current content by parsing again the article</li>
+<li> <img src="../images/editor-content-edit.png" alt="editor-content-edit" id="_image_3" onclick="openImage(_image_3)" class="left" />
+: The Edit button allows to enter in an XML edition mode of the article</li>
+</ul>
+
+<h3 id="search_in_html_content">Search in html content</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_editorsearchinpage.html">Editor search in page</a></div>
+<br/>
+ You can search for a term in any by typing Ctrl+F as you could do in any Web browser.
+<h3 id="edition_mode">Edition mode</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_editoreditionmode.html">Editor edition mode</a></div>
+<br/>
+ In the edition mode, the content shows an XML editor of the article:<br/>
+ <img src="../images/editor-content-code.png" alt="editor-content-code" id="_image_4" onclick="openImage(_image_4)" class="left marginSmall" />
+<br/>
+ The toolbar has the following buttons:<br/>
+ <img src="../images/editor-content-toolbar2.png" alt="editor-content-toolbar2" id="_image_5" onclick="openImage(_image_5)" class="left marginSmall" />
+<br/>
+ The toolbar offer the following buttons:<ul>
+<li> <img src="../images/editor-content-refresh.png" alt="editor-content-refresh" id="_image_6" onclick="openImage(_image_6)" class="left" />
+: The Refresh button allows to refresh the current content by parsing again the element</li>
+<li> <img src="../images/editor-content-undo.png" alt="editor-content-undo" id="_image_7" onclick="openImage(_image_7)" class="left" />
+: The Undo and Redo buttons allows to undo or redo the edition of the current element</li>
+<li> <img src="../images/editor-content-save.png" alt="editor-content-save" id="_image_8" onclick="openImage(_image_8)" class="left" />
+: The Save button allows to save the content of the element on the File system. This will trigger a parsing of the  file on the disk, and eventually will present errors detected during the parsing. If the content of the element has been modified, the icon color will change:  <img src="../images/editor-content-savemodified.png" alt="editor-content-savemodified" id="_image_9" onclick="openImage(_image_9)" class="left" />
+<br/>
+</li>
+<li> <img src="../images/editor-content-format.png" alt="editor-content-format" id="_image_10" onclick="openImage(_image_10)" class="left" />
+: The format button allows to format the XML content of  <a href="article_editorxmlelement.html">Editor XML elements</a>. The indentation for the formatted XML file is defined by the XML formatting  <a href="article_editoroptions.html#xml_formatting">Editor option</a></li>
+<li> <img src="../images/editor-content-view.png" alt="editor-content-view" id="_image_11" onclick="openImage(_image_11)" class="left" />
+: The View button allows to exit the edition mode an enter again the html presentation of the article</li>
+</ul>
+
+<h2 id="content_for_images_definition_resources_definition_and_infobox_definitions">Content for images definition, resources definition, and infobox definitions</h2>
+For  <a href="article_resourceFiles.html">Resource definition files</a>,  <a href="article_imageFiles.html">Image definition files</a>, and   <a href="article_infoboxtemplate.html">Infobox definition files</a>, there is only an edition mode, which presents the XML content of the file:<br/>
+ <img src="../images/editor-content-resources.png" alt="editor-content-resources" id="_image_12" onclick="openImage(_image_12)" class="left marginSmall" />
+
+<h2 id="content_for_images">Content for images</h2>
+ For images, there is only an edition mode, which presents the image:<br/>
+ <img src="../images/editor-content-image.png" alt="editor-content-image" id="_image_13" onclick="openImage(_image_13)" class="left marginSmall" />
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_editor.html">DocGenerator editor</a>: This article explains the DocGenerator editor</li>
+<li> <a href="article_editorwindow.html">Editor window</a>: This article explains the content of the Editor window</li>
+<li> <a href="article_editortree.html">Editor tree</a>: This article is about the left panel of the editor window, which shows the tree of the wiki</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_editor.html">Editor</a> |
+ <a href="../categories/cat_gui.html">Gui</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

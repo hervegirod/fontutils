@@ -1,0 +1,628 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() 
+  {
+    $("#table_0").tablesorter(); 
+    $("#table_1").tablesorter(); 
+    $("#table_2").tablesorter(); 
+    $("#table_3").tablesorter(); 
+    $("#table_4").tablesorter(); 
+    $("#table_5").tablesorter(); 
+    $("#table_6").tablesorter(); 
+  }
+);
+</script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>StyleSheet theme - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_theme.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>StyleSheet theme</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#support">1&nbsp; Support</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#overview">2&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#specify_a_custom_css_theme_file">3&nbsp; Specify a custom CSS theme file</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#theme_properties_list">4&nbsp; Theme properties list</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#general_properties">4.1&nbsp; General properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#apis_links_properties">4.2&nbsp; APIs links properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#external_links_and_notes_properties">4.3&nbsp; External links and notes properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#table">4.4&nbsp; Table</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#message_box">4.5&nbsp; Message box</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#syntax_in_pre">4.6&nbsp; Syntax in pre</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#other_elements">4.7&nbsp; Other elements</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#setting_global_properties">5&nbsp; Setting global properties</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">6&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The "styleSheetTheme" property in the  <a href="article_configFile.html">configuration file</a> or the  <a href="article_commandline.html">command-line</a> allows to specify the StyleSheet theme for the HTML result.<br/>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ Note that you can also specify the complete  <a href="article_css.html">Custom StyleSheet</a> , but only specifying the theme is much more simpler.</div>
+
+<h2 id="support">Support</h2>
+The theme feature is only supported for the following  <a href="article_outputtype.html">output formats</a>:<ul>
+<li>"html" (the defautl value)</li>
+<li>"help": for generating a  <a href="article_docgenhelp.html">help content</a> to provide a help system in any Swing or JavaFX application, if the content is  <a href="article_helpcontentoptim.html">optimized</a> for JavaFX</li>
+</ul>
+
+<h2 id="overview">Overview</h2>
+ The StyleSheet theme is a CSS file specifying CSS global properties which will be used by the main StyleSheet CSS file:<br/>
+ <img src="../images/stylesheetTheme.png" alt="stylesheetTheme" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+<br/>
+  Properties in the theme file are used as variables in the main file. For example in the theme CSS file we have:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   </span><span>:root {</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      --wiki-background</span><span>: #f5faff; /* the background color for the table of content, the boxes, and the left menu */</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      --wiki-border</span><span>: #E1E1E1; /* the border color for the table of content, and the boxes */   </span>
+<span class="syntaxKeyWord2" style="font-weight:bold;">     ..</span><span>.</span>
+<span>   }   </span>
+</pre>
+ and in the main CSS file:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord2" style="font-weight:bold;">   @import "stylesheetTheme</span><span>.css";</span>
+<span>      </span>
+<span class="syntaxKeyWord2" style="font-weight:bold;">   </span><span>.toc {</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      background</span><span>: var(--wiki-background);</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      border-style</span><span>: solid;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      border-width</span><span>: 1px;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      border-color</span><span>: var(--wiki-border);</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      padding</span><span>: 7px 7px 7px 7px;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      display</span><span>: table;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      line-height</span><span>: 120%;</span>
+<span>   }</span>
+</pre>
+
+<h2 id="specify_a_custom_css_theme_file">Specify a custom CSS theme file</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_guitools.html#export_the_css_file_specifying_the_default_stylesheet_theme">GUI tools</a></div>
+<br/>
+ If you want to create your own custom StyleSheet theme, you must export the default StyleSheet theme file by using the Tools and modify the variables specified in the theme for the properties you want to change.<br/>
+<br/>
+ You can also add other global properties in your custom CSS theme file.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Note that you should not remove a variable definition in your theme. Keep each variable values to their default value for those you don't want to change, but don't remove them from the CSS file, or you will have strange effects because these variables are used in the full CSS file.</div>
+
+<h2 id="theme_properties_list">Theme properties list</h2>
+The default content of the theme file is  <a href="resources/stylesheetTheme.css">stylesheetTheme.css</a>. 
+<h3 id="general_properties">General properties</h3>
+
+<table id="table_0" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >CSS Property</th>
+<th valign="middle"  width="120" class="column border" >Applies To</th>
+<th valign="middle"  class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_defaultleftmenu.html">left menu</a><br/>
+ <a href="article_tableofcontent.html">table of content</a><br/>
+ <a href="article_syntax.html#box">box</a></td>
+<td valign="middle" class="border paddingDefault">background color</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-border</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_tableofcontent.html">table of content</a><br/>
+ <a href="article_syntax.html#box">box</a></td>
+<td valign="middle" class="border paddingDefault">border color</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="apis_links_properties">APIs links properties</h3>
+
+<table id="table_1" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >CSS Property</th>
+<th valign="middle"  width="120" class="column border" >Applies To</th>
+<th valign="middle"  class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-apilink-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxlangapi.html">programmming language API</a></td>
+<td valign="middle" class="border paddingDefault">background color for programming languages APIs</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-apilink-color</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxlangapi.html">programmming language API</a></td>
+<td valign="middle" class="border paddingDefault">text color for programming languages APIs</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-linktooltip-border</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apis.html#apis_syntax_elements">apis links</a></td>
+<td valign="middle" class="border paddingDefault">background color for the API link</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-api-headertitle</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">text color for the apidoc header title</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="external_links_and_notes_properties">External links and notes properties</h3>
+
+<table id="table_2" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >CSS Property</th>
+<th valign="middle"  width="120" class="column border" >Applies To</th>
+<th valign="middle"  class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-link</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#a">a</a></td>
+<td valign="middle" class="border paddingDefault">color for normal links</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-link-visited</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#a">a</a></td>
+<td valign="middle" class="border paddingDefault">color for visited links</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-link-active</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#a">a</a></td>
+<td valign="middle" class="border paddingDefault">color for active links</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-lighterlink-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#a">a</a></td>
+<td valign="middle" class="border paddingDefault">background color for lighter links</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-lighterlink</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#a">a</a></td>
+<td valign="middle" class="border paddingDefault">text color for lighter links</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-linktooltip-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#notes_tooltip">notes tooltip</a></td>
+<td valign="middle" class="border paddingDefault">background color for notes tooltips</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-linktooltip-border</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#notes_tooltip">notes tooltip</a></td>
+<td valign="middle" class="border paddingDefault">border color for notes tooltips</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-linktooltipbox-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#notes_tooltip">notes tooltip</a></td>
+<td valign="middle" class="border paddingDefault">background color for notes tooltips boxes</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="table">Table</h3>
+
+<table id="table_3" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >CSS Property</th>
+<th valign="middle"  width="120" class="column border" >Applies To</th>
+<th valign="middle"  class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-table-border</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtable.html">table element</a></td>
+<td valign="middle" class="border paddingDefault">border color for the table cells</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-tableheader-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtable.html">table element</a></td>
+<td valign="middle" class="border paddingDefault">background for the table header</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-tablecaption-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtable.html">table element</a></td>
+<td valign="middle" class="border paddingDefault">background for the table caption</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-tablecaption-border</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtable.html">table element</a></td>
+<td valign="middle" class="border paddingDefault">border color for the table caption</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-tableheader-color</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtable.html">table element</a></td>
+<td valign="middle" class="border paddingDefault">text color for the table header</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-tablecell-even-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtable.html">table element</a></td>
+<td valign="middle" class="border paddingDefault">background color for even rows in tables</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-tablecell-odd-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtable.html">table element</a></td>
+<td valign="middle" class="border paddingDefault">background color for odd rows in tables</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="message_box">Message box</h3>
+
+<table id="table_4" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >CSS Property</th>
+<th valign="middle"  width="120" class="column border" >Applies To</th>
+<th valign="middle"  class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-default-color</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">text color for a messageBox of the default type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-defaultbackground</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">background color for a messageBox of the default type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-info-color</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">text color for a messageBox of the info type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-info-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">background color for a messageBox of the info type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-success-color</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">text color for a messageBox of the success type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-success-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">background color for a messageBox of the success type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-warning-color</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">text color for a messageBox of the warning type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-warning-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">background color for a messageBox of the warning type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-error-color</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">text color for a messageBox of the error type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-error-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">background color for a messageBox of the error type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-progress-color</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">text color for a messageBox of the progress type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-progress-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">background color for a messageBox of the progress type</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-messagebox-caption-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox element</a></td>
+<td valign="middle" class="border paddingDefault">background color for a messageBox caption</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="syntax_in_pre">Syntax in pre</h3>
+
+<table id="table_5" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >CSS Property</th>
+<th valign="middle"  width="120" class="column border" >Applies To</th>
+<th valign="middle"  class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-syntax-keyWord1</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxhighlighting.html">syntax highlighting</a></td>
+<td valign="middle" class="border paddingDefault">KEYWORD1 color for syntax highlighting</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-syntax-keyWord2</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxhighlighting.html">syntax highlighting</a></td>
+<td valign="middle" class="border paddingDefault">KEYWORD2 color for syntax highlighting</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-syntax-comment</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxhighlighting.html">syntax highlighting</a></td>
+<td valign="middle" class="border paddingDefault">COMMENT color for syntax highlighting</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-syntax-literal</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxhighlighting.html">syntax highlighting</a></td>
+<td valign="middle" class="border paddingDefault">LITERAL color for syntax highlighting</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-syntax-label</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxhighlighting.html">syntax highlighting</a></td>
+<td valign="middle" class="border paddingDefault">LABEL color for syntax highlighting</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>-wiki-syntax-default</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxhighlighting.html">syntax highlighting</a></td>
+<td valign="middle" class="border paddingDefault">Default color for syntax highlighting</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>-wiki-syntax-default</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxhighlighting.html">syntax highlighting</a></td>
+<td valign="middle" class="border paddingDefault">Default color for syntax highlighting</td>
+</tr>
+</tbody>
+</table>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">public</span><span> </span><span class="syntaxKeyWord1" style="font-weight:bold;">void</span><span> </span><span class="syntaxDefault" style="font-weight:bold;">toto</span><span>(</span><span class="syntaxKeyWord1" style="font-weight:bold;">int</span><span> i) {</span>
+<span>     </span><span class="syntaxKeyWord1" style="font-weight:bold;">int</span><span> a = 2; </span><span class="syntaxComment" style="font-style:italic;">// this is a Comment </span>
+<span>     String s = </span><span class="syntaxLiteral" style="">"this is a Literal"</span><span>;</span>
+<span>     System.out.</span><span class="syntaxDefault" style="font-weight:bold;">println</span><span>(i);</span>
+<span>   }</span>
+</pre>
+ In this Java syntax:<ul>
+<li> <code>public</code>,  <code>void</code>, and  <code>int</code> use the KEYWORD1 color</li>
+<li>"this is a comment" use the COMMENT color</li>
+<li>The other elements use the Default color</li>
+</ul>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   keyword</span><span>=first value</span>
+</pre>
+ In this Properties syntax:<ul>
+<li> <code>keyword</code> use the KEYWORD1 color</li>
+<li>The other elements use the Default color</li>
+</ul>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">SELECT</span><span> </span><span class="syntaxLiteral" style="font-weight:bold;">?eltLabel ?class</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">WHERE</span><span> {</span>
+<span>   </span><span class="syntaxLiteral" style="font-weight:bold;">?elt rdf:type ?class .</span>
+<span>   </span><span class="syntaxDefault" style="font-weight:bold;">?elt rdf:type my:Element .</span>
+<span>   </span><span class="syntaxLiteral" style="font-weight:bold;">?elt my:Label ?eltLabel .</span>
+<span>   }</span>
+</pre>
+ In this SPARQL syntax:<ul>
+<li> <code>SELECT</code>,  <code>SELECT</code> and  <code>WHERE</code> use the KEYWORD1 color</li>
+<li>The  <code>?elt</code>, etc... elements use the LABEL color</li>
+<li>The other elements use the Default color</li>
+</ul>
+
+<h3 id="other_elements">Other elements</h3>
+
+<table id="table_6" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >CSS Property</th>
+<th valign="middle"  width="120" class="column border" >Applies To</th>
+<th valign="middle"  class="column border" >Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-pre-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#pre">pre</a><br/>
+ <a href="article_syntax.html#code">code</a></td>
+<td valign="middle" class="border paddingDefault">background for the pre, source, or code</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-pre-border</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#pre">pre</a><br/>
+ <a href="article_syntax.html#code">code</a></td>
+<td valign="middle" class="border paddingDefault">border color for the pre, source, or code</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-img-border</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html">img element</a></td>
+<td valign="middle" class="border paddingDefault">border color for the image</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-infobox-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">background for the infobox</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-infobox-border</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">border color for the infobox</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-blockquote-border</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#blockquote">blockquote</a></td>
+<td valign="middle" class="border paddingDefault">border color for the blockquote</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-tree-ulborder-color</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtree.html">tree</a></td>
+<td valign="middle" class="border paddingDefault">tree segments color</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-comment-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxcomment.html">comment</a></td>
+<td valign="middle" class="border paddingDefault">background color for comments</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-highlight</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_search.html">search</a></td>
+<td valign="middle" class="border paddingDefault">background color for highlighted text in full text search</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-todo-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtodo.html">todo</a></td>
+<td valign="middle" class="border paddingDefault">background color for TODOs of the default importance</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-todo-warning-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtodo.html">todo</a></td>
+<td valign="middle" class="border paddingDefault">background color for TODOs of the warning importance</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-todo-critical-background</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtodo.html">todo</a></td>
+<td valign="middle" class="border paddingDefault">background color for TODOs of the critical importance</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-todo-border</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtodo.html">todo</a></td>
+<td valign="middle" class="border paddingDefault">border color for TODOs</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-lightbox-close</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html">img element</a></td>
+<td valign="middle" class="border paddingDefault">color of the close button in images lightbox</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-lightbox-close-focus</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html">img element</a></td>
+<td valign="middle" class="border paddingDefault">color of the focused close button in images lightbox</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>--wiki-lightbox-caption</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html">img element</a></td>
+<td valign="middle" class="border paddingDefault">color of caption text in images lightbox</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="setting_global_properties">Setting global properties</h2>
+ Appart from the specified properties for the wiki, global html properties can be set in the theme CSS file. For example, you can specify that all text must be white and the background must be black with:<br/>
+
+<pre class="margin unlimited" >
+<span class="syntaxKeyWord1" style="font-weight:bold;">   </span><span>:root {</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      --wiki-background</span><span>: #f5faff; /* the background color for the table of content, the boxes, and the left menu */</span>
+<span class="syntaxKeyWord2" style="font-weight:bold;">      ..</span><span>.</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      background-color</span><span>: black;</span>
+<span class="syntaxKeyWord1" style="font-weight:bold;">      color</span><span>: white;</span>
+<span>   }         </span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_css.html">Custom StyleSheet</a>: The "css" property in the configuration file or the command-line allows to specify a custom StyleSheet for the HTML result</li>
+<li> <a href="article_tutorialTheme.html">StyleSheet theme tutorial</a>: This article is a tutorial which explains how to a custom StyleSheet theme for the wiki</li>
+<li> <a href="article_configFile.html">Configuration file</a>: It is possible to define an optional property / value configuration file when starting the application (using the graphical UI or the command line)</li>
+<li> <a href="article_commandline.html">Command-line starting</a>: This article is about how to execute the application by the command-line without showing the UI</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">Configuration</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

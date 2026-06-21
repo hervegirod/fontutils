@@ -1,0 +1,213 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Relaxed Syntax - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_relaxedsyntax.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Relaxed Syntax</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#setting_of_the_property">1&nbsp; Setting of the property</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#syntax">2&nbsp; Syntax</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#pre_content">2.1&nbsp; Pre content</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#titles_definition">2.2&nbsp; Titles definition</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#first_example">2.2.1&nbsp; First Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#second_example">2.2.2&nbsp; Second Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#lists">2.3&nbsp; Lists</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example">2.3.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#bold_and_italic_text">2.4&nbsp; Bold and italic text</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#example_1">2.4.1&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">3&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">4&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+The "relaxedSyntax"  <a href="article_configFile.html#relaxedsyntax">configuration property</a> allows a relaxed syntax for some elements in the XML content of articles. Note that if you really want to use a "full" Mediawiki syntax, you can define an article in full Mediawiki markup  (see  <a href="article_mediawiki.html">mediawiki syntax</a>). 
+<h2 id="setting_of_the_property">Setting of the property</h2>
+ The property can be set in several ways:<ul>
+<li>Directly on the  <a href="article_gui.html">GUI interface</a></li>
+<li>As a  <a href="article_commandline.html#relaxedsyntax">command-line argument</a></li>
+<li>As a  <a href="article_configFile.html#relaxedsyntax">configuration file property</a></li>
+</ul>
+<br/>
+<br/>
+ Note that this property specifies the default syntax for each article. However, it is still possible to override this setting for any article by specifying the "syntax" attribute on any article.
+<h2 id="syntax">Syntax</h2>
+There are several alternative syntaxes which can be used if the syntax is relaxed<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+These alternative syntaxes are similar to the Mediawiki flavor used by wikipedia (see also  <a href="article_wikipedia.html">comparison with wikipedia syntax</a>)</div></span>
+:<ul>
+<li>The content of "pre" tags can contain any XML content inside the element</li>
+<li>There is a simpler way to define titles</li>
+<li>There is a simpler way to define lists</li>
+<li>There is a simpler way to define bold and italic text</li>
+</ul>
+ Note that the strict syntax is still alllowed even if the syntax is set as relaxed. Also if you really want to use a "full" Mediawiki syntax, you can define an article in full Mediawiki markup (see  <a href="article_mediawiki.html">mediawiki syntax</a>). 
+<h3 id="pre_content">Pre content</h3>
+The content of  <a href="article_syntax.html#pre">pre</a> tags can contain any XML content inside the element (by default only  <a href="article_syntax.html#formatting_text">font</a> elements are allowed inside these elements). For example the following content is not allowed if the "relaxedSyntax" property is not set but will be allowed if it is set:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;pre&gt;</span>
+<span>   first line</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;parent</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"name"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;child</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"child"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/parent&gt;</span>
+<span>   second line</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/pre&gt;</span>
+</pre>
+
+<h3 id="titles_definition">Titles definition</h3>
+Titles can be defined by setting two or more "=" characters <span style="font-weight: bold;">at the beginning</span> of a line. The level of the title is specified by the number of "=" characters.
+<h4 id="first_example">First Example</h4>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      == my title</span>
+</pre>
+ is equivalent to:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h4 id="second_example">Second Example</h4>
+
+<pre class="margin unlimited" >
+<span>      === my level 2 title</span>
+</pre>
+ is equivalent to:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;title</span><span class="syntaxKeyWord2" style="font-weight:bold;"> level</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my level 2 title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h3 id="lists">Lists</h3>
+Lists can be defined by setting one or more "*" characters <span style="font-weight: bold;">at the beginning</span> of a line. The level of each list  item is specified by the number of "*" characters.
+<h4 id="example">Example</h4>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      * first item</span>
+<span>      * second item</span>
+</pre>
+ is equivalent to:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;ul&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>first item</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;li&gt;</span><span>second item</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/li&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/ul&gt;</span>
+</pre>
+
+<h3 id="bold_and_italic_text">Bold and italic text</h3>
+ Bold text can be set by enclosing the text wich must be in bold by ''' (three simple quotes).  Italic text can be set by enclosing the text wich must be in italic by '' (two simple quotes).
+<h4 id="example_1">Example</h4>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>      text '''in bold''' and text ''in italic''</span>
+</pre>
+ is equivalent to:<br/>
+
+<pre class="margin unlimited" >
+<span>   text </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;b&gt;</span><span>in bold</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/b&gt;</span><span> and text </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;i&gt;</span><span>in italic</span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/i&gt;</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> These alternative syntaxes are similar to the Mediawiki flavor used by wikipedia (see also  <a href="article_wikipedia.html">comparison with wikipedia syntax</a>)</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_configFile.html#relaxedsyntax">configuration file</a>: It is possible to define an optional property / value configuration file when starting the application (using the graphical UI or the command line)</li>
+<li> <a href="article_commandline.html#relaxedsyntax">command-line starting</a>: This article is about how to execute the application by the command-line without showing the UI</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_syntax.html">Syntax</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

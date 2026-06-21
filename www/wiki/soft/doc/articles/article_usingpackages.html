@@ -1,0 +1,177 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Usage of packages - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_usingpackages.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Usage of packages</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#use_cases">1&nbsp; Use cases</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#examples">2&nbsp; Examples</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#separating_open_source_from_closed_source_documentation">2.1&nbsp; Separating Open Source from Closed Source documentation</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#dont_include_unfinished_content">2.2&nbsp; Don't include unfinished content</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">3&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ By default docJGenerator takes the content of only one input (root) directory, and generates the resulting wiki in one output directory. However, it is possible to:<ul>
+<li>Use the content of several input directories to generate the resulting wiki</li>
+<li>Define for each root directory a specific  <a href="article_roots.html#defining_a_package_for_a_root">package ID</a>, and enforcing the references from one package to another</li>
+</ul>
+It is also possible to enforce the  <a href="article_packagedepend.html">dependencies</a> between packages.
+<h2 id="use_cases">Use cases</h2>
+<a href="article_roots.html">packages</a> makes possible to define only one set of articles, but generates various resulting wikis depending on the generation configuration. Some use cases would be:<ul>
+<li>You want to provide an Open Source version of the wiki, and a closed source one. You want to generate a limited documentation for the Open Source users of the project, and a complete one for the Closed Source users of the project</li>
+<li>You still have work to finish part of your wiki, and you don't want to include this part in the generated result, but you don't want to show errors for references of this part</li>
+</ul>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="separating_open_source_from_closed_source_documentation">Separating Open Source from Closed Source documentation</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_tutorialpackages.html">Packages tutorial</a></div>
+<br/>
+ In the following example, we have two packages:<ul>
+<li>The  <code>package1</code> package is an Open Source package</li>
+<li>The  <code>package2</code> package is a Closed Source package</li>
+</ul>
+ We want to produce two versions of the wiki:<ul>
+<li>Only the Open Source  <code>package1</code> package</li>
+<li>Both Open Source  <code>package1</code> and the Closed Source  <code>package2</code> package</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ As we want to be able to generate a wiki with only  <code>package1</code>, we have to refuse dependencies from <code>package1</code> to  <code>package2</code><br/>
+<br/>
+</div>
+ The  <a href="article_packagedepend.html">packages dependencies</a> check file will be:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package1"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> check</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"refuse"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+ In this example, Dependencies from  <code>package1</code> to  <code>package2</code> are not allowed. One of the references in the articles in  <code>package1</code> will therefore be refused and lead to a warning during parsing:<br/>
+<img src="../images/packagesKO.png" alt="packagesKO" id="_image_0" onclick="openImage(_image_0)" width="70%" class="left marginSmall" />
+
+<h3 id="dont_include_unfinished_content">Don't include unfinished content</h3>
+<div class="moreInfo" >
+Main Article: <a href="article_tutorialpackages2.html">Second packages tutorial</a></div>
+<br/>
+ In the following example, we have two packages:<ul>
+<li>The  <code>package1</code> package is a part of the wiki which is finished</li>
+<li>The  <code>package2</code> package is a art of the wiki which is still unfinished</li>
+</ul>
+ We want to produce the wiki:<ul>
+<li>With only the content for the  <code>package1</code> package</li>
+<li>But we don't want references to the  <code>package2</code> package (whch point to nothing) to emit errors to focus on the "real" errors (those inside  <code>package1</code>)</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ As we want to be able to generate a wiki with only  <code>package1</code>, but without errors to unresolved references to  <code>package2</code>, we have to accept dependencies from  <code>package1</code> to  <code>package2</code>, but don't show the references errors.</div>
+ The  <a href="article_packagedepend.html">packages dependencies</a> check file will be:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;packagesDependencies</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultCheck</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"accept"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;package</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package1"</span><span class="syntaxKeyWord1" style="font-weight:bold;"> &gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;dependency</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"package2"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> showUnresolvedReferences</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> showUnresolvedImages</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> showUnresolvedInfoboxes</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/package&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/packagesDependencies&gt;</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_roots.html">Packages</a>: This article explains how to use the generator with more than one root directory</li>
+<li> <a href="article_packagedepend.html">Packages dependencies</a>: This article explains how to enforce package dependencies</li>
+<li> <a href="article_tutorialpackages.html">Packages tutorial</a>: This article is a tutorial using Packages to separate Open Source and Closed Source content in your wiki</li>
+<li> <a href="article_tutorialpackages2.html">Second Packages tutorial</a>: This article is a tutorial using Packages to separate finished from unfinished content in your wiki</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_structure.html">Structure</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

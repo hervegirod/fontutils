@@ -1,0 +1,286 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Developing the editor menus - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_editormenus.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Developing the editor menus</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#grammar">1&nbsp; Grammar</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#structure_of_the_file">2&nbsp; Structure of the file</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#enumeration_types">2.1&nbsp; Enumeration types</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#file_types">2.2&nbsp; File types</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#declaration_of_menus_in_any_editor_xml_element">3&nbsp; Declaration of menus in any editor XML element</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#menugroup">4&nbsp; menuGroup</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#menugroupref">5&nbsp; menuGroupRef</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#menu">6&nbsp; menu</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#contentproperty">7&nbsp; contentProperty</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#group">7.1&nbsp; group</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#menuref">8&nbsp; menuRef</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">9&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+This article explains how to add  <a href="article_editor.html">editor</a> menus. Menus are specified in an XML file.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Adding menus to the editor is only possible for the library development.</div>
+
+<h2 id="grammar">Grammar</h2>
+See  <a href="resources/menus.xsd">the editor menus Schema</a>. 
+<h2 id="structure_of_the_file">Structure of the file</h2>
+The file contains the following top-level elements:<ul>
+<li> <code>enumerations</code> which define the  <a href="#enumeration_types">enumeration types</a> which can used in menus</li>
+<li> <code>fileTypes</code> which define the types of  <a href="article_editorxmlelement.html">Editor XML elements</a> on which menus will apply, and which menus apply on each kind of element</li>
+</ul>
+
+<h3 id="enumeration_types">Enumeration types</h3>
+Enumeration types define enumerations which can be used in menus, for example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;enum</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"alignment"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;enumValue</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"left"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;enumValue</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"center"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;enumValue</span><span class="syntaxKeyWord2" style="font-weight:bold;"> value</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"right"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/enum&gt;</span>
+</pre>
+ For example:<br/>
+ <img src="../images/dev-menu-enum.png" alt="dev-menu-enum" id="_image_0" onclick="openImage(_image_0)" class="left marginSmall" />
+
+<h3 id="file_types">File types</h3>
+The  <code>fileTypes</code> element define the types of  <a href="article_editorxmlelement.html">Editor XML elements</a> on which menus will apply, and which menus apply on each kind of element:<ul>
+<li> <code>fileTypes</code> which define the types of  <a href="article_editorxmlelement.html">Editor XML elements</a> on which menus will apply, and whch menus apply on each kind of element</li>
+<li> <code>articles</code> which define the menus in  <a href="article_articles.html">articles</a></li>
+<li> <code>categories</code> which define the menus in  <a href="article_categoriesdesc.html">categories descriptions</a></li>
+<li> <code>images</code> which define the menus in  <a href="article_imageFiles.html">Image definition files</a></li>
+<li> <code>resources</code> which define the menus in  <a href="article_resourceFiles.html">Resource definition files</a></li>
+<li> <code>menus</code> which define the menus in  <a href="article_custommenus.html">menus</a> files</li>
+<li> <code>packages</code> which define the menus in  <a href="article_roots.html#defining_a_package_for_a_root">Packages</a> files</li>
+<li> <code>infobox</code> which define the menus in  <a href="article_infoboxtemplate.html">Infobox definition files</a></li>
+<li> <code>header</code> which define the menus in  <a href="article_footerAndHeader.html">header</a> files</li>
+<li> <code>footer</code> which define the menus in  <a href="article_footerAndHeader.html">footer</a> files</li>
+</ul>
+
+<h2 id="declaration_of_menus_in_any_editor_xml_element">Declaration of menus in any editor XML element</h2>
+Each  <a href="#file_types">Editor XML element</a> has any of the following children:<ul>
+<li>The  <code>menuGroup</code> element defines a parent menu group</li>
+<li>The  <code>menuGroupRef</code> element defines a reference to a menu group defined previously in the file</li>
+<li>The  <code>menu</code> element defines a menu</li>
+<li>The  <code>menuRef</code> element defines a reference to a menu defined previously in the file</li>
+</ul>
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ <code>menuGroupRef</code> and  <code>menuRef</code> elements allow to reuse a previously defined menuGroup or menu and avoid to define it again.</div>
+
+<h2 id="menugroup">menuGroup</h2>
+The  <code>menuGroup</code> element defines a parent menu group. A menu group can contain menu groups and menus.<ul>
+<li>The  <code>name</code> attribute specifies the name of the menu group</li>
+<li>The  <code>id</code> attribute (optional) specifies the id of the menu group, which will be usable in  <code>menuGroupRef</code> elements</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menuGroup</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Lists"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"lists"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menu</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ul"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Unordered list"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> tooltip</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Add an unordered list"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> mixed</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>           </span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"bullet"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> argumentType</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"enum"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> enumType</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ulStyle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> tooltip</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"The bullet style"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultValue</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"default"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/menu&gt;</span><span> </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menu</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"ol"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Ordered list"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> tooltip</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Add an ordered list"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> mixed</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>           </span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"bullet"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> argumentType</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"enum"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> enumType</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"olStyle"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> tooltip</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"The bullet style"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultValue</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"default"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"start"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> argumentType</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"string"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> tooltip</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"The start value"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultValue</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">""</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>      </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/menu&gt;</span><span>       </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menu</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"li"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"List item"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> tooltip</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Add an item in the list"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> mixed</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>           </span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;contentProperty</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"desc"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Content"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> argumentType</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"string"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> editor</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"textarea"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> tooltip</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"The list item content"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>   </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/menu&gt;</span><span>                </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/menuGroup&gt;</span>
+</pre>
+ Will show:<br/>
+ <img src="../images/dev-menu-menugroup.png" alt="dev-menu-menugroup" id="_image_1" onclick="openImage(_image_1)" class="left marginSmall" />
+
+<h2 id="menugroupref">menuGroupRef</h2>
+The  <code>menuGroupRef</code> element defines a reference to a menu group defined previously in the file. <ul>
+<li>The  <code>id</code> attribute specifies the id of the menu group which is reused</li>
+</ul>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menuGroupRef</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"lists"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+
+<h2 id="menu">menu</h2>
+The  <code>menu</code> element defines a menu. A me nu contains a list of properties.<br/>
+<br/>
+ The attributes of the menu element are:<ul>
+<li>The  <code>name</code> attribute specifies the name of the menu. By default the title of the menu will use the name attribute</li>
+<li>The  <code>id</code> attribute (optional) specifies the id of the menu, which will be usable in  <code>menuRef</code> elements</li>
+<li>The  <code>title</code> attribute (optional) specifies the title of the menu</li>
+<li>The  <code>tooltip</code> attribute (optional) specifies the tooltip of the menu</li>
+<li>The  <code>mixed</code> attribute (optional) specifies the mixed type of the element</li>
+<li>The  <code>multipleLines</code> attribute (optional) specifies that here can be text lines under the element</li>
+<li>The  <code>hasBreak</code> boolean attribute (optional) specifies that the element must be presented after a line break</li>
+<li>The  <code>includedInReplace</code> attribute (optional) specifies that the menu will be included when replacing content</li>
+</ul>
+ The children elements of the menu element are:<ul>
+<li>The  <code>group</code> element specifies a group of properties in the menu</li>
+<li>The  <code>title</code> element specifies a titled line</li>
+<li>The  <code>property</code> element specifies a property</li>
+<li>The  <code>compoundProperty</code> element specifies a group of properties which can be enabled globally</li>
+<li>The  <code>contentProperty</code> element specifies a poperty which specifies the text content of the element</li>
+<li>The  <code>propertyAdapter</code> element specifies a property which will change thee result of several other properties</li>
+</ul>
+
+<h2 id="contentproperty">contentProperty</h2>
+The  <code>contentProperty</code> element specifies a property which specifies the text content of the element. <br/>
+<br/>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menu</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"b"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Bold"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> tooltip</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Set text in Bold"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> includedInReplace</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>               </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;contentProperty</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"b"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> title</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Content"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> argumentType</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"string"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> editor</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"textarea"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> tooltip</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"The Bold content"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> useInReplace</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/menu&gt;</span>
+</pre>
+ Will show:<br/>
+ <img src="../images/dev-menu-content.png" alt="dev-menu-content" id="_image_2" onclick="openImage(_image_2)" class="left marginSmall" />
+<br/>
+  The result will be:<br/>
+ <img src="../images/dev-menu-content1.png" alt="dev-menu-content1" id="_image_3" onclick="openImage(_image_3)" class="left marginSmall" />
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ There can be only one  <code>contentProperty</code> in the menu.</div>
+
+<h3 id="group">group</h3>
+The  <code>group</code> element specifies a group of properties in a menu.<br/>
+<br/>
+ The attributes of the group element are:<ul>
+<li>The  <code>orientation</code> attribute specifies if the group is horizontal or vertical</li>
+<li>The  <code>border</code> attribute (optional) specifies if the group has a border</li>
+<li>The  <code>title</code> attribute (optional) specifies the title of the group</li>
+<li>The  <code>enabler</code> attribute (optional) specifies if there is a checkbox in the group which will enable or disable all elements under the group</li>
+</ul>
+For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menu</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> tooltip</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"Add a Title"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>      </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> argumentType</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"string"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> mandatory</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"true"</span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>         </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;group</span><span class="syntaxKeyWord2" style="font-weight:bold;"> orientation</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"horizontal"</span><span class="syntaxKeyWord1" style="font-weight:bold;">&gt;</span><span>   </span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"level"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> argumentType</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"int"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultValue</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"1"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+<span>         </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;property</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"keepCase"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> argumentType</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"boolean"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> defaultValue</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"false"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span><span>                            </span>
+<span>      </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/group&gt;</span><span>      </span>
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;/menu&gt;</span>
+</pre>
+  Will show:<br/>
+ <img src="../images/dev-menu-group.png" alt="dev-menu-group" id="_image_4" onclick="openImage(_image_4)" class="left marginSmall" />
+<br/>
+
+<div class="messageBox messageBoxInfo softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__1_0.png');background-position: 10px;">
+ There can even be only one element in the group.</div>
+
+<h2 id="menuref">menuRef</h2>
+The  <code>menuRef</code> element defines a reference to a menu defined previously in the file. <ul>
+<li>The  <code>id</code> attribute specifies the id of the menu which is reused</li>
+</ul>
+ For example:<br/>
+
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;menuRef</span><span class="syntaxKeyWord2" style="font-weight:bold;"> id</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"code"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_developing.html">Developing the Library</a>: This article explains how to develop the library</li>
+<li> <a href="article_editoreditionmode.html">Editor editing content</a>: This article is about editing an article or any element in the editor</li>
+</ul>
+<div id="__lightbox__" class="modal">
+  <span class="modal-close" id="__lightboxClose__" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="__lightboxContent__">
+  <div class="modal-caption" id="__lightboxCaption__"></div>
+</div>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_development.html">Development</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

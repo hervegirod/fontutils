@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Update mode - DocGenerator</title>
+</head>
+<body onload="initHighlight()">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_updatemode.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Update mode</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#overview">1&nbsp; Overview</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#generation_options">1.1&nbsp; Generation options</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#conditions">2&nbsp; Conditions</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#example">3&nbsp; Example</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">4&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto" >
+ It is possible to perform the generation in an Update mode rather than to parse and generate all the content of the wiki.  You need to set the "updateMode"  <a href="article_commandline.html#updatemode">command-line argument</a> or    <a href="article_configFile.html#updatemode">configuration property</a>.<br/>
+<br/>
+ The update mode allows to decrease dramatically the time necessary to perform the generation.
+<h2 id="overview">Overview</h2>
+ The Update mode work by only parsing and generating the content of the wiki which has changed since the last generation. It relies on a  <a href="article_updatemodefile.html">update mode state file</a> which store various data associated with each element in the wiki, and the last time of the generation.<br/>
+<br/>
+ Only input files which have been updated since the last generation will be parsed and generated, and the update mode state file will be updated.
+<h3 id="generation_options">Generation options</h3>
+ The two generation options used for the update mode are: <ul>
+<li>"updateMode": true if the wiki generation is in update mode</li>
+<li>"updateModeFile": the file used for the update mode. By default this property is not set and the default file will be used</li>
+</ul>
+
+<div class="messageBox" style="color: #00529B; background: #00FFFF url('../images/__messageBoxImg__1_0.png') no-repeat 10px;">
+ Additionally, you can use the "cleaned" option wich will parse and generate the full content of the wiki, and refresh the content of the update mode state file. <br/>
+<br/>
+</div>
+
+<h2 id="conditions">Conditions</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_updatemodefile.html">Update mode state file</a></div>
+<br/>
+ There are some cases where all the content will be generated. It is the case if: <ul>
+<li>The wiki is generated in update mode for the first time<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+Which result in a not existing update mode state file</div></span>
+</li>
+<li>The generation  <a href="article_commandline.html#cleaned">cleaned</a> parameter is set to true</li>
+<li>Some of the generation parameters are changed since the previous generation<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+It includes: the search type, the full search capability, the full text search compression</div></span>
+</li>
+<li>The  <a href="article_outputtype.html">output format</a> is not the default "html" format</li>
+</ul>
+
+<h2 id="example">Example</h2>
+ The following example will use the update mode for the generation: <br/>
+
+<pre class="unlimited" >
+<span>      java -jar docGenerator.jar -input=wiki/input -output=wiki/output -updateMode=true</span>
+</pre>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note">
+<ol>
+<li id="_note_1"> <a href="article_updatemode.html#_note_1_1_" class="noteRefLink">^</a> Which result in a not existing update mode state file</li>
+<li id="_note_2"> <a href="article_updatemode.html#_note_2_1_" class="noteRefLink">^</a> It includes: the search type, the full search capability, the full text search compression</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_updatemodefile.html">Update mode state file</a>: This article presents the content of the update mode state file</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_configuration.html">configuration</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2021 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>

@@ -1,0 +1,1428 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="../resources/stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="../resources/jquery/jquery-ui.css" />
+<script type="text/javascript" src="../resources/jquery/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../resources/jquery/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="../resources/searchOnTitles.js"></script>
+<script type="text/javascript" src="../resources/articles.js"></script>
+<script type="text/javascript" >
+$(document).ready(function() 
+  {
+    $("#table_0").tablesorter(); 
+    $("#table_1").tablesorter(); 
+    $("#table_2").tablesorter(); 
+    $("#table_3").tablesorter(); 
+    $("#table_4").tablesorter(); 
+    $("#table_5").tablesorter(); 
+    $("#table_6").tablesorter(); 
+    $("#table_7").tablesorter(); 
+    $("#table_8").tablesorter(); 
+    $("#table_9").tablesorter(); 
+    $("#table_10").tablesorter(); 
+    $("#table_11").tablesorter(); 
+  }
+);
+</script>
+<script type="text/javascript" src="../resources/highlight.js"></script>
+<script>
+function initHighlight() {
+var match = RegExp('[?&]search=([^&]*)').exec(window.location.search);
+value = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+if (value != null) {
+highlight(document.body, value);
+}
+}
+function initSearch() {
+setSearchLimit(-1);
+}
+</script>
+<script type="text/javascript" src="../resources/lightbox.js"></script>
+<title>Errors list - DocGenerator</title>
+</head>
+<body onload="initSearch(); initHighlight();">
+
+<header>
+<iframe class="header" src="../header.html" frameBorder="0" scrolling="no"></iframe> 
+</header>
+<div>
+<div class="top">
+<div class="ui-widget">
+
+<input id="tags" placeholder="Search..." class="searchField" />
+</div>
+</div>
+<div class="left" >
+<br/>
+ <a href="../index.html">Home</a> 
+
+<br/>
+ <a href="../categories.html">Categories</a> 
+
+<br/>
+ <a href="../dictionary.html">Dictionary</a> 
+
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/files/">Download</a>
+<br/>
+<a href="http://sourceforge.net/projects/docjgenerator/">Project Details</a>
+<br/>
+<a href="http://sourceforge.net/p/docjgenerator/blog/">Changes Log</a>
+<br/>
+<a href="article_linksFrom_errorslist.html">What Links Here</a>
+<br/>
+<a href="article_howto.html">How To</a>
+<br/>
+<a href="article_syntaxoverview.html">Syntax</a>
+<br/>
+<a href="article_faq.html">FAQ</a>
+<br/>
+<a href="article_license.html">License</a>
+<br/>
+<br/>
+</div>
+<div class="middleForIDX middleWithoutRightMenu">
+<h1>Errors list</h1>
+
+<hr/>
+<div class="toc">
+&nbsp;&nbsp;&nbsp; <a href="#list_of_errors">1&nbsp; List of errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#configuration_properties_errors">1.1&nbsp; Configuration properties errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#structure_errors">1.2&nbsp; Structure errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#elements_syntax_errors">1.3&nbsp; Elements syntax errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#references_errors">1.4&nbsp; References errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#links_errors">1.5&nbsp; Links errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#resources_and_images_errors">1.6&nbsp; Resources and images errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#configuration_errors">1.7&nbsp; Configuration errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#mediawiki_and_markdown_errors">1.8&nbsp; Mediawiki and Markdown errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#api_documentation_errors">1.9&nbsp; API documentation errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#custom_search_errors">1.10&nbsp; Custom Search errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#help_errors">1.11&nbsp; Help errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#miscellanous_errors">1.12&nbsp; Miscellanous errors</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#package_dependency_error">2&nbsp; Package dependency error</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#menu_type_error">3&nbsp; Menu type error</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#notes">4&nbsp; Notes</a>
+<br/>
+&nbsp;&nbsp;&nbsp; <a href="#see_also">5&nbsp; See also</a>
+<br/>
+</div>
+<br/>
+<div  class="justifiedAuto alignedNone" >
+ This article presents the list of errors which can be emitted during the parsing.<br/>
+<br/>
+
+<div class="messageBox messageBoxWarning softShadow" style="background-repeat:no-repeat; background-image: url('../images/__messageBoxImg__3_0.png');background-position: 10px;">
+ Note that a invalid XML files (relative to the XML Schema used to validate the files) will lead to errors redirected from the XML parser. For example, if you type at the start of an  <a href="article_regulararticle.html">article</a>:
+<pre class="margin unlimited" >
+<span>   </span><span class="syntaxKeyWord1" style="font-weight:bold;">&lt;altTitle</span><span class="syntaxKeyWord2" style="font-weight:bold;"> name</span><span class="syntaxDefault" style="font-weight:bold;">=</span><span class="syntaxLiteral" style="">"my title"</span><span class="syntaxKeyWord2" style="font-weight:bold;"> </span><span class="syntaxKeyWord1" style="font-weight:bold;">/&gt;</span>
+</pre>
+ You will have a validation error because the  <a href="article_syntaxStartingElements.html#alttitle">altTitle</a> element can not have a <code>name</code> attribute.</div>
+
+<h2 id="list_of_errors">List of errors</h2>
+ Note that some errors presented here are warnings, which will only be shown if the associated  <a href="article_configFile.html#showwarnings">configuration option</a> or  <a href="article_commandline.html#showwarnings">command-line option</a> is set.
+<h3 id="configuration_properties_errors">Configuration properties errors</h3>
+These errors are raised if some  <a href="article_commandline.html">command-line</a> options are incorrect.<br/>
+<br/>
+
+<table id="table_0" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Option ' <code class="background">option key</code>' with value ' <code class="background">option value</code>' is unsupported</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_commandline.html">command-line</a></td>
+<td valign="middle" class="border paddingDefault">The value for a command-line option is unsupported</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Option ' <code class="background">option key</code>' with value ' <code class="background">option value</code>' is unparsable</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_commandline.html">command-line</a></td>
+<td valign="middle" class="border paddingDefault">The value for a command-line option is unparsable</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Configuration file ' <code class="background">file path</code>' not found</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_configFile.html">configuration file</a></td>
+<td valign="middle" class="border paddingDefault">The configuration file does not exist or could ne be opened</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Inputs directory or directories not found</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_inputandoutput.html">input and ouput</a></td>
+<td valign="middle" class="border paddingDefault">The input directory or directories are not found</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Output directory ' <code class="background">directory path</code>' not found</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_inputandoutput.html">input and ouput</a></td>
+<td valign="middle" class="border paddingDefault">The output directory is not found</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="structure_errors">Structure errors</h3>
+
+<table id="table_1" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Package ' <code class="background">package name</code>' defined in File <code class="background">file path</code> already defined</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_roots.html">packages</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_roots.html">package</a> definition was already found<span class="tooltip"><a href="#_note_1" class="noteLink"><sup id="_note_1_1_">[1]</sup></a>
+<div class="tooltiptext">
+This is the case if the same package is defined more than once</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Package ' <code class="background">package name</code>' XML file at path  <code class="background">file path</code> invalid</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_roots.html">packages</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_roots.html">package</a> file is not well-formed</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Package ' <code class="background">package name</code>' defined in File  <code class="background">file path</code> is a package definition but was found under another package</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_roots.html">packages</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_roots.html">package</a> is under a directory where another package is defined</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Element  <code class="background">element type</code> : Wrong Dependency from package ' <code class="background">package name</code>' to package ' <code class="background">referenced package</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_packagedepend.html">packages dependencies</a></td>
+<td valign="middle" class="border paddingDefault">An element which points to a reference has a wrong dependency (see  <a href="#package_dependency_error">package dependency error</a>)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The dictionary has been already defined in the  <code class="background">path</code> file</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_dictionnary.html">dictionary</a></td>
+<td valign="middle" class="border paddingDefault">There is already a dictionary file</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The creation of categories in file ' <code class="background">categories file name</code>' is not allowed in Package ' <code class="background">package name</code>', categories description skipped</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_categoriesdesc.html">categories description</a></td>
+<td valign="middle" class="border paddingDefault">There is a  <a href="article_categoriesdesc.html">categories description</a> file in a  <a href="article_roots.html">package</a>, but it is not allowed to create categories in the package</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The creation of category ' <code class="background">category name</code>' is not allowed in Article ' <code class="background">article ID</code>', creation of categories is not allowed in package  <a href="article_roots.html">package</a></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_categories.html">categories</a></td>
+<td valign="middle" class="border paddingDefault">There is a  <a href="article_syntaxEndElements.html#cat">category</a> defined in an article, file in a  <a href="article_roots.html">package</a> but it is not allowed to create categories in the package</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The main article with ID ' <code class="background">article ID</code>' referenced in category ' <code class="background">category name</code>' does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_categories.html">categories</a></td>
+<td valign="middle" class="border paddingDefault">The main article referenced in the category does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The main article with ID ' <code class="background">article ID</code>' referenced in category ' <code class="background">category name</code>' does not belong in the category</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_categories.html">categories</a></td>
+<td valign="middle" class="border paddingDefault">The main article referenced in the category does not belong in the category</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The parent category ' <code class="background">category name</code>' referenced in category ' <code class="background">category name</code>' does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_categories.html">categories</a></td>
+<td valign="middle" class="border paddingDefault">The parent category referenced in a category does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is already a Header for the wiki</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_footerAndHeader.html">header</a></td>
+<td valign="middle" class="border paddingDefault">There is already a Header for the wiki</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is already a Footer for the wiki</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_footerAndHeader.html">footer</a></td>
+<td valign="middle" class="border paddingDefault">There is already a Footer for the wiki</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is already an article with ID ' <code class="background">article ID</code>' at file  <code>file path</code>, added in a disambiguity article</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_articles.html">articles</a></td>
+<td valign="middle" class="border paddingDefault">An article has already the same name (see  <a href="article_nameunicity.html">element names unicity</a>)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article of ID ' <code class="background">article ID</code>' has an identical alternate title with article ' <code class="background">article ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_articles.html">articles</a></td>
+<td valign="middle" class="border paddingDefault">The alternate title for the article is identical to another one</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is already a Category with ID ' <code class="background">category name</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_categories.html">category</a></td>
+<td valign="middle" class="border paddingDefault">A category has already the same name (see  <a href="article_nameunicity.html">element names unicity</a>)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The creation of a Category is not allowed in Package ' <code class="background">package ID</code>', category ' <code class="background">category name</code>' not created </td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_categories.html">category</a></td>
+<td valign="middle" class="border paddingDefault">A category has already the same name (see  <a href="article_nameunicity.html">element names unicity</a>)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No file in the input directory</td>
+<td valign="middle" align="center" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">There are no files in the input directory</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No file in the inputs directories</td>
+<td valign="middle" align="center" class="border paddingDefault">-</td>
+<td valign="middle" class="border paddingDefault">There are no files in the inputs directories</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No index file found</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_indexfiles.html">index article</a></td>
+<td valign="middle" class="border paddingDefault">There is no index file in the wiki<span class="tooltip"><a href="#_note_2" class="noteLink"><sup id="_note_2_1_">[2]</sup></a>
+<div class="tooltiptext">
+This error will not be emitted if there is a global index. See also  <a href="article_specifyindex.html">specifying the index</a> for more information</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Duplicate index file found, ' <code class="background">existing index path</code>' index already found, ' <code class="background">index path</code>' index skipped</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_indexfiles.html">index article</a></td>
+<td valign="middle" class="border paddingDefault">There are more than two index articles in the wiki<span class="tooltip"><a href="#_note_3" class="noteLink"><sup id="_note_3_1_">[3]</sup></a>
+<div class="tooltiptext">
+This error will not be emitted if there is a global index, in that case index files found in the wiki will be skipped silently. See also  <a href="article_specifyindex.html">specifying the index</a> for more information</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article of ID ' <code class="background">article ID</code>' reference the Glossary, but there is no Glossary</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_glossary.html">glossary</a></td>
+<td valign="middle" class="border paddingDefault">There is no glossary in the wiki, but an article reference the glossary</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Circular include reference for article of ID ' <code class="background">article ID</code>' and included article ' <code class="background">article ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_templates.html">templates</a></td>
+<td valign="middle" class="border paddingDefault">There is a graph of  <a href="article_syntax.html#include">includes</a> which goes back to the first root article</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Included Article definition of ID ' <code class="background">article ID</code>' does not exist for article ' <code class="background">article ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_templates.html">templates</a></td>
+<td valign="middle" class="border paddingDefault">There is no article for the  <a href="article_syntax.html#include">include</a> reference</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to redirect index, No article of ID  <code class="background">article ID</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_redirectarticles.html">redirect articles</a></td>
+<td valign="middle" class="border paddingDefault">The article referred to by the redirect article does not exist</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="elements_syntax_errors">Elements syntax errors</h3>
+
+<table id="table_2" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong URL  <code class="background">URL</code> definition</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxlink.html">a element</a></td>
+<td valign="middle" class="border paddingDefault">An URL definition is incorrect<span class="tooltip"><a href="#_note_4" class="noteLink"><sup id="_note_4_1_">[4]</sup></a>
+<div class="tooltiptext">
+For example, it will be the case if an  <a href="article_syntax.html#a">external link</a> is incorrectly defined</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong mail  <code class="background">mail</code> definition</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#email">email</a></td>
+<td valign="middle" class="border paddingDefault">A mail pattern is incorrect</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">archiveurl  <code class="background">URL</code> has an incorrect pattern</td>
+<td valign="middle" align="center" class="border paddingDefault">various</td>
+<td valign="middle" class="border paddingDefault">An URL definition is incorrect<span class="tooltip"><a href="#_note_5" class="noteLink"><sup id="_note_5_1_">[5]</sup></a>
+<div class="tooltiptext">
+For example, it will be the case if an  <a href="article_syntax.html#a">external link</a> is incorrectly defined</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Exception while reading pre file  <code class="background">file name</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_pre.html">pre</a></td>
+<td valign="middle" class="border paddingDefault">The file specified in the  <a href="article_pre.html">pre</a> element could be be read</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">pre file  <code class="background">file name</code> does not exist or is a directory</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_pre.html">pre</a></td>
+<td valign="middle" class="border paddingDefault">The file specified in the  <a href="article_pre.html">pre</a> element does not exist or is a directory</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No pre syntax of name  <code class="background">syntax name</code> exists</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxhighlighting.html">syntax highlighting</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_pre.html">pre</a> syntax does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No source syntax of name  <code class="background">syntax name</code> exists</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxhighlighting.html">syntax highlighting</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_syntax.html#source">source</a> syntax does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">pre defined in another pre, grammar inconsistent</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_pre.html">pre</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_pre.html">pre</a> element was defined inside another pre element</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Having both border and boxed attributes is not allowed on pre elements</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_pre.html">pre</a></td>
+<td valign="middle" class="border paddingDefault">It is not allowed to have both a  <code>border</code> and a  <code>boxed</code> attribute on a  <a href="article_pre.html">pre</a> element</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">source defined in another pre or source, grammar inconsistent</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#source">source</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_syntax.html#source">source</a> element was defined inside another  <a href="article_pre.html">pre</a> or source element</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Date format incorrect for  <code>date value</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#date">date</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_syntax.html#date">date</a> format is incorrect</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Referencing a Note which does not exist for ID  <code class="background">note id</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#note">note</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_syntax.html#note">note</a> is referenced with an ID which points to a note which does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Note ID  <code class="background">note id</code> already defined for article</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#note">note</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_syntax.html#note">note</a> with the same ID is already referenced</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Referencing an empty Note</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#note">note</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_syntax.html#note">note</a> element contains no content</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong condition definition, condition undefined</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxcondition.html">condition</a></td>
+<td valign="middle" class="border paddingDefault">The condition type is not defined (the  <code>condition</code> attribute does not exist)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong condition definition, specified condition type does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxcondition.html">condition</a></td>
+<td valign="middle" class="border paddingDefault">The specified condition type does not exist (the  <code>condition</code> attribute has an invalid value)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong condition definition, condition does not have a value</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxcondition.html">condition</a></td>
+<td valign="middle" class="border paddingDefault">The condition value is undefined (the  <code>value</code> attribute does not exist and it should exist for the condition type)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong condition definition, no condition type specification</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxcondition.html">condition</a></td>
+<td valign="middle" class="border paddingDefault">The condition type is not defined (the  <code>condition</code> attribute does not exist)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">li element is not under a ul or ol element in article  <code class="background">article ID</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#li">li</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>li</code> element is misplaced</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">moreInfo element has no id reference and has no info children</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#moreinfo">moreInfo</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>moreInfo</code> element has no  <code>id</code> attribute and has no info children</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">moreInfo element has an id reference but has info children</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#moreinfo">moreInfo</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>moreInfo</code> element has an  <code>id</code> attribute but has info children</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>element type</code> element reference article of ID  <code>id</code> which is a template article</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_references.html">references</a></td>
+<td valign="middle" class="border paddingDefault">Reference an article which is a  <a href="article_templates.html">template</a> article. It is not possible to reference a template article because these articles do not have an associated file (they are only used in an  <a href="article_syntax.html#include">include</a> element)<span class="tooltip"><a href="#_note_6" class="noteLink"><sup id="_note_6_1_">[6]</sup></a>
+<div class="tooltiptext">
+This can be the case which any element which is a reference, for example  <a href="article_syntax.html#ref">ref</a> or  <a href="article_syntax.html#moreinfo">moreInfo</a> elements</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault"> <code>element type</code> element reference article of ID  <code>id</code> and package  <code>package</code> which is a template article</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_references.html">references</a></td>
+<td valign="middle" class="border paddingDefault">Reference an article which is a  <a href="article_templates.html">template</a> article. It is not possible to reference a template article because these articles do not have an associated file (they are only used in an  <a href="article_syntax.html#include">include</a> element)<span class="tooltip"><a href="#_note_6" class="noteLink"><sup id="_note_6_2_">[6]</sup></a>
+<div class="tooltiptext">
+This can be the case which any element which is a reference, for example  <a href="article_syntax.html#ref">ref</a> or  <a href="article_syntax.html#moreinfo">moreInfo</a> elements</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">coords attribute format is invalid in areaRef</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html#linking_on_images">areaRef</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>coords</code> attribute format is invalid<span class="tooltip"><a href="#_note_7" class="noteLink"><sup id="_note_7_1_">[7]</sup></a>
+<div class="tooltiptext">
+For example:  <code>one, two</code> is not parsable</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">coords attribute in areaRef should have 3 elements for a circle</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html#linking_on_images">areaRef</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>coords</code> attribute should have 3 elements for a circle (coordinates of the center, and radius)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">coords attribute in areaRef should have 4 elements for a rectangle</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html#linking_on_images">areaRef</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>coords</code> attribute in areaRef should have 4 elements for a rectangle (left, top, right, bottom corner)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">coords attribute should have at least 3 elements for a polygon</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html#linking_on_images">areaRef</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>coords</code> attribute in areaRef should have at least 3 elements elements for a polygon</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The Article at path  <code class="background">article path</code> has no description</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_articles.html">articles</a></td>
+<td valign="middle" class="border paddingDefault">An article has no  <code>desc</code> attribute</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The Raw html Article  <code class="background">article ID</code> has no URL</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_rawhtmlarticle.html">Raw html article</a></td>
+<td valign="middle" class="border paddingDefault">A Raw html article has no URL attribute</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The html content at URL  <code class="background">URL</code> for the Raw html Article  <code class="background">article ID</code> is invalid</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_rawhtmlarticle.html">Raw html article</a></td>
+<td valign="middle" class="border paddingDefault">The html content for the Raw html Article is invalid</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The html content at URL  <code class="background">URL</code> for the Raw html Article  <code class="background">article ID</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_rawhtmlarticle.html">Raw html article</a></td>
+<td valign="middle" class="border paddingDefault">The html content for the Raw html Article does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">headerImg not allowed at this place</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_footerAndHeader.html">header</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>headerImg</code> element is used outside of a header file</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong width value  <code class="background">value</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html">syntax</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>with</code> or  <code>maxWidth</code> attribute for an element cannot be parsed as an int</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong height value  <code class="background">value</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html">syntax</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>height</code> or  <code>maxHeight</code> attribute for an element cannot be parsed as an int</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong colspan value  <code class="background">value</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtable.html">table element</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>colspan</code> attribute for a column cannot be parsed as an int</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong rowspan value  <code class="background">value</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxtable.html">table element</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>rowspan</code> attribute for a column cannot be parsed as a positive int</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Title is empty</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#title">title</a></td>
+<td valign="middle" class="border paddingDefault">The title string is empty</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Title seq is empty</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#title">title</a></td>
+<td valign="middle" class="border paddingDefault">The title seq string is empty</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Title id is empty</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#title">title</a></td>
+<td valign="middle" class="border paddingDefault">The title id string is empty</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Chapter title is empty</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#chapter">chapter</a></td>
+<td valign="middle" class="border paddingDefault">The chapter title string is empty</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Chapter seq string is empty</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#chapter">chapter</a></td>
+<td valign="middle" class="border paddingDefault">The chapter seq value is empty</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Chapter id string is empty</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#chapter">chapter</a></td>
+<td valign="middle" class="border paddingDefault">The chapter id value is empty</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong level value  <code class="background">value</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#title">title</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>level</code> attribute for a title cannot be parsed as an int</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article  <code class="background">article ID</code> has a  <code class="background">property name</code> property in Infobox  <code class="background">Infobox ID</code> which does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The property does not exist in the referenced infobox</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article  <code class="background">article ID</code> has a  <code class="background">property name</code> property in Infobox  <code class="background">Infobox ID</code> but definition is an enumProperty</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The property exist in the referenced infobox, but its type is an enum property and it is not used as an enum</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article  <code class="background">article ID</code> has has an enum  <code class="background">property name</code> property in Infobox  <code class="background">Infobox ID</code> but definition is not an enumProperty</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The property exist in the referenced infobox, and its type is not an enum property, but it is used as an enum</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article  <code class="background">article ID</code> has an URL  <code class="background">URL</code> property in Infobox  <code class="background">Infobox ID</code> with no URL</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The property URL is undefined in the referenced infobox</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article  <code class="background">article ID</code> has an image property  <code class="background">property name</code> property in Infobox  <code class="background">Infobox ID</code> with no image ID</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The property image is undefined in the referenced infobox</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article  <code class="background">article ID</code> has an image property  <code class="background">property name</code> property in Infobox  <code class="background">Infobox ID</code> which refer to a non existing image</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The property image refer to an image which does not exist in the referenced infobox</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No anchor of ID  <code class="background">#anchor ID</code> in article  <code class="background">article ID</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#anchor">anchor</a></td>
+<td valign="middle" class="border paddingDefault">The referenced anchor ID does not exist. This error is shown when the anchor has the  <code>#anchor_ID</code> pattern, meaning that this anchor is expected to be on the current article</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Category of name  <code class="background">category name</code> referenced in article of ID  <code class="background">article ID</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#catref">catRef</a></td>
+<td valign="middle" class="border paddingDefault">The referenced category does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">" <code class="background">html element name</code>" elements not allowed in html content</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxhtml.html">html</a></td>
+<td valign="middle" class="border paddingDefault">The content included in the html element contains an invalid element<span class="tooltip"><a href="#_note_8" class="noteLink"><sup id="_note_8_1_">[8]</sup></a>
+<div class="tooltiptext">
+See  <a href="article_syntaxhtml.html#not_allowed_elements">html</a> for more information</div></span>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="references_errors">References errors</h3>
+
+<table id="table_3" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Must not have both an id and path attribute in the ref</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#ref">ref</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_syntax.html#ref">ref</a> element has both an  <code>id</code> and a  <code>path</code> attributes</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No Article definition of path  <code class="background">path</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#ref">ref</a></td>
+<td valign="middle" class="border paddingDefault">The bare reference refer to a non existing article</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No Article definition of ID  <code class="background">article ID</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#ref">ref</a></td>
+<td valign="middle" class="border paddingDefault">The reference refer to a non existing article</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No Article definition of ID ' <code class="background">article ID</code>' in package ' <code class="background">package ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#ref">ref</a></td>
+<td valign="middle" class="border paddingDefault">The reference refer to a non existing article</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect anchor reference ' <code class="background">anchor ID</code>' in Article definition of ID ' <code class="background">article ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#ref">ref</a></td>
+<td valign="middle" class="border paddingDefault">The referenced article does not exist or the anchor in the article does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to find reference ' <code class="background">article ID</code>' in Article definition of ID ' <code class="background">article ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#ref">ref</a></td>
+<td valign="middle" class="border paddingDefault">The referenced article does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect anchor reference ' <code class="background">anchor ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#ref">ref</a></td>
+<td valign="middle" class="border paddingDefault">The referenced article does not exist or the anchor in the article does not exist<span class="tooltip"><a href="#_note_9" class="noteLink"><sup id="_note_9_1_">[9]</sup></a>
+<div class="tooltiptext">
+This one is for anchors which are not referenced in articles</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article of ID ' <code class="background">article ID</code>' refer to a non existing ' <code class="background">Infobox ID</code>' infobox</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The referenced infobox does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong URL  <code class="background">URL</code> definition for property ' <code class="background">property name</code>' and Infobox ' <code class="background">Infobox ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxStartingElements.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The URL for property refer to an invalid URL in the referenced infobox</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No anchor of ID ' <code class="background">anchor ID</code>' in article of ID ' <code class="background">article ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#anchor">anchor</a></td>
+<td valign="middle" class="border paddingDefault">The referenced anchor ID does not exist. In that case the full reference of the anchor is specified and the full anchor does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No anchor of ID # <code class="background">anchor ID</code> in article of ID ' <code class="background">article ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#anchor">anchor</a></td>
+<td valign="middle" class="border paddingDefault">The referenced anchor ID does not exist. In that case the reference refer to an anchor in the same article which does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to find anchor of ID ' <code class="background">anchor ID</code>' for article ' <code class="background">article ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#anchor">anchor</a></td>
+<td valign="middle" class="border paddingDefault">The referenced anchor ID does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No anchor of ID ' <code class="background">anchor ID</code>' in article of ID ' <code class="background">article ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#anchor">anchor</a></td>
+<td valign="middle" class="border paddingDefault">The referenced anchor ID does not exist</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="links_errors">Links errors</h3>
+
+<table id="table_4" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Invalid URL link  <code class="background">URL</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#checklinks">checkLinks</a></td>
+<td valign="middle" class="border paddingDefault">An external link is invalid (invalid URL)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Unreachable URL link  <code class="background">URL</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#checklinks">checkLinks</a></td>
+<td valign="middle" class="border paddingDefault">An external link is unreachable (page does not exist or took too long to respond)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect URL link anchor  <code class="background">URL</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#checklinks">checkLinks</a></td>
+<td valign="middle" class="border paddingDefault">An external link anchor does not exist in the page</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect MediaWiki URL link anchor  <code class="background">URL</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#checklinks">checkLinks</a></td>
+<td valign="middle" class="border paddingDefault">A Mediawiki link anchor does not exist in the page</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Invalid API link for API ' <code class="background">API</code>' and path  <code class="background">path</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#checklinks">checkLinks</a></td>
+<td valign="middle" class="border paddingDefault">An API link is invalid</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Unreachable API link for API ' <code class="background">API</code>' and path  <code class="background">path</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#checklinks">checkLinks</a></td>
+<td valign="middle" class="border paddingDefault">An API link is Unreachable (page does not exist or took too long to respond)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect API link anchor for API ' <code class="background">API</code>' and path  <code class="background">path</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#checklinks">checkLinks</a></td>
+<td valign="middle" class="border paddingDefault">The anchor for the API link does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Absolute URL  <code class="background">URL</code> not allowed, acceptLocalLinks not set to all</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_acceptLocalLinks.html">checking local links</a></td>
+<td valign="middle" class="border paddingDefault">There is an absolute link outside the wiki, but these links are not allowed</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Relative URL <code class="background">URL</code> not allowed, acceptLocalLinks set to none</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_acceptLocalLinks.html">checking local links</a></td>
+<td valign="middle" class="border paddingDefault">There is a relative link outside the wiki, but all local links are not allowed</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Relative URL <code class="background">URL</code> not allowed, acceptLocalLinks set to none</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_acceptLocalLinks.html">checking local links</a></td>
+<td valign="middle" class="border paddingDefault">There is a relative link outside the wiki, but all local links are not allowed</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="resources_and_images_errors">Resources and images errors</h3>
+
+<table id="table_5" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Message box use undefined  <code class="background">image ID</code> image</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox</a></td>
+<td valign="middle" class="border paddingDefault">The referenced image used in a messageBox does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Message box use invalid  <code class="background">image ID</code> image</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox</a></td>
+<td valign="middle" class="border paddingDefault">The referenced image used in a messageBox is invalid<span class="tooltip"><a href="#_note_10" class="noteLink"><sup id="_note_10_1_">[10]</sup></a>
+<div class="tooltiptext">
+For example, it is a png image, but the file is not a valid png</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Path for Message box at  <code class="background">image path</code> is invalid</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox</a></td>
+<td valign="middle" class="border paddingDefault">The referenced image path either contains a "/" or has no extension</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The Message box Image at imageHref  <code class="background">image path</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxmessagebox.html">messageBox</a></td>
+<td valign="middle" class="border paddingDefault">The referenced image imageHref does not point to an existing file</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">A Resource reference must not have both an href and an ID</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#resource">resource</a></td>
+<td valign="middle" class="border paddingDefault">The resource reference has both an href and an ID</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">A Resource reference must have an href or an ID</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#resource">resource</a></td>
+<td valign="middle" class="border paddingDefault">The resource reference has no href nor and ID</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The Resource at  <code class="background">resource path</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#resource">resource</a></td>
+<td valign="middle" class="border paddingDefault">The resource path does not exist<span class="tooltip"><a href="#_note_11" class="noteLink"><sup id="_note_11_1_">[11]</sup></a>
+<div class="tooltiptext">
+A resource which is directly pointing to a resource file must be in the "doc-files" directory which is under the directory in which the article is present</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No Resource definition of ID  <code class="background">resource ID</code> in article  <code class="background">article ID</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#resource">resource</a></td>
+<td valign="middle" class="border paddingDefault">The referenced resource ID does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Image of ID  <code class="background">image ID</code> has already a Reference, more than one child not allowed</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html">img</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>img</code> element has already an included  <code>ref</code> child and you tried to add another child element, but it is not allowed to have more than one child in an image</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Image of ID  <code class="background">image ID</code> has already a Category Reference, more than one child not allowed</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html">img</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>img</code> element has already an included  <code>catRef</code> child and you tried to add another child element, but it is not allowed to have more than one child in an image</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Image of ID  <code class="background">image ID</code> has already an External Link, more than one child not allowed</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html">img</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>img</code> element has already an included  <code>a</code> child and you tried to add another child element, but it is not allowed to have more than one child in an image</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Image of ID  <code class="background">image ID</code> has already an Image Map, more than one child not allowed</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html">img</a></td>
+<td valign="middle" class="border paddingDefault">The  <code>img</code> element has already one or more included  <code>areaRef</code> child and you tried to add another child element, but it is not allowed to have more than one child in an image<span class="tooltip"><a href="#_note_12" class="noteLink"><sup id="_note_12_1_">[12]</sup></a>
+<div class="tooltiptext">
+More than one areaRef is allowed</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The Image at path  <code class="background">image path</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#img">img</a></td>
+<td valign="middle" class="border paddingDefault">The referenced image path does not point to an existing file</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Path for Image at  <code class="background">image path</code> is invalid</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#img">img</a></td>
+<td valign="middle" class="border paddingDefault">The referenced image path either contains a "/" or has no extension</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No Image definition of ID  <code class="background">image ID</code> in article  <code class="background">article ID</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#img">img</a></td>
+<td valign="middle" class="border paddingDefault">The referenced image ID does not exist in the article</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No Image definition of ID  <code class="background">image ID</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntax.html#img">img</a></td>
+<td valign="middle" class="border paddingDefault">The referenced image ID does not exist<span class="tooltip"><a href="#_note_13" class="noteLink"><sup id="_note_13_1_">[13]</sup></a>
+<div class="tooltiptext">
+This error is for images referenced in files which are not articles</div></span>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="configuration_errors">Configuration errors</h3>
+
+<table id="table_6" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Image has no href nor id</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaximg.html">img element</a></td>
+<td valign="middle" class="border paddingDefault">The image has no  <code>id</code> and no  <code>href</code> attribute</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Localization file  <code class="background">file name</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_localization.html">localization</a></td>
+<td valign="middle" class="border paddingDefault">The specified localization file does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to parse localization file  <code class="background">file name</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_localization.html">localization</a></td>
+<td valign="middle" class="border paddingDefault">The specified localization file is unparsable</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to get localization for locale  <code class="background">locale</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_localization.html">localization</a></td>
+<td valign="middle" class="border paddingDefault">There is no localization for the specified locale</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to get Java API for key  <code class="background">API key</code> and URL  <code class="background">API URL</code>, URL for the API invalid or not found</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apis.html">APIs</a></td>
+<td valign="middle" class="border paddingDefault">The specified URL for the API is invalid or not found</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to get Java API for key  <code class="background">API key</code>, no value defined</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apis.html">APIs</a></td>
+<td valign="middle" class="border paddingDefault">There is no specified URL value for the API</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to parse configuration file  <code class="background">file name</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_configFile.html">configuration file</a></td>
+<td valign="middle" class="border paddingDefault">The specified configuration file is unparsable</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Value  <code class="background">value</code> for configuration key  <code class="background">key</code> unparsable</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_configFile.html">configuration file</a></td>
+<td valign="middle" class="border paddingDefault">The specified value for the configuration key is not parsable<span class="tooltip"><a href="#_note_14" class="noteLink"><sup id="_note_14_1_">[14]</sup></a>
+<div class="tooltiptext">
+It is invalid for the key, for example a value different from  <code>true</code> or  <code>false</code> for a boolean property</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Configuration property key  <code class="background">key</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_configFile.html">configuration file</a></td>
+<td valign="middle" class="border paddingDefault">The configuration property key does not exist<span class="tooltip"><a href="#_note_15" class="noteLink"><sup id="_note_15_1_">[15]</sup></a>
+<div class="tooltiptext">
+For example <code><span class="syntaxKeyWord1" style="font-weight:bold;">toto</span><span>=true</span></code> is invalid</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Directories not correctly set, no input directories defined</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_commandline.html#general_properties">command-line</a></td>
+<td valign="middle" class="border paddingDefault">There are no  <a href="article_inputandoutput.html#input">input_and_ouput#inputs</a> directories for the wiki sources in the configuration</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Directories not correctly set, no output directory defined</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_commandline.html#general_properties">command-line</a></td>
+<td valign="middle" class="border paddingDefault">There is no  <a href="article_inputandoutput.html#output">input and ouput</a> directory for the wiki in the configuration</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">URL exception URL  <code class="background">URL</code> is invalid in  <code class="background">URLExceptions file name</code> urlExceptions file</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#urlexceptions">urlExceptions</a></td>
+<td valign="middle" class="border paddingDefault">An URL exception defined in the URL exceptions XML file is invalid<span class="tooltip"><a href="#_note_16" class="noteLink"><sup id="_note_16_1_">[16]</sup></a>
+<div class="tooltiptext">
+The "urlExceptions"  <code>url</code> property specifies the XML file which will define URLs won't be checked</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Timeout URL  <code class="background">URL</code> is invalid in  <code class="background">timeouts file name</code> timeouts file</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#timeouts">timeouts</a></td>
+<td valign="middle" class="border paddingDefault">A Timeout URL defined in the Timeout XML file is invalid</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Timeout value  <code class="background">value</code> is invalid in  <code class="background">timeouts file name</code> timeouts file</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#timeouts">timeouts</a></td>
+<td valign="middle" class="border paddingDefault">A Timeout value defined in the Timeout XML file is invalid</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is already an Image Definition with ID ' <code class="background">image ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_imageFiles.html">image files</a></td>
+<td valign="middle" class="border paddingDefault">The specified image ID is already defined</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong image ID ' <code class="background">image ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_imageFiles.html#constraints_on_image_ids">image files</a></td>
+<td valign="middle" class="border paddingDefault">The specified image ID pattern is incorrect</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The File at  <code class="background">image file path</code> is already used as an Image</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_imageFiles.html">image files</a></td>
+<td valign="middle" class="border paddingDefault">The specified file is already used as an image definition<span class="tooltip"><a href="#_note_17" class="noteLink"><sup id="_note_17_1_">[17]</sup></a>
+<div class="tooltiptext">
+This is a warning</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is no Image at  <code class="background">image file path</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_imageFiles.html">image files</a></td>
+<td valign="middle" class="border paddingDefault">The specified image path points to a non existing file</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is already a Resource Definition with ID ' <code class="background">resource ID</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_resourceFiles.html">resource files</a></td>
+<td valign="middle" class="border paddingDefault">The specified resource ID is already defined</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The File at  <code class="background">resource file path</code> is already used as a Resource</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_resourceFiles.html">resource files</a></td>
+<td valign="middle" class="border paddingDefault">The specified file is already used as a resource definition<span class="tooltip"><a href="#_note_17" class="noteLink"><sup id="_note_17_2_">[17]</sup></a>
+<div class="tooltiptext">
+This is a warning</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is no Resource at  <code class="background">resource file path</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_resourceFiles.html">resource files</a></td>
+<td valign="middle" class="border paddingDefault">The specified resource path points to a non existing file</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is already an infobox with ID ' <code class="background">infobox id</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxinfobox.html">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The specified infobox ID is already defined</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Property name 'name' is not allowed for infobox definition properties</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxinfobox.html">infobox</a></td>
+<td valign="middle" class="border paddingDefault">It is not allowed to use the identifier "name" as a property key</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is already a ' <code class="background">property ID</code>' property in infobox definition</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxinfobox.html">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The specified infobox property ID is already defined</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">There is already a state ' <code class="background">state name</code>' for enumProperty ' <code class="background">property ID</code>' in infobox definition</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxinfobox.html">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The state name already exists</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">The default state defined for'  <code class="background">property ID</code>' enumProperty in infobox definition does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_syntaxinfobox.html">infobox</a></td>
+<td valign="middle" class="border paddingDefault">There is no default state for the property</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="mediawiki_and_markdown_errors">Mediawiki and Markdown errors</h3>
+
+<table id="table_7" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Error when parsing  <code class="background">article file name</code> Mediawiki article</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_mediawiki.html">mediawiki</a></td>
+<td valign="middle" class="border paddingDefault">The Mediawiki article could not be parsed</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Error when parsing  <code class="background">article file name</code> Markdown article</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_markdown.html">markdown</a></td>
+<td valign="middle" class="border paddingDefault">The Markdown article could not be parsed</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to resolve Mediawiki for path  <code class="background">path</code> and Mediawiki  <code class="background">Mediawiki ID</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_mediawiki.html">mediawiki</a></td>
+<td valign="middle" class="border paddingDefault">The Mediawiki path is impossible to resolve for the Mediawiki</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Invalid MediaWiki URL link  <code class="background">URL</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#checklinks">checkLinks</a></td>
+<td valign="middle" class="border paddingDefault">A Mediawiki link is invalid (invalid URL)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Unreachable MediaWiki URL link  <code class="background">URL</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#checklinks">checkLinks</a></td>
+<td valign="middle" class="border paddingDefault">A Mediawiki link is unreachable (page does not exist or took too long to respond)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect MediaWiki URL link anchor  <code class="background">URL</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_externallinks.html#checklinks">checkLinks</a></td>
+<td valign="middle" class="border paddingDefault">A Mediawiki link anchor does not exist in the page</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Malformed URL in Mediawiki for External Link  <code class="background">URL</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_mediawikimarkup.html#external_links">external links</a></td>
+<td valign="middle" class="border paddingDefault">A Mediawiki URL is malformed</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect External Link  <code class="background">link construct</code> in Mediawiki</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_mediawikimarkup.html#external_links">external links</a></td>
+<td valign="middle" class="border paddingDefault">A Mediawiki external link pattern is incorrect</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect external link syntax in Mediawiki</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_mediawikimarkup.html#external_links">external links</a></td>
+<td valign="middle" class="border paddingDefault">A Mediawiki external link syntax is incorrect</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No reference for Infobox definition in Mediawiki</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_mediawikimarkup.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The infobox specification does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Wrong definition for Infobox property in Mediawiki</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_mediawikimarkup.html#infobox">infobox</a></td>
+<td valign="middle" class="border paddingDefault">The infobox property value is incorrect</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect syntax for the term element in Mediawiki</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_mediawikimarkup.html#term">term</a></td>
+<td valign="middle" class="border paddingDefault">The term element syntax is incorrect</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect internal reference in Markdown</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_markdownmarkup.html#article_references">article references</a></td>
+<td valign="middle" class="border paddingDefault">Incorrect internal reference in Markdown</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Malformed URL for External Link  <code class="background">URL</code> in Markdown</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_markdownmarkup.html#external_links">external links</a></td>
+<td valign="middle" class="border paddingDefault">Malformed URL for External Link in Markdown</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="api_documentation_errors">API documentation errors</h3>
+
+<table id="table_8" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Element named  <code class="background">element name</code> should have a path attribute</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">An  <a href="article_apidoc.html">apidoc element</a> has no  <code>path</code> attribute (which is mandatory)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Element named  <code class="background">element name</code> no allowed here for documentation API ' <code class="background">API</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">An  <a href="article_apidoc.html">apidoc element</a> has an element type which is not allowed for the api<span class="tooltip"><a href="#_note_18" class="noteLink"><sup id="_note_18_1_">[18]</sup></a>
+<div class="tooltiptext">
+For example, if you use an  <code>operator</code> element in a Java API</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No element named  <code class="background">element name</code> for documentation API ' <code class="background">API</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">An  <a href="article_apidoc.html">apidoc element</a> has an element type which is does not exist<span class="tooltip"><a href="#_note_19" class="noteLink"><sup id="_note_19_1_">[19]</sup></a>
+<div class="tooltiptext">
+For example, if you use a  <code>toto</code> element in any API</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Element named  <code class="background">element name</code> for documentation API ' <code class="background">API</code>' can not be a top element</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">An  <a href="article_apidoc.html">apidoc element</a> is at the top level, which is not allowed for this element<span class="tooltip"><a href="#_note_20" class="noteLink"><sup id="_note_20_1_">[20]</sup></a>
+<div class="tooltiptext">
+For example, if you use a  <code>constructor</code> element in a Java API</div></span>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No documentation API for ' <code class="background">API</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">An  <a href="article_apidoc.html">apidoc </a> refer to an API which does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">API URL  <code class="background">URL</code> incorrectly defined</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apis.html">APIs</a></td>
+<td valign="middle" class="border paddingDefault">A  <a href="article_syntax.html#setapiurl">setAPIURL</a> URL is incorrectly defined</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to resolve path  <code class="background">path</code> for API  <code class="background">API</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apis.html">APIs</a></td>
+<td valign="middle" class="border paddingDefault">The specified path does not exist for the API</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Invalid API link for path  <code class="background">path</code> and API  <code class="background">API</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apis.html">APIs</a></td>
+<td valign="middle" class="border paddingDefault">The link for the specified path is invalid for the API</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Unreachable API link for path  <code class="background">path</code> and API  <code class="background">API</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apis.html">APIs</a></td>
+<td valign="middle" class="border paddingDefault">The link for the specified path is unreachable for the API</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Incorrect API link anchor for path  <code class="background">path</code> and API  <code class="background">API</code></td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apis.html">APIs</a></td>
+<td valign="middle" class="border paddingDefault">The link anchor for the specified path is incorrect for the API (the anchor does not exist in the html file)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No element of name  <code class="background">element name</code> in APIDoc ' <code class="background">API</code>'</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">The API has not element of the specified name at this position</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Type  <code class="background">type</code> for APIDoc ' <code class="background">API</code>' is invalid</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">The type for the API is invalid</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">APIDoc ' <code class="background">API</code>' already exists</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">The API is already defined</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Element  <code class="background">element name</code> for APIDoc ' <code class="background">API</code>' already present</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">The element in the API has already been defined</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Type  <code class="background">type</code> for  <code class="background">element name</code> and APIDoc ' <code class="background">API</code>' is invalid</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">The type of element in the API is invalid</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Property type  <code class="background">type</code> for  <code class="background">element name</code> and APIDoc ' <code class="background">API</code>' is invalid</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">The type of the property for the element in the API has already been defined</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">URL  <code class="background">URL</code> for Mediawiki  <code class="background">Mediawiki ID</code> is invalid</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">The URL defined for the root of the Mediawiki is invalid</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">URL  <code class="background">URL</code> for API ' <code class="background">API</code>' is invalid</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">The URL defined for the root of the API is invalid</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">URL  <code class="background">URL</code> for API library for API ' <code class="background">API</code>' is invalid</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">The URL defined for the library used for the API is invalid</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">URL  <code class="background">URL</code> for API library for API ' <code class="background">API</code>' should be local</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_apidoc.html">apidoc</a></td>
+<td valign="middle" class="border paddingDefault">The URL defined for the library used for the API is not local</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="custom_search_errors">Custom Search errors</h3>
+
+<table id="table_9" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to add anchor  <code class="background">anchor ID</code> in Custom Search, category does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_customsearch.html">custom search</a></td>
+<td valign="middle" class="border paddingDefault">A category specified by the  <code class="background">searchCategory</code> attribute for an anchor does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to add article  <code class="background">article ID</code> in Custom Search, category does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_customsearch.html">custom search</a></td>
+<td valign="middle" class="border paddingDefault">A category specified by the  <code class="background">searchCategory</code> attribute for an article does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Impossible to add title  <code class="background">title</code> in Custom Search, category does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_customsearch.html">custom search</a></td>
+<td valign="middle" class="border paddingDefault">A category specified by the  <code class="background">searchCategory</code> attribute for a title does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Custom Search defined without categories, assuming Searching on Articles</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_customsearch.html">custom search</a></td>
+<td valign="middle" class="border paddingDefault">There are no defined  <a href="article_customsearchspec.html#content">Custom Search categories</a>, therefore Custom Search can not be applied, regular Search will be used</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="help_errors">Help errors</h3>
+
+<table id="table_10" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Ref  <code class="background">ref name</code> already defined</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_helpcontent.html">Help content configuration</a></td>
+<td valign="middle" class="border paddingDefault">The reference name was already defined in the help content</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article  <code class="background">article ID</code> is referenced in context-sensitive help but is not a regular article</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_helpcontent.html">Help content configuration</a></td>
+<td valign="middle" class="border paddingDefault">The article is not a regular article in the help content</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Article  <code class="background">article ID</code> is referenced in context-sensitive help but does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_helpcontent.html">Help content configuration</a></td>
+<td valign="middle" class="border paddingDefault">The article referenced in the help content does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Default Stylesheet file  <code class="background">file path</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_helpcontent.html">Help content configuration</a></td>
+<td valign="middle" class="border paddingDefault">The default stylesheet file referenced in the Help content configuration does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Default Stylesheet theme file  <code class="background">file path</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_helpcontent.html">Help content configuration</a></td>
+<td valign="middle" class="border paddingDefault">The default stylesheet theme file referenced in the Help content configuration does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">Stylesheet theme file  <code class="background">file path</code> for id  <code class="background">theme id</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_helpcontent.html">Help content configuration</a></td>
+<td valign="middle" class="border paddingDefault">The default stylesheet theme file referenced in the Help content configuration does not exist</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="miscellanous_errors">Miscellanous errors</h3>
+
+<table id="table_11" class="tablesorter border paddingDefault"  style="border-collapse: collapse;">
+<thead>
+<tr>
+<th valign="middle"  class="column border" >Error message</th>
+<th valign="middle"  width="80" class="column border" >Element</th>
+<th valign="middle"  class="column border" >Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="middle" class="border paddingDefault">Menu type  <code class="background">menu type</code> does not exist</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_custommenus.html#default_menus_types">custom menus</a></td>
+<td valign="middle" class="border paddingDefault">A default menu type does not exist (see  <a href="#menu_type_error">menu type error</a>)</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No articles for word  <code class="background">word</code> in Glossary</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_glossary.html">glossary</a></td>
+<td valign="middle" class="border paddingDefault">There are no existing articles for the word in the glossary</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No Article definition of ID  <code class="background">article ID</code> in menu</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_custommenus.html">custom menus</a></td>
+<td valign="middle" class="border paddingDefault">The article referred by the  <a href="article_customleftmenu.html">itemInternalRef</a> does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No Article definition of ID  <code class="background">article ID</code> and package  <code class="background">package ID</code> in menu</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_custommenus.html">custom menus</a></td>
+<td valign="middle" class="border paddingDefault">The article referred by the  <a href="article_customleftmenu.html">itemInternalRef</a> does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No Article definition of ID  <code class="background">article ID</code> in disambiguation article</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_disambarticles.html">Disambiguation articles</a></td>
+<td valign="middle" class="border paddingDefault">The article referred by the  <a href="article_disambarticles.html">disambElt</a> element does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">No Article definition of ID  <code class="background">article ID</code> and package  <code class="background">package ID</code> in disambiguation article</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_disambarticles.html">Disambiguation articles</a></td>
+<td valign="middle" class="border paddingDefault">The article referred by the  <a href="article_disambarticles.html">disambElt</a> element does not exist</td>
+</tr>
+<tr>
+<td valign="middle" class="border paddingDefault">File  <code class="background">file path</code> is an invalid XML file</td>
+<td valign="middle" align="center" class="border paddingDefault"> <a href="article_typesoffiles.html">Types of files</a></td>
+<td valign="middle" class="border paddingDefault">The element (article, images definition, resources definition, etc...) has an invalid XML file</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="package_dependency_error">Package dependency error</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_packagedepend.html">Packages dependencies</a></div>
+<br/>
+ This error will be emitted when an element which points to a reference has a dependency to a package for which this dependency is forbidden. The list of these elements is:<ul>
+<li> <a href="article_syntax.html#resource">resource</a></li>
+<li> <a href="article_syntaximg.html">img</a></li>
+<li> <a href="article_syntaxEndElements.html#see">see</a></li>
+<li> <a href="article_syntaxStartingElements.html#seealso">seeAlso</a></li>
+<li> <a href="article_syntax.html#moreinfo">moreInfo</a></li>
+<li> <a href="article_disambarticles.html">disambElt</a></li>
+<li> <a href="article_syntax.html#ref">ref</a></li>
+</ul>
+ The error will be emitted if the dependency between the article in which the element is present to the referenced element is forbidden.
+<h2 id="menu_type_error">Menu type error</h2>
+<div class="moreInfo" >
+Main Article: <a href="article_custommenus.html#default_menus_types">default menus types</a></div>
+<br/>
+ The possible menus types for default menu items are:<ul>
+<li>"home" for a link to the  <a href="article_articles.html#index_definition">index</a> page</li>
+<li>"dictionary" for a link to the  <a href="article_dictionnary.html">dictionary</a></li>
+<li>"categories" for a link to the  <a href="article_categories.html">categories</a></li>
+<li>"glossary" for a link to the  <a href="article_glossary.html">glossary</a></li>
+<li>"linksFrom" for the  <a href="article_customleftmenu.html#the_what_links_here_item">What links here</a> text for the menu which presents for each article the articles which link to this article</li>
+</ul>
+</div>
+
+<h2 id="notes">Notes</h2>
+<div class="note noteTwoColumns">
+<ol>
+<li id="_note_1"> <a href="#_note_1_1_" class="noteRefLink">^</a> This is the case if the same package is defined more than once</li>
+<li id="_note_2"> <a href="#_note_2_1_" class="noteRefLink">^</a> This error will not be emitted if there is a global index. See also  <a href="article_specifyindex.html">specifying the index</a> for more information</li>
+<li id="_note_3"> <a href="#_note_3_1_" class="noteRefLink">^</a> This error will not be emitted if there is a global index, in that case index files found in the wiki will be skipped silently. See also  <a href="article_specifyindex.html">specifying the index</a> for more information</li>
+<li id="_note_4"> <a href="#_note_4_1_" class="noteRefLink">^</a> For example, it will be the case if an  <a href="article_syntax.html#a">external link</a> is incorrectly defined</li>
+<li id="_note_5"> <a href="#_note_5_1_" class="noteRefLink">^</a> For example, it will be the case if an  <a href="article_syntax.html#a">external link</a> is incorrectly defined</li>
+<li id="_note_6"><span class="noteRefLink">^</span> <a href="#_note_6_1_" class="noteRefLink">[1]</a> <a href="#_note_6_2_" class="noteRefLink">[2]</a> This can be the case which any element which is a reference, for example  <a href="article_syntax.html#ref">ref</a> or  <a href="article_syntax.html#moreinfo">moreInfo</a> elements</li>
+<li id="_note_7"> <a href="#_note_7_1_" class="noteRefLink">^</a> For example:  <code>one, two</code> is not parsable</li>
+<li id="_note_8"> <a href="#_note_8_1_" class="noteRefLink">^</a> See  <a href="article_syntaxhtml.html#not_allowed_elements">html</a> for more information</li>
+<li id="_note_9"> <a href="#_note_9_1_" class="noteRefLink">^</a> This one is for anchors which are not referenced in articles</li>
+<li id="_note_10"> <a href="#_note_10_1_" class="noteRefLink">^</a> For example, it is a png image, but the file is not a valid png</li>
+<li id="_note_11"> <a href="#_note_11_1_" class="noteRefLink">^</a> A resource which is directly pointing to a resource file must be in the "doc-files" directory which is under the directory in which the article is present</li>
+<li id="_note_12"> <a href="#_note_12_1_" class="noteRefLink">^</a> More than one areaRef is allowed</li>
+<li id="_note_13"> <a href="#_note_13_1_" class="noteRefLink">^</a> This error is for images referenced in files which are not articles</li>
+<li id="_note_14"> <a href="#_note_14_1_" class="noteRefLink">^</a> It is invalid for the key, for example a value different from  <code>true</code> or  <code>false</code> for a boolean property</li>
+<li id="_note_15"> <a href="#_note_15_1_" class="noteRefLink">^</a> For example <code><span class="syntaxKeyWord1" style="font-weight:bold;">toto</span><span>=true</span></code> is invalid</li>
+<li id="_note_16"> <a href="#_note_16_1_" class="noteRefLink">^</a> The "urlExceptions"  <code>url</code> property specifies the XML file which will define URLs won't be checked</li>
+<li id="_note_17"><span class="noteRefLink">^</span> <a href="#_note_17_1_" class="noteRefLink">[1]</a> <a href="#_note_17_2_" class="noteRefLink">[2]</a> This is a warning</li>
+<li id="_note_18"> <a href="#_note_18_1_" class="noteRefLink">^</a> For example, if you use an  <code>operator</code> element in a Java API</li>
+<li id="_note_19"> <a href="#_note_19_1_" class="noteRefLink">^</a> For example, if you use a  <code>toto</code> element in any API</li>
+<li id="_note_20"> <a href="#_note_20_1_" class="noteRefLink">^</a> For example, if you use a  <code>constructor</code> element in a Java API</li>
+</ol>
+</div>
+
+<h2 id="see_also">See also</h2>
+<ul>
+<li> <a href="article_errors.html">Errors</a>: This article explains how errors are handled in the parsing</li>
+<li> <a href="article_errorsviewer.html">Errors viewer</a>: This article explains how parsing errors are presented in the tool</li>
+</ul>
+
+<hr/>
+ <a href="../categories.html">Categories</a>:  <a href="../categories/cat_general.html">General</a>
+</div>
+</div>
+<div class="bottom">
+<p><i>docJGenerator Copyright (c) 2016-2023 Herve Girod. All rights reserved.</i></p></div>
+</body>
+</html>
