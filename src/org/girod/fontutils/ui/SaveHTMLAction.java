@@ -62,6 +62,7 @@ public class SaveHTMLAction extends AbstractMDIAction {
     * @param app the Application
     * @param file the file to open
     * @param fontParams the font parameters
+    * @param uiComp the UI component
     */
    public SaveHTMLAction(MDIApplication app, File file, FontParams fontParams, FontUIComponent uiComp) {
       super(app, "Save");
