@@ -41,11 +41,15 @@
          <fileset description="samples" dir=".">
             <include name="samples/*.*"/>
          </fileset>
+         <fileset description="lib" dir=".">
+            <include name="lib/*.*"/>
+         </fileset>           
          <fileset description="distrib" dir="${dist.dir}">
             <include name="*.jar"/>
          </fileset>
          <fileset description="miscellanous" dir=".">
             <include name="README.md"/>
+            <include name="HISTORY.md"/>
             <include name="LICENSE"/>
          </fileset>         
       </zip>
@@ -59,6 +63,12 @@
             <include name="src/**/*.properties"/>
             <include name="src/**/*.mf"/>
          </fileset>
+         <fileset description="lib" dir=".">
+            <include name="lib/*.*"/>
+         </fileset>      
+         <fileset description="wiki" dir=".">
+            <include name="www/**/*.*"/>
+         </fileset>                          
          <fileset description="samples" dir=".">
             <include name="samples/*.*"/>
          </fileset>         
@@ -66,12 +76,22 @@
             <include name="nbproject/**/*.*"/>
             <include name="build.xml"/>
             <include name="README.md"/>
+            <include name="HISTORY.md"/>
             <include name="LICENSE"/>
          </fileset>
       </zip>
    </target>
-   <target depends="version, -post-init, -zipsources, -zipbinaries" description="create zip files" name="zip">
+   <target depends="version, -post-init, -zipsources, -zipbinaries, -zip-wiki" description="create zip files" name="zip">
    </target>
+   
+   <target depends="version, -post-init" name="-zip-wiki" description="zip wiki documentation">
+      <!-- zip wiki -->
+      <zip compress="true" defaultexcludes="true" zipfile="${dist.dir}/${archiveName}-wiki-${version}.zip">
+         <fileset description="wiki" dir="www/wiki/wiki">
+            <include name="**/*.*"/>
+         </fileset>
+      </zip>
+   </target>         
 
    <!-- =================================================================== -->
    <!-- NB overwrite targets : jar -->
@@ -87,4 +107,26 @@
          </fileset>
       </jar>
    </target>
+   
+   <!-- =================================================================== -->
+   <!-- NB overwrite targets : generate wiki -->
+   <!-- =================================================================== -->
+   <target name="generateWiki" description="generate Wiki" depends="init, version" >
+      <java classname="org.docgene.main.DocGenerator">
+         <arg value="-input=www/wiki/wikisource"/>
+         <arg value="-output=www/wiki/wiki"/>
+         <arg value="-$version=${version}"/>
+        <arg value="-checkHTTPLinks=false"/>            
+         <arg value="-lightbox=true"/>
+         <arg value="-search=titles"/>
+         <classpath>
+            <pathelement path="www/wiki/soft/docGenerator.jar"/>
+         </classpath>
+      </java>
+   </target>
+   <target name="cleanWiki" description="clean Wiki" depends="init, version" >
+      <delete includeEmptyDirs="true" >
+         <fileset dir="www/wiki/wiki" includes="**/*" />
+      </delete>
+   </target>   
 </project>
